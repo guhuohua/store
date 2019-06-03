@@ -15,6 +15,8 @@ public class SysMenu {
 
     private Integer sortOrder;
 
+    private String label;
+
     public Integer getId() {
         return id;
     }
@@ -69,5 +71,13 @@ public class SysMenu {
 
     public void setSortOrder(Integer sortOrder) {
         this.sortOrder = sortOrder;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label == null ? null : label.trim();
     }
 }

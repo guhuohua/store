@@ -22,7 +22,7 @@ public class TokenUtil {
      * @param **password**
      * @return
      */
-    public static String sign(String userId) {
+    public static String sign(Integer userId) {
         try {
             // 设置过期时间
             Date date = new Date(System.currentTimeMillis() + EXPIRE_TIME);
@@ -65,10 +65,10 @@ public class TokenUtil {
      * @param **token**
      * @return
      */
-    public static String getUserId(String token){
+    public static Integer getUserId(String token){
         try {
             DecodedJWT jwt = JWT.decode(token);
-            return jwt.getClaim("userId").asString();
+            return jwt.getClaim("userId").asInt();
         } catch (JWTDecodeException e){
             e.printStackTrace();
             return null;

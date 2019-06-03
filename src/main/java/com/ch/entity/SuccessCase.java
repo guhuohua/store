@@ -9,13 +9,15 @@ public class SuccessCase {
 
     private String transferShopId;
 
-    private Integer satisfactionDegree;
+    private Integer lookDegree;
 
     private Date successTime;
 
     private String introduction;
 
     private Long browseNumber;
+
+    private Integer transferDegree;
 
     public Long getId() {
         return id;
@@ -41,12 +43,12 @@ public class SuccessCase {
         this.transferShopId = transferShopId == null ? null : transferShopId.trim();
     }
 
-    public Integer getSatisfactionDegree() {
-        return satisfactionDegree;
+    public Integer getLookDegree() {
+        return lookDegree;
     }
 
-    public void setSatisfactionDegree(Integer satisfactionDegree) {
-        this.satisfactionDegree = satisfactionDegree;
+    public void setLookDegree(Integer lookDegree) {
+        this.lookDegree = lookDegree;
     }
 
     public Date getSuccessTime() {
@@ -71,5 +73,13 @@ public class SuccessCase {
 
     public void setBrowseNumber(Long browseNumber) {
         this.browseNumber = browseNumber;
+    }
+
+    public Integer getTransferDegree() {
+        return transferDegree;
+    }
+
+    public void setTransferDegree(Integer transferDegree) {
+        this.transferDegree = transferDegree;
     }
 }

@@ -3,32 +3,32 @@ package com.ch.dao;
 
 import java.util.List;
 
-import com.ch.entity.propertyType;
-import com.ch.entity.propertyTypeExample;
+import com.ch.entity.PropertyTypeExample;
+import com.ch.entity.PropertyType;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface propertyTypeMapper {
-    int countByExample(propertyTypeExample example);
+public interface PropertyTypeMapper {
+    int countByExample(PropertyTypeExample example);
 
-    int deleteByExample(propertyTypeExample example);
+    int deleteByExample(PropertyTypeExample example);
 
     int deleteByPrimaryKey(Long id);
 
-    int insert(propertyType record);
+    int insert(PropertyType record);
 
-    int insertSelective(propertyType record);
+    int insertSelective(PropertyType record);
 
-    List<propertyType> selectByExample(propertyTypeExample example);
+    List<PropertyType> selectByExample(PropertyTypeExample example);
 
-    propertyType selectByPrimaryKey(Long id);
+    PropertyType selectByPrimaryKey(Long id);
 
-    int updateByExampleSelective(@Param("record") propertyType record, @Param("example") propertyTypeExample example);
+    int updateByExampleSelective(@Param("record") PropertyType record, @Param("example") PropertyTypeExample example);
 
-    int updateByExample(@Param("record") propertyType record, @Param("example") propertyTypeExample example);
+    int updateByExample(@Param("record") PropertyType record, @Param("example") PropertyTypeExample example);
 
-    int updateByPrimaryKeySelective(propertyType record);
+    int updateByPrimaryKeySelective(PropertyType record);
 
-    int updateByPrimaryKey(propertyType record);
+    int updateByPrimaryKey(PropertyType record);
 }

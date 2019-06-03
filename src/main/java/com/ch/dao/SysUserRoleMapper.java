@@ -3,8 +3,8 @@ package com.ch.dao;
 
 import java.util.List;
 
+import com.ch.entity.SysUserRole;
 import com.ch.entity.SysUserRoleExample;
-import com.ch.entity.SysUserRoleKey;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -14,15 +14,15 @@ public interface SysUserRoleMapper {
 
     int deleteByExample(SysUserRoleExample example);
 
-    int deleteByPrimaryKey(SysUserRoleKey key);
+    int deleteByPrimaryKey(SysUserRole key);
 
-    int insert(SysUserRoleKey record);
+    int insert(SysUserRole record);
 
-    int insertSelective(SysUserRoleKey record);
+    int insertSelective(SysUserRole record);
 
-    List<SysUserRoleKey> selectByExample(SysUserRoleExample example);
+    List<SysUserRole> selectByExample(SysUserRoleExample example);
 
-    int updateByExampleSelective(@Param("record") SysUserRoleKey record, @Param("example") SysUserRoleExample example);
+    int updateByExampleSelective(@Param("record") SysUserRole record, @Param("example") SysUserRoleExample example);
 
-    int updateByExample(@Param("record") SysUserRoleKey record, @Param("example") SysUserRoleExample example);
+    int updateByExample(@Param("record") SysUserRole record, @Param("example") SysUserRoleExample example);
 }

@@ -1,6 +1,6 @@
 package com.ch.entity;
 
-public class propertyType {
+public class PropertyType {
     private Long id;
 
     private String propertyType;

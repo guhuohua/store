@@ -1,6 +1,5 @@
 package com.ch.dao;
 
-
 import java.util.List;
 
 import com.ch.entity.SuccessCase;

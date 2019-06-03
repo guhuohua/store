@@ -3,14 +3,14 @@ package com.ch.entity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class propertyTypeExample {
+public class PropertyTypeExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public propertyTypeExample() {
+    public PropertyTypeExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.ch.dao.propertyTypeMapper" >
-  <resultMap id="BaseResultMap" type="com.ch.entity.propertyType" >
+<mapper namespace="com.ch.dao.PropertyTypeMapper" >
+  <resultMap id="BaseResultMap" type="com.ch.entity.PropertyType" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="property_type" property="propertyType" jdbcType="VARCHAR" />
     <result column="type_desc" property="typeDesc" jdbcType="VARCHAR" />
@@ -67,7 +67,7 @@
   <sql id="Base_Column_List" >
     id, property_type, type_desc
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ch.entity.propertyTypeExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ch.entity.PropertyTypeExample" >
     select
     <if test="distinct" >
       distinct
@@ -92,19 +92,19 @@
     delete from property_type
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.ch.entity.propertyTypeExample" >
+  <delete id="deleteByExample" parameterType="com.ch.entity.PropertyTypeExample" >
     delete from property_type
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.ch.entity.propertyType" >
+  <insert id="insert" parameterType="com.ch.entity.PropertyType" >
     insert into property_type (id, property_type, type_desc
       )
     values (#{id,jdbcType=BIGINT}, #{propertyType,jdbcType=VARCHAR}, #{typeDesc,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.ch.entity.propertyType" >
+  <insert id="insertSelective" parameterType="com.ch.entity.PropertyType" >
     insert into property_type
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -129,7 +129,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.ch.entity.propertyTypeExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.ch.entity.PropertyTypeExample" resultType="java.lang.Integer" >
     select count(*) from property_type
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -161,7 +161,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.ch.entity.propertyType" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.ch.entity.PropertyType" >
     update property_type
     <set >
       <if test="propertyType != null" >
@@ -173,7 +173,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.ch.entity.propertyType" >
+  <update id="updateByPrimaryKey" parameterType="com.ch.entity.PropertyType" >
     update property_type
     set property_type = #{propertyType,jdbcType=VARCHAR},
       type_desc = #{typeDesc,jdbcType=VARCHAR}

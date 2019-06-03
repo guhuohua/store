@@ -1,6 +1,9 @@
 package com.ch.base;
 
+import com.ch.dto.UserDTO;
+import com.ch.service.SysUserService;
 import com.ch.util.TokenUtil;
+import io.swagger.models.auth.In;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.shiro.authc.AuthenticationException;
@@ -12,10 +15,15 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
-@Service
+@Component
 public class MyRealm extends AuthorizingRealm {
+
+
+    @Autowired
+    SysUserService sysUserService;
 
     private static final Logger LOGGER = LogManager.getLogger(MyRealm.class);
 
@@ -34,15 +42,15 @@ public class MyRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        String userId = TokenUtil.getUserId(principals.toString());
-//        UserDTO userDTO = btSysUserService.findById(userId);
+        Integer userId = TokenUtil.getUserId(principals.toString());
+       UserDTO userDTO = sysUserService.findById(userId);
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
-//        if (userDTO.getRoles().size() > 0) {
-//            simpleAuthorizationInfo.setRoles(userDTO.getRoles());
-//        }
-//        if (userDTO.getPermissions().size() > 0) {
-//            simpleAuthorizationInfo.setStringPermissions(userDTO.getPermissions());
-//        }
+        if (userDTO.getRoles().size() > 0) {
+            simpleAuthorizationInfo.setRoles(userDTO.getRoles());
+        }
+        if (userDTO.getPremissions().size() > 0) {
+            simpleAuthorizationInfo.setStringPermissions(userDTO.getPremissions());
+        }
         return simpleAuthorizationInfo;
     }
     /**
@@ -52,15 +60,15 @@ public class MyRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken auth) throws AuthenticationException {
         String token = (String) auth.getCredentials();
         // 解密获得username，用于和数据库进行对比
-        String userId = TokenUtil.getUserId(token);
+        Integer userId = TokenUtil.getUserId(token);
         if (userId == null) {
             throw new AuthenticationException("token invalid");
         }
 
-//        UserDTO userDTO = btSysUserService.findById(userId);
-//        if (userDTO == null) {
-//            throw new AuthenticationException("User didn't existed!");
-//        }
+        UserDTO userDTO = sysUserService.findById(userId);
+        if (userDTO == null) {
+            throw new AuthenticationException("User didn't existed!");
+        }
 
         if (! TokenUtil.verify(token)) {
             throw new AuthenticationException("Username or password error");

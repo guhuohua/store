@@ -305,63 +305,63 @@ public class SuccessCaseExample {
             return (Criteria) this;
         }
 
-        public Criteria andSatisfactionDegreeIsNull() {
-            addCriterion("satisfaction_degree is null");
+        public Criteria andLookDegreeIsNull() {
+            addCriterion("look_degree is null");
             return (Criteria) this;
         }
 
-        public Criteria andSatisfactionDegreeIsNotNull() {
-            addCriterion("satisfaction_degree is not null");
+        public Criteria andLookDegreeIsNotNull() {
+            addCriterion("look_degree is not null");
             return (Criteria) this;
         }
 
-        public Criteria andSatisfactionDegreeEqualTo(Integer value) {
-            addCriterion("satisfaction_degree =", value, "satisfactionDegree");
+        public Criteria andLookDegreeEqualTo(Integer value) {
+            addCriterion("look_degree =", value, "lookDegree");
             return (Criteria) this;
         }
 
-        public Criteria andSatisfactionDegreeNotEqualTo(Integer value) {
-            addCriterion("satisfaction_degree <>", value, "satisfactionDegree");
+        public Criteria andLookDegreeNotEqualTo(Integer value) {
+            addCriterion("look_degree <>", value, "lookDegree");
             return (Criteria) this;
         }
 
-        public Criteria andSatisfactionDegreeGreaterThan(Integer value) {
-            addCriterion("satisfaction_degree >", value, "satisfactionDegree");
+        public Criteria andLookDegreeGreaterThan(Integer value) {
+            addCriterion("look_degree >", value, "lookDegree");
             return (Criteria) this;
         }
 
-        public Criteria andSatisfactionDegreeGreaterThanOrEqualTo(Integer value) {
-            addCriterion("satisfaction_degree >=", value, "satisfactionDegree");
+        public Criteria andLookDegreeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("look_degree >=", value, "lookDegree");
             return (Criteria) this;
         }
 
-        public Criteria andSatisfactionDegreeLessThan(Integer value) {
-            addCriterion("satisfaction_degree <", value, "satisfactionDegree");
+        public Criteria andLookDegreeLessThan(Integer value) {
+            addCriterion("look_degree <", value, "lookDegree");
             return (Criteria) this;
         }
 
-        public Criteria andSatisfactionDegreeLessThanOrEqualTo(Integer value) {
-            addCriterion("satisfaction_degree <=", value, "satisfactionDegree");
+        public Criteria andLookDegreeLessThanOrEqualTo(Integer value) {
+            addCriterion("look_degree <=", value, "lookDegree");
             return (Criteria) this;
         }
 
-        public Criteria andSatisfactionDegreeIn(List<Integer> values) {
-            addCriterion("satisfaction_degree in", values, "satisfactionDegree");
+        public Criteria andLookDegreeIn(List<Integer> values) {
+            addCriterion("look_degree in", values, "lookDegree");
             return (Criteria) this;
         }
 
-        public Criteria andSatisfactionDegreeNotIn(List<Integer> values) {
-            addCriterion("satisfaction_degree not in", values, "satisfactionDegree");
+        public Criteria andLookDegreeNotIn(List<Integer> values) {
+            addCriterion("look_degree not in", values, "lookDegree");
             return (Criteria) this;
         }
 
-        public Criteria andSatisfactionDegreeBetween(Integer value1, Integer value2) {
-            addCriterion("satisfaction_degree between", value1, value2, "satisfactionDegree");
+        public Criteria andLookDegreeBetween(Integer value1, Integer value2) {
+            addCriterion("look_degree between", value1, value2, "lookDegree");
             return (Criteria) this;
         }
 
-        public Criteria andSatisfactionDegreeNotBetween(Integer value1, Integer value2) {
-            addCriterion("satisfaction_degree not between", value1, value2, "satisfactionDegree");
+        public Criteria andLookDegreeNotBetween(Integer value1, Integer value2) {
+            addCriterion("look_degree not between", value1, value2, "lookDegree");
             return (Criteria) this;
         }
 
@@ -552,6 +552,66 @@ public class SuccessCaseExample {
 
         public Criteria andBrowseNumberNotBetween(Long value1, Long value2) {
             addCriterion("browse_number not between", value1, value2, "browseNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferDegreeIsNull() {
+            addCriterion("transfer_degree is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferDegreeIsNotNull() {
+            addCriterion("transfer_degree is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferDegreeEqualTo(Integer value) {
+            addCriterion("transfer_degree =", value, "transferDegree");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferDegreeNotEqualTo(Integer value) {
+            addCriterion("transfer_degree <>", value, "transferDegree");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferDegreeGreaterThan(Integer value) {
+            addCriterion("transfer_degree >", value, "transferDegree");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferDegreeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("transfer_degree >=", value, "transferDegree");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferDegreeLessThan(Integer value) {
+            addCriterion("transfer_degree <", value, "transferDegree");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferDegreeLessThanOrEqualTo(Integer value) {
+            addCriterion("transfer_degree <=", value, "transferDegree");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferDegreeIn(List<Integer> values) {
+            addCriterion("transfer_degree in", values, "transferDegree");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferDegreeNotIn(List<Integer> values) {
+            addCriterion("transfer_degree not in", values, "transferDegree");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferDegreeBetween(Integer value1, Integer value2) {
+            addCriterion("transfer_degree between", value1, value2, "transferDegree");
+            return (Criteria) this;
+        }
+
+        public Criteria andTransferDegreeNotBetween(Integer value1, Integer value2) {
+            addCriterion("transfer_degree not between", value1, value2, "transferDegree");
             return (Criteria) this;
         }
     }

@@ -1,6 +1,6 @@
 package com.ch.entity;
 
-public class SysUserRoleKey {
+public class SysUserRole {
     private Integer userId;
 
     private Integer roleId;
