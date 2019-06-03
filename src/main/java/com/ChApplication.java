@@ -12,21 +12,6 @@ import org.springframework.context.annotation.Bean;
 @ServletComponentScan
 public class ChApplication {
 
-	@Value("${spring.datasource.url}")
-	private String url;
-	@Value("${spring.datasource.username}")
-	private String username;
-	@Value("${spring.datasource.password}")
-	private String password;
-
-//	@Bean(initMethod = "migrate")
-//	Flyway flyway() {
-//		Flyway flyway = new Flyway();
-//		flyway.setBaselineOnMigrate(true);
-//		flyway.setDataSource(url, username, password);
-//		return flyway;
-//	}
-
 	public static void main(String[] args) {
 		SpringApplication.run(ChApplication.class, args);
 	}
