@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ch.dao.ClientMapper" >
+  <resultMap id="BaseResultMap" type="com.ch.entity.Client" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="header" property="header" jdbcType="VARCHAR" />
+    <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="success_count" property="successCount" jdbcType="INTEGER" />
+    <result column="transfer_count" property="transferCount" jdbcType="INTEGER" />
+    <result column="search_area_count" property="searchAreaCount" jdbcType="INTEGER" />
+    <result column="quit_time" property="quitTime" jdbcType="TIMESTAMP" />
+    <result column="collect_count" property="collectCount" jdbcType="INTEGER" />
+    <result column="browse_count" property="browseCount" jdbcType="INTEGER" />
+    <result column="total_fee" property="totalFee" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, header, nick_name, tel, success_count, transfer_count, search_area_count, quit_time, 
+    collect_count, browse_count, total_fee
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ch.entity.ClientExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from client
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from client
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from client
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ch.entity.ClientExample" >
+    delete from client
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ch.entity.Client" >
+    insert into client (id, header, nick_name, 
+      tel, success_count, transfer_count, 
+      search_area_count, quit_time, collect_count, 
+      browse_count, total_fee)
+    values (#{id,jdbcType=BIGINT}, #{header,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, 
+      #{tel,jdbcType=VARCHAR}, #{successCount,jdbcType=INTEGER}, #{transferCount,jdbcType=INTEGER}, 
+      #{searchAreaCount,jdbcType=INTEGER}, #{quitTime,jdbcType=TIMESTAMP}, #{collectCount,jdbcType=INTEGER}, 
+      #{browseCount,jdbcType=INTEGER}, #{totalFee,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ch.entity.Client" >
+    insert into client
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="header != null" >
+        header,
+      </if>
+      <if test="nickName != null" >
+        nick_name,
+      </if>
+      <if test="tel != null" >
+        tel,
+      </if>
+      <if test="successCount != null" >
+        success_count,
+      </if>
+      <if test="transferCount != null" >
+        transfer_count,
+      </if>
+      <if test="searchAreaCount != null" >
+        search_area_count,
+      </if>
+      <if test="quitTime != null" >
+        quit_time,
+      </if>
+      <if test="collectCount != null" >
+        collect_count,
+      </if>
+      <if test="browseCount != null" >
+        browse_count,
+      </if>
+      <if test="totalFee != null" >
+        total_fee,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="header != null" >
+        #{header,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="successCount != null" >
+        #{successCount,jdbcType=INTEGER},
+      </if>
+      <if test="transferCount != null" >
+        #{transferCount,jdbcType=INTEGER},
+      </if>
+      <if test="searchAreaCount != null" >
+        #{searchAreaCount,jdbcType=INTEGER},
+      </if>
+      <if test="quitTime != null" >
+        #{quitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="collectCount != null" >
+        #{collectCount,jdbcType=INTEGER},
+      </if>
+      <if test="browseCount != null" >
+        #{browseCount,jdbcType=INTEGER},
+      </if>
+      <if test="totalFee != null" >
+        #{totalFee,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ch.entity.ClientExample" resultType="java.lang.Integer" >
+    select count(*) from client
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update client
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.header != null" >
+        header = #{record.header,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nickName != null" >
+        nick_name = #{record.nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tel != null" >
+        tel = #{record.tel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.successCount != null" >
+        success_count = #{record.successCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.transferCount != null" >
+        transfer_count = #{record.transferCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.searchAreaCount != null" >
+        search_area_count = #{record.searchAreaCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.quitTime != null" >
+        quit_time = #{record.quitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.collectCount != null" >
+        collect_count = #{record.collectCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.browseCount != null" >
+        browse_count = #{record.browseCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.totalFee != null" >
+        total_fee = #{record.totalFee,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update client
+    set id = #{record.id,jdbcType=BIGINT},
+      header = #{record.header,jdbcType=VARCHAR},
+      nick_name = #{record.nickName,jdbcType=VARCHAR},
+      tel = #{record.tel,jdbcType=VARCHAR},
+      success_count = #{record.successCount,jdbcType=INTEGER},
+      transfer_count = #{record.transferCount,jdbcType=INTEGER},
+      search_area_count = #{record.searchAreaCount,jdbcType=INTEGER},
+      quit_time = #{record.quitTime,jdbcType=TIMESTAMP},
+      collect_count = #{record.collectCount,jdbcType=INTEGER},
+      browse_count = #{record.browseCount,jdbcType=INTEGER},
+      total_fee = #{record.totalFee,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ch.entity.Client" >
+    update client
+    <set >
+      <if test="header != null" >
+        header = #{header,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="successCount != null" >
+        success_count = #{successCount,jdbcType=INTEGER},
+      </if>
+      <if test="transferCount != null" >
+        transfer_count = #{transferCount,jdbcType=INTEGER},
+      </if>
+      <if test="searchAreaCount != null" >
+        search_area_count = #{searchAreaCount,jdbcType=INTEGER},
+      </if>
+      <if test="quitTime != null" >
+        quit_time = #{quitTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="collectCount != null" >
+        collect_count = #{collectCount,jdbcType=INTEGER},
+      </if>
+      <if test="browseCount != null" >
+        browse_count = #{browseCount,jdbcType=INTEGER},
+      </if>
+      <if test="totalFee != null" >
+        total_fee = #{totalFee,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ch.entity.Client" >
+    update client
+    set header = #{header,jdbcType=VARCHAR},
+      nick_name = #{nickName,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      success_count = #{successCount,jdbcType=INTEGER},
+      transfer_count = #{transferCount,jdbcType=INTEGER},
+      search_area_count = #{searchAreaCount,jdbcType=INTEGER},
+      quit_time = #{quitTime,jdbcType=TIMESTAMP},
+      collect_count = #{collectCount,jdbcType=INTEGER},
+      browse_count = #{browseCount,jdbcType=INTEGER},
+      total_fee = #{totalFee,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

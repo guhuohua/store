@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ch.dao.TransferLicenseMapper" >
+  <resultMap id="BaseResultMap" type="com.ch.entity.TransferLicense" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="business_license" property="businessLicense" jdbcType="VARCHAR" />
+    <result column="hygienic_license" property="hygienicLicense" jdbcType="VARCHAR" />
+    <result column="environmental_assessment" property="environmentalAssessment" jdbcType="VARCHAR" />
+    <result column="catering_permit" property="cateringPermit" jdbcType="VARCHAR" />
+    <result column="food_processing_permit" property="foodProcessingPermit" jdbcType="VARCHAR" />
+    <result column="food_circulation_permit" property="foodCirculationPermit" jdbcType="VARCHAR" />
+    <result column="food_permit" property="foodPermit" jdbcType="VARCHAR" />
+    <result column="cigarette_licence" property="cigaretteLicence" jdbcType="VARCHAR" />
+    <result column="liquor_license" property="liquorLicense" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, business_license, hygienic_license, environmental_assessment, catering_permit, 
+    food_processing_permit, food_circulation_permit, food_permit, cigarette_licence, 
+    liquor_license
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ch.entity.TransferLicenseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from transfer_license
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from transfer_license
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from transfer_license
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ch.entity.TransferLicenseExample" >
+    delete from transfer_license
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ch.entity.TransferLicense" >
+    insert into transfer_license (id, business_license, hygienic_license, 
+      environmental_assessment, catering_permit, 
+      food_processing_permit, food_circulation_permit, 
+      food_permit, cigarette_licence, liquor_license
+      )
+    values (#{id,jdbcType=BIGINT}, #{businessLicense,jdbcType=VARCHAR}, #{hygienicLicense,jdbcType=VARCHAR}, 
+      #{environmentalAssessment,jdbcType=VARCHAR}, #{cateringPermit,jdbcType=VARCHAR}, 
+      #{foodProcessingPermit,jdbcType=VARCHAR}, #{foodCirculationPermit,jdbcType=VARCHAR}, 
+      #{foodPermit,jdbcType=VARCHAR}, #{cigaretteLicence,jdbcType=VARCHAR}, #{liquorLicense,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ch.entity.TransferLicense" >
+    insert into transfer_license
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="businessLicense != null" >
+        business_license,
+      </if>
+      <if test="hygienicLicense != null" >
+        hygienic_license,
+      </if>
+      <if test="environmentalAssessment != null" >
+        environmental_assessment,
+      </if>
+      <if test="cateringPermit != null" >
+        catering_permit,
+      </if>
+      <if test="foodProcessingPermit != null" >
+        food_processing_permit,
+      </if>
+      <if test="foodCirculationPermit != null" >
+        food_circulation_permit,
+      </if>
+      <if test="foodPermit != null" >
+        food_permit,
+      </if>
+      <if test="cigaretteLicence != null" >
+        cigarette_licence,
+      </if>
+      <if test="liquorLicense != null" >
+        liquor_license,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="businessLicense != null" >
+        #{businessLicense,jdbcType=VARCHAR},
+      </if>
+      <if test="hygienicLicense != null" >
+        #{hygienicLicense,jdbcType=VARCHAR},
+      </if>
+      <if test="environmentalAssessment != null" >
+        #{environmentalAssessment,jdbcType=VARCHAR},
+      </if>
+      <if test="cateringPermit != null" >
+        #{cateringPermit,jdbcType=VARCHAR},
+      </if>
+      <if test="foodProcessingPermit != null" >
+        #{foodProcessingPermit,jdbcType=VARCHAR},
+      </if>
+      <if test="foodCirculationPermit != null" >
+        #{foodCirculationPermit,jdbcType=VARCHAR},
+      </if>
+      <if test="foodPermit != null" >
+        #{foodPermit,jdbcType=VARCHAR},
+      </if>
+      <if test="cigaretteLicence != null" >
+        #{cigaretteLicence,jdbcType=VARCHAR},
+      </if>
+      <if test="liquorLicense != null" >
+        #{liquorLicense,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ch.entity.TransferLicenseExample" resultType="java.lang.Integer" >
+    select count(*) from transfer_license
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update transfer_license
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.businessLicense != null" >
+        business_license = #{record.businessLicense,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hygienicLicense != null" >
+        hygienic_license = #{record.hygienicLicense,jdbcType=VARCHAR},
+      </if>
+      <if test="record.environmentalAssessment != null" >
+        environmental_assessment = #{record.environmentalAssessment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cateringPermit != null" >
+        catering_permit = #{record.cateringPermit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.foodProcessingPermit != null" >
+        food_processing_permit = #{record.foodProcessingPermit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.foodCirculationPermit != null" >
+        food_circulation_permit = #{record.foodCirculationPermit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.foodPermit != null" >
+        food_permit = #{record.foodPermit,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cigaretteLicence != null" >
+        cigarette_licence = #{record.cigaretteLicence,jdbcType=VARCHAR},
+      </if>
+      <if test="record.liquorLicense != null" >
+        liquor_license = #{record.liquorLicense,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update transfer_license
+    set id = #{record.id,jdbcType=BIGINT},
+      business_license = #{record.businessLicense,jdbcType=VARCHAR},
+      hygienic_license = #{record.hygienicLicense,jdbcType=VARCHAR},
+      environmental_assessment = #{record.environmentalAssessment,jdbcType=VARCHAR},
+      catering_permit = #{record.cateringPermit,jdbcType=VARCHAR},
+      food_processing_permit = #{record.foodProcessingPermit,jdbcType=VARCHAR},
+      food_circulation_permit = #{record.foodCirculationPermit,jdbcType=VARCHAR},
+      food_permit = #{record.foodPermit,jdbcType=VARCHAR},
+      cigarette_licence = #{record.cigaretteLicence,jdbcType=VARCHAR},
+      liquor_license = #{record.liquorLicense,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ch.entity.TransferLicense" >
+    update transfer_license
+    <set >
+      <if test="businessLicense != null" >
+        business_license = #{businessLicense,jdbcType=VARCHAR},
+      </if>
+      <if test="hygienicLicense != null" >
+        hygienic_license = #{hygienicLicense,jdbcType=VARCHAR},
+      </if>
+      <if test="environmentalAssessment != null" >
+        environmental_assessment = #{environmentalAssessment,jdbcType=VARCHAR},
+      </if>
+      <if test="cateringPermit != null" >
+        catering_permit = #{cateringPermit,jdbcType=VARCHAR},
+      </if>
+      <if test="foodProcessingPermit != null" >
+        food_processing_permit = #{foodProcessingPermit,jdbcType=VARCHAR},
+      </if>
+      <if test="foodCirculationPermit != null" >
+        food_circulation_permit = #{foodCirculationPermit,jdbcType=VARCHAR},
+      </if>
+      <if test="foodPermit != null" >
+        food_permit = #{foodPermit,jdbcType=VARCHAR},
+      </if>
+      <if test="cigaretteLicence != null" >
+        cigarette_licence = #{cigaretteLicence,jdbcType=VARCHAR},
+      </if>
+      <if test="liquorLicense != null" >
+        liquor_license = #{liquorLicense,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ch.entity.TransferLicense" >
+    update transfer_license
+    set business_license = #{businessLicense,jdbcType=VARCHAR},
+      hygienic_license = #{hygienicLicense,jdbcType=VARCHAR},
+      environmental_assessment = #{environmentalAssessment,jdbcType=VARCHAR},
+      catering_permit = #{cateringPermit,jdbcType=VARCHAR},
+      food_processing_permit = #{foodProcessingPermit,jdbcType=VARCHAR},
+      food_circulation_permit = #{foodCirculationPermit,jdbcType=VARCHAR},
+      food_permit = #{foodPermit,jdbcType=VARCHAR},
+      cigarette_licence = #{cigaretteLicence,jdbcType=VARCHAR},
+      liquor_license = #{liquorLicense,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

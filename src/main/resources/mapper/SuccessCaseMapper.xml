@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ch.dao.SuccessCaseMapper" >
+  <resultMap id="BaseResultMap" type="com.ch.entity.SuccessCase" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="look_shop_id" property="lookShopId" jdbcType="VARCHAR" />
+    <result column="transfer_shop_id" property="transferShopId" jdbcType="VARCHAR" />
+    <result column="satisfaction_degree" property="satisfactionDegree" jdbcType="INTEGER" />
+    <result column="success_time" property="successTime" jdbcType="TIMESTAMP" />
+    <result column="introduction" property="introduction" jdbcType="VARCHAR" />
+    <result column="browse_number" property="browseNumber" jdbcType="BIGINT" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, look_shop_id, transfer_shop_id, satisfaction_degree, success_time, introduction, 
+    browse_number
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ch.entity.SuccessCaseExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from success_case
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from success_case
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from success_case
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ch.entity.SuccessCaseExample" >
+    delete from success_case
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ch.entity.SuccessCase" >
+    insert into success_case (id, look_shop_id, transfer_shop_id, 
+      satisfaction_degree, success_time, introduction, 
+      browse_number)
+    values (#{id,jdbcType=BIGINT}, #{lookShopId,jdbcType=VARCHAR}, #{transferShopId,jdbcType=VARCHAR}, 
+      #{satisfactionDegree,jdbcType=INTEGER}, #{successTime,jdbcType=TIMESTAMP}, #{introduction,jdbcType=VARCHAR}, 
+      #{browseNumber,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ch.entity.SuccessCase" >
+    insert into success_case
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="lookShopId != null" >
+        look_shop_id,
+      </if>
+      <if test="transferShopId != null" >
+        transfer_shop_id,
+      </if>
+      <if test="satisfactionDegree != null" >
+        satisfaction_degree,
+      </if>
+      <if test="successTime != null" >
+        success_time,
+      </if>
+      <if test="introduction != null" >
+        introduction,
+      </if>
+      <if test="browseNumber != null" >
+        browse_number,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="lookShopId != null" >
+        #{lookShopId,jdbcType=VARCHAR},
+      </if>
+      <if test="transferShopId != null" >
+        #{transferShopId,jdbcType=VARCHAR},
+      </if>
+      <if test="satisfactionDegree != null" >
+        #{satisfactionDegree,jdbcType=INTEGER},
+      </if>
+      <if test="successTime != null" >
+        #{successTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="introduction != null" >
+        #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="browseNumber != null" >
+        #{browseNumber,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ch.entity.SuccessCaseExample" resultType="java.lang.Integer" >
+    select count(*) from success_case
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update success_case
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.lookShopId != null" >
+        look_shop_id = #{record.lookShopId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.transferShopId != null" >
+        transfer_shop_id = #{record.transferShopId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.satisfactionDegree != null" >
+        satisfaction_degree = #{record.satisfactionDegree,jdbcType=INTEGER},
+      </if>
+      <if test="record.successTime != null" >
+        success_time = #{record.successTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.introduction != null" >
+        introduction = #{record.introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="record.browseNumber != null" >
+        browse_number = #{record.browseNumber,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update success_case
+    set id = #{record.id,jdbcType=BIGINT},
+      look_shop_id = #{record.lookShopId,jdbcType=VARCHAR},
+      transfer_shop_id = #{record.transferShopId,jdbcType=VARCHAR},
+      satisfaction_degree = #{record.satisfactionDegree,jdbcType=INTEGER},
+      success_time = #{record.successTime,jdbcType=TIMESTAMP},
+      introduction = #{record.introduction,jdbcType=VARCHAR},
+      browse_number = #{record.browseNumber,jdbcType=BIGINT}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ch.entity.SuccessCase" >
+    update success_case
+    <set >
+      <if test="lookShopId != null" >
+        look_shop_id = #{lookShopId,jdbcType=VARCHAR},
+      </if>
+      <if test="transferShopId != null" >
+        transfer_shop_id = #{transferShopId,jdbcType=VARCHAR},
+      </if>
+      <if test="satisfactionDegree != null" >
+        satisfaction_degree = #{satisfactionDegree,jdbcType=INTEGER},
+      </if>
+      <if test="successTime != null" >
+        success_time = #{successTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="introduction != null" >
+        introduction = #{introduction,jdbcType=VARCHAR},
+      </if>
+      <if test="browseNumber != null" >
+        browse_number = #{browseNumber,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ch.entity.SuccessCase" >
+    update success_case
+    set look_shop_id = #{lookShopId,jdbcType=VARCHAR},
+      transfer_shop_id = #{transferShopId,jdbcType=VARCHAR},
+      satisfaction_degree = #{satisfactionDegree,jdbcType=INTEGER},
+      success_time = #{successTime,jdbcType=TIMESTAMP},
+      introduction = #{introduction,jdbcType=VARCHAR},
+      browse_number = #{browseNumber,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,800 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ch.dao.TransferShopMapper" >
+  <resultMap id="BaseResultMap" type="com.ch.entity.TransferShop" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="client_id" property="clientId" jdbcType="BIGINT" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="business_type_id" property="businessTypeId" jdbcType="BIGINT" />
+    <result column="property_type_id" property="propertyTypeId" jdbcType="BIGINT" />
+    <result column="shop_type_id" property="shopTypeId" jdbcType="BIGINT" />
+    <result column="rent" property="rent" jdbcType="BIGINT" />
+    <result column="area" property="area" jdbcType="INTEGER" />
+    <result column="transfer_status" property="transferStatus" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="city_id" property="cityId" jdbcType="INTEGER" />
+    <result column="decorate_type_id" property="decorateTypeId" jdbcType="BIGINT" />
+    <result column="requirement_details" property="requirementDetails" jdbcType="VARCHAR" />
+    <result column="accessory _requirements" property="accessoryRequirements" jdbcType="VARCHAR" />
+    <result column="gate_width" property="gateWidth" jdbcType="BIGINT" />
+    <result column="transfer_fee" property="transferFee" jdbcType="BIGINT" />
+    <result column="shop_sn" property="shopSn" jdbcType="VARCHAR" />
+    <result column="service_type" property="serviceType" jdbcType="BIGINT" />
+    <result column="lng" property="lng" jdbcType="VARCHAR" />
+    <result column="lat" property="lat" jdbcType="VARCHAR" />
+    <result column="medium_status" property="mediumStatus" jdbcType="INTEGER" />
+    <result column="shop_readme" property="shopReadme" jdbcType="VARCHAR" />
+    <result column="floor_number" property="floorNumber" jdbcType="INTEGER" />
+    <result column="orien_id" property="orienId" jdbcType="BIGINT" />
+    <result column="loop_line_id" property="loopLineId" jdbcType="BIGINT" />
+    <result column="subway_line_id" property="subwayLineId" jdbcType="BIGINT" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="published_time" property="publishedTime" jdbcType="TIMESTAMP" />
+    <result column="check_time" property="checkTime" jdbcType="TIMESTAMP" />
+    <result column="success_time" property="successTime" jdbcType="TIMESTAMP" />
+    <result column="free_period" property="freePeriod" jdbcType="INTEGER" />
+    <result column="transfer_icon_id" property="transferIconId" jdbcType="BIGINT" />
+    <result column="fake_tel" property="fakeTel" jdbcType="VARCHAR" />
+    <result column="image" property="image" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="VARCHAR" />
+    <result column="area_id" property="areaId" jdbcType="INTEGER" />
+    <result column="street_id" property="streetId" jdbcType="INTEGER" />
+    <result column="province_id" property="provinceId" jdbcType="INTEGER" />
+    <result column="recommend_type" property="recommendType" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, client_id, tel, business_type_id, property_type_id, shop_type_id, rent, area, 
+    transfer_status, status, title, city_id, decorate_type_id, requirement_details, "accessory _requirements", 
+    gate_width, transfer_fee, shop_sn, service_type, 
+lng, lat, medium_status, shop_readme, 
+    floor_number, 
+orien_id, loop_line_id, subway_line_id, update_time, published_time, 
+    check_time, success_time, free_period, transfer_icon_id, fake_tel, image, sort, area_id, 
+    street_id, province_id, recommend_type
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ch.entity.TransferShopExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from transfer_shop
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from transfer_shop
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from transfer_shop
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ch.entity.TransferShopExample" >
+    delete from transfer_shop
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ch.entity.TransferShop" >
+    insert into transfer_shop (id, client_id, tel, 
+      business_type_id, property_type_id, shop_type_id, 
+      rent, area, transfer_status, 
+      status, title, city_id, 
+      decorate_type_id, requirement_details, "accessory _requirements", 
+      gate_width, transfer_fee, shop_sn, 
+      service_type, 
+lng, lat, 
+      medium_status, shop_readme, floor_number, 
+      
+orien_id, loop_line_id, subway_line_id, 
+      update_time, published_time, check_time, 
+      success_time, free_period, transfer_icon_id, 
+      fake_tel, image, sort, 
+      area_id, street_id, province_id, 
+      recommend_type)
+    values (#{id,jdbcType=BIGINT}, #{clientId,jdbcType=BIGINT}, #{tel,jdbcType=VARCHAR}, 
+      #{businessTypeId,jdbcType=BIGINT}, #{propertyTypeId,jdbcType=BIGINT}, #{shopTypeId,jdbcType=BIGINT}, 
+      #{rent,jdbcType=BIGINT}, #{area,jdbcType=INTEGER}, #{transferStatus,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{cityId,jdbcType=INTEGER}, 
+      #{decorateTypeId,jdbcType=BIGINT}, #{requirementDetails,jdbcType=VARCHAR}, #{accessoryRequirements,jdbcType=VARCHAR}, 
+      #{gateWidth,jdbcType=BIGINT}, #{transferFee,jdbcType=BIGINT}, #{shopSn,jdbcType=VARCHAR}, 
+      #{serviceType,jdbcType=BIGINT}, #{
+lng,jdbcType=VARCHAR}, #{lat,jdbcType=VARCHAR}, 
+      #{mediumStatus,jdbcType=INTEGER}, #{shopReadme,jdbcType=VARCHAR}, #{floorNumber,jdbcType=INTEGER}, 
+      #{
+orienId,jdbcType=BIGINT}, #{loopLineId,jdbcType=BIGINT}, #{subwayLineId,jdbcType=BIGINT}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{publishedTime,jdbcType=TIMESTAMP}, #{checkTime,jdbcType=TIMESTAMP}, 
+      #{successTime,jdbcType=TIMESTAMP}, #{freePeriod,jdbcType=INTEGER}, #{transferIconId,jdbcType=BIGINT}, 
+      #{fakeTel,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}, #{sort,jdbcType=VARCHAR}, 
+      #{areaId,jdbcType=INTEGER}, #{streetId,jdbcType=INTEGER}, #{provinceId,jdbcType=INTEGER}, 
+      #{recommendType,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ch.entity.TransferShop" >
+    insert into transfer_shop
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="clientId != null" >
+        client_id,
+      </if>
+      <if test="tel != null" >
+        tel,
+      </if>
+      <if test="businessTypeId != null" >
+        business_type_id,
+      </if>
+      <if test="propertyTypeId != null" >
+        property_type_id,
+      </if>
+      <if test="shopTypeId != null" >
+        shop_type_id,
+      </if>
+      <if test="rent != null" >
+        rent,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="transferStatus != null" >
+        transfer_status,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="cityId != null" >
+        city_id,
+      </if>
+      <if test="decorateTypeId != null" >
+        decorate_type_id,
+      </if>
+      <if test="requirementDetails != null" >
+        requirement_details,
+      </if>
+      <if test="accessoryRequirements != null" >
+        "accessory _requirements",
+      </if>
+      <if test="gateWidth != null" >
+        gate_width,
+      </if>
+      <if test="transferFee != null" >
+        transfer_fee,
+      </if>
+      <if test="shopSn != null" >
+        shop_sn,
+      </if>
+      <if test="serviceType != null" >
+        service_type,
+      </if>
+      <if test="
+lng != null" >
+        
+lng,
+      </if>
+      <if test="lat != null" >
+        lat,
+      </if>
+      <if test="mediumStatus != null" >
+        medium_status,
+      </if>
+      <if test="shopReadme != null" >
+        shop_readme,
+      </if>
+      <if test="floorNumber != null" >
+        floor_number,
+      </if>
+      <if test="
+orienId != null" >
+        
+orien_id,
+      </if>
+      <if test="loopLineId != null" >
+        loop_line_id,
+      </if>
+      <if test="subwayLineId != null" >
+        subway_line_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="publishedTime != null" >
+        published_time,
+      </if>
+      <if test="checkTime != null" >
+        check_time,
+      </if>
+      <if test="successTime != null" >
+        success_time,
+      </if>
+      <if test="freePeriod != null" >
+        free_period,
+      </if>
+      <if test="transferIconId != null" >
+        transfer_icon_id,
+      </if>
+      <if test="fakeTel != null" >
+        fake_tel,
+      </if>
+      <if test="image != null" >
+        image,
+      </if>
+      <if test="sort != null" >
+        sort,
+      </if>
+      <if test="areaId != null" >
+        area_id,
+      </if>
+      <if test="streetId != null" >
+        street_id,
+      </if>
+      <if test="provinceId != null" >
+        province_id,
+      </if>
+      <if test="recommendType != null" >
+        recommend_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="clientId != null" >
+        #{clientId,jdbcType=BIGINT},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="businessTypeId != null" >
+        #{businessTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="propertyTypeId != null" >
+        #{propertyTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="shopTypeId != null" >
+        #{shopTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="rent != null" >
+        #{rent,jdbcType=BIGINT},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=INTEGER},
+      </if>
+      <if test="transferStatus != null" >
+        #{transferStatus,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="cityId != null" >
+        #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="decorateTypeId != null" >
+        #{decorateTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="requirementDetails != null" >
+        #{requirementDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="accessoryRequirements != null" >
+        #{accessoryRequirements,jdbcType=VARCHAR},
+      </if>
+      <if test="gateWidth != null" >
+        #{gateWidth,jdbcType=BIGINT},
+      </if>
+      <if test="transferFee != null" >
+        #{transferFee,jdbcType=BIGINT},
+      </if>
+      <if test="shopSn != null" >
+        #{shopSn,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceType != null" >
+        #{serviceType,jdbcType=BIGINT},
+      </if>
+      <if test="
+lng != null" >
+        #{
+lng,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null" >
+        #{lat,jdbcType=VARCHAR},
+      </if>
+      <if test="mediumStatus != null" >
+        #{mediumStatus,jdbcType=INTEGER},
+      </if>
+      <if test="shopReadme != null" >
+        #{shopReadme,jdbcType=VARCHAR},
+      </if>
+      <if test="floorNumber != null" >
+        #{floorNumber,jdbcType=INTEGER},
+      </if>
+      <if test="
+orienId != null" >
+        #{
+orienId,jdbcType=BIGINT},
+      </if>
+      <if test="loopLineId != null" >
+        #{loopLineId,jdbcType=BIGINT},
+      </if>
+      <if test="subwayLineId != null" >
+        #{subwayLineId,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="publishedTime != null" >
+        #{publishedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkTime != null" >
+        #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="successTime != null" >
+        #{successTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="freePeriod != null" >
+        #{freePeriod,jdbcType=INTEGER},
+      </if>
+      <if test="transferIconId != null" >
+        #{transferIconId,jdbcType=BIGINT},
+      </if>
+      <if test="fakeTel != null" >
+        #{fakeTel,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null" >
+        #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        #{sort,jdbcType=VARCHAR},
+      </if>
+      <if test="areaId != null" >
+        #{areaId,jdbcType=INTEGER},
+      </if>
+      <if test="streetId != null" >
+        #{streetId,jdbcType=INTEGER},
+      </if>
+      <if test="provinceId != null" >
+        #{provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="recommendType != null" >
+        #{recommendType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ch.entity.TransferShopExample" resultType="java.lang.Integer" >
+    select count(*) from transfer_shop
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update transfer_shop
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.clientId != null" >
+        client_id = #{record.clientId,jdbcType=BIGINT},
+      </if>
+      <if test="record.tel != null" >
+        tel = #{record.tel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.businessTypeId != null" >
+        business_type_id = #{record.businessTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="record.propertyTypeId != null" >
+        property_type_id = #{record.propertyTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="record.shopTypeId != null" >
+        shop_type_id = #{record.shopTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="record.rent != null" >
+        rent = #{record.rent,jdbcType=BIGINT},
+      </if>
+      <if test="record.area != null" >
+        area = #{record.area,jdbcType=INTEGER},
+      </if>
+      <if test="record.transferStatus != null" >
+        transfer_status = #{record.transferStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cityId != null" >
+        city_id = #{record.cityId,jdbcType=INTEGER},
+      </if>
+      <if test="record.decorateTypeId != null" >
+        decorate_type_id = #{record.decorateTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="record.requirementDetails != null" >
+        requirement_details = #{record.requirementDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accessoryRequirements != null" >
+        "accessory _requirements" = #{record.accessoryRequirements,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gateWidth != null" >
+        gate_width = #{record.gateWidth,jdbcType=BIGINT},
+      </if>
+      <if test="record.transferFee != null" >
+        transfer_fee = #{record.transferFee,jdbcType=BIGINT},
+      </if>
+      <if test="record.shopSn != null" >
+        shop_sn = #{record.shopSn,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serviceType != null" >
+        service_type = #{record.serviceType,jdbcType=BIGINT},
+      </if>
+      <if test="record.
+lng != null" >
+        
+lng = #{record.
+lng,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lat != null" >
+        lat = #{record.lat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mediumStatus != null" >
+        medium_status = #{record.mediumStatus,jdbcType=INTEGER},
+      </if>
+      <if test="record.shopReadme != null" >
+        shop_readme = #{record.shopReadme,jdbcType=VARCHAR},
+      </if>
+      <if test="record.floorNumber != null" >
+        floor_number = #{record.floorNumber,jdbcType=INTEGER},
+      </if>
+      <if test="record.
+orienId != null" >
+        
+orien_id = #{record.
+orienId,jdbcType=BIGINT},
+      </if>
+      <if test="record.loopLineId != null" >
+        loop_line_id = #{record.loopLineId,jdbcType=BIGINT},
+      </if>
+      <if test="record.subwayLineId != null" >
+        subway_line_id = #{record.subwayLineId,jdbcType=BIGINT},
+      </if>
+      <if test="record.updateTime != null" >
+        update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.publishedTime != null" >
+        published_time = #{record.publishedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.checkTime != null" >
+        check_time = #{record.checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.successTime != null" >
+        success_time = #{record.successTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.freePeriod != null" >
+        free_period = #{record.freePeriod,jdbcType=INTEGER},
+      </if>
+      <if test="record.transferIconId != null" >
+        transfer_icon_id = #{record.transferIconId,jdbcType=BIGINT},
+      </if>
+      <if test="record.fakeTel != null" >
+        fake_tel = #{record.fakeTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.image != null" >
+        image = #{record.image,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sort != null" >
+        sort = #{record.sort,jdbcType=VARCHAR},
+      </if>
+      <if test="record.areaId != null" >
+        area_id = #{record.areaId,jdbcType=INTEGER},
+      </if>
+      <if test="record.streetId != null" >
+        street_id = #{record.streetId,jdbcType=INTEGER},
+      </if>
+      <if test="record.provinceId != null" >
+        province_id = #{record.provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="record.recommendType != null" >
+        recommend_type = #{record.recommendType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update transfer_shop
+    set id = #{record.id,jdbcType=BIGINT},
+      client_id = #{record.clientId,jdbcType=BIGINT},
+      tel = #{record.tel,jdbcType=VARCHAR},
+      business_type_id = #{record.businessTypeId,jdbcType=BIGINT},
+      property_type_id = #{record.propertyTypeId,jdbcType=BIGINT},
+      shop_type_id = #{record.shopTypeId,jdbcType=BIGINT},
+      rent = #{record.rent,jdbcType=BIGINT},
+      area = #{record.area,jdbcType=INTEGER},
+      transfer_status = #{record.transferStatus,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      city_id = #{record.cityId,jdbcType=INTEGER},
+      decorate_type_id = #{record.decorateTypeId,jdbcType=BIGINT},
+      requirement_details = #{record.requirementDetails,jdbcType=VARCHAR},
+      "accessory _requirements" = #{record.accessoryRequirements,jdbcType=VARCHAR},
+      gate_width = #{record.gateWidth,jdbcType=BIGINT},
+      transfer_fee = #{record.transferFee,jdbcType=BIGINT},
+      shop_sn = #{record.shopSn,jdbcType=VARCHAR},
+      service_type = #{record.serviceType,jdbcType=BIGINT},
+      
+lng = #{record.
+lng,jdbcType=VARCHAR},
+      lat = #{record.lat,jdbcType=VARCHAR},
+      medium_status = #{record.mediumStatus,jdbcType=INTEGER},
+      shop_readme = #{record.shopReadme,jdbcType=VARCHAR},
+      floor_number = #{record.floorNumber,jdbcType=INTEGER},
+      
+orien_id = #{record.
+orienId,jdbcType=BIGINT},
+      loop_line_id = #{record.loopLineId,jdbcType=BIGINT},
+      subway_line_id = #{record.subwayLineId,jdbcType=BIGINT},
+      update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      published_time = #{record.publishedTime,jdbcType=TIMESTAMP},
+      check_time = #{record.checkTime,jdbcType=TIMESTAMP},
+      success_time = #{record.successTime,jdbcType=TIMESTAMP},
+      free_period = #{record.freePeriod,jdbcType=INTEGER},
+      transfer_icon_id = #{record.transferIconId,jdbcType=BIGINT},
+      fake_tel = #{record.fakeTel,jdbcType=VARCHAR},
+      image = #{record.image,jdbcType=VARCHAR},
+      sort = #{record.sort,jdbcType=VARCHAR},
+      area_id = #{record.areaId,jdbcType=INTEGER},
+      street_id = #{record.streetId,jdbcType=INTEGER},
+      province_id = #{record.provinceId,jdbcType=INTEGER},
+      recommend_type = #{record.recommendType,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ch.entity.TransferShop" >
+    update transfer_shop
+    <set >
+      <if test="clientId != null" >
+        client_id = #{clientId,jdbcType=BIGINT},
+      </if>
+      <if test="tel != null" >
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="businessTypeId != null" >
+        business_type_id = #{businessTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="propertyTypeId != null" >
+        property_type_id = #{propertyTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="shopTypeId != null" >
+        shop_type_id = #{shopTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="rent != null" >
+        rent = #{rent,jdbcType=BIGINT},
+      </if>
+      <if test="area != null" >
+        area = #{area,jdbcType=INTEGER},
+      </if>
+      <if test="transferStatus != null" >
+        transfer_status = #{transferStatus,jdbcType=INTEGER},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="cityId != null" >
+        city_id = #{cityId,jdbcType=INTEGER},
+      </if>
+      <if test="decorateTypeId != null" >
+        decorate_type_id = #{decorateTypeId,jdbcType=BIGINT},
+      </if>
+      <if test="requirementDetails != null" >
+        requirement_details = #{requirementDetails,jdbcType=VARCHAR},
+      </if>
+      <if test="accessoryRequirements != null" >
+        "accessory _requirements" = #{accessoryRequirements,jdbcType=VARCHAR},
+      </if>
+      <if test="gateWidth != null" >
+        gate_width = #{gateWidth,jdbcType=BIGINT},
+      </if>
+      <if test="transferFee != null" >
+        transfer_fee = #{transferFee,jdbcType=BIGINT},
+      </if>
+      <if test="shopSn != null" >
+        shop_sn = #{shopSn,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceType != null" >
+        service_type = #{serviceType,jdbcType=BIGINT},
+      </if>
+      <if test="
+lng != null" >
+        
+lng = #{
+lng,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null" >
+        lat = #{lat,jdbcType=VARCHAR},
+      </if>
+      <if test="mediumStatus != null" >
+        medium_status = #{mediumStatus,jdbcType=INTEGER},
+      </if>
+      <if test="shopReadme != null" >
+        shop_readme = #{shopReadme,jdbcType=VARCHAR},
+      </if>
+      <if test="floorNumber != null" >
+        floor_number = #{floorNumber,jdbcType=INTEGER},
+      </if>
+      <if test="
+orienId != null" >
+        
+orien_id = #{
+orienId,jdbcType=BIGINT},
+      </if>
+      <if test="loopLineId != null" >
+        loop_line_id = #{loopLineId,jdbcType=BIGINT},
+      </if>
+      <if test="subwayLineId != null" >
+        subway_line_id = #{subwayLineId,jdbcType=BIGINT},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="publishedTime != null" >
+        published_time = #{publishedTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="checkTime != null" >
+        check_time = #{checkTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="successTime != null" >
+        success_time = #{successTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="freePeriod != null" >
+        free_period = #{freePeriod,jdbcType=INTEGER},
+      </if>
+      <if test="transferIconId != null" >
+        transfer_icon_id = #{transferIconId,jdbcType=BIGINT},
+      </if>
+      <if test="fakeTel != null" >
+        fake_tel = #{fakeTel,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null" >
+        image = #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="sort != null" >
+        sort = #{sort,jdbcType=VARCHAR},
+      </if>
+      <if test="areaId != null" >
+        area_id = #{areaId,jdbcType=INTEGER},
+      </if>
+      <if test="streetId != null" >
+        street_id = #{streetId,jdbcType=INTEGER},
+      </if>
+      <if test="provinceId != null" >
+        province_id = #{provinceId,jdbcType=INTEGER},
+      </if>
+      <if test="recommendType != null" >
+        recommend_type = #{recommendType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ch.entity.TransferShop" >
+    update transfer_shop
+    set client_id = #{clientId,jdbcType=BIGINT},
+      tel = #{tel,jdbcType=VARCHAR},
+      business_type_id = #{businessTypeId,jdbcType=BIGINT},
+      property_type_id = #{propertyTypeId,jdbcType=BIGINT},
+      shop_type_id = #{shopTypeId,jdbcType=BIGINT},
+      rent = #{rent,jdbcType=BIGINT},
+      area = #{area,jdbcType=INTEGER},
+      transfer_status = #{transferStatus,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      city_id = #{cityId,jdbcType=INTEGER},
+      decorate_type_id = #{decorateTypeId,jdbcType=BIGINT},
+      requirement_details = #{requirementDetails,jdbcType=VARCHAR},
+      "accessory _requirements" = #{accessoryRequirements,jdbcType=VARCHAR},
+      gate_width = #{gateWidth,jdbcType=BIGINT},
+      transfer_fee = #{transferFee,jdbcType=BIGINT},
+      shop_sn = #{shopSn,jdbcType=VARCHAR},
+      service_type = #{serviceType,jdbcType=BIGINT},
+      
+lng = #{
+lng,jdbcType=VARCHAR},
+      lat = #{lat,jdbcType=VARCHAR},
+      medium_status = #{mediumStatus,jdbcType=INTEGER},
+      shop_readme = #{shopReadme,jdbcType=VARCHAR},
+      floor_number = #{floorNumber,jdbcType=INTEGER},
+      
+orien_id = #{
+orienId,jdbcType=BIGINT},
+      loop_line_id = #{loopLineId,jdbcType=BIGINT},
+      subway_line_id = #{subwayLineId,jdbcType=BIGINT},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      published_time = #{publishedTime,jdbcType=TIMESTAMP},
+      check_time = #{checkTime,jdbcType=TIMESTAMP},
+      success_time = #{successTime,jdbcType=TIMESTAMP},
+      free_period = #{freePeriod,jdbcType=INTEGER},
+      transfer_icon_id = #{transferIconId,jdbcType=BIGINT},
+      fake_tel = #{fakeTel,jdbcType=VARCHAR},
+      image = #{image,jdbcType=VARCHAR},
+      sort = #{sort,jdbcType=VARCHAR},
+      area_id = #{areaId,jdbcType=INTEGER},
+      street_id = #{streetId,jdbcType=INTEGER},
+      province_id = #{provinceId,jdbcType=INTEGER},
+      recommend_type = #{recommendType,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
