@@ -34,11 +34,12 @@ public class SysLoginController {
        ResponseResult result = new ResponseResult();
        try {
            result = sysUserService.login(dto);
-           if (result.getCode() == 0) {
-               UserDTO data = (UserDTO) result.getData();
-               String token = TokenUtil.sign(data.getUserId());
+           Integer userId =(Integer) result.getData();
+
+           String token = TokenUtil.sign(userId);
+               System.out.println(token);
                result.setData(token);
-           }
+
        } catch (Exception e) {
            result.setCode(404);
            result.setError(e.getMessage());
@@ -57,7 +58,8 @@ public class SysLoginController {
         System.out.println("后台userId"+userId);
         ResponseResult result = new ResponseResult();
         try {
-            result.setData(sysUserService.findById(userId));
+            UserDTO userDto = sysUserService.findById(userId);
+            result.setData(userDto);
         } catch (Exception e) {
             result.setCode(404);
             result.setError(e.getMessage());
