@@ -45,9 +45,9 @@ public class LookShop {
 
     private Long serviceType;
 
-    private String lng;
+    private String longitude;
 
-    private String lat;
+    private String latitude;
 
     private Integer mediumStatus;
 
@@ -78,6 +78,17 @@ public class LookShop {
     private Date checkTime;
 
     private Integer recommendType;
+
+
+    private String address;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public Long getId() {
         return id;
@@ -247,20 +258,20 @@ public class LookShop {
         this.serviceType = serviceType;
     }
 
-    public String getLng() {
-        return lng;
+    public String getLongitude() {
+        return longitude;
     }
 
-    public void setLng(String lng) {
-        this.lng = lng == null ? null : lng.trim();
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
     }
 
-    public String getLat() {
-        return lat;
+    public String getLatitude() {
+        return latitude;
     }
 
-    public void setLat(String lat) {
-        this.lat = lat == null ? null : lat.trim();
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
     }
 
     public Integer getMediumStatus() {

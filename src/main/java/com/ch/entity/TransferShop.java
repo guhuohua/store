@@ -89,6 +89,16 @@ public class TransferShop {
 
     private Long deposit;
 
+    private String address;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public Long getDeposit() {
         return deposit;
     }
