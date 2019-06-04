@@ -1180,6 +1180,11 @@ public class TransferShopExample {
             return (Criteria) this;
         }
 
+        public Criteria andCheckStatusEqualTo(Integer value) {
+            addCriterion("check_status =", value, "check_status");
+            return (Criteria) this;
+        }
+
         public Criteria andShopSnNotEqualTo(String value) {
             addCriterion("shop_sn <>", value, "shopSn");
             return (Criteria) this;

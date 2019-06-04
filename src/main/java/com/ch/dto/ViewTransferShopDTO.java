@@ -1,4 +1,4 @@
-package com.ch.model;
+package com.ch.dto;
 
 import com.ch.entity.TransferImage;
 import lombok.Data;
@@ -7,19 +7,19 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-public class ViewTransferShopParam {
+public class ViewTransferShopDTO {
 
     private Long id;
 
-    private Long clientId;
+    private String username;
 
     private String tel;
 
-    private Long businessTypeId;
+    private String businessType;
 
-    private Long propertyTypeId;
+    private String propertyType;
 
-    private Long shopTypeId;
+    private String shopType;
 
     private Long rent;
 
@@ -29,9 +29,9 @@ public class ViewTransferShopParam {
 
     private String title;
 
-    private Integer cityId;
+    private String city;
 
-    private Long decorateTypeId;
+    private String decorateType;
 
     private String requirementDetails;
 
@@ -55,23 +55,17 @@ public class ViewTransferShopParam {
 
     private Integer floorNumber;
 
-    private Long orientationId;
+    private String orientation;
 
-    private Long loopLineId;
+    private String loopLine;
 
-    private Long subwayLineId;
+    private String subwayLine;
 
     private Date updateTime;
 
     private Date publishedTime;
 
-    private Date checkTime;
-
-    private Date successTime;
-
     private Integer freePeriod;
-
-    private Long transferIconId;
 
     private String fakeTel;
 
@@ -79,13 +73,17 @@ public class ViewTransferShopParam {
 
     private Integer sort;
 
-    private Integer areaId;
+    private String areaName;
 
-    private Integer streetId;
+    private String street;
 
-    private Integer provinceId;
+    private String province;
 
     private Integer recommendType;
 
-    private List<TransferImage> transferImages;
+    private Date createTime;
+
+    private Long deposit;
+
+    private List<TransferImage> transferImageList;
 }
