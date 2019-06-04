@@ -5,7 +5,7 @@ import java.util.Date;
 public class SysPermission {
     private Integer permissionId;
 
-    private Integer name;
+    private String name;
 
     private Integer path;
 
@@ -37,11 +37,11 @@ public class SysPermission {
         this.permissionId = permissionId;
     }
 
-    public Integer getName() {
+    public String getName() {
         return name;
     }
 
-    public void setName(Integer name) {
+    public void setName(String name) {
         this.name = name;
     }
 

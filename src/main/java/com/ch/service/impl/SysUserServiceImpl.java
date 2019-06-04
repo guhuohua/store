@@ -58,6 +58,7 @@ public class SysUserServiceImpl implements SysUserService {
                     List<SysRolePermission> sysRolePermissions = sysRolePermissionMapper.selectByExample(example1);
                     for (SysRolePermission rolePermission: sysRolePermissions ){
                         SysPermission sysPermission = sysPermissionMapper.selectByPrimaryKey(rolePermission.getPermissionId());
+                        System.out.println(sysPermission);
                         if (BeanUtils.isNotEmpty(sysPermission)) {
                             permissions.add(sysPermission.getPermissionDesc());
                         }
@@ -89,7 +90,7 @@ public class SysUserServiceImpl implements SysUserService {
         }
         SysUserExample example  = new SysUserExample();
         SysUserExample.Criteria criteria = example.createCriteria();
-        criteria.andUsernameEqualTo(userDto.getUsername());
+        criteria.andAccountEqualTo(userDto.getUsername());
         List<SysUser> sysUsers = sysUserMapper.selectByExample(example);
         if(sysUsers.size()>0){
             SysUser sysUser = sysUsers.get(0);
@@ -102,8 +103,11 @@ public class SysUserServiceImpl implements SysUserService {
             PasswordUtil encoderMd5 = new PasswordUtil(sysUser.getSalt(), "sha-256");
             String encodedPassword = encoderMd5.encode(userDto.getPassword());
             if (sysUser.getPassword().equals(encodedPassword)) {
-                UserDTO dto = findById(sysUser.getUserId());
-                result.setData(dto);
+                System.out.println(sysUser.getUserId());
+
+                /* UserDTO dto = new UserDTO();
+                dto.setUserId(sysUser.getUserId());*/
+                result.setData(sysUser.getUserId());
                 return result;
             } else {
                 result.setCode(500);
