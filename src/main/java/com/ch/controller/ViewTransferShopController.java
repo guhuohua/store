@@ -48,4 +48,19 @@ public class ViewTransferShopController {
         }
         return result;
     }
+
+    @GetMapping("/info")
+    @ApiOperation("转铺详情")
+    public ResponseResult transferShopInfo(@RequestParam Long id) {
+        ResponseResult result = new ResponseResult();
+        try {
+            result = viewTransferShopService.transferShopInfo(id);
+        } catch (Exception e) {
+            log.error("获取转铺详情失败" + e.getMessage(), e);
+            result.setCode(600);
+            result.setError(e.getMessage());
+            result.setError_description("获取转铺详情失败");
+        }
+        return result;
+    }
 }
