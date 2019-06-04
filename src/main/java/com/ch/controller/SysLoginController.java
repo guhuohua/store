@@ -11,6 +11,8 @@ import com.ch.base.ResponseResult;
 import com.ch.dto.UserDTO;
 import com.ch.service.SysUserService;
 import com.ch.util.TokenUtil;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +23,12 @@ import javax.servlet.http.HttpServletResponse;
 
 @RestController
 @RequestMapping(value = "user")
-//@Api(value = "登录接口")
+@Api(value = "登录接口")
 public class SysLoginController {
    @Autowired
    SysUserService sysUserService;
     private static final Logger LOGGER = LogManager.getLogger(SysLoginController.class);
-   //@ApiOperation("登录")
+   @ApiOperation("登录")
    @PostMapping(value = "login")
     public ResponseResult login(@RequestBody UserDTO dto){
        ResponseResult result = new ResponseResult();
@@ -46,6 +48,7 @@ public class SysLoginController {
     }
 
     @GetMapping(value = "info")
+    @ApiOperation("获取用户详情")
     public ResponseResult getUserInfo(HttpServletRequest req, HttpServletResponse res) {
         String token = req.getHeader("Authorization");
         Integer userId = TokenUtil.getUserId(token);

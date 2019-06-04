@@ -42,7 +42,7 @@
     <result column="street_id" property="streetId" jdbcType="INTEGER" />
     <result column="province_id" property="provinceId" jdbcType="INTEGER" />
     <result column="recommend_type" property="recommendType" jdbcType="INTEGER" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="check_status" property="checkStatus" jdbcType="TIMESTAMP" /><result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >

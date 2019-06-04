@@ -85,6 +85,16 @@ public class TransferShop {
 
     private Date createTime;
 
+    private Integer checkStatus;
+
+    public Integer getCheckStatus() {
+        return checkStatus;
+    }
+
+    public void setCheckStatus(Integer checkStatus) {
+        this.checkStatus = checkStatus;
+    }
+
     public Long getId() {
         return id;
     }
