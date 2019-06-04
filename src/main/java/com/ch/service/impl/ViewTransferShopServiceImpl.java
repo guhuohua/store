@@ -2,14 +2,9 @@ package com.ch.service.impl;
 
 import com.ch.base.BeanUtils;
 import com.ch.base.ResponseResult;
-import com.ch.dao.ClientMapper;
-import com.ch.dao.TransferImageMapper;
-import com.ch.dao.TransferShopMapper;
+import com.ch.dao.*;
 import com.ch.dto.ViewTransferShopDTO;
-import com.ch.entity.Client;
-import com.ch.entity.TransferImage;
-import com.ch.entity.TransferImageExample;
-import com.ch.entity.TransferShop;
+import com.ch.entity.*;
 import com.ch.model.ViewTransferShopListParam;
 import com.ch.model.ViewTransferShopParam;
 import com.ch.service.ViewTransferShopService;
@@ -44,6 +39,39 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
 
     @Autowired
     ClientMapper clientMapper;
+
+    @Autowired
+    BusinessTypeMapper businessTypeMapper;
+
+    @Autowired
+    PropertyTypeMapper propertyTypeMapper;
+
+    @Autowired
+    ShopTypeMapper shopTypeMapper;
+
+    @Autowired
+    BsCityMapper bsCityMapper;
+
+    @Autowired
+    DecorateTypeMapper decorateTypeMapper;
+
+    @Autowired
+    OrientationMapper orientationMapper;
+
+    @Autowired
+    LoopLineMapper loopLineMapper;
+
+    @Autowired
+    SubwayLineMapper subwayLineMapper;
+
+    @Autowired
+    BsAreaMapper bsAreaMapper;
+
+    @Autowired
+    BsStreetMapper bsStreetMapper;
+
+    @Autowired
+    BsProvinceMapper bsProvinceMapper;
 
     @Override
     @Transactional
@@ -185,8 +213,50 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
         transferImageExample.createCriteria().andTransferShopIdEqualTo(transferShop.getId().toString());
         List<TransferImage> transferImages = transferImageMapper.selectByExample(transferImageExample);
         viewTransferShopDTO.setTransferImageList(transferImages);
-
-
+        BusinessType businessType = businessTypeMapper.selectByPrimaryKey(transferShop.getBusinessTypeId());
+        if (BeanUtils.isNotEmpty(businessType)) {
+            viewTransferShopDTO.setBusinessType(businessType.getBusinessType());
+        }
+        PropertyType propertyType = propertyTypeMapper.selectByPrimaryKey(transferShop.getPropertyTypeId());
+        if (BeanUtils.isNotEmpty(propertyType)) {
+            viewTransferShopDTO.setPropertyType(propertyType.getPropertyType());
+        }
+        ShopType shopType = shopTypeMapper.selectByPrimaryKey(transferShop.getShopTypeId());
+        if (BeanUtils.isNotEmpty(shopType)) {
+            viewTransferShopDTO.setShopType(shopType.getShopType());
+        }
+        BsCity bsCity = bsCityMapper.selectByPrimaryKey(transferShop.getCityId());
+        if (BeanUtils.isNotEmpty(bsCity)) {
+            viewTransferShopDTO.setCity(bsCity.getCityName());
+        }
+        DecorateType decorateType = decorateTypeMapper.selectByPrimaryKey(transferShop.getDecorateTypeId());
+        if (BeanUtils.isNotEmpty(decorateType)) {
+            viewTransferShopDTO.setDecorateType(decorateType.getDecorateType());
+        }
+        Orientation orientation = orientationMapper.selectByPrimaryKey(transferShop.getOrientationId());
+        if (BeanUtils.isNotEmpty(orientation)) {
+            viewTransferShopDTO.setOrientation(orientation.getOrientationDesc());
+        }
+        LoopLine loopLine = loopLineMapper.selectByPrimaryKey(transferShop.getLoopLineId());
+        if (BeanUtils.isNotEmpty(loopLine)) {
+            viewTransferShopDTO.setLoopLine(loopLine.getLoopLineDesc());
+        }
+        SubwayLine subwayLine = subwayLineMapper.selectByPrimaryKey(transferShop.getSubwayLineId());
+        if (BeanUtils.isNotEmpty(subwayLine)) {
+            viewTransferShopDTO.setSubwayLine(subwayLine.getSubwayLineDesc());
+        }
+        BsArea bsArea = bsAreaMapper.selectByPrimaryKey(transferShop.getAreaId());
+        if (BeanUtils.isNotEmpty(bsArea)) {
+            viewTransferShopDTO.setAreaName(bsArea.getAreaName());
+        }
+        BsStreet bsStreet = bsStreetMapper.selectByPrimaryKey(transferShop.getStreetId());
+        if (BeanUtils.isNotEmpty(bsStreet)) {
+            viewTransferShopDTO.setStreet(bsStreet.getStreetName());
+        }
+        BsProvince bsProvince = bsProvinceMapper.selectByPrimaryKey(transferShop.getProvinceId());
+        if (BeanUtils.isNotEmpty(bsProvince)) {
+            viewTransferShopDTO.setProvince(bsProvince.getProvinceName());
+        }
         result.setData(viewTransferShopDTO);
         return result;
     }

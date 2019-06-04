@@ -15,7 +15,7 @@ public class ViewTransferShopParam {
 
     private String tel;
 
-    private Long businessTypeId;
+    private List<Long> businessTypeIds;
 
     private Long propertyTypeId;
 
