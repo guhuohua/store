@@ -4,6 +4,7 @@ import com.ch.base.ResponseResult;
 import com.ch.service.ViewBaseService;
 import com.ch.service.ViewIconService;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,6 +25,7 @@ public class ViewBaseController{
     ViewBaseService viewBaseService;
 
     @GetMapping("/icon")
+    @ApiOperation("首页图标icon")
     public ResponseResult iconList() {
         ResponseResult result = new ResponseResult();
         try {
@@ -38,6 +40,7 @@ public class ViewBaseController{
     }
 
     @GetMapping("/province")
+    @ApiOperation("获取省级列表")
     public ResponseResult provinceList() {
         ResponseResult result = new ResponseResult();
         try {
@@ -52,6 +55,7 @@ public class ViewBaseController{
     }
 
     @GetMapping("/city")
+    @ApiOperation("获取市级列表")
     public ResponseResult cityList(@RequestParam String code) {
         ResponseResult result = new ResponseResult();
         try {
@@ -66,6 +70,7 @@ public class ViewBaseController{
     }
 
     @GetMapping("/area")
+    @ApiOperation("获取区级列表")
     public ResponseResult areaList(@RequestParam String code) {
         ResponseResult result = new ResponseResult();
         try {
@@ -81,6 +86,7 @@ public class ViewBaseController{
 
 
     @GetMapping("/street")
+    @ApiOperation("获取街道列表")
     public ResponseResult streetList(@RequestParam String code) {
         ResponseResult result = new ResponseResult();
         try {
@@ -95,6 +101,7 @@ public class ViewBaseController{
     }
 
     @GetMapping("/shopRentTypeList")
+    @ApiOperation("获取租铺类型")
     public ResponseResult shopRentTypeList() {
         ResponseResult result = new ResponseResult();
         try {
@@ -109,6 +116,7 @@ public class ViewBaseController{
     }
 
     @GetMapping("/shopTypeList")
+    @ApiOperation("获取店铺类型")
     public ResponseResult shopTypeList() {
         ResponseResult result = new ResponseResult();
         try {
@@ -123,6 +131,7 @@ public class ViewBaseController{
     }
 
     @GetMapping("/propertyTypeList")
+    @ApiOperation("获取物业类型")
     public ResponseResult propertyTypeList() {
         ResponseResult result = new ResponseResult();
         try {
@@ -137,6 +146,7 @@ public class ViewBaseController{
     }
 
     @GetMapping("/orientation")
+    @ApiOperation("获取朝向")
     public ResponseResult orientation() {
         ResponseResult result = new ResponseResult();
         try {
@@ -151,6 +161,7 @@ public class ViewBaseController{
     }
 
     @GetMapping("/lookLineList")
+    @ApiOperation("获取环线")
     public ResponseResult lookLineList() {
         ResponseResult result = new ResponseResult();
         try {
@@ -165,6 +176,7 @@ public class ViewBaseController{
     }
 
     @GetMapping("/subwayLineList")
+    @ApiOperation("获取地铁线路")
     public ResponseResult subwayLineList() {
         ResponseResult result = new ResponseResult();
         try {

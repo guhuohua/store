@@ -44,6 +44,7 @@
     <result column="recommend_type" property="recommendType" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="check_status" property="checkStatus" jdbcType="INTEGER" />
+    <result column="deposit" property="deposit" jdbcType="BIGINT" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -111,7 +112,7 @@ longitude, latitude, medium_status,
     shop_readme, floor_number, 
 orientation_id, loop_line_id, subway_line_id, update_time, 
     published_time, check_time, success_time, free_period, transfer_icon_id, fake_tel, 
-    image, sort, area_id, street_id, province_id, recommend_type, create_time, check_status
+    image, sort, area_id, street_id, province_id, recommend_type, create_time, check_status, deposit
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ch.entity.TransferShopExample" >
     select
@@ -160,7 +161,7 @@ orientation_id, loop_line_id, subway_line_id,
       success_time, free_period, transfer_icon_id, 
       fake_tel, image, sort, 
       area_id, street_id, province_id, 
-      recommend_type, create_time,check_status)
+      recommend_type, create_time,check_status,deposit)
     values (#{id,jdbcType=BIGINT}, #{clientId,jdbcType=BIGINT}, #{tel,jdbcType=VARCHAR}, 
       #{businessTypeId,jdbcType=BIGINT}, #{propertyTypeId,jdbcType=BIGINT}, #{shopTypeId,jdbcType=BIGINT}, 
       #{rent,jdbcType=BIGINT}, #{area,jdbcType=INTEGER}, #{transferStatus,jdbcType=INTEGER}, 
@@ -176,7 +177,7 @@ orientationId,jdbcType=BIGINT}, #{loopLineId,jdbcType=BIGINT}, #{subwayLineId,jd
       #{successTime,jdbcType=TIMESTAMP}, #{freePeriod,jdbcType=INTEGER}, #{transferIconId,jdbcType=BIGINT}, 
       #{fakeTel,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, 
       #{areaId,jdbcType=INTEGER}, #{streetId,jdbcType=INTEGER}, #{provinceId,jdbcType=INTEGER}, 
-      #{recommendType,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{checkStatus,jdbcType=INTEGER})
+      #{recommendType,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{checkStatus,jdbcType=INTEGER}, #{deposit,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.ch.entity.TransferShop" >
     insert into transfer_shop
@@ -629,7 +630,8 @@ orientationId,jdbcType=BIGINT},
       province_id = #{record.provinceId,jdbcType=INTEGER},
       recommend_type = #{record.recommendType,jdbcType=INTEGER},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
-    check_status = #{record.checkStatus,jdbcType=INTEGER}
+    check_status = #{record.checkStatus,jdbcType=INTEGER},
+    deposit = #{record.deposit,jdbcType=BIGINT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -813,6 +815,7 @@ orientationId,jdbcType=BIGINT},
       recommend_type = #{recommendType,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       check_status = #{checkStatus,jdbcType=INTEGER},
+      deposit = #{deposit,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

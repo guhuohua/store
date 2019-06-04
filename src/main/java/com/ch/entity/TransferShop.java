@@ -87,6 +87,16 @@ public class TransferShop {
 
     private Integer checkStatus;
 
+    private Long deposit;
+
+    public Long getDeposit() {
+        return deposit;
+    }
+
+    public void setDeposit(Long deposit) {
+        this.deposit = deposit;
+    }
+
     public Integer getCheckStatus() {
         return checkStatus;
     }

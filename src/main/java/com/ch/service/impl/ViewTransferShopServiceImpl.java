@@ -1,0 +1,193 @@
+package com.ch.service.impl;
+
+import com.ch.base.BeanUtils;
+import com.ch.base.ResponseResult;
+import com.ch.dao.ClientMapper;
+import com.ch.dao.TransferImageMapper;
+import com.ch.dao.TransferShopMapper;
+import com.ch.dto.ViewTransferShopDTO;
+import com.ch.entity.Client;
+import com.ch.entity.TransferImage;
+import com.ch.entity.TransferImageExample;
+import com.ch.entity.TransferShop;
+import com.ch.model.ViewTransferShopListParam;
+import com.ch.model.ViewTransferShopParam;
+import com.ch.service.ViewTransferShopService;
+import com.ch.util.IdUtil;
+import org.apache.solr.client.solrj.SolrClient;
+import org.apache.solr.client.solrj.SolrQuery;
+import org.apache.solr.client.solrj.SolrServerException;
+import org.apache.solr.client.solrj.response.QueryResponse;
+import org.apache.solr.common.SolrDocumentList;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import java.io.IOException;
+import java.util.Date;
+import java.util.List;
+
+@Service
+public class ViewTransferShopServiceImpl implements ViewTransferShopService {
+
+    @Autowired
+    TransferShopMapper transferShopMapper;
+
+    @Autowired
+    TransferImageMapper transferImageMapper;
+
+    @Autowired
+    ModelMapper modelMapper;
+
+    @Autowired
+    SolrClient solrClient;
+
+    @Autowired
+    ClientMapper clientMapper;
+
+    @Override
+    @Transactional
+    public ResponseResult addTransferShop(ViewTransferShopParam param) {
+        ResponseResult result = new ResponseResult();
+        TransferShop transferShop = new TransferShop();
+        modelMapper.map(param, transferShop);
+        transferShop.setId(IdUtil.getId());
+        transferShop.setCheckTime(new Date());
+        transferShop.setStatus(0);
+        transferShop.setCheckStatus(0);
+        transferShopMapper.insert(transferShop);
+        List<TransferImage> transferImages = param.getTransferImages();
+        for (TransferImage transferImage:transferImages) {
+            transferImage.setId(IdUtil.getId());
+            transferImage.setTransferShopId(transferShop.getId().toString());
+            transferImageMapper.insert(transferImage);
+        }
+        return result;
+    }
+
+    @Override
+    public ResponseResult transferShopList(ViewTransferShopListParam param) {
+        ResponseResult result = new ResponseResult();
+        int start = (param.getStart() - 1) * param.getRows();
+        SolrQuery solrQuery = new SolrQuery("*:*");
+        StringBuilder params = null;
+        if (BeanUtils.isNotEmpty(param.getStoreName())) {
+            if (params != null) {
+                params.append(" AND (storeName:*" + param.getStoreName() + "*)");
+            } else {
+                params = new StringBuilder();
+                params.append(" AND (storeName:*" + param.getStoreName() + "*)");
+            }
+        }
+        if (BeanUtils.isNotEmpty(param.getStoreCategory())) {
+            if (params != null) {
+                params.append(" AND (storeCategory:" + param.getStoreCategory() + ")");
+            } else {
+                params = new StringBuilder();
+                params.append(" AND (storeCategory:" + param.getStoreCategory() + ")");
+            }
+        }
+        if (BeanUtils.isNotEmpty(param.getProvinceId())) {
+            if (params != null) {
+                params.append(" AND (provinceId:" + param.getProvinceId() + ")");
+            } else {
+                params = new StringBuilder();
+                params.append(" AND (provinceId:" + param.getProvinceId() + ")");
+            }
+        }
+        if (BeanUtils.isNotEmpty(param.getCityId())) {
+            if (params != null) {
+                params.append(" AND (cityId:" + param.getCityId() + ")");
+            } else {
+                params = new StringBuilder();
+                params.append(" AND (cityId:" + param.getCityId() + ")");
+            }
+        }
+        if (BeanUtils.isNotEmpty(param.getAreaId())) {
+            if (params != null) {
+                params.append(" AND (areaId:" + param.getAreaId() + ")");
+            } else {
+                params = new StringBuilder();
+                params.append(" AND (areaId:" + param.getAreaId() + ")");
+            }
+        }
+        if (BeanUtils.isNotEmpty(param.getStoreType())) {
+            if (params != null) {
+                params.append(" AND (storeType:" + param.getStoreType() + ")");
+            } else {
+                params = new StringBuilder();
+                params.append(" AND (storeType:" + param.getStoreType() + ")");
+            }
+        }
+        if (BeanUtils.isNotEmpty(param.getStoreType())) {
+            if (params != null) {
+                params.append(" AND (storeType:" + param.getStoreType() + ")");
+            } else {
+                params = new StringBuilder();
+                params.append(" AND (storeType:" + param.getStoreType() + ")");
+            }
+        }
+        if (BeanUtils.isNotEmpty(param.getStoreStatus())) {
+            if (params != null) {
+                params.append(" AND (storeStatus:" + param.getStoreStatus() + ")");
+            } else {
+                params = new StringBuilder();
+                params.append(" AND (storeStatus:" + param.getStoreStatus() + ")");
+            }
+        }
+        if ("TIME".equals(param.getSort())) {
+            solrQuery.addSort("createTime", SolrQuery.ORDER.asc);
+        }
+        if ("MAXPRICE".equals(param.getSort())) {
+            solrQuery.addSort("originalPrice", SolrQuery.ORDER.desc);
+        }
+        if ("MINPRICE".equals(param.getSort())) {
+            solrQuery.addSort("originalPrice", SolrQuery.ORDER.asc);
+        }
+        if ("MAXAREA".equals(param.getSort())) {
+            solrQuery.addSort("storeArea", SolrQuery.ORDER.desc);
+        }
+        if ("MINAREA".equals(param.getSort())) {
+            solrQuery.addSort("storeArea", SolrQuery.ORDER.asc);
+        }
+        if (BeanUtils.isNotEmpty(param.getMaxArea()) && BeanUtils.isNotEmpty(param.getMinArea())) {
+            solrQuery.setFilterQueries("storeArea:[" +param.getMinArea() + "TO" + param.getMaxArea() + "]");
+        }
+        if (BeanUtils.isNotEmpty(param.getMaxRent()) && BeanUtils.isNotEmpty(param.getMinRent())) {
+            solrQuery.setFilterQueries("originalPrice:[" +param.getMinRent() + "TO" + param.getMaxRent() + "]");
+        }
+        if (params!=null) {
+            solrQuery.setQuery(params.toString());
+        }
+        solrQuery.setStart(start);
+        solrQuery.setRows(param.getRows());
+        try {
+            QueryResponse query = solrClient.query(solrQuery);
+            SolrDocumentList results = query.getResults();
+            result.setData(results);
+        } catch (SolrServerException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
+    }
+
+    @Override
+    public ResponseResult transferShopInfo(Long storeId) {
+        ResponseResult result = new ResponseResult();
+        TransferShop transferShop = transferShopMapper.selectByPrimaryKey(storeId);
+        ViewTransferShopDTO viewTransferShopDTO = new ViewTransferShopDTO();
+        modelMapper.map(transferShop, viewTransferShopDTO);
+        Client client = clientMapper.selectByPrimaryKey(transferShop.getClientId());
+        viewTransferShopDTO.setUsername(client.getNickName());
+        TransferImageExample transferImageExample = new TransferImageExample();
+        transferImageExample.createCriteria().andTransferShopIdEqualTo(transferShop.getId().toString());
+        List<TransferImage> transferImages = transferImageMapper.selectByExample(transferImageExample);
+        viewTransferShopDTO.setTransferImageList(transferImages);
+
+
+        result.setData(viewTransferShopDTO);
+        return result;
+    }
+}
