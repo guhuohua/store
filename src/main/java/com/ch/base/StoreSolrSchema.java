@@ -14,7 +14,11 @@ public class StoreSolrSchema {
     private String id;
 
     @Field
-    private Long storeId;
+    private Long lookShopId;
+    @Field
+    private Long transferShopId;
+
+
 
     @Field
     private String storeImg;
@@ -75,4 +79,11 @@ public class StoreSolrSchema {
 
     @Field
     private Integer storeStatus;
+
+    @Field
+    private Long maxStoreArea;
+
+
+    @Field
+    private Long minStoreArea;
 }
