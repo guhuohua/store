@@ -1295,143 +1295,143 @@ public class TransferShopExample {
             return (Criteria) this;
         }
 
-        public Criteria andlngIsNull() {
-            addCriterion(" lng is null");
+        public Criteria andlongitudeIsNull() {
+            addCriterion(" longitude is null");
             return (Criteria) this;
         }
 
-        public Criteria andlngIsNotNull() {
-            addCriterion(" lng is not null");
+        public Criteria andlongitudeIsNotNull() {
+            addCriterion(" longitude is not null");
             return (Criteria) this;
         }
 
-        public Criteria andLngEqualTo(String value) {
-            addCriterion(" lng =", value, " lng");
+        public Criteria andlongitudeEqualTo(String value) {
+            addCriterion(" longitude =", value, " longitude");
             return (Criteria) this;
         }
 
-        public Criteria andlngNotEqualTo(String value) {
-            addCriterion(" lng <>", value, " lng");
+        public Criteria andlongitudeNotEqualTo(String value) {
+            addCriterion(" longitude <>", value, " longitude");
             return (Criteria) this;
         }
 
-        public Criteria andlngGreaterThan(String value) {
-            addCriterion(" lng >", value, " lng");
+        public Criteria andlongitudeGreaterThan(String value) {
+            addCriterion(" longitude >", value, " longitude");
             return (Criteria) this;
         }
 
-        public Criteria andlngGreaterThanOrEqualTo(String value) {
-            addCriterion(" lng >=", value, " lng");
+        public Criteria andlongitudeGreaterThanOrEqualTo(String value) {
+            addCriterion(" longitude >=", value, " longitude");
             return (Criteria) this;
         }
 
-        public Criteria andlngLessThan(String value) {
-            addCriterion(" lng <", value, " lng");
+        public Criteria andlongitudeLessThan(String value) {
+            addCriterion(" longitude <", value, " longitude");
             return (Criteria) this;
         }
 
-        public Criteria andlngLessThanOrEqualTo(String value) {
-            addCriterion(" lng <=", value, " lng");
+        public Criteria andlongitudeLessThanOrEqualTo(String value) {
+            addCriterion(" longitude <=", value, " longitude");
             return (Criteria) this;
         }
 
-        public Criteria andlngLike(String value) {
-            addCriterion(" lng like", value, " lng");
+        public Criteria andlongitudeLike(String value) {
+            addCriterion(" longitude like", value, " longitude");
             return (Criteria) this;
         }
 
-        public Criteria andlngNotLike(String value) {
-            addCriterion(" lng not like", value, " lng");
+        public Criteria andlongitudeNotLike(String value) {
+            addCriterion(" longitude not like", value, " longitude");
             return (Criteria) this;
         }
 
-        public Criteria andlngIn(List<String> values) {
-            addCriterion(" lng in", values, " lng");
+        public Criteria andlongitudeIn(List<String> values) {
+            addCriterion(" longitude in", values, " longitude");
             return (Criteria) this;
         }
 
-        public Criteria andlngNotIn(List<String> values) {
-            addCriterion(" lng not in", values, " lng");
+        public Criteria andlongitudeNotIn(List<String> values) {
+            addCriterion(" longitude not in", values, " longitude");
             return (Criteria) this;
         }
 
-        public Criteria andlngBetween(String value1, String value2) {
-            addCriterion(" lng between", value1, value2, " lng");
+        public Criteria andlongitudeBetween(String value1, String value2) {
+            addCriterion(" longitude between", value1, value2, " longitude");
             return (Criteria) this;
         }
 
-        public Criteria andlngNotBetween(String value1, String value2) {
-            addCriterion(" lng not between", value1, value2, " lng");
+        public Criteria andlongitudeNotBetween(String value1, String value2) {
+            addCriterion(" longitude not between", value1, value2, " longitude");
             return (Criteria) this;
         }
 
-        public Criteria andLatIsNull() {
-            addCriterion("lat is null");
+        public Criteria andLatitudeIsNull() {
+            addCriterion("latitude is null");
             return (Criteria) this;
         }
 
-        public Criteria andLatIsNotNull() {
-            addCriterion("lat is not null");
+        public Criteria andLatitudeIsNotNull() {
+            addCriterion("latitude is not null");
             return (Criteria) this;
         }
 
-        public Criteria andLatEqualTo(String value) {
-            addCriterion("lat =", value, "lat");
+        public Criteria andLatitudeEqualTo(String value) {
+            addCriterion("latitude =", value, "latitude");
             return (Criteria) this;
         }
 
-        public Criteria andLatNotEqualTo(String value) {
-            addCriterion("lat <>", value, "lat");
+        public Criteria andLatitudeNotEqualTo(String value) {
+            addCriterion("latitude <>", value, "latitude");
             return (Criteria) this;
         }
 
-        public Criteria andLatGreaterThan(String value) {
-            addCriterion("lat >", value, "lat");
+        public Criteria andLatitudeGreaterThan(String value) {
+            addCriterion("latitude >", value, "latitude");
             return (Criteria) this;
         }
 
-        public Criteria andLatGreaterThanOrEqualTo(String value) {
-            addCriterion("lat >=", value, "lat");
+        public Criteria andLatitudeGreaterThanOrEqualTo(String value) {
+            addCriterion("latitude >=", value, "latitude");
             return (Criteria) this;
         }
 
-        public Criteria andLatLessThan(String value) {
-            addCriterion("lat <", value, "lat");
+        public Criteria andLatitudeLessThan(String value) {
+            addCriterion("latitude <", value, "latitude");
             return (Criteria) this;
         }
 
-        public Criteria andLatLessThanOrEqualTo(String value) {
-            addCriterion("lat <=", value, "lat");
+        public Criteria andLatitudeLessThanOrEqualTo(String value) {
+            addCriterion("latitude <=", value, "latitude");
             return (Criteria) this;
         }
 
-        public Criteria andLatLike(String value) {
-            addCriterion("lat like", value, "lat");
+        public Criteria andLatitudeLike(String value) {
+            addCriterion("latitude like", value, "latitude");
             return (Criteria) this;
         }
 
-        public Criteria andLatNotLike(String value) {
-            addCriterion("lat not like", value, "lat");
+        public Criteria andLatitudeNotLike(String value) {
+            addCriterion("latitude not like", value, "latitude");
             return (Criteria) this;
         }
 
-        public Criteria andLatIn(List<String> values) {
-            addCriterion("lat in", values, "lat");
+        public Criteria andLatitudeIn(List<String> values) {
+            addCriterion("latitude in", values, "latitude");
             return (Criteria) this;
         }
 
-        public Criteria andLatNotIn(List<String> values) {
-            addCriterion("lat not in", values, "lat");
+        public Criteria andLatitudeNotIn(List<String> values) {
+            addCriterion("latitude not in", values, "latitude");
             return (Criteria) this;
         }
 
-        public Criteria andLatBetween(String value1, String value2) {
-            addCriterion("lat between", value1, value2, "lat");
+        public Criteria andLatitudeBetween(String value1, String value2) {
+            addCriterion("latitude between", value1, value2, "latitude");
             return (Criteria) this;
         }
 
-        public Criteria andLatNotBetween(String value1, String value2) {
-            addCriterion("lat not between", value1, value2, "lat");
+        public Criteria andLatitudeNotBetween(String value1, String value2) {
+            addCriterion("latitude not between", value1, value2, "latitude");
             return (Criteria) this;
         }
 
@@ -1625,63 +1625,63 @@ public class TransferShopExample {
             return (Criteria) this;
         }
 
-        public Criteria andorienIdIsNull() {
-            addCriterion(" orien_id is null");
+        public Criteria andorientationIdIsNull() {
+            addCriterion(" orientation_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andorienIdIsNotNull() {
-            addCriterion(" orien_id is not null");
+        public Criteria andorientationIdIsNotNull() {
+            addCriterion(" orientation_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andOrienIdEqualTo(Long value) {
-            addCriterion(" orien_id =", value, " orienId");
+        public Criteria andorientationIdEqualTo(Long value) {
+            addCriterion(" orientation_id =", value, " orientationId");
             return (Criteria) this;
         }
 
-        public Criteria andorienIdNotEqualTo(Long value) {
-            addCriterion(" orien_id <>", value, " orienId");
+        public Criteria andorientationIdNotEqualTo(Long value) {
+            addCriterion(" orientation_id <>", value, " orientationId");
             return (Criteria) this;
         }
 
-        public Criteria andorienIdGreaterThan(Long value) {
-            addCriterion(" orien_id >", value, " orienId");
+        public Criteria andorientationIdGreaterThan(Long value) {
+            addCriterion(" orientation_id >", value, " orientationId");
             return (Criteria) this;
         }
 
-        public Criteria andorienIdGreaterThanOrEqualTo(Long value) {
-            addCriterion(" orien_id >=", value, " orienId");
+        public Criteria andorientationIdGreaterThanOrEqualTo(Long value) {
+            addCriterion(" orientation_id >=", value, " orientationId");
             return (Criteria) this;
         }
 
-        public Criteria andorienIdLessThan(Long value) {
-            addCriterion(" orien_id <", value, " orienId");
+        public Criteria andorientationIdLessThan(Long value) {
+            addCriterion(" orientation_id <", value, " orientationId");
             return (Criteria) this;
         }
 
-        public Criteria andorienIdLessThanOrEqualTo(Long value) {
-            addCriterion(" orien_id <=", value, " orienId");
+        public Criteria andorientationIdLessThanOrEqualTo(Long value) {
+            addCriterion(" orientation_id <=", value, " orientationId");
             return (Criteria) this;
         }
 
-        public Criteria andorienIdIn(List<Long> values) {
-            addCriterion(" orien_id in", values, " orienId");
+        public Criteria andorientationIdIn(List<Long> values) {
+            addCriterion(" orientation_id in", values, " orientationId");
             return (Criteria) this;
         }
 
-        public Criteria andorienIdNotIn(List<Long> values) {
-            addCriterion(" orien_id not in", values, " orienId");
+        public Criteria andorientationIdNotIn(List<Long> values) {
+            addCriterion(" orientation_id not in", values, " orientationId");
             return (Criteria) this;
         }
 
-        public Criteria andorienIdBetween(Long value1, Long value2) {
-            addCriterion(" orien_id between", value1, value2, " orienId");
+        public Criteria andorientationIdBetween(Long value1, Long value2) {
+            addCriterion(" orientation_id between", value1, value2, " orientationId");
             return (Criteria) this;
         }
 
-        public Criteria andorienIdNotBetween(Long value1, Long value2) {
-            addCriterion(" orien_id not between", value1, value2, " orienId");
+        public Criteria andorientationIdNotBetween(Long value1, Long value2) {
+            addCriterion(" orientation_id not between", value1, value2, " orientationId");
             return (Criteria) this;
         }
 
@@ -2315,62 +2315,52 @@ public class TransferShopExample {
             return (Criteria) this;
         }
 
-        public Criteria andSortEqualTo(String value) {
+        public Criteria andSortEqualTo(Integer value) {
             addCriterion("sort =", value, "sort");
             return (Criteria) this;
         }
 
-        public Criteria andSortNotEqualTo(String value) {
+        public Criteria andSortNotEqualTo(Integer value) {
             addCriterion("sort <>", value, "sort");
             return (Criteria) this;
         }
 
-        public Criteria andSortGreaterThan(String value) {
+        public Criteria andSortGreaterThan(Integer value) {
             addCriterion("sort >", value, "sort");
             return (Criteria) this;
         }
 
-        public Criteria andSortGreaterThanOrEqualTo(String value) {
+        public Criteria andSortGreaterThanOrEqualTo(Integer value) {
             addCriterion("sort >=", value, "sort");
             return (Criteria) this;
         }
 
-        public Criteria andSortLessThan(String value) {
+        public Criteria andSortLessThan(Integer value) {
             addCriterion("sort <", value, "sort");
             return (Criteria) this;
         }
 
-        public Criteria andSortLessThanOrEqualTo(String value) {
+        public Criteria andSortLessThanOrEqualTo(Integer value) {
             addCriterion("sort <=", value, "sort");
             return (Criteria) this;
         }
 
-        public Criteria andSortLike(String value) {
-            addCriterion("sort like", value, "sort");
-            return (Criteria) this;
-        }
-
-        public Criteria andSortNotLike(String value) {
-            addCriterion("sort not like", value, "sort");
-            return (Criteria) this;
-        }
-
-        public Criteria andSortIn(List<String> values) {
+        public Criteria andSortIn(List<Integer> values) {
             addCriterion("sort in", values, "sort");
             return (Criteria) this;
         }
 
-        public Criteria andSortNotIn(List<String> values) {
+        public Criteria andSortNotIn(List<Integer> values) {
             addCriterion("sort not in", values, "sort");
             return (Criteria) this;
         }
 
-        public Criteria andSortBetween(String value1, String value2) {
+        public Criteria andSortBetween(Integer value1, Integer value2) {
             addCriterion("sort between", value1, value2, "sort");
             return (Criteria) this;
         }
 
-        public Criteria andSortNotBetween(String value1, String value2) {
+        public Criteria andSortNotBetween(Integer value1, Integer value2) {
             addCriterion("sort not between", value1, value2, "sort");
             return (Criteria) this;
         }
@@ -2565,63 +2555,113 @@ public class TransferShopExample {
             return (Criteria) this;
         }
 
-        public Criteria andRecommendTypeEqualTo(String value) {
+        public Criteria andRecommendTypeEqualTo(Integer value) {
             addCriterion("recommend_type =", value, "recommendType");
             return (Criteria) this;
         }
 
-        public Criteria andRecommendTypeNotEqualTo(String value) {
+        public Criteria andRecommendTypeNotEqualTo(Integer value) {
             addCriterion("recommend_type <>", value, "recommendType");
             return (Criteria) this;
         }
 
-        public Criteria andRecommendTypeGreaterThan(String value) {
+        public Criteria andRecommendTypeGreaterThan(Integer value) {
             addCriterion("recommend_type >", value, "recommendType");
             return (Criteria) this;
         }
 
-        public Criteria andRecommendTypeGreaterThanOrEqualTo(String value) {
+        public Criteria andRecommendTypeGreaterThanOrEqualTo(Integer value) {
             addCriterion("recommend_type >=", value, "recommendType");
             return (Criteria) this;
         }
 
-        public Criteria andRecommendTypeLessThan(String value) {
+        public Criteria andRecommendTypeLessThan(Integer value) {
             addCriterion("recommend_type <", value, "recommendType");
             return (Criteria) this;
         }
 
-        public Criteria andRecommendTypeLessThanOrEqualTo(String value) {
+        public Criteria andRecommendTypeLessThanOrEqualTo(Integer value) {
             addCriterion("recommend_type <=", value, "recommendType");
             return (Criteria) this;
         }
 
-        public Criteria andRecommendTypeLike(String value) {
-            addCriterion("recommend_type like", value, "recommendType");
-            return (Criteria) this;
-        }
-
-        public Criteria andRecommendTypeNotLike(String value) {
-            addCriterion("recommend_type not like", value, "recommendType");
-            return (Criteria) this;
-        }
-
-        public Criteria andRecommendTypeIn(List<String> values) {
+        public Criteria andRecommendTypeIn(List<Integer> values) {
             addCriterion("recommend_type in", values, "recommendType");
             return (Criteria) this;
         }
 
-        public Criteria andRecommendTypeNotIn(List<String> values) {
+        public Criteria andRecommendTypeNotIn(List<Integer> values) {
             addCriterion("recommend_type not in", values, "recommendType");
             return (Criteria) this;
         }
 
-        public Criteria andRecommendTypeBetween(String value1, String value2) {
+        public Criteria andRecommendTypeBetween(Integer value1, Integer value2) {
             addCriterion("recommend_type between", value1, value2, "recommendType");
             return (Criteria) this;
         }
 
-        public Criteria andRecommendTypeNotBetween(String value1, String value2) {
+        public Criteria andRecommendTypeNotBetween(Integer value1, Integer value2) {
             addCriterion("recommend_type not between", value1, value2, "recommendType");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeIsNull() {
+            addCriterion("create_time is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeIsNotNull() {
+            addCriterion("create_time is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeEqualTo(Date value) {
+            addCriterion("create_time =", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeNotEqualTo(Date value) {
+            addCriterion("create_time <>", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeGreaterThan(Date value) {
+            addCriterion("create_time >", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("create_time >=", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeLessThan(Date value) {
+            addCriterion("create_time <", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeLessThanOrEqualTo(Date value) {
+            addCriterion("create_time <=", value, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeIn(List<Date> values) {
+            addCriterion("create_time in", values, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeNotIn(List<Date> values) {
+            addCriterion("create_time not in", values, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeBetween(Date value1, Date value2) {
+            addCriterion("create_time between", value1, value2, "createTime");
+            return (Criteria) this;
+        }
+
+        public Criteria andCreateTimeNotBetween(Date value1, Date value2) {
+            addCriterion("create_time not between", value1, value2, "createTime");
             return (Criteria) this;
         }
     }

@@ -77,7 +77,7 @@ public class LookShop {
 
     private Date checkTime;
 
-    private String recommendType;
+    private Integer recommendType;
 
     public Long getId() {
         return id;
@@ -375,11 +375,11 @@ public class LookShop {
         this.checkTime = checkTime;
     }
 
-    public String getRecommendType() {
+    public Integer getRecommendType() {
         return recommendType;
     }
 
-    public void setRecommendType(String recommendType) {
-        this.recommendType = recommendType == null ? null : recommendType.trim();
+    public void setRecommendType(Integer recommendType) {
+        this.recommendType = recommendType;
     }
 }

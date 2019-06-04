@@ -1,6 +1,7 @@
 package com.ch.entity;
 
 import java.util.Date;
+
 public class TransferShop {
     private Long id;
 
@@ -40,9 +41,9 @@ public class TransferShop {
 
     private Long serviceType;
 
-    private String lng;
+    private String longitude;
 
-    private String lat;
+    private String latitude;
 
     private Integer mediumStatus;
 
@@ -50,7 +51,7 @@ public class TransferShop {
 
     private Integer floorNumber;
 
-    private Long orienId;
+    private Long orientationId;
 
     private Long loopLineId;
 
@@ -72,7 +73,7 @@ public class TransferShop {
 
     private String image;
 
-    private String sort;
+    private Integer sort;
 
     private Integer areaId;
 
@@ -80,7 +81,9 @@ public class TransferShop {
 
     private Integer provinceId;
 
-    private String recommendType;
+    private Integer recommendType;
+
+    private Date createTime;
 
     public Long getId() {
         return id;
@@ -236,12 +239,12 @@ public class TransferShop {
 
 
 
-    public String getLat() {
-        return lat;
+    public String getLatitude() {
+        return latitude;
     }
 
-    public void setLat(String lat) {
-        this.lat = lat == null ? null : lat.trim();
+    public void setLatitude(String latitude) {
+        this.latitude = latitude == null ? null : latitude.trim();
     }
 
     public Integer getMediumStatus() {
@@ -268,7 +271,21 @@ public class TransferShop {
         this.floorNumber = floorNumber;
     }
 
+    public String getLongitude() {
+        return longitude;
+    }
 
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public Long getOrientationId() {
+        return orientationId;
+    }
+
+    public void setOrientationId(Long orientationId) {
+        this.orientationId = orientationId;
+    }
 
     public Long getLoopLineId() {
         return loopLineId;
@@ -350,12 +367,12 @@ public class TransferShop {
         this.image = image == null ? null : image.trim();
     }
 
-    public String getSort() {
+    public Integer getSort() {
         return sort;
     }
 
-    public void setSort(String sort) {
-        this.sort = sort == null ? null : sort.trim();
+    public void setSort(Integer sort) {
+        this.sort = sort;
     }
 
     public Integer getAreaId() {
@@ -382,27 +399,19 @@ public class TransferShop {
         this.provinceId = provinceId;
     }
 
-    public String getRecommendType() {
+    public Integer getRecommendType() {
         return recommendType;
     }
 
-    public void setRecommendType(String recommendType) {
-        this.recommendType = recommendType == null ? null : recommendType.trim();
+    public void setRecommendType(Integer recommendType) {
+        this.recommendType = recommendType;
     }
 
-    public String getLng() {
-        return lng;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setLng(String lng) {
-        this.lng = lng;
-    }
-
-    public Long getOrienId() {
-        return orienId;
-    }
-
-    public void setOrienId(Long orienId) {
-        this.orienId = orienId;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 }

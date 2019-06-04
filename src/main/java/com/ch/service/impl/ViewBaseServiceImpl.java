@@ -35,7 +35,7 @@ public class ViewBaseServiceImpl implements ViewBaseService {
     ShopTypeMapper shopTypeMapper;
 
     @Autowired
-    propertyTypeMapper propertyTypeMapper;
+    PropertyTypeMapper propertyTypeMapper;
 
     @Autowired
     OrientationMapper orientationMapper;
@@ -116,7 +116,7 @@ public class ViewBaseServiceImpl implements ViewBaseService {
     @Override
     public ResponseResult propertyTypeList() {
         ResponseResult result = new ResponseResult();
-        List<propertyType> propertyTypes = propertyTypeMapper.selectByExample(null);
+        List<PropertyType> propertyTypes = propertyTypeMapper.selectByExample(null);
         result.setData(propertyTypes);
         return result;
     }

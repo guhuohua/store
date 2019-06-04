@@ -164,7 +164,7 @@
       #{shopReadme,jdbcType=VARCHAR}, #{floor,jdbcType=VARCHAR}, #{orienId,jdbcType=VARCHAR},
       #{loopLineId,jdbcType=VARCHAR}, #{subwayLineId,jdbcType=VARCHAR}, #{successFee,jdbcType=VARCHAR},
       #{updateTime,jdbcType=TIMESTAMP}, #{publishedTime,jdbcType=TIMESTAMP}, #{successTime,jdbcType=TIMESTAMP},
-      #{checkTime,jdbcType=TIMESTAMP}, #{recommendType,jdbcType=VARCHAR})
+      #{checkTime,jdbcType=TIMESTAMP}, #{recommendType,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.ch.entity.LookShop" >
     insert into look_shop
@@ -728,7 +728,7 @@
       published_time = #{publishedTime,jdbcType=TIMESTAMP},
       success_time = #{successTime,jdbcType=TIMESTAMP},
       check_time = #{checkTime,jdbcType=TIMESTAMP},
-      recommend_type = #{recommendType,jdbcType=VARCHAR}
+      recommend_type = #{recommendType,jdbcType=INTEGER}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>
