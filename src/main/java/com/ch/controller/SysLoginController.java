@@ -48,6 +48,7 @@ public class SysLoginController {
     }
 
     @GetMapping(value = "info")
+    
     @ApiOperation("获取用户详情")
     public ResponseResult getUserInfo(HttpServletRequest req, HttpServletResponse res) {
         String token = req.getHeader("Authorization");
