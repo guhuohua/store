@@ -65,10 +65,9 @@ public class SysUserServiceImpl implements SysUserService {
                     }
                     roles.add(sysRole.getRoleName());
                 }
-
             }
             dto.setRoles(roles);
-            dto.setPremissions(permissions);
+            dto.setPermissions(permissions);
         }
         return dto;
     }

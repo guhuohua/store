@@ -49,7 +49,7 @@ public class TransferShop {
 
     private String shopReadme;
 
-    private Integer floorNumber;
+    private String floorNumber;
 
     private Long orientationId;
 
@@ -264,15 +264,13 @@ public class TransferShop {
         this.shopReadme = shopReadme == null ? null : shopReadme.trim();
     }
 
-    public Integer getFloorNumber() {
+    public String getFloorNumber() {
         return floorNumber;
     }
 
-    public void setFloorNumber(Integer floorNumber) {
+    public void setFloorNumber(String floorNumber) {
         this.floorNumber = floorNumber;
     }
-
-
 
     public Long getLoopLineId() {
         return loopLineId;

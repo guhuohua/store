@@ -59,7 +59,7 @@ public class Look_Shop {
 
     private String shopReadme;
 
-    private String floor;
+    private Integer floor;
 
     private String orientationId;
 
@@ -307,12 +307,12 @@ public class Look_Shop {
         this.shopReadme = shopReadme == null ? null : shopReadme.trim();
     }
 
-    public String getFloor() {
+    public Integer getFloor() {
         return floor;
     }
 
-    public void setFloor(String floor) {
-        this.floor = floor == null ? null : floor.trim();
+    public void setFloor(Integer floor) {
+        this.floor = floor;
     }
 
     public String getOrientationId() {
