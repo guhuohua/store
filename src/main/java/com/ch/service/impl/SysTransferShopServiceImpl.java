@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -38,6 +39,21 @@ public class SysTransferShopServiceImpl implements SysTransferShopService {
             viewTransferShopDTOS.add(data);
             result.setData(viewTransferShopDTOS);
         }
+        return result;
+    }
+
+    @Override
+    public ResponseResult updateStatus(Long storeId) {
+        ResponseResult result = new ResponseResult();
+        TransferShop transferShop = transferShopMapper.selectByPrimaryKey(storeId);
+        if (transferShop.getCheckStatus()==0){
+            transferShop.setCheckStatus(1);
+            transferShop.setCheckTime(new Date());
+        }else {
+            transferShop.setCheckStatus(0);
+            transferShop.setCheckTime(null);
+        }
+        transferShopMapper.updateByPrimaryKey(transferShop);
         return result;
     }
 }

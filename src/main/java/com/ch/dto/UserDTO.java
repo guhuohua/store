@@ -15,7 +15,7 @@ public class UserDTO {
 
     private Set<String> roles;
 
-    private Set<String> premissions;
+    private Set<String> permissions;
 
     public Integer getUserId() {
         return userId;
@@ -49,11 +49,11 @@ public class UserDTO {
         this.roles = roles;
     }
 
-    public Set<String> getPremissions() {
-        return premissions;
+    public Set<String> getPermissions() {
+        return permissions;
     }
 
-    public void setPremissions(Set<String> premissions) {
-        this.premissions = premissions;
+    public void setPermissions(Set<String> permissions) {
+        this.permissions = permissions;
     }
 }

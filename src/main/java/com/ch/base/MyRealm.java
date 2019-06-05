@@ -48,8 +48,8 @@ public class MyRealm extends AuthorizingRealm {
         if (userDTO.getRoles().size() > 0) {
             simpleAuthorizationInfo.setRoles(userDTO.getRoles());
         }
-        if (userDTO.getPremissions().size() > 0) {
-            simpleAuthorizationInfo.setStringPermissions(userDTO.getPremissions());
+        if (userDTO.getPermissions().size() > 0) {
+            simpleAuthorizationInfo.setStringPermissions(userDTO.getPermissions());
         }
         return simpleAuthorizationInfo;
     }
