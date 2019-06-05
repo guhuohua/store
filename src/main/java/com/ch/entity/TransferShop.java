@@ -85,8 +85,6 @@ public class TransferShop {
 
     private Integer checkStatus;
 
-    private Date createTime;
-
     private String address;
 
     public Long getId() {
@@ -241,21 +239,6 @@ public class TransferShop {
         this.serviceType = serviceType;
     }
 
-    public String getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(String longitude) {
-        this.longitude = longitude;
-    }
-
-    public Long getOrientationId() {
-        return orientationId;
-    }
-
-    public void setOrientationId(Long orientationId) {
-        this.orientationId = orientationId;
-    }
 
     public String getLatitude() {
         return latitude;
@@ -288,6 +271,8 @@ public class TransferShop {
     public void setFloorNumber(Integer floorNumber) {
         this.floorNumber = floorNumber;
     }
+
+
 
     public Long getLoopLineId() {
         return loopLineId;
@@ -417,19 +402,27 @@ public class TransferShop {
         this.checkStatus = checkStatus;
     }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
     public String getAddress() {
         return address;
     }
 
     public void setAddress(String address) {
         this.address = address == null ? null : address.trim();
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public Long getOrientationId() {
+        return orientationId;
+    }
+
+    public void setOrientationId(Long orientationId) {
+        this.orientationId = orientationId;
     }
 }

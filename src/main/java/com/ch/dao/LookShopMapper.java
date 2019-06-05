@@ -1,10 +1,8 @@
 package com.ch.dao;
 
-
-import java.util.List;
-
 import com.ch.entity.LookShop;
 import com.ch.entity.LookShopExample;
+import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

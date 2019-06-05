@@ -15,7 +15,7 @@ public interface ViewTransferShopService {
 
 
     /**
-     * 找铺列表
+     * 转铺列表
      * @param param
      * @return
      */

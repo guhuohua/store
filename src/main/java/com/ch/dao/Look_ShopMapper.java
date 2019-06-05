@@ -7,7 +7,6 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
-
 public interface Look_ShopMapper {
     int countByExample(Look_ShopExample example);
 

@@ -52,6 +52,7 @@ public class SolrServiceImpl implements SolrService {
             storeSolrSchema.setStoreAddress(transferShop.getAddress());
             storeSolrSchema.setPresentPrice(transferShop.getRent());
             storeSolrSchema.setStoreArea( Long.valueOf(transferShop.getArea()));
+
             storeSolrSchema.setStoreType(0);
             storeSolrSchema.setStoreStatus(transferShop.getStatus());
             try {
@@ -76,7 +77,7 @@ public class SolrServiceImpl implements SolrService {
             storeSolrSchema.setOriginalPrice(lookShop.getSmallRent());
             storeSolrSchema.setMinStoreArea(lookShop.getSmallArea());
             storeSolrSchema.setMaxStoreArea(lookShop.getTopArea());
-            storeSolrSchema.setStoreCategory(lookShop.getExpectArea());
+            /*storeSolrSchema.setStoreCategory(lookShop.G);*/
             storeSolrSchema.setStoreType(1);
             storeSolrSchema.setStoreStatus(lookShop.getStatus());
             try {
