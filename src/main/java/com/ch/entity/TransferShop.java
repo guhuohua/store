@@ -85,8 +85,6 @@ public class TransferShop {
 
     private Integer checkStatus;
 
-    private Date createTime;
-
     private String address;
 
     public Long getId() {
@@ -289,6 +287,8 @@ public class TransferShop {
         this.floorNumber = floorNumber;
     }
 
+
+
     public Long getLoopLineId() {
         return loopLineId;
     }
@@ -415,14 +415,6 @@ public class TransferShop {
 
     public void setCheckStatus(Integer checkStatus) {
         this.checkStatus = checkStatus;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
     }
 
     public String getAddress() {

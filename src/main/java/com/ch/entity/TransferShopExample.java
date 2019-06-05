@@ -1295,75 +1295,14 @@ public class TransferShopExample {
             return (Criteria) this;
         }
 
-        public Criteria andlongitudeIsNull() {
-            addCriterion(" longitude is null");
-            return (Criteria) this;
-        }
 
-        public Criteria andlongitudeIsNotNull() {
-            addCriterion(" longitude is not null");
-            return (Criteria) this;
-        }
 
-        public Criteria andlongitudeEqualTo(String value) {
+        public Criteria andLongitudeEqualTo(String value) {
             addCriterion(" longitude =", value, " longitude");
             return (Criteria) this;
         }
 
-        public Criteria andlongitudeNotEqualTo(String value) {
-            addCriterion(" longitude <>", value, " longitude");
-            return (Criteria) this;
-        }
 
-        public Criteria andlongitudeGreaterThan(String value) {
-            addCriterion(" longitude >", value, " longitude");
-            return (Criteria) this;
-        }
-
-        public Criteria andlongitudeGreaterThanOrEqualTo(String value) {
-            addCriterion(" longitude >=", value, " longitude");
-            return (Criteria) this;
-        }
-
-        public Criteria andlongitudeLessThan(String value) {
-            addCriterion(" longitude <", value, " longitude");
-            return (Criteria) this;
-        }
-
-        public Criteria andlongitudeLessThanOrEqualTo(String value) {
-            addCriterion(" longitude <=", value, " longitude");
-            return (Criteria) this;
-        }
-
-        public Criteria andlongitudeLike(String value) {
-            addCriterion(" longitude like", value, " longitude");
-            return (Criteria) this;
-        }
-
-        public Criteria andlongitudeNotLike(String value) {
-            addCriterion(" longitude not like", value, " longitude");
-            return (Criteria) this;
-        }
-
-        public Criteria andlongitudeIn(List<String> values) {
-            addCriterion(" longitude in", values, " longitude");
-            return (Criteria) this;
-        }
-
-        public Criteria andlongitudeNotIn(List<String> values) {
-            addCriterion(" longitude not in", values, " longitude");
-            return (Criteria) this;
-        }
-
-        public Criteria andlongitudeBetween(String value1, String value2) {
-            addCriterion(" longitude between", value1, value2, " longitude");
-            return (Criteria) this;
-        }
-
-        public Criteria andlongitudeNotBetween(String value1, String value2) {
-            addCriterion(" longitude not between", value1, value2, " longitude");
-            return (Criteria) this;
-        }
 
         public Criteria andLatitudeIsNull() {
             addCriterion("latitude is null");
@@ -1625,65 +1564,13 @@ public class TransferShopExample {
             return (Criteria) this;
         }
 
-        public Criteria andorientationIdIsNull() {
-            addCriterion(" orientation_id is null");
-            return (Criteria) this;
-        }
 
-        public Criteria andorientationIdIsNotNull() {
-            addCriterion(" orientation_id is not null");
-            return (Criteria) this;
-        }
 
-        public Criteria andorientationIdEqualTo(Long value) {
+        public Criteria andOrientationIdEqualTo(Long value) {
             addCriterion(" orientation_id =", value, " orientationId");
             return (Criteria) this;
         }
 
-        public Criteria andorientationIdNotEqualTo(Long value) {
-            addCriterion(" orientation_id <>", value, " orientationId");
-            return (Criteria) this;
-        }
-
-        public Criteria andorientationIdGreaterThan(Long value) {
-            addCriterion(" orientation_id >", value, " orientationId");
-            return (Criteria) this;
-        }
-
-        public Criteria andorientationIdGreaterThanOrEqualTo(Long value) {
-            addCriterion(" orientation_id >=", value, " orientationId");
-            return (Criteria) this;
-        }
-
-        public Criteria andorientationIdLessThan(Long value) {
-            addCriterion(" orientation_id <", value, " orientationId");
-            return (Criteria) this;
-        }
-
-        public Criteria andorientationIdLessThanOrEqualTo(Long value) {
-            addCriterion(" orientation_id <=", value, " orientationId");
-            return (Criteria) this;
-        }
-
-        public Criteria andorientationIdIn(List<Long> values) {
-            addCriterion(" orientation_id in", values, " orientationId");
-            return (Criteria) this;
-        }
-
-        public Criteria andorientationIdNotIn(List<Long> values) {
-            addCriterion(" orientation_id not in", values, " orientationId");
-            return (Criteria) this;
-        }
-
-        public Criteria andorientationIdBetween(Long value1, Long value2) {
-            addCriterion(" orientation_id between", value1, value2, " orientationId");
-            return (Criteria) this;
-        }
-
-        public Criteria andorientationIdNotBetween(Long value1, Long value2) {
-            addCriterion(" orientation_id not between", value1, value2, " orientationId");
-            return (Criteria) this;
-        }
 
         public Criteria andLoopLineIdIsNull() {
             addCriterion("loop_line_id is null");
@@ -2662,66 +2549,6 @@ public class TransferShopExample {
 
         public Criteria andCheckStatusNotBetween(Integer value1, Integer value2) {
             addCriterion("check_status not between", value1, value2, "checkStatus");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeIsNull() {
-            addCriterion("create_time is null");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeIsNotNull() {
-            addCriterion("create_time is not null");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeEqualTo(Date value) {
-            addCriterion("create_time =", value, "createTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeNotEqualTo(Date value) {
-            addCriterion("create_time <>", value, "createTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeGreaterThan(Date value) {
-            addCriterion("create_time >", value, "createTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeGreaterThanOrEqualTo(Date value) {
-            addCriterion("create_time >=", value, "createTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeLessThan(Date value) {
-            addCriterion("create_time <", value, "createTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeLessThanOrEqualTo(Date value) {
-            addCriterion("create_time <=", value, "createTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeIn(List<Date> values) {
-            addCriterion("create_time in", values, "createTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeNotIn(List<Date> values) {
-            addCriterion("create_time not in", values, "createTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeBetween(Date value1, Date value2) {
-            addCriterion("create_time between", value1, value2, "createTime");
-            return (Criteria) this;
-        }
-
-        public Criteria andCreateTimeNotBetween(Date value1, Date value2) {
-            addCriterion("create_time not between", value1, value2, "createTime");
             return (Criteria) this;
         }
 

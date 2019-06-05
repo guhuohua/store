@@ -83,8 +83,6 @@ public class Look_Shop {
 
     private Integer provinceId;
 
-    private String address;
-
     public Long getId() {
         return id;
     }
@@ -403,13 +401,5 @@ public class Look_Shop {
 
     public void setProvinceId(Integer provinceId) {
         this.provinceId = provinceId;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address == null ? null : address.trim();
     }
 }

@@ -42,7 +42,6 @@
     <result column="recommend_type" property="recommendType" jdbcType="INTEGER" />
     <result column="street_id" property="streetId" jdbcType="INTEGER" />
     <result column="province_id" property="provinceId" jdbcType="INTEGER" />
-    <result column="address" property="address" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -108,8 +107,7 @@
     area_id, decorate_type_id, requirement_details, "accessory _requirements", gate_width, 
     service_type, longitude, latitude, medium_status, sort, craeate_time, other_tel, 
     shop_readme, floor, orientation_id, loop_line_id, subway_line_id, success_fee, update_time, 
-    published_time, success_time, check_time, recommend_type, street_id, province_id, 
-    address
+    published_time, success_time, check_time, recommend_type, street_id, province_id
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ch.entity.Look_ShopExample" >
     select
@@ -156,7 +154,7 @@
       loop_line_id, subway_line_id, success_fee, 
       update_time, published_time, success_time, 
       check_time, recommend_type, street_id, 
-      province_id, address)
+      province_id)
     values (#{id,jdbcType=BIGINT}, #{clientId,jdbcType=INTEGER}, #{tel,jdbcType=VARCHAR}, 
       #{businessTypeId,jdbcType=BIGINT}, #{propertyTypeId,jdbcType=BIGINT}, #{shopTypeId,jdbcType=BIGINT}, 
       #{rentRangeId,jdbcType=BIGINT}, #{smallRent,jdbcType=BIGINT}, #{topRent,jdbcType=BIGINT}, 
@@ -170,7 +168,7 @@
       #{loopLineId,jdbcType=VARCHAR}, #{subwayLineId,jdbcType=VARCHAR}, #{successFee,jdbcType=VARCHAR}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{publishedTime,jdbcType=TIMESTAMP}, #{successTime,jdbcType=TIMESTAMP}, 
       #{checkTime,jdbcType=TIMESTAMP}, #{recommendType,jdbcType=INTEGER}, #{streetId,jdbcType=INTEGER}, 
-      #{provinceId,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR})
+      #{provinceId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.ch.entity.Look_Shop" >
     insert into look_shop
@@ -295,9 +293,6 @@
       <if test="provinceId != null" >
         province_id,
       </if>
-      <if test="address != null" >
-        address,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -419,9 +414,6 @@
       </if>
       <if test="provinceId != null" >
         #{provinceId,jdbcType=INTEGER},
-      </if>
-      <if test="address != null" >
-        #{address,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -554,9 +546,6 @@
       <if test="record.provinceId != null" >
         province_id = #{record.provinceId,jdbcType=INTEGER},
       </if>
-      <if test="record.address != null" >
-        address = #{record.address,jdbcType=VARCHAR},
-      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -603,8 +592,7 @@
       check_time = #{record.checkTime,jdbcType=TIMESTAMP},
       recommend_type = #{record.recommendType,jdbcType=INTEGER},
       street_id = #{record.streetId,jdbcType=INTEGER},
-      province_id = #{record.provinceId,jdbcType=INTEGER},
-      address = #{record.address,jdbcType=VARCHAR}
+      province_id = #{record.provinceId,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -729,9 +717,6 @@
       <if test="provinceId != null" >
         province_id = #{provinceId,jdbcType=INTEGER},
       </if>
-      <if test="address != null" >
-        address = #{address,jdbcType=VARCHAR},
-      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -775,8 +760,7 @@
       check_time = #{checkTime,jdbcType=TIMESTAMP},
       recommend_type = #{recommendType,jdbcType=INTEGER},
       street_id = #{streetId,jdbcType=INTEGER},
-      province_id = #{provinceId,jdbcType=INTEGER},
-      address = #{address,jdbcType=VARCHAR}
+      province_id = #{provinceId,jdbcType=INTEGER}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

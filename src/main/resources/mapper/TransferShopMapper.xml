@@ -43,7 +43,6 @@
     <result column="province_id" property="provinceId" jdbcType="INTEGER" />
     <result column="recommend_type" property="recommendType" jdbcType="INTEGER" />
     <result column="check_status" property="checkStatus" jdbcType="INTEGER" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="address" property="address" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -112,8 +111,7 @@ longitude, latitude, medium_status,
     shop_readme, floor_number, 
 orientation_id, loop_line_id, subway_line_id, update_time, 
     published_time, check_time, success_time, free_period, transfer_icon_id, fake_tel, 
-    image, sort, area_id, street_id, province_id, recommend_type, check_status, create_time, 
-    address
+    image, sort, area_id, street_id, province_id, recommend_type, check_status, address
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ch.entity.TransferShopExample" >
     select
@@ -162,8 +160,8 @@ orientation_id, loop_line_id, subway_line_id,
       success_time, free_period, transfer_icon_id, 
       fake_tel, image, sort, 
       area_id, street_id, province_id, 
-      recommend_type, check_status, create_time, 
-      address)
+      recommend_type, check_status, address
+      )
     values (#{id,jdbcType=BIGINT}, #{clientId,jdbcType=BIGINT}, #{tel,jdbcType=VARCHAR}, 
       #{businessTypeId,jdbcType=BIGINT}, #{propertyTypeId,jdbcType=BIGINT}, #{shopTypeId,jdbcType=BIGINT}, 
       #{rent,jdbcType=BIGINT}, #{area,jdbcType=INTEGER}, #{transferStatus,jdbcType=INTEGER}, 
@@ -179,8 +177,8 @@ orientationId,jdbcType=BIGINT}, #{loopLineId,jdbcType=BIGINT}, #{subwayLineId,jd
       #{successTime,jdbcType=TIMESTAMP}, #{freePeriod,jdbcType=INTEGER}, #{transferIconId,jdbcType=BIGINT}, 
       #{fakeTel,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, 
       #{areaId,jdbcType=INTEGER}, #{streetId,jdbcType=INTEGER}, #{provinceId,jdbcType=INTEGER}, 
-      #{recommendType,jdbcType=INTEGER}, #{checkStatus,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{address,jdbcType=VARCHAR})
+      #{recommendType,jdbcType=INTEGER}, #{checkStatus,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.ch.entity.TransferShop" >
     insert into transfer_shop
@@ -311,9 +309,6 @@ orientation_id,
       </if>
       <if test="checkStatus != null" >
         check_status,
-      </if>
-      <if test="createTime != null" >
-        create_time,
       </if>
       <if test="address != null" >
         address,
@@ -446,9 +441,6 @@ orientationId,jdbcType=BIGINT},
       </if>
       <if test="checkStatus != null" >
         #{checkStatus,jdbcType=INTEGER},
-      </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
       </if>
       <if test="address != null" >
         #{address,jdbcType=VARCHAR},
@@ -593,9 +585,6 @@ orientationId,jdbcType=BIGINT},
       <if test="record.checkStatus != null" >
         check_status = #{record.checkStatus,jdbcType=INTEGER},
       </if>
-      <if test="record.createTime != null" >
-        create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      </if>
       <if test="record.address != null" >
         address = #{record.address,jdbcType=VARCHAR},
       </if>
@@ -651,7 +640,6 @@ orientationId,jdbcType=BIGINT},
       province_id = #{record.provinceId,jdbcType=INTEGER},
       recommend_type = #{record.recommendType,jdbcType=INTEGER},
       check_status = #{record.checkStatus,jdbcType=INTEGER},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP},
       address = #{record.address,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -786,9 +774,6 @@ orientationId,jdbcType=BIGINT},
       <if test="checkStatus != null" >
         check_status = #{checkStatus,jdbcType=INTEGER},
       </if>
-      <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
       <if test="address != null" >
         address = #{address,jdbcType=VARCHAR},
       </if>
@@ -841,7 +826,6 @@ orientationId,jdbcType=BIGINT},
       province_id = #{provinceId,jdbcType=INTEGER},
       recommend_type = #{recommendType,jdbcType=INTEGER},
       check_status = #{checkStatus,jdbcType=INTEGER},
-      create_time = #{createTime,jdbcType=TIMESTAMP},
       address = #{address,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
