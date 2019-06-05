@@ -30,7 +30,7 @@
     <result column="craeate_time" property="craeateTime" jdbcType="TIMESTAMP" />
     <result column="other_tel" property="otherTel" jdbcType="VARCHAR" />
     <result column="shop_readme" property="shopReadme" jdbcType="VARCHAR" />
-    <result column="floor" property="floor" jdbcType="VARCHAR" />
+    <result column="floor" property="floor" jdbcType="INTEGER" />
     <result column="orientation_id" property="orientationId" jdbcType="BIGINT" />
     <result column="loop_line_id" property="loopLineId" jdbcType="BIGINT" />
     <result column="subway_line_id" property="subwayLineId" jdbcType="BIGINT" />
@@ -43,6 +43,7 @@
     <result column="street_id" property="streetId" jdbcType="INTEGER" />
     <result column="province_id" property="provinceId" jdbcType="INTEGER" />
     <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="contacts" property="contacts" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -109,7 +110,7 @@
     service_type, longitude, latitude, medium_status, sort, craeate_time, other_tel, 
     shop_readme, floor, orientation_id, loop_line_id, subway_line_id, success_fee, update_time, 
     published_time, success_time, check_time, recommend_type, street_id, province_id, 
-    address
+    address,contacts
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ch.entity.LookShopExample" >
     select
@@ -156,7 +157,7 @@
       loop_line_id, subway_line_id, success_fee, 
       update_time, published_time, success_time, 
       check_time, recommend_type, street_id, 
-      province_id, address)
+      province_id, address,contacts)
     values (#{id,jdbcType=BIGINT}, #{clientId,jdbcType=BIGINT}, #{tel,jdbcType=VARCHAR}, 
       #{businessTypeId,jdbcType=BIGINT}, #{propertyTypeId,jdbcType=BIGINT}, #{shopTypeId,jdbcType=BIGINT}, 
       #{rentRangeId,jdbcType=BIGINT}, #{smallRent,jdbcType=BIGINT}, #{topRent,jdbcType=BIGINT}, 
@@ -166,11 +167,11 @@
       #{accessoryRequirements,jdbcType=VARCHAR}, #{gateWidth,jdbcType=BIGINT}, #{serviceType,jdbcType=BIGINT}, 
       #{longitude,jdbcType=VARCHAR}, #{latitude,jdbcType=VARCHAR}, #{mediumStatus,jdbcType=INTEGER}, 
       #{sort,jdbcType=INTEGER}, #{craeateTime,jdbcType=TIMESTAMP}, #{otherTel,jdbcType=VARCHAR}, 
-      #{shopReadme,jdbcType=VARCHAR}, #{floor,jdbcType=VARCHAR}, #{orientationId,jdbcType=BIGINT}, 
+      #{shopReadme,jdbcType=VARCHAR}, #{floor,jdbcType=INTEGER}, #{orientationId,jdbcType=BIGINT},
       #{loopLineId,jdbcType=BIGINT}, #{subwayLineId,jdbcType=BIGINT}, #{successFee,jdbcType=BIGINT}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{publishedTime,jdbcType=TIMESTAMP}, #{successTime,jdbcType=TIMESTAMP}, 
       #{checkTime,jdbcType=TIMESTAMP}, #{recommendType,jdbcType=INTEGER}, #{streetId,jdbcType=INTEGER}, 
-      #{provinceId,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR})
+      #{provinceId,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, #{address,jdbcType=contacts})
   </insert>
   <insert id="insertSelective" parameterType="com.ch.entity.LookShop" >
     insert into look_shop
@@ -592,7 +593,7 @@
       craeate_time = #{record.craeateTime,jdbcType=TIMESTAMP},
       other_tel = #{record.otherTel,jdbcType=VARCHAR},
       shop_readme = #{record.shopReadme,jdbcType=VARCHAR},
-      floor = #{record.floor,jdbcType=VARCHAR},
+      floor = #{record.floor,jdbcType=INTEGER},
       orientation_id = #{record.orientationId,jdbcType=BIGINT},
       loop_line_id = #{record.loopLineId,jdbcType=BIGINT},
       subway_line_id = #{record.subwayLineId,jdbcType=BIGINT},
@@ -604,7 +605,8 @@
       recommend_type = #{record.recommendType,jdbcType=INTEGER},
       street_id = #{record.streetId,jdbcType=INTEGER},
       province_id = #{record.provinceId,jdbcType=INTEGER},
-      address = #{record.address,jdbcType=VARCHAR}
+      address = #{record.address,jdbcType=VARCHAR},
+    contacts = #{record.contacts,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -764,7 +766,7 @@
       craeate_time = #{craeateTime,jdbcType=TIMESTAMP},
       other_tel = #{otherTel,jdbcType=VARCHAR},
       shop_readme = #{shopReadme,jdbcType=VARCHAR},
-      floor = #{floor,jdbcType=VARCHAR},
+      floor = #{floor,jdbcType=INTEGER},
       orientation_id = #{orientationId,jdbcType=BIGINT},
       loop_line_id = #{loopLineId,jdbcType=BIGINT},
       subway_line_id = #{subwayLineId,jdbcType=BIGINT},
@@ -776,7 +778,8 @@
       recommend_type = #{recommendType,jdbcType=INTEGER},
       street_id = #{streetId,jdbcType=INTEGER},
       province_id = #{provinceId,jdbcType=INTEGER},
-      address = #{address,jdbcType=VARCHAR}
+      address = #{address,jdbcType=VARCHAR},
+      contacts = #{contacts,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

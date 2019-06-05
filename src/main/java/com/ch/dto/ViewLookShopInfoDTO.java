@@ -1,4 +1,4 @@
-package com.ch.model;
+package com.ch.dto;
 
 import lombok.Data;
 
@@ -6,21 +6,18 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-public class ViewLookShopAddParam {
-
+public class ViewLookShopInfoDTO {
     private Long id;
 
-    private Long clientId;
+    private String username;
 
     private String tel;
 
-    private List<Long> businessTypeIds;
+    private List<String> businessTypes;
 
-    private Long propertyTypeId;
+    private String propertyType;
 
-    private Long shopTypeId;
-
-    private Long rentRangeId;
+    private String shopType;
 
     private Long smallRent;
 
@@ -36,11 +33,11 @@ public class ViewLookShopAddParam {
 
     private String title;
 
-    private Integer cityId;
+    private String city;
 
-    private Integer areaId;
+    private String area;
 
-    private Long decorateTypeId;
+    private String decorateType;
 
     private String requirementDetails;
 
@@ -64,13 +61,13 @@ public class ViewLookShopAddParam {
 
     private String shopReadme;
 
-    private String floor;
+    private Integer floor;
 
-    private Long orientationId;
+    private String orientation;
 
-    private Long loopLineId;
+    private String loopLine;
 
-    private Long subwayLineId;
+    private String subwayLine;
 
     private Long successFee;
 
@@ -84,12 +81,9 @@ public class ViewLookShopAddParam {
 
     private Integer recommendType;
 
-    private Integer streetId;
+    private String street;
 
-    private Integer provinceId;
+    private String province;
 
     private String address;
-
-    private String contacts;
-
 }

@@ -46,6 +46,9 @@ public class ViewBaseServiceImpl implements ViewBaseService {
     @Autowired
     SubwayLineMapper subwayLineMapper;
 
+    @Autowired
+    DecorateTypeMapper decorateTypeMapper;
+
     @Override
     public ResponseResult businessTypeList() {
         ResponseResult result = new ResponseResult();
@@ -142,6 +145,14 @@ public class ViewBaseServiceImpl implements ViewBaseService {
         ResponseResult result = new ResponseResult();
         List<SubwayLine> subwayLines = subwayLineMapper.selectByExample(null);
         result.setData(subwayLines);
+        return result;
+    }
+
+    @Override
+    public ResponseResult decorateType() {
+        ResponseResult result = new ResponseResult();
+        List<DecorateType> decorateTypes = decorateTypeMapper.selectByExample(null);
+        result.setData(decorateTypes);
         return result;
     }
 }

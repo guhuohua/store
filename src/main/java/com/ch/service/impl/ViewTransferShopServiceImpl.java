@@ -87,6 +87,7 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
         transferShop.setCheckTime(new Date());
         transferShop.setStatus(0);
         transferShop.setCheckStatus(0);
+        transferShop.setFakeTel("15629013877");
         transferShopMapper.insert(transferShop);
         List<TransferImage> transferImages = param.getTransferImages();
         for (TransferImage transferImage:transferImages) {
@@ -243,10 +244,6 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
         if (BeanUtils.isNotEmpty(shopType)) {
             viewTransferShopDTO.setShopType(shopType.getShopType());
         }
-        BsCity bsCity = bsCityMapper.selectByPrimaryKey(transferShop.getCityId());
-        if (BeanUtils.isNotEmpty(bsCity)) {
-            viewTransferShopDTO.setCity(bsCity.getCityName());
-        }
         DecorateType decorateType = decorateTypeMapper.selectByPrimaryKey(transferShop.getDecorateTypeId());
         if (BeanUtils.isNotEmpty(decorateType)) {
             viewTransferShopDTO.setDecorateType(decorateType.getDecorateType());
@@ -262,6 +259,10 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
         SubwayLine subwayLine = subwayLineMapper.selectByPrimaryKey(transferShop.getSubwayLineId());
         if (BeanUtils.isNotEmpty(subwayLine)) {
             viewTransferShopDTO.setSubwayLine(subwayLine.getSubwayLineDesc());
+        }
+        BsCity bsCity = bsCityMapper.selectByPrimaryKey(transferShop.getCityId());
+        if (BeanUtils.isNotEmpty(bsCity)) {
+            viewTransferShopDTO.setCity(bsCity.getCityName());
         }
         BsArea bsArea = bsAreaMapper.selectByPrimaryKey(transferShop.getAreaId());
         if (BeanUtils.isNotEmpty(bsArea)) {
