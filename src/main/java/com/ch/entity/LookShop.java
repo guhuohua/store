@@ -5,7 +5,7 @@ import java.util.Date;
 public class LookShop {
     private Long id;
 
-    private Integer clientId;
+    private Long clientId;
 
     private String tel;
 
@@ -31,9 +31,9 @@ public class LookShop {
 
     private String title;
 
-    private String city;
+    private Integer cityId;
 
-    private String expectArea;
+    private Integer areaId;
 
     private Long decorateTypeId;
 
@@ -61,13 +61,13 @@ public class LookShop {
 
     private String floor;
 
-    private String orienId;
+    private Long orientationId;
 
-    private String loopLineId;
+    private Long loopLineId;
 
-    private String subwayLineId;
+    private Long subwayLineId;
 
-    private String successFee;
+    private Long successFee;
 
     private Date updateTime;
 
@@ -79,16 +79,11 @@ public class LookShop {
 
     private Integer recommendType;
 
+    private Integer streetId;
+
+    private Integer provinceId;
 
     private String address;
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
 
     public Long getId() {
         return id;
@@ -98,11 +93,11 @@ public class LookShop {
         this.id = id;
     }
 
-    public Integer getClientId() {
+    public Long getClientId() {
         return clientId;
     }
 
-    public void setClientId(Integer clientId) {
+    public void setClientId(Long clientId) {
         this.clientId = clientId;
     }
 
@@ -202,20 +197,20 @@ public class LookShop {
         this.title = title == null ? null : title.trim();
     }
 
-    public String getCity() {
-        return city;
+    public Integer getCityId() {
+        return cityId;
     }
 
-    public void setCity(String city) {
-        this.city = city == null ? null : city.trim();
+    public void setCityId(Integer cityId) {
+        this.cityId = cityId;
     }
 
-    public String getExpectArea() {
-        return expectArea;
+    public Integer getAreaId() {
+        return areaId;
     }
 
-    public void setExpectArea(String expectArea) {
-        this.expectArea = expectArea == null ? null : expectArea.trim();
+    public void setAreaId(Integer areaId) {
+        this.areaId = areaId;
     }
 
     public Long getDecorateTypeId() {
@@ -263,7 +258,7 @@ public class LookShop {
     }
 
     public void setLongitude(String longitude) {
-        this.longitude = longitude;
+        this.longitude = longitude == null ? null : longitude.trim();
     }
 
     public String getLatitude() {
@@ -271,7 +266,7 @@ public class LookShop {
     }
 
     public void setLatitude(String latitude) {
-        this.latitude = latitude;
+        this.latitude = latitude == null ? null : latitude.trim();
     }
 
     public Integer getMediumStatus() {
@@ -322,36 +317,36 @@ public class LookShop {
         this.floor = floor == null ? null : floor.trim();
     }
 
-    public String getOrienId() {
-        return orienId;
+    public Long getOrientationId() {
+        return orientationId;
     }
 
-    public void setOrienId(String orienId) {
-        this.orienId = orienId == null ? null : orienId.trim();
+    public void setOrientationId(Long orientationId) {
+        this.orientationId = orientationId;
     }
 
-    public String getLoopLineId() {
+    public Long getLoopLineId() {
         return loopLineId;
     }
 
-    public void setLoopLineId(String loopLineId) {
-        this.loopLineId = loopLineId == null ? null : loopLineId.trim();
+    public void setLoopLineId(Long loopLineId) {
+        this.loopLineId = loopLineId;
     }
 
-    public String getSubwayLineId() {
+    public Long getSubwayLineId() {
         return subwayLineId;
     }
 
-    public void setSubwayLineId(String subwayLineId) {
-        this.subwayLineId = subwayLineId == null ? null : subwayLineId.trim();
+    public void setSubwayLineId(Long subwayLineId) {
+        this.subwayLineId = subwayLineId;
     }
 
-    public String getSuccessFee() {
+    public Long getSuccessFee() {
         return successFee;
     }
 
-    public void setSuccessFee(String successFee) {
-        this.successFee = successFee == null ? null : successFee.trim();
+    public void setSuccessFee(Long successFee) {
+        this.successFee = successFee;
     }
 
     public Date getUpdateTime() {
@@ -392,5 +387,29 @@ public class LookShop {
 
     public void setRecommendType(Integer recommendType) {
         this.recommendType = recommendType;
+    }
+
+    public Integer getStreetId() {
+        return streetId;
+    }
+
+    public void setStreetId(Integer streetId) {
+        this.streetId = streetId;
+    }
+
+    public Integer getProvinceId() {
+        return provinceId;
+    }
+
+    public void setProvinceId(Integer provinceId) {
+        this.provinceId = provinceId;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address == null ? null : address.trim();
     }
 }

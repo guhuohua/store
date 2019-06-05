@@ -239,21 +239,6 @@ public class TransferShop {
         this.serviceType = serviceType;
     }
 
-    public String getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(String longitude) {
-        this.longitude = longitude;
-    }
-
-    public Long getOrientationId() {
-        return orientationId;
-    }
-
-    public void setOrientationId(Long orientationId) {
-        this.orientationId = orientationId;
-    }
 
     public String getLatitude() {
         return latitude;
@@ -423,5 +408,21 @@ public class TransferShop {
 
     public void setAddress(String address) {
         this.address = address == null ? null : address.trim();
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public Long getOrientationId() {
+        return orientationId;
+    }
+
+    public void setOrientationId(Long orientationId) {
+        this.orientationId = orientationId;
     }
 }

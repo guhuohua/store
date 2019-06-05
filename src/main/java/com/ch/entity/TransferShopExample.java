@@ -1303,7 +1303,6 @@ public class TransferShopExample {
         }
 
 
-
         public Criteria andLatitudeIsNull() {
             addCriterion("latitude is null");
             return (Criteria) this;
@@ -1565,11 +1564,11 @@ public class TransferShopExample {
         }
 
 
-
         public Criteria andOrientationIdEqualTo(Long value) {
             addCriterion(" orientation_id =", value, " orientationId");
             return (Criteria) this;
         }
+
 
 
         public Criteria andLoopLineIdIsNull() {
