@@ -90,6 +90,9 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
             transferImage.setTransferShopId(transferShop.getId().toString());
             transferImageMapper.insert(transferImage);
         }
+        for (Long id:param.getBusinessTypeIds()) {
+
+        }
         return result;
     }
 
