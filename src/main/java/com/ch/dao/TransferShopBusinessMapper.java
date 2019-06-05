@@ -8,7 +8,7 @@ import com.ch.entity.TransferShopBusinessExample;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
-@Repository  
+@Repository
 public interface TransferShopBusinessMapper {
     int countByExample(TransferShopBusinessExample example);
 
