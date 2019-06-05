@@ -39,7 +39,7 @@ public class StoreSolrSchema {
      * 店铺区域
      */
     @Field
-    private String storeCategory;
+    private Integer storeCategory;
 
     /**
      * 面积
@@ -82,7 +82,6 @@ public class StoreSolrSchema {
 
     @Field
     private Long maxStoreArea;
-
 
     @Field
     private Long minStoreArea;

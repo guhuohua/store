@@ -52,7 +52,7 @@ public class SolrServiceImpl implements SolrService {
             storeSolrSchema.setStoreAddress(transferShop.getAddress());
             storeSolrSchema.setPresentPrice(transferShop.getRent());
             storeSolrSchema.setStoreArea( Long.valueOf(transferShop.getArea()));
-            /*storeSolrSchema.setStoreCategory();*/
+            storeSolrSchema.setStoreCategory(transferShop.getRecommendType());
             storeSolrSchema.setStoreType(0);
             storeSolrSchema.setStoreStatus(transferShop.getStatus());
             try {

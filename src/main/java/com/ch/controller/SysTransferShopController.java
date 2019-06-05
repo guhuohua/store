@@ -61,4 +61,21 @@ public class SysTransferShopController {
         return result;
     }
 
+
+    @GetMapping("updateStatus")
+    @ApiOperation("审核状态")
+    public ResponseResult updateStatus(Long storeId) {
+        ResponseResult result = new ResponseResult();
+        try {
+            result = sysTransferShopService.updateStatus(storeId);
+        } catch (Exception e) {
+            log.error("审核状态失败" + e.getMessage(), e);
+            result.setCode(600);
+            result.setError(e.getMessage());
+            result.setError_description("审核状态失败");
+        }
+        return result;
+    }
+
+
 }

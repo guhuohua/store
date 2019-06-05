@@ -2,8 +2,8 @@ package com.ch.enums;
 
 public enum OderStatusEnum {
 
-    UNPAID("0", "普通"),
-    PAID("1", "精品");
+    COMMON("0", "普通"),
+    BOUTIQUE("1", "精品");
 
     public final String code;
 

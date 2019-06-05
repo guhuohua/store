@@ -10,6 +10,8 @@ public interface SysTransferShopService {
     ResponseResult showTransferShopList();
 
     /**
-     *
+     * 审核店铺
      */
+
+    ResponseResult updateStatus(Long storeId);
 }
