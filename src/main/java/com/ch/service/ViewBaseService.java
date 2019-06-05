@@ -75,4 +75,10 @@ public interface ViewBaseService {
      * @return
      */
     ResponseResult subwayLineList();
+
+    /**
+     * 小程序发布店铺时装修类型
+     * @return
+     */
+    ResponseResult decorateType();
 }

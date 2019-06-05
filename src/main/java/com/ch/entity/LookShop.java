@@ -59,7 +59,7 @@ public class LookShop {
 
     private String shopReadme;
 
-    private String floor;
+    private Integer floor;
 
     private Long orientationId;
 
@@ -84,6 +84,16 @@ public class LookShop {
     private Integer provinceId;
 
     private String address;
+
+    private String contacts;
+
+    public String getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(String contacts) {
+        this.contacts = contacts;
+    }
 
     public Long getId() {
         return id;
@@ -309,12 +319,12 @@ public class LookShop {
         this.shopReadme = shopReadme == null ? null : shopReadme.trim();
     }
 
-    public String getFloor() {
+    public Integer getFloor() {
         return floor;
     }
 
-    public void setFloor(String floor) {
-        this.floor = floor == null ? null : floor.trim();
+    public void setFloor(Integer floor) {
+        this.floor = floor;
     }
 
     public Long getOrientationId() {

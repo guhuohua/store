@@ -189,4 +189,19 @@ public class ViewBaseController{
         }
         return result;
     }
+
+    @GetMapping("/decorateTypeList")
+    @ApiOperation("获取装修类型")
+    public ResponseResult decorateTypeList() {
+        ResponseResult result = new ResponseResult();
+        try {
+            result = viewBaseService.decorateType();
+        } catch (Exception e) {
+            log.error("获取装修类型失败" + e.getMessage(), e);
+            result.setCode(600);
+            result.setError(e.getMessage());
+            result.setError_description("获取装修类型失败");
+        }
+        return result;
+    }
 }

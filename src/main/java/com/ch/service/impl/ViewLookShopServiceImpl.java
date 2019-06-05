@@ -49,6 +49,9 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
     @Autowired
     BsCityMapper bsCityMapper;
 
+    @Autowired
+    DecorateTypeMapper decorateTypeMapper;
+
     @Override
     @Transactional
     public ResponseResult addLookShop(ViewLookShopAddParam param) {
@@ -85,7 +88,7 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
                 lookShopBusName.add(businessType.getBusinessType());
             }
         }
-        viewLookShopInfoDTO.setBusinessType(lookShopBusName);
+        viewLookShopInfoDTO.setBusinessTypes(lookShopBusName);
         PropertyType propertyType = propertyTypeMapper.selectByPrimaryKey(lookShop.getPropertyTypeId());
         if (BeanUtils.isNotEmpty(propertyType)) {
             viewLookShopInfoDTO.setPropertyType(propertyType.getPropertyType());
@@ -94,22 +97,26 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
         if (BeanUtils.isNotEmpty(shopType)) {
             viewLookShopInfoDTO.setShopType(shopType.getShopType());
         }
-//        BsCity bsCity = bsCityMapper.selectByPrimaryKey(lookShop.getCityId());
-//        if (BeanUtils.isNotEmpty(bsCity)) {
-//            viewTransferShopDTO.setCity(bsCity.getCityName());
-//        }
-//        BsArea bsArea = bsAreaMapper.selectByPrimaryKey(lookShop.getAreaId());
-//        if (BeanUtils.isNotEmpty(bsArea)) {
-//            viewTransferShopDTO.setAreaName(bsArea.getAreaName());
-//        }
-//        BsStreet bsStreet = bsStreetMapper.selectByPrimaryKey(lookShop.getStreetId());
-//        if (BeanUtils.isNotEmpty(bsStreet)) {
-//            viewTransferShopDTO.setStreet(bsStreet.getStreetName());
-//        }
-//        BsProvince bsProvince = bsProvinceMapper.selectByPrimaryKey(lookShop.getProvinceId());
-//        if (BeanUtils.isNotEmpty(bsProvince)) {
-//            viewTransferShopDTO.setProvince(bsProvince.getProvinceName());
-//        }
+        BsCity bsCity = bsCityMapper.selectByPrimaryKey(lookShop.getCityId());
+        if (BeanUtils.isNotEmpty(bsCity)) {
+            viewLookShopInfoDTO.setCity(bsCity.getCityName());
+        }
+        BsArea bsArea = bsAreaMapper.selectByPrimaryKey(lookShop.getAreaId());
+        if (BeanUtils.isNotEmpty(bsArea)) {
+            viewLookShopInfoDTO.setArea(bsArea.getAreaName());
+        }
+        BsStreet bsStreet = bsStreetMapper.selectByPrimaryKey(lookShop.getStreetId());
+        if (BeanUtils.isNotEmpty(bsStreet)) {
+            viewLookShopInfoDTO.setStreet(bsStreet.getStreetName());
+        }
+        BsProvince bsProvince = bsProvinceMapper.selectByPrimaryKey(lookShop.getProvinceId());
+        if (BeanUtils.isNotEmpty(bsProvince)) {
+            viewLookShopInfoDTO.setProvince(bsProvince.getProvinceName());
+        }
+        DecorateType decorateType = decorateTypeMapper.selectByPrimaryKey(lookShop.getDecorateTypeId());
+        if (BeanUtils.isNotEmpty(decorateType)) {
+            viewLookShopInfoDTO.setDecorateType(decorateType.getDecorateType());
+        }
         return result;
     }
 }

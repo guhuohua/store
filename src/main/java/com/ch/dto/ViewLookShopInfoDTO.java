@@ -13,7 +13,7 @@ public class ViewLookShopInfoDTO {
 
     private String tel;
 
-    private List<String> businessType;
+    private List<String> businessTypes;
 
     private String propertyType;
 
@@ -35,9 +35,9 @@ public class ViewLookShopInfoDTO {
 
     private String city;
 
-    private String expectArea;
+    private String area;
 
-    private Long decorateTypeId;
+    private String decorateType;
 
     private String requirementDetails;
 
@@ -61,15 +61,15 @@ public class ViewLookShopInfoDTO {
 
     private String shopReadme;
 
-    private String floor;
+    private Integer floor;
 
-    private String orien;
+    private String orientation;
 
     private String loopLine;
 
     private String subwayLine;
 
-    private String successFee;
+    private Long successFee;
 
     private Date updateTime;
 
@@ -80,6 +80,10 @@ public class ViewLookShopInfoDTO {
     private Date checkTime;
 
     private Integer recommendType;
+
+    private String street;
+
+    private String province;
 
     private String address;
 }

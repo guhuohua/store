@@ -2,6 +2,7 @@ package com.ch.model;
 
 import lombok.Data;
 
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -9,7 +10,7 @@ public class ViewLookShopAddParam {
 
     private Long id;
 
-    private Integer clientId;
+    private Long clientId;
 
     private String tel;
 
@@ -31,11 +32,13 @@ public class ViewLookShopAddParam {
 
     private Integer transferStatus;
 
+    private Integer status;
+
     private String title;
 
-    private String city;
+    private Integer cityId;
 
-    private String expectArea;
+    private Integer areaId;
 
     private Long decorateTypeId;
 
@@ -55,22 +58,38 @@ public class ViewLookShopAddParam {
 
     private Integer sort;
 
+    private Date craeateTime;
+
     private String otherTel;
 
     private String shopReadme;
 
     private String floor;
 
-    private Long orienId;
+    private Long orientationId;
 
     private Long loopLineId;
 
     private Long subwayLineId;
 
-    private String successFee;
+    private Long successFee;
+
+    private Date updateTime;
+
+    private Date publishedTime;
+
+    private Date successTime;
+
+    private Date checkTime;
 
     private Integer recommendType;
 
+    private Integer streetId;
+
+    private Integer provinceId;
+
     private String address;
+
+    private String contacts;
 
 }

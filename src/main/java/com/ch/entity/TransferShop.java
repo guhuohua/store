@@ -87,6 +87,16 @@ public class TransferShop {
 
     private String address;
 
+    private String contacts;
+
+    public String getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(String contacts) {
+        this.contacts = contacts;
+    }
+
     public Long getId() {
         return id;
     }
