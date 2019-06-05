@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -73,6 +74,9 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
     @Autowired
     BsProvinceMapper bsProvinceMapper;
 
+    @Autowired
+    TransferShopBusinessMapper transferShopBusinessMapper;
+
     @Override
     @Transactional
     public ResponseResult addTransferShop(ViewTransferShopParam param) {
@@ -91,7 +95,11 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
             transferImageMapper.insert(transferImage);
         }
         for (Long id:param.getBusinessTypeIds()) {
-
+            TransferShopBusiness transferShopBusiness = new TransferShopBusiness();
+            transferShopBusiness.setId(IdUtil.getId());
+            transferShopBusiness.setBusinessTypeId(id);
+            transferShopBusiness.setTransferShopId(transferShop.getId());
+            transferShopBusinessMapper.insert(transferShopBusiness);
         }
         return result;
     }
@@ -216,10 +224,17 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
         transferImageExample.createCriteria().andTransferShopIdEqualTo(transferShop.getId().toString());
         List<TransferImage> transferImages = transferImageMapper.selectByExample(transferImageExample);
         viewTransferShopDTO.setTransferImageList(transferImages);
-        BusinessType businessType = businessTypeMapper.selectByPrimaryKey(transferShop.getBusinessTypeId());
-        if (BeanUtils.isNotEmpty(businessType)) {
-            viewTransferShopDTO.setBusinessType(businessType.getBusinessType());
+        TransferShopBusinessExample example = new TransferShopBusinessExample();
+        example.createCriteria().andTransferShopIdEqualTo(storeId);
+        List<TransferShopBusiness> transferShopBusinesses = transferShopBusinessMapper.selectByExample(example);
+        List<String> type = new ArrayList<>();
+        for (TransferShopBusiness transferShopBusiness:transferShopBusinesses) {
+            BusinessType businessType = businessTypeMapper.selectByPrimaryKey(transferShopBusiness.getBusinessTypeId());
+            if (BeanUtils.isNotEmpty(businessType)) {
+                type.add(businessType.getBusinessType());
+            }
         }
+        viewTransferShopDTO.setBusinessTypes(type);
         PropertyType propertyType = propertyTypeMapper.selectByPrimaryKey(transferShop.getPropertyTypeId());
         if (BeanUtils.isNotEmpty(propertyType)) {
             viewTransferShopDTO.setPropertyType(propertyType.getPropertyType());
