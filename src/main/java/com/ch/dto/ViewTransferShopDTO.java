@@ -15,7 +15,7 @@ public class ViewTransferShopDTO {
 
     private String tel;
 
-    private String businessType;
+    private List<String> businessTypes;
 
     private String propertyType;
 
