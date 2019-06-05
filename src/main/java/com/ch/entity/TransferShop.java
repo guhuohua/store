@@ -83,37 +83,11 @@ public class TransferShop {
 
     private Integer recommendType;
 
-    private Date createTime;
-
     private Integer checkStatus;
 
-    private Long deposit;
+    private Date createTime;
 
     private String address;
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public Long getDeposit() {
-        return deposit;
-    }
-
-    public void setDeposit(Long deposit) {
-        this.deposit = deposit;
-    }
-
-    public Integer getCheckStatus() {
-        return checkStatus;
-    }
-
-    public void setCheckStatus(Integer checkStatus) {
-        this.checkStatus = checkStatus;
-    }
 
     public Long getId() {
         return id;
@@ -267,7 +241,21 @@ public class TransferShop {
         this.serviceType = serviceType;
     }
 
+    public String getLongitude() {
+        return longitude;
+    }
 
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public Long getOrientationId() {
+        return orientationId;
+    }
+
+    public void setOrientationId(Long orientationId) {
+        this.orientationId = orientationId;
+    }
 
     public String getLatitude() {
         return latitude;
@@ -299,22 +287,6 @@ public class TransferShop {
 
     public void setFloorNumber(Integer floorNumber) {
         this.floorNumber = floorNumber;
-    }
-
-    public String getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(String longitude) {
-        this.longitude = longitude;
-    }
-
-    public Long getOrientationId() {
-        return orientationId;
-    }
-
-    public void setOrientationId(Long orientationId) {
-        this.orientationId = orientationId;
     }
 
     public Long getLoopLineId() {
@@ -437,11 +409,27 @@ public class TransferShop {
         this.recommendType = recommendType;
     }
 
+    public Integer getCheckStatus() {
+        return checkStatus;
+    }
+
+    public void setCheckStatus(Integer checkStatus) {
+        this.checkStatus = checkStatus;
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address == null ? null : address.trim();
     }
 }
