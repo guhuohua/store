@@ -2,11 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c6491a16-8d43-4669-ac96-62bd87ee437e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ch/model/ViewLookShopAddParam.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ch/service/ViewLookShopService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ch/controller/ViewLookShopController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ch/dto/ViewLookShopInfoDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ch/service/impl/ViewLookShopServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ch/dto/ViewTransferShopDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ch/dto/ViewTransferShopDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ch/entity/LookShop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ch/entity/LookShop.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ch/entity/Look_Shop.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ch/entity/Look_ShopExample.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ch/model/ViewLookShopAddParam.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ch/model/ViewLookShopAddParam.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ch/service/ViewLookShopService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ch/service/ViewLookShopService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ch/service/impl/ViewTransferShopServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ch/service/impl/ViewTransferShopServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/LookShopMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/LookShopMapper.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/classes/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -22,34 +28,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/model/ViewTransferShopParam.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/controller/ViewBaseController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="17" column="39" selection-start-line="17" selection-start-column="39" selection-end-line="17" selection-end-column="39" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/base/StoreSolrSchema.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="833">
-              <caret line="49" column="10" selection-start-line="49" selection-start-column="10" selection-end-line="49" selection-end-column="10" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/ViewTransferShopService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="21" column="37" lean-forward="true" selection-start-line="21" selection-start-column="37" selection-end-line="21" selection-end-column="37" />
+            <state relative-caret-position="396">
+              <caret line="161" lean-forward="true" selection-start-line="161" selection-end-line="161" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -60,17 +42,20 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/ViewLookShopService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+            <state relative-caret-position="272">
+              <caret line="16" column="11" selection-start-line="16" selection-start-column="11" selection-end-line="16" selection-end-column="11" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/model/ViewLookShopAddParam.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/impl/ViewLookShopServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+            <state relative-caret-position="192">
+              <caret line="86" column="9" lean-forward="true" selection-start-line="86" selection-start-column="9" selection-end-line="86" selection-end-column="9" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -81,17 +66,64 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/entity/LookShop.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="161">
-              <caret line="68" lean-forward="true" selection-start-line="68" selection-end-line="68" />
+            <state relative-caret-position="544">
+              <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
+              <folding>
+                <element signature="e#6428#6429#0" expanded="true" />
+                <element signature="e#6458#6459#0" expanded="true" />
+                <element signature="e#6502#6503#0" expanded="true" />
+                <element signature="e#6540#6541#0" expanded="true" />
+                <element signature="e#6575#6576#0" expanded="true" />
+                <element signature="e#6608#6609#0" expanded="true" />
+                <element signature="e#6658#6659#0" expanded="true" />
+                <element signature="e#6702#6703#0" expanded="true" />
+                <element signature="e#6739#6740#0" expanded="true" />
+                <element signature="e#6774#6775#0" expanded="true" />
+                <element signature="e#6828#6829#0" expanded="true" />
+                <element signature="e#6876#6877#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/impl/ViewTransferShopServiceImpl.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/dao/LookShopMapper.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="368">
-              <caret line="220" column="8" selection-start-line="220" selection-start-column="8" selection-end-line="220" selection-end-column="8" />
+            <state relative-caret-position="153">
+              <caret line="14" column="49" lean-forward="true" selection-start-line="14" selection-start-column="49" selection-end-line="14" selection-end-column="49" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/dto/ViewLookShopInfoDTO.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="8" column="32" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="32" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/controller/ViewLookShopController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="367">
+              <caret line="28" column="45" selection-start-line="28" selection-start-column="45" selection-end-line="28" selection-end-column="45" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/model/ViewLookShopAddParam.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="126">
+              <caret line="45" column="27" lean-forward="true" selection-start-line="45" selection-start-column="27" selection-end-line="45" selection-end-column="27" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -102,29 +134,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/dto/ViewTransferShopDTO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
+            <state relative-caret-position="183">
               <caret line="17" column="38" selection-start-line="17" selection-start-column="38" selection-end-line="17" selection-end-column="38" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/entity/TransferShop.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="952">
-              <caret line="56" selection-start-line="56" selection-end-line="56" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/controller/ViewTransferShopController.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="391">
-              <caret line="23" column="71" selection-start-line="23" selection-start-column="71" selection-end-line="23" selection-end-column="71" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -162,9 +173,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/resources/mapper/HouseCollectMapper.xml" />
-        <option value="$PROJECT_DIR$/src/main/resources/mapper/IconMapper.xml" />
-        <option value="$PROJECT_DIR$/src/main/resources/mapper/LinkCustomerMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/resources/mapper/LoopLineMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/resources/mapper/MonitorUserMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/resources/mapper/OrientationMapper.xml" />
@@ -184,9 +192,7 @@
         <option value="$PROJECT_DIR$/src/main/resources/mapper/TransferIconMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/resources/mapper/TransferImageMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/resources/mapper/TransferLicenseMapper.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/ch/dao/LookShopMapper.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/ch/dao/TransferShopMapper.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/mapper/LookShopMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/ch/entity/TransferShopExample.java" />
         <option value="$PROJECT_DIR$/src/main/resources/mapper/BsCityMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/ch/controller/ViewBaseController.java" />
@@ -201,7 +207,6 @@
         <option value="$PROJECT_DIR$/src/main/java/com/ch/dto/SolrDTO.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/ch/service/SolrService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/ch/entity/TransferShop.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/ch/entity/LookShop.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/ch/base/StoreSolrSchema.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/ch/service/impl/SolrServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/ch/entity/TransferShopBusinessExample.java" />
@@ -210,18 +215,22 @@
         <option value="$PROJECT_DIR$/src/main/resources/mapper/LookShopBusinessMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/resources/mapper/TransferShopBusinessMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/ch/dto/ViewTransferShopDTO.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/ch/service/impl/ViewTransferShopServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/ch/controller/ViewLookShopController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/ch/service/ViewLookShopService.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/mapper/LookShopMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/ch/model/ViewLookShopAddParam.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/ch/dto/ViewLookShopInfoDTO.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/ch/dao/LookShopMapper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/ch/service/impl/ViewTransferShopServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/ch/entity/LookShop.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/ch/service/impl/ViewLookShopServiceImpl.java" />
       </list>
     </option>
   </component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
-        <option name="localRepository" value="$USER_HOME$/Downloads/repository" />
         <option name="mavenHome" value="$USER_HOME$/apache-maven-3.6.0" />
-        <option name="userSettingsFile" value="$USER_HOME$/apache-maven-3.6.0/conf/settings.xml" />
       </MavenGeneralSettings>
     </option>
     <option name="importingSettings">
@@ -309,7 +318,17 @@
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="com" type="462c0819:PsiDirectoryNode" />
               <item name="ch" type="462c0819:PsiDirectoryNode" />
-              <item name="entity" type="462c0819:PsiDirectoryNode" />
+              <item name="controller" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="store" type="b2602c69:ProjectViewProjectNode" />
+              <item name="store" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="ch" type="462c0819:PsiDirectoryNode" />
+              <item name="dto" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="store" type="b2602c69:ProjectViewProjectNode" />
@@ -330,6 +349,32 @@
               <item name="com" type="462c0819:PsiDirectoryNode" />
               <item name="ch" type="462c0819:PsiDirectoryNode" />
               <item name="service" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="store" type="b2602c69:ProjectViewProjectNode" />
+              <item name="store" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="ch" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+              <item name="impl" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="store" type="b2602c69:ProjectViewProjectNode" />
+              <item name="store" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="store" type="b2602c69:ProjectViewProjectNode" />
+              <item name="store" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="mapper" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -453,12 +498,12 @@
       <workItem from="1559286782206" duration="826000" />
       <workItem from="1559523228773" duration="6202000" />
       <workItem from="1559638983022" duration="8815000" />
-      <workItem from="1559650249331" duration="3036000" />
+      <workItem from="1559650249331" duration="7501000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="30173000" />
+    <option name="totallyTimeSpent" value="34638000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1440" height="825" extended-state="6" />
@@ -542,78 +587,6 @@
     <option name="version" value="1" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/dao/BsCityMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="11" column="17" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="17" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/BsCityMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5719">
-          <caret line="301" column="11" lean-forward="true" selection-start-line="301" selection-start-column="11" selection-end-line="301" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/AdvertMapper.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5206">
-          <caret line="274" column="11" selection-start-line="274" selection-start-column="11" selection-end-line="274" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/entity/Advert.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/entity/AdvertExample.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/dao/AdvertMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="10" column="11" selection-start-line="10" selection-start-column="11" selection-end-line="10" selection-end-column="11" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/impl/ViewIconServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="52" selection-start-line="21" selection-start-column="52" selection-end-line="21" selection-end-column="52" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1159">
-          <caret line="2" column="16" selection-start-line="2" selection-start-column="16" selection-end-line="2" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/entity/PropertyType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="399">
-          <caret line="29" column="27" selection-start-line="29" selection-start-column="27" selection-end-line="29" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/util/AddressUtil.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="95">
@@ -850,16 +823,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/controller/ViewBaseController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3026">
-          <caret line="178" column="27" selection-start-line="178" selection-start-column="27" selection-end-line="178" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/model/ViewTransferShopListParam.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -894,10 +857,33 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/LoopLineMapper.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/ViewTransferShopService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="357">
+          <caret line="21" column="37" selection-start-line="21" selection-start-column="37" selection-end-line="21" selection-end-column="37" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/controller/ViewTransferShopController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="23" column="71" selection-start-line="23" selection-start-column="71" selection-end-line="23" selection-end-column="71" />
+        <state relative-caret-position="578">
+          <caret line="34" column="5" lean-forward="true" selection-start-line="21" selection-start-column="4" selection-end-line="34" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/ViewLookShopService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="11" selection-start-line="16" selection-start-column="11" selection-end-line="16" selection-end-column="11" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -906,7 +892,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/dto/ViewTransferShopDTO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
+        <state relative-caret-position="183">
           <caret line="17" column="38" selection-start-line="17" selection-start-column="38" selection-end-line="17" selection-end-column="38" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -914,10 +900,65 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/ViewTransferShopService.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/entity/Look_Shop.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="37" lean-forward="true" selection-start-line="21" selection-start-column="37" selection-end-line="21" selection-end-column="37" />
+        <state relative-caret-position="-543">
+          <caret line="13" column="32" lean-forward="true" selection-start-line="13" selection-start-column="32" selection-end-line="13" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/entity/Look_ShopExample.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="6" column="18" lean-forward="true" selection-start-line="6" selection-start-column="18" selection-end-line="6" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/entity/LookShopExample.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-12005">
+          <caret line="28" lean-forward="true" selection-start-line="28" selection-end-line="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/LookShopMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="483">
+          <caret line="724" column="53" selection-start-line="724" selection-start-column="53" selection-end-line="724" selection-end-column="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/controller/ViewLookShopController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="367">
+          <caret line="28" column="45" selection-start-line="28" selection-start-column="45" selection-end-line="28" selection-end-column="45" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/dao/LookShopMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="153">
+          <caret line="14" column="49" lean-forward="true" selection-start-line="14" selection-start-column="49" selection-end-line="14" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/dto/ViewLookShopInfoDTO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="32" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/controller/ViewBaseController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="161" lean-forward="true" selection-start-line="161" selection-end-line="161" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -926,22 +967,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/entity/LookShop.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="68" lean-forward="true" selection-start-line="68" selection-end-line="68" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/ViewLookShopService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+        <state relative-caret-position="544">
+          <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
+          <folding>
+            <element signature="e#6428#6429#0" expanded="true" />
+            <element signature="e#6458#6459#0" expanded="true" />
+            <element signature="e#6502#6503#0" expanded="true" />
+            <element signature="e#6540#6541#0" expanded="true" />
+            <element signature="e#6575#6576#0" expanded="true" />
+            <element signature="e#6608#6609#0" expanded="true" />
+            <element signature="e#6658#6659#0" expanded="true" />
+            <element signature="e#6702#6703#0" expanded="true" />
+            <element signature="e#6739#6740#0" expanded="true" />
+            <element signature="e#6774#6775#0" expanded="true" />
+            <element signature="e#6828#6829#0" expanded="true" />
+            <element signature="e#6876#6877#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/impl/ViewTransferShopServiceImpl.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="220" column="8" selection-start-line="220" selection-start-column="8" selection-end-line="220" selection-end-column="8" />
+        <state relative-caret-position="-856">
+          <caret line="52" column="4" selection-start-line="52" selection-start-column="4" selection-end-line="53" selection-end-column="30" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -950,8 +998,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/model/ViewLookShopAddParam.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+        <state relative-caret-position="126">
+          <caret line="45" column="27" lean-forward="true" selection-start-line="45" selection-start-column="27" selection-end-line="45" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/impl/ViewLookShopServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="86" column="9" lean-forward="true" selection-start-line="86" selection-start-column="9" selection-end-line="86" selection-end-column="9" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

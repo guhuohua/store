@@ -31,9 +31,9 @@
     <result column="other_tel" property="otherTel" jdbcType="VARCHAR" />
     <result column="shop_readme" property="shopReadme" jdbcType="VARCHAR" />
     <result column="floor" property="floor" jdbcType="VARCHAR" />
-    <result column="orien_id" property="orienId" jdbcType="VARCHAR" />
-    <result column="loop_line_id" property="loopLineId" jdbcType="VARCHAR" />
-    <result column="subway_line_id" property="subwayLineId" jdbcType="VARCHAR" />
+    <result column="orien_id" property="orienId" jdbcType="BIGINT" />
+    <result column="loop_line_id" property="loopLineId" jdbcType="BIGINT" />
+    <result column="subway_line_id" property="subwayLineId" jdbcType="BIGINT" />
     <result column="success_fee" property="successFee" jdbcType="VARCHAR" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="published_time" property="publishedTime" jdbcType="TIMESTAMP" />
@@ -161,8 +161,8 @@
       #{accessoryRequirements,jdbcType=VARCHAR}, #{gateWidth,jdbcType=BIGINT}, #{serviceType,jdbcType=BIGINT},
       #{lng,jdbcType=VARCHAR}, #{lat,jdbcType=VARCHAR}, #{mediumStatus,jdbcType=INTEGER},
       #{sort,jdbcType=INTEGER}, #{craeateTime,jdbcType=TIMESTAMP}, #{otherTel,jdbcType=VARCHAR},
-      #{shopReadme,jdbcType=VARCHAR}, #{floor,jdbcType=VARCHAR}, #{orienId,jdbcType=VARCHAR},
-      #{loopLineId,jdbcType=VARCHAR}, #{subwayLineId,jdbcType=VARCHAR}, #{successFee,jdbcType=VARCHAR},
+      #{shopReadme,jdbcType=VARCHAR}, #{floor,jdbcType=VARCHAR}, #{orienId,jdbcType=BIGINT},
+      #{loopLineId,jdbcType=BIGINT}, #{subwayLineId,jdbcType=BIGINT}, #{successFee,jdbcType=VARCHAR},
       #{updateTime,jdbcType=TIMESTAMP}, #{publishedTime,jdbcType=TIMESTAMP}, #{successTime,jdbcType=TIMESTAMP},
       #{checkTime,jdbcType=TIMESTAMP}, #{recommendType,jdbcType=INTEGER})
   </insert>
@@ -498,13 +498,13 @@
         floor = #{record.floor,jdbcType=VARCHAR},
       </if>
       <if test="record.orienId != null" >
-        orien_id = #{record.orienId,jdbcType=VARCHAR},
+        orien_id = #{record.orienId,jdbcType=BIGINT},
       </if>
       <if test="record.loopLineId != null" >
-        loop_line_id = #{record.loopLineId,jdbcType=VARCHAR},
+        loop_line_id = #{record.loopLineId,jdbcType=BIGINT},
       </if>
       <if test="record.subwayLineId != null" >
-        subway_line_id = #{record.subwayLineId,jdbcType=VARCHAR},
+        subway_line_id = #{record.subwayLineId,jdbcType=BIGINT},
       </if>
       <if test="record.successFee != null" >
         success_fee = #{record.successFee,jdbcType=VARCHAR},
@@ -560,9 +560,9 @@
       other_tel = #{record.otherTel,jdbcType=VARCHAR},
       shop_readme = #{record.shopReadme,jdbcType=VARCHAR},
       floor = #{record.floor,jdbcType=VARCHAR},
-      orien_id = #{record.orienId,jdbcType=VARCHAR},
-      loop_line_id = #{record.loopLineId,jdbcType=VARCHAR},
-      subway_line_id = #{record.subwayLineId,jdbcType=VARCHAR},
+      orien_id = #{record.orienId,jdbcType=BIGINT},
+      loop_line_id = #{record.loopLineId,jdbcType=BIGINT},
+      subway_line_id = #{record.subwayLineId,jdbcType=BIGINT},
       success_fee = #{record.successFee,jdbcType=VARCHAR},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
       published_time = #{record.publishedTime,jdbcType=TIMESTAMP},
@@ -661,13 +661,13 @@
         floor = #{floor,jdbcType=VARCHAR},
       </if>
       <if test="orienId != null" >
-        orien_id = #{orienId,jdbcType=VARCHAR},
+        orien_id = #{orienId,jdbcType=BIGINT},
       </if>
       <if test="loopLineId != null" >
-        loop_line_id = #{loopLineId,jdbcType=VARCHAR},
+        loop_line_id = #{loopLineId,jdbcType=BIGINT},
       </if>
       <if test="subwayLineId != null" >
-        subway_line_id = #{subwayLineId,jdbcType=VARCHAR},
+        subway_line_id = #{subwayLineId,jdbcType=BIGINT},
       </if>
       <if test="successFee != null" >
         success_fee = #{successFee,jdbcType=VARCHAR},
@@ -720,9 +720,9 @@
       other_tel = #{otherTel,jdbcType=VARCHAR},
       shop_readme = #{shopReadme,jdbcType=VARCHAR},
       floor = #{floor,jdbcType=VARCHAR},
-      orien_id = #{orienId,jdbcType=VARCHAR},
-      loop_line_id = #{loopLineId,jdbcType=VARCHAR},
-      subway_line_id = #{subwayLineId,jdbcType=VARCHAR},
+      orien_id = #{orienId,jdbcType=BIGINT},
+      loop_line_id = #{loopLineId,jdbcType=BIGINT},
+      subway_line_id = #{subwayLineId,jdbcType=BIGINT},
       success_fee = #{successFee,jdbcType=VARCHAR},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
       published_time = #{publishedTime,jdbcType=TIMESTAMP},

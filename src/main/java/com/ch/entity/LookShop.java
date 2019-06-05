@@ -61,11 +61,11 @@ public class LookShop {
 
     private String floor;
 
-    private String orienId;
+    private Long orienId;
 
-    private String loopLineId;
+    private Long loopLineId;
 
-    private String subwayLineId;
+    private Long subwayLineId;
 
     private String successFee;
 
@@ -322,28 +322,28 @@ public class LookShop {
         this.floor = floor == null ? null : floor.trim();
     }
 
-    public String getOrienId() {
+    public Long getOrienId() {
         return orienId;
     }
 
-    public void setOrienId(String orienId) {
-        this.orienId = orienId == null ? null : orienId.trim();
+    public void setOrienId(Long orienId) {
+        this.orienId = orienId;
     }
 
-    public String getLoopLineId() {
+    public Long getLoopLineId() {
         return loopLineId;
     }
 
-    public void setLoopLineId(String loopLineId) {
-        this.loopLineId = loopLineId == null ? null : loopLineId.trim();
+    public void setLoopLineId(Long loopLineId) {
+        this.loopLineId = loopLineId;
     }
 
-    public String getSubwayLineId() {
+    public Long getSubwayLineId() {
         return subwayLineId;
     }
 
-    public void setSubwayLineId(String subwayLineId) {
-        this.subwayLineId = subwayLineId == null ? null : subwayLineId.trim();
+    public void setSubwayLineId(Long subwayLineId) {
+        this.subwayLineId = subwayLineId;
     }
 
     public String getSuccessFee() {
