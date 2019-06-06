@@ -86,4 +86,8 @@ public class ViewLookShopInfoDTO {
     private String province;
 
     private String address;
+
+    private Integer doneStatus;
+
+    private Integer checkStatus;
 }

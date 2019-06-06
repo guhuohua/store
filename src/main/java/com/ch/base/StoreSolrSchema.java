@@ -85,4 +85,7 @@ public class StoreSolrSchema {
 
     @Field
     private Long minStoreArea;
+
+    @Field
+    private Long clientId;
 }

@@ -5,7 +5,7 @@ import java.util.Date;
 public class LookShop {
     private Long id;
 
-    private Long clientId;
+    private Integer clientId;
 
     private String tel;
 
@@ -45,8 +45,6 @@ public class LookShop {
 
     private Long serviceType;
 
-    private String longitude;
-
     private String latitude;
 
     private Integer mediumStatus;
@@ -59,15 +57,15 @@ public class LookShop {
 
     private String shopReadme;
 
-    private Integer floor;
+    private String floor;
 
     private Long orientationId;
 
-    private Long loopLineId;
+    private String loopLineId;
 
-    private Long subwayLineId;
+    private String subwayLineId;
 
-    private Long successFee;
+    private String successFee;
 
     private Date updateTime;
 
@@ -87,12 +85,26 @@ public class LookShop {
 
     private String contacts;
 
-    public String getContacts() {
-        return contacts;
+    private String longitude;
+
+    private String reasons;
+
+    private String otherOne;
+
+    private String otherTwo;
+
+    private Long otherThree;
+
+    private Integer otherFour;
+
+    private String area;
+
+    public String getArea() {
+        return area;
     }
 
-    public void setContacts(String contacts) {
-        this.contacts = contacts;
+    public void setArea(String area) {
+        this.area = area;
     }
 
     public Long getId() {
@@ -103,11 +115,11 @@ public class LookShop {
         this.id = id;
     }
 
-    public Long getClientId() {
+    public Integer getClientId() {
         return clientId;
     }
 
-    public void setClientId(Long clientId) {
+    public void setClientId(Integer clientId) {
         this.clientId = clientId;
     }
 
@@ -263,14 +275,6 @@ public class LookShop {
         this.serviceType = serviceType;
     }
 
-    public String getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(String longitude) {
-        this.longitude = longitude == null ? null : longitude.trim();
-    }
-
     public String getLatitude() {
         return latitude;
     }
@@ -319,12 +323,12 @@ public class LookShop {
         this.shopReadme = shopReadme == null ? null : shopReadme.trim();
     }
 
-    public Integer getFloor() {
+    public String getFloor() {
         return floor;
     }
 
-    public void setFloor(Integer floor) {
-        this.floor = floor;
+    public void setFloor(String floor) {
+        this.floor = floor == null ? null : floor.trim();
     }
 
     public Long getOrientationId() {
@@ -335,28 +339,28 @@ public class LookShop {
         this.orientationId = orientationId;
     }
 
-    public Long getLoopLineId() {
+    public String getLoopLineId() {
         return loopLineId;
     }
 
-    public void setLoopLineId(Long loopLineId) {
-        this.loopLineId = loopLineId;
+    public void setLoopLineId(String loopLineId) {
+        this.loopLineId = loopLineId == null ? null : loopLineId.trim();
     }
 
-    public Long getSubwayLineId() {
+    public String getSubwayLineId() {
         return subwayLineId;
     }
 
-    public void setSubwayLineId(Long subwayLineId) {
-        this.subwayLineId = subwayLineId;
+    public void setSubwayLineId(String subwayLineId) {
+        this.subwayLineId = subwayLineId == null ? null : subwayLineId.trim();
     }
 
-    public Long getSuccessFee() {
+    public String getSuccessFee() {
         return successFee;
     }
 
-    public void setSuccessFee(Long successFee) {
-        this.successFee = successFee;
+    public void setSuccessFee(String successFee) {
+        this.successFee = successFee == null ? null : successFee.trim();
     }
 
     public Date getUpdateTime() {
@@ -421,5 +425,61 @@ public class LookShop {
 
     public void setAddress(String address) {
         this.address = address == null ? null : address.trim();
+    }
+
+    public String getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(String contacts) {
+        this.contacts = contacts == null ? null : contacts.trim();
+    }
+
+    public String getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude == null ? null : longitude.trim();
+    }
+
+    public String getReasons() {
+        return reasons;
+    }
+
+    public void setReasons(String reasons) {
+        this.reasons = reasons == null ? null : reasons.trim();
+    }
+
+    public String getOtherOne() {
+        return otherOne;
+    }
+
+    public void setOtherOne(String otherOne) {
+        this.otherOne = otherOne == null ? null : otherOne.trim();
+    }
+
+    public String getOtherTwo() {
+        return otherTwo;
+    }
+
+    public void setOtherTwo(String otherTwo) {
+        this.otherTwo = otherTwo == null ? null : otherTwo.trim();
+    }
+
+    public Long getOtherThree() {
+        return otherThree;
+    }
+
+    public void setOtherThree(Long otherThree) {
+        this.otherThree = otherThree;
+    }
+
+    public Integer getOtherFour() {
+        return otherFour;
+    }
+
+    public void setOtherFour(Integer otherFour) {
+        this.otherFour = otherFour;
     }
 }

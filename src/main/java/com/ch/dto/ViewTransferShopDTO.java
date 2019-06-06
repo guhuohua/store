@@ -86,4 +86,9 @@ public class ViewTransferShopDTO {
     private Long deposit;
 
     private List<TransferImage> transferImageList;
+
+    private Integer doneStatus;
+
+    private Integer checkStatus;
+
 }
