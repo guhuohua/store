@@ -82,7 +82,10 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
         ResponseResult result = new ResponseResult();
         ViewLookShopInfoDTO viewLookShopInfoDTO = new ViewLookShopInfoDTO();
         LookShop lookShop = lookShopMapper.selectByPrimaryKey(id);
+        viewLookShopInfoDTO.setUsername(lookShop.getContacts());
         modelMapper.map(lookShop, viewLookShopInfoDTO);
+        viewLookShopInfoDTO.setUsername(lookShop.getContacts());
+
         LookShopBusinessExample lookShopBusinessExample = new LookShopBusinessExample();
         lookShopBusinessExample.createCriteria().andLookShopIdEqualTo(id);
         List<LookShopBusiness> lookShopBusinesses = lookShopBusinessMapper.selectByExample(lookShopBusinessExample);
@@ -122,6 +125,7 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
         if (BeanUtils.isNotEmpty(decorateType)) {
             viewLookShopInfoDTO.setDecorateType(decorateType.getDecorateType());
         }
+        result.setData(viewLookShopInfoDTO);
         return result;
     }
 

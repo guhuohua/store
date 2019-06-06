@@ -41,15 +41,11 @@ public class TransferShop {
 
     private Long serviceType;
 
-    private String longitude;
-
-    private String latitude;
-
     private Integer mediumStatus;
 
     private String shopReadme;
 
-    private String floorNumber;
+    private Integer floorNumber;
 
     private Long orientationId;
 
@@ -58,6 +54,8 @@ public class TransferShop {
     private Long subwayLineId;
 
     private Date updateTime;
+
+    private String lon;
 
     private Date publishedTime;
 
@@ -85,17 +83,23 @@ public class TransferShop {
 
     private Integer checkStatus;
 
+    private Date createTime;
+
     private String address;
 
     private String contacts;
 
-    public String getContacts() {
-        return contacts;
-    }
+    private String lat;
 
-    public void setContacts(String contacts) {
-        this.contacts = contacts;
-    }
+    private String reasons;
+
+    private String otherOne;
+
+    private String otherTwo;
+
+    private Long otherThree;
+
+    private Integer otherFour;
 
     public Long getId() {
         return id;
@@ -249,15 +253,6 @@ public class TransferShop {
         this.serviceType = serviceType;
     }
 
-
-    public String getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(String latitude) {
-        this.latitude = latitude == null ? null : latitude.trim();
-    }
-
     public Integer getMediumStatus() {
         return mediumStatus;
     }
@@ -274,12 +269,20 @@ public class TransferShop {
         this.shopReadme = shopReadme == null ? null : shopReadme.trim();
     }
 
-    public String getFloorNumber() {
+    public Integer getFloorNumber() {
         return floorNumber;
     }
 
-    public void setFloorNumber(String floorNumber) {
+    public void setFloorNumber(Integer floorNumber) {
         this.floorNumber = floorNumber;
+    }
+
+    public Long getOrientationId() {
+        return orientationId;
+    }
+
+    public void setOrientationId(Long orientationId) {
+        this.orientationId = orientationId;
     }
 
     public Long getLoopLineId() {
@@ -304,6 +307,14 @@ public class TransferShop {
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    public String getLon() {
+        return lon;
+    }
+
+    public void setLon(String lon) {
+        this.lon = lon == null ? null : lon.trim();
     }
 
     public Date getPublishedTime() {
@@ -410,6 +421,14 @@ public class TransferShop {
         this.checkStatus = checkStatus;
     }
 
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
     public String getAddress() {
         return address;
     }
@@ -418,19 +437,59 @@ public class TransferShop {
         this.address = address == null ? null : address.trim();
     }
 
-    public String getLongitude() {
-        return longitude;
+    public String getContacts() {
+        return contacts;
     }
 
-    public void setLongitude(String longitude) {
-        this.longitude = longitude;
+    public void setContacts(String contacts) {
+        this.contacts = contacts == null ? null : contacts.trim();
     }
 
-    public Long getOrientationId() {
-        return orientationId;
+    public String getLat() {
+        return lat;
     }
 
-    public void setOrientationId(Long orientationId) {
-        this.orientationId = orientationId;
+    public void setLat(String lat) {
+        this.lat = lat == null ? null : lat.trim();
+    }
+
+    public String getReasons() {
+        return reasons;
+    }
+
+    public void setReasons(String reasons) {
+        this.reasons = reasons == null ? null : reasons.trim();
+    }
+
+    public String getOtherOne() {
+        return otherOne;
+    }
+
+    public void setOtherOne(String otherOne) {
+        this.otherOne = otherOne == null ? null : otherOne.trim();
+    }
+
+    public String getOtherTwo() {
+        return otherTwo;
+    }
+
+    public void setOtherTwo(String otherTwo) {
+        this.otherTwo = otherTwo == null ? null : otherTwo.trim();
+    }
+
+    public Long getOtherThree() {
+        return otherThree;
+    }
+
+    public void setOtherThree(Long otherThree) {
+        this.otherThree = otherThree;
+    }
+
+    public Integer getOtherFour() {
+        return otherFour;
+    }
+
+    public void setOtherFour(Integer otherFour) {
+        this.otherFour = otherFour;
     }
 }

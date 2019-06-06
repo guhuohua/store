@@ -21,8 +21,6 @@
     <result column="transfer_fee" property="transferFee" jdbcType="BIGINT" />
     <result column="shop_sn" property="shopSn" jdbcType="VARCHAR" />
     <result column="service_type" property="serviceType" jdbcType="BIGINT" />
-    <result column="longitude" property="longitude" jdbcType="VARCHAR" />
-    <result column="latitude" property="latitude" jdbcType="VARCHAR" />
     <result column="medium_status" property="mediumStatus" jdbcType="INTEGER" />
     <result column="shop_readme" property="shopReadme" jdbcType="VARCHAR" />
     <result column="floor_number" property="floorNumber" jdbcType="INTEGER" />
@@ -30,6 +28,7 @@
     <result column="loop_line_id" property="loopLineId" jdbcType="BIGINT" />
     <result column="subway_line_id" property="subwayLineId" jdbcType="BIGINT" />
     <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="lon" property="lon" jdbcType="VARCHAR" />
     <result column="published_time" property="publishedTime" jdbcType="TIMESTAMP" />
     <result column="check_time" property="checkTime" jdbcType="TIMESTAMP" />
     <result column="success_time" property="successTime" jdbcType="TIMESTAMP" />
@@ -43,8 +42,15 @@
     <result column="province_id" property="provinceId" jdbcType="INTEGER" />
     <result column="recommend_type" property="recommendType" jdbcType="INTEGER" />
     <result column="check_status" property="checkStatus" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="address" property="address" jdbcType="VARCHAR" />
     <result column="contacts" property="contacts" jdbcType="VARCHAR" />
+    <result column="lat" property="lat" jdbcType="VARCHAR" />
+    <result column="reasons" property="reasons" jdbcType="VARCHAR" />
+    <result column="other_one" property="otherOne" jdbcType="VARCHAR" />
+    <result column="other_two" property="otherTwo" jdbcType="VARCHAR" />
+    <result column="other_three" property="otherThree" jdbcType="BIGINT" />
+    <result column="other_four" property="otherFour" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -107,12 +113,11 @@
   <sql id="Base_Column_List" >
     id, client_id, tel, business_type_id, property_type_id, shop_type_id, rent, area, 
     transfer_status, status, title, city_id, decorate_type_id, requirement_details, "accessory _requirements", 
-    gate_width, transfer_fee, shop_sn, service_type, 
-longitude, latitude, medium_status, 
-    shop_readme, floor_number, 
-orientation_id, loop_line_id, subway_line_id, update_time, 
-    published_time, check_time, success_time, free_period, transfer_icon_id, fake_tel, 
-    image, sort, area_id, street_id, province_id, recommend_type, check_status, address,contacts
+    gate_width, transfer_fee, shop_sn, service_type, medium_status, shop_readme, floor_number, 
+    orientation_id, loop_line_id, subway_line_id, update_time, lon, published_time, check_time, 
+    success_time, free_period, transfer_icon_id, fake_tel, image, sort, area_id, street_id, 
+    province_id, recommend_type, check_status, create_time, address, contacts, lat, reasons, 
+    other_one, other_two, other_three, other_four
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ch.entity.TransferShopExample" >
     select
@@ -152,34 +157,34 @@ orientation_id, loop_line_id, subway_line_id, update_time,
       status, title, city_id, 
       decorate_type_id, requirement_details, "accessory _requirements", 
       gate_width, transfer_fee, shop_sn, 
-      service_type, 
-longitude, latitude, 
-      medium_status, shop_readme, floor_number, 
-      
-orientation_id, loop_line_id, subway_line_id, 
-      update_time, published_time, check_time, 
-      success_time, free_period, transfer_icon_id, 
-      fake_tel, image, sort, 
-      area_id, street_id, province_id, 
-      recommend_type, check_status, address,contacts
-      )
+      service_type, medium_status, shop_readme, 
+      floor_number, orientation_id, loop_line_id, 
+      subway_line_id, update_time, lon, 
+      published_time, check_time, success_time, 
+      free_period, transfer_icon_id, fake_tel, 
+      image, sort, area_id, 
+      street_id, province_id, recommend_type, 
+      check_status, create_time, address, 
+      contacts, lat, reasons, 
+      other_one, other_two, other_three, 
+      other_four)
     values (#{id,jdbcType=BIGINT}, #{clientId,jdbcType=BIGINT}, #{tel,jdbcType=VARCHAR}, 
       #{businessTypeId,jdbcType=BIGINT}, #{propertyTypeId,jdbcType=BIGINT}, #{shopTypeId,jdbcType=BIGINT}, 
       #{rent,jdbcType=BIGINT}, #{area,jdbcType=INTEGER}, #{transferStatus,jdbcType=INTEGER}, 
       #{status,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{cityId,jdbcType=INTEGER}, 
       #{decorateTypeId,jdbcType=BIGINT}, #{requirementDetails,jdbcType=VARCHAR}, #{accessoryRequirements,jdbcType=VARCHAR}, 
       #{gateWidth,jdbcType=BIGINT}, #{transferFee,jdbcType=BIGINT}, #{shopSn,jdbcType=VARCHAR}, 
-      #{serviceType,jdbcType=BIGINT}, #{
-longitude,jdbcType=VARCHAR}, #{latitude,jdbcType=VARCHAR}, 
-      #{mediumStatus,jdbcType=INTEGER}, #{shopReadme,jdbcType=VARCHAR}, #{floorNumber,jdbcType=INTEGER}, 
-      #{
-orientationId,jdbcType=BIGINT}, #{loopLineId,jdbcType=BIGINT}, #{subwayLineId,jdbcType=BIGINT}, 
-      #{updateTime,jdbcType=TIMESTAMP}, #{publishedTime,jdbcType=TIMESTAMP}, #{checkTime,jdbcType=TIMESTAMP}, 
-      #{successTime,jdbcType=TIMESTAMP}, #{freePeriod,jdbcType=INTEGER}, #{transferIconId,jdbcType=BIGINT}, 
-      #{fakeTel,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, 
-      #{areaId,jdbcType=INTEGER}, #{streetId,jdbcType=INTEGER}, #{provinceId,jdbcType=INTEGER}, 
-      #{recommendType,jdbcType=INTEGER}, #{checkStatus,jdbcType=INTEGER}, #{address,jdbcType=VARCHAR}, #{contacts,jdbcType=VARCHAR}
-      )
+      #{serviceType,jdbcType=BIGINT}, #{mediumStatus,jdbcType=INTEGER}, #{shopReadme,jdbcType=VARCHAR}, 
+      #{floorNumber,jdbcType=INTEGER}, #{orientationId,jdbcType=BIGINT}, #{loopLineId,jdbcType=BIGINT}, 
+      #{subwayLineId,jdbcType=BIGINT}, #{updateTime,jdbcType=TIMESTAMP}, #{lon,jdbcType=VARCHAR}, 
+      #{publishedTime,jdbcType=TIMESTAMP}, #{checkTime,jdbcType=TIMESTAMP}, #{successTime,jdbcType=TIMESTAMP}, 
+      #{freePeriod,jdbcType=INTEGER}, #{transferIconId,jdbcType=BIGINT}, #{fakeTel,jdbcType=VARCHAR}, 
+      #{image,jdbcType=VARCHAR}, #{sort,jdbcType=INTEGER}, #{areaId,jdbcType=INTEGER}, 
+      #{streetId,jdbcType=INTEGER}, #{provinceId,jdbcType=INTEGER}, #{recommendType,jdbcType=INTEGER}, 
+      #{checkStatus,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{address,jdbcType=VARCHAR}, 
+      #{contacts,jdbcType=VARCHAR}, #{lat,jdbcType=VARCHAR}, #{reasons,jdbcType=VARCHAR}, 
+      #{otherOne,jdbcType=VARCHAR}, #{otherTwo,jdbcType=VARCHAR}, #{otherThree,jdbcType=BIGINT}, 
+      #{otherFour,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.ch.entity.TransferShop" >
     insert into transfer_shop
@@ -241,14 +246,6 @@ orientationId,jdbcType=BIGINT}, #{loopLineId,jdbcType=BIGINT}, #{subwayLineId,jd
       <if test="serviceType != null" >
         service_type,
       </if>
-      <if test="
-longitude != null" >
-        
-longitude,
-      </if>
-      <if test="latitude != null" >
-        latitude,
-      </if>
       <if test="mediumStatus != null" >
         medium_status,
       </if>
@@ -258,10 +255,8 @@ longitude,
       <if test="floorNumber != null" >
         floor_number,
       </if>
-      <if test="
-orientationId != null" >
-        
-orientation_id,
+      <if test="orientationId != null" >
+        orientation_id,
       </if>
       <if test="loopLineId != null" >
         loop_line_id,
@@ -271,6 +266,9 @@ orientation_id,
       </if>
       <if test="updateTime != null" >
         update_time,
+      </if>
+      <if test="lon != null" >
+        lon,
       </if>
       <if test="publishedTime != null" >
         published_time,
@@ -311,8 +309,32 @@ orientation_id,
       <if test="checkStatus != null" >
         check_status,
       </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
       <if test="address != null" >
         address,
+      </if>
+      <if test="contacts != null" >
+        contacts,
+      </if>
+      <if test="lat != null" >
+        lat,
+      </if>
+      <if test="reasons != null" >
+        reasons,
+      </if>
+      <if test="otherOne != null" >
+        other_one,
+      </if>
+      <if test="otherTwo != null" >
+        other_two,
+      </if>
+      <if test="otherThree != null" >
+        other_three,
+      </if>
+      <if test="otherFour != null" >
+        other_four,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -373,14 +395,6 @@ orientation_id,
       <if test="serviceType != null" >
         #{serviceType,jdbcType=BIGINT},
       </if>
-      <if test="
-longitude != null" >
-        #{
-longitude,jdbcType=VARCHAR},
-      </if>
-      <if test="latitude != null" >
-        #{latitude,jdbcType=VARCHAR},
-      </if>
       <if test="mediumStatus != null" >
         #{mediumStatus,jdbcType=INTEGER},
       </if>
@@ -390,10 +404,8 @@ longitude,jdbcType=VARCHAR},
       <if test="floorNumber != null" >
         #{floorNumber,jdbcType=INTEGER},
       </if>
-      <if test="
-orientationId != null" >
-        #{
-orientationId,jdbcType=BIGINT},
+      <if test="orientationId != null" >
+        #{orientationId,jdbcType=BIGINT},
       </if>
       <if test="loopLineId != null" >
         #{loopLineId,jdbcType=BIGINT},
@@ -403,6 +415,9 @@ orientationId,jdbcType=BIGINT},
       </if>
       <if test="updateTime != null" >
         #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lon != null" >
+        #{lon,jdbcType=VARCHAR},
       </if>
       <if test="publishedTime != null" >
         #{publishedTime,jdbcType=TIMESTAMP},
@@ -443,8 +458,32 @@ orientationId,jdbcType=BIGINT},
       <if test="checkStatus != null" >
         #{checkStatus,jdbcType=INTEGER},
       </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
       <if test="address != null" >
         #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts != null" >
+        #{contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null" >
+        #{lat,jdbcType=VARCHAR},
+      </if>
+      <if test="reasons != null" >
+        #{reasons,jdbcType=VARCHAR},
+      </if>
+      <if test="otherOne != null" >
+        #{otherOne,jdbcType=VARCHAR},
+      </if>
+      <if test="otherTwo != null" >
+        #{otherTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="otherThree != null" >
+        #{otherThree,jdbcType=BIGINT},
+      </if>
+      <if test="otherFour != null" >
+        #{otherFour,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -514,15 +553,6 @@ orientationId,jdbcType=BIGINT},
       <if test="record.serviceType != null" >
         service_type = #{record.serviceType,jdbcType=BIGINT},
       </if>
-      <if test="record.
-longitude != null" >
-        
-longitude = #{record.
-longitude,jdbcType=VARCHAR},
-      </if>
-      <if test="record.latitude != null" >
-        latitude = #{record.latitude,jdbcType=VARCHAR},
-      </if>
       <if test="record.mediumStatus != null" >
         medium_status = #{record.mediumStatus,jdbcType=INTEGER},
       </if>
@@ -532,11 +562,8 @@ longitude,jdbcType=VARCHAR},
       <if test="record.floorNumber != null" >
         floor_number = #{record.floorNumber,jdbcType=INTEGER},
       </if>
-      <if test="record.
-orientationId != null" >
-        
-orientation_id = #{record.
-orientationId,jdbcType=BIGINT},
+      <if test="record.orientationId != null" >
+        orientation_id = #{record.orientationId,jdbcType=BIGINT},
       </if>
       <if test="record.loopLineId != null" >
         loop_line_id = #{record.loopLineId,jdbcType=BIGINT},
@@ -546,6 +573,9 @@ orientationId,jdbcType=BIGINT},
       </if>
       <if test="record.updateTime != null" >
         update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.lon != null" >
+        lon = #{record.lon,jdbcType=VARCHAR},
       </if>
       <if test="record.publishedTime != null" >
         published_time = #{record.publishedTime,jdbcType=TIMESTAMP},
@@ -586,8 +616,32 @@ orientationId,jdbcType=BIGINT},
       <if test="record.checkStatus != null" >
         check_status = #{record.checkStatus,jdbcType=INTEGER},
       </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      </if>
       <if test="record.address != null" >
         address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contacts != null" >
+        contacts = #{record.contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lat != null" >
+        lat = #{record.lat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reasons != null" >
+        reasons = #{record.reasons,jdbcType=VARCHAR},
+      </if>
+      <if test="record.otherOne != null" >
+        other_one = #{record.otherOne,jdbcType=VARCHAR},
+      </if>
+      <if test="record.otherTwo != null" >
+        other_two = #{record.otherTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.otherThree != null" >
+        other_three = #{record.otherThree,jdbcType=BIGINT},
+      </if>
+      <if test="record.otherFour != null" >
+        other_four = #{record.otherFour,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -615,19 +669,14 @@ orientationId,jdbcType=BIGINT},
       transfer_fee = #{record.transferFee,jdbcType=BIGINT},
       shop_sn = #{record.shopSn,jdbcType=VARCHAR},
       service_type = #{record.serviceType,jdbcType=BIGINT},
-      
-longitude = #{record.
-longitude,jdbcType=VARCHAR},
-      latitude = #{record.latitude,jdbcType=VARCHAR},
       medium_status = #{record.mediumStatus,jdbcType=INTEGER},
       shop_readme = #{record.shopReadme,jdbcType=VARCHAR},
       floor_number = #{record.floorNumber,jdbcType=INTEGER},
-      
-orientation_id = #{record.
-orientationId,jdbcType=BIGINT},
+      orientation_id = #{record.orientationId,jdbcType=BIGINT},
       loop_line_id = #{record.loopLineId,jdbcType=BIGINT},
       subway_line_id = #{record.subwayLineId,jdbcType=BIGINT},
       update_time = #{record.updateTime,jdbcType=TIMESTAMP},
+      lon = #{record.lon,jdbcType=VARCHAR},
       published_time = #{record.publishedTime,jdbcType=TIMESTAMP},
       check_time = #{record.checkTime,jdbcType=TIMESTAMP},
       success_time = #{record.successTime,jdbcType=TIMESTAMP},
@@ -641,8 +690,15 @@ orientationId,jdbcType=BIGINT},
       province_id = #{record.provinceId,jdbcType=INTEGER},
       recommend_type = #{record.recommendType,jdbcType=INTEGER},
       check_status = #{record.checkStatus,jdbcType=INTEGER},
+      create_time = #{record.createTime,jdbcType=TIMESTAMP},
       address = #{record.address,jdbcType=VARCHAR},
-    contacts = #{record.contacts,jdbcType=VARCHAR}
+      contacts = #{record.contacts,jdbcType=VARCHAR},
+      lat = #{record.lat,jdbcType=VARCHAR},
+      reasons = #{record.reasons,jdbcType=VARCHAR},
+      other_one = #{record.otherOne,jdbcType=VARCHAR},
+      other_two = #{record.otherTwo,jdbcType=VARCHAR},
+      other_three = #{record.otherThree,jdbcType=BIGINT},
+      other_four = #{record.otherFour,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -704,15 +760,6 @@ orientationId,jdbcType=BIGINT},
       <if test="serviceType != null" >
         service_type = #{serviceType,jdbcType=BIGINT},
       </if>
-      <if test="
-longitude != null" >
-        
-longitude = #{
-longitude,jdbcType=VARCHAR},
-      </if>
-      <if test="latitude != null" >
-        latitude = #{latitude,jdbcType=VARCHAR},
-      </if>
       <if test="mediumStatus != null" >
         medium_status = #{mediumStatus,jdbcType=INTEGER},
       </if>
@@ -722,11 +769,8 @@ longitude,jdbcType=VARCHAR},
       <if test="floorNumber != null" >
         floor_number = #{floorNumber,jdbcType=INTEGER},
       </if>
-      <if test="
-orientationId != null" >
-        
-orientation_id = #{
-orientationId,jdbcType=BIGINT},
+      <if test="orientationId != null" >
+        orientation_id = #{orientationId,jdbcType=BIGINT},
       </if>
       <if test="loopLineId != null" >
         loop_line_id = #{loopLineId,jdbcType=BIGINT},
@@ -736,6 +780,9 @@ orientationId,jdbcType=BIGINT},
       </if>
       <if test="updateTime != null" >
         update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lon != null" >
+        lon = #{lon,jdbcType=VARCHAR},
       </if>
       <if test="publishedTime != null" >
         published_time = #{publishedTime,jdbcType=TIMESTAMP},
@@ -776,8 +823,32 @@ orientationId,jdbcType=BIGINT},
       <if test="checkStatus != null" >
         check_status = #{checkStatus,jdbcType=INTEGER},
       </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
       <if test="address != null" >
         address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="contacts != null" >
+        contacts = #{contacts,jdbcType=VARCHAR},
+      </if>
+      <if test="lat != null" >
+        lat = #{lat,jdbcType=VARCHAR},
+      </if>
+      <if test="reasons != null" >
+        reasons = #{reasons,jdbcType=VARCHAR},
+      </if>
+      <if test="otherOne != null" >
+        other_one = #{otherOne,jdbcType=VARCHAR},
+      </if>
+      <if test="otherTwo != null" >
+        other_two = #{otherTwo,jdbcType=VARCHAR},
+      </if>
+      <if test="otherThree != null" >
+        other_three = #{otherThree,jdbcType=BIGINT},
+      </if>
+      <if test="otherFour != null" >
+        other_four = #{otherFour,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
@@ -802,19 +873,14 @@ orientationId,jdbcType=BIGINT},
       transfer_fee = #{transferFee,jdbcType=BIGINT},
       shop_sn = #{shopSn,jdbcType=VARCHAR},
       service_type = #{serviceType,jdbcType=BIGINT},
-      
-longitude = #{
-longitude,jdbcType=VARCHAR},
-      latitude = #{latitude,jdbcType=VARCHAR},
       medium_status = #{mediumStatus,jdbcType=INTEGER},
       shop_readme = #{shopReadme,jdbcType=VARCHAR},
       floor_number = #{floorNumber,jdbcType=INTEGER},
-      
-orientation_id = #{
-orientationId,jdbcType=BIGINT},
+      orientation_id = #{orientationId,jdbcType=BIGINT},
       loop_line_id = #{loopLineId,jdbcType=BIGINT},
       subway_line_id = #{subwayLineId,jdbcType=BIGINT},
       update_time = #{updateTime,jdbcType=TIMESTAMP},
+      lon = #{lon,jdbcType=VARCHAR},
       published_time = #{publishedTime,jdbcType=TIMESTAMP},
       check_time = #{checkTime,jdbcType=TIMESTAMP},
       success_time = #{successTime,jdbcType=TIMESTAMP},
@@ -828,8 +894,15 @@ orientationId,jdbcType=BIGINT},
       province_id = #{provinceId,jdbcType=INTEGER},
       recommend_type = #{recommendType,jdbcType=INTEGER},
       check_status = #{checkStatus,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
       address = #{address,jdbcType=VARCHAR},
-      contacts = #{contacts,jdbcType=VARCHAR}
+      contacts = #{contacts,jdbcType=VARCHAR},
+      lat = #{lat,jdbcType=VARCHAR},
+      reasons = #{reasons,jdbcType=VARCHAR},
+      other_one = #{otherOne,jdbcType=VARCHAR},
+      other_two = #{otherTwo,jdbcType=VARCHAR},
+      other_three = #{otherThree,jdbcType=BIGINT},
+      other_four = #{otherFour,jdbcType=INTEGER}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

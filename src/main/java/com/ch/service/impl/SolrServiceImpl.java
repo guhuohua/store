@@ -54,6 +54,7 @@ public class SolrServiceImpl implements SolrService {
             storeSolrSchema.setStoreArea( Long.valueOf(transferShop.getArea()));
             storeSolrSchema.setStoreCategory(transferShop.getRecommendType());
             storeSolrSchema.setStoreType(0);
+
             storeSolrSchema.setStoreStatus(transferShop.getStatus());
             try {
                 System.out.println("准备同步solr:"+ JSON.toJSONString(storeSolrSchema));

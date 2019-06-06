@@ -233,8 +233,7 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
         TransferShop transferShop = transferShopMapper.selectByPrimaryKey(storeId);
         ViewTransferShopDTO viewTransferShopDTO = new ViewTransferShopDTO();
         modelMapper.map(transferShop, viewTransferShopDTO);
-        Client client = clientMapper.selectByPrimaryKey(transferShop.getClientId());
-        viewTransferShopDTO.setUsername(client.getNickName());
+        viewTransferShopDTO.setUsername(transferShop.getContacts());
         TransferImageExample transferImageExample = new TransferImageExample();
         transferImageExample.createCriteria().andTransferShopIdEqualTo(transferShop.getId().toString());
         List<TransferImage> transferImages = transferImageMapper.selectByExample(transferImageExample);
