@@ -50,9 +50,9 @@ public class ViewLookShopAddParam {
 
     private Long serviceType;
 
-    private String longitude;
+    private String lon;
 
-    private String latitude;
+    private String lat;
 
     private Integer mediumStatus;
 

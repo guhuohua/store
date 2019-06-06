@@ -1,6 +1,7 @@
 package com.ch.service;
 
 import com.ch.base.ResponseResult;
+import com.ch.model.FastTransferShopParam;
 import com.ch.model.ViewLookShopAddParam;
 
 public interface ViewLookShopService {
@@ -19,5 +20,13 @@ public interface ViewLookShopService {
      * @return
      */
     ResponseResult lookShopInfo(Long id);
+
+
+    /**
+     * 急速选址
+     * @param param
+     * @return
+     */
+    ResponseResult fastLookShop(FastTransferShopParam param);
 
 }

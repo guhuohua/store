@@ -9,7 +9,7 @@ public class ViewTransferShopListParam {
 
     private String storeName;
 
-    private String storeCategory;
+    private Integer storeCategory;
 
     private Integer start;
 
@@ -34,4 +34,6 @@ public class ViewTransferShopListParam {
     private Integer storeType;
 
     private Integer storeStatus;
+
+    private Long clientId;
 }

@@ -1,6 +1,7 @@
 package com.ch.service;
 
 import com.ch.base.ResponseResult;
+import com.ch.model.FastTransferShopParam;
 import com.ch.model.ViewTransferShopListParam;
 import com.ch.model.ViewTransferShopParam;
 
@@ -29,6 +30,19 @@ public interface ViewTransferShopService {
     ResponseResult transferShopInfo(Long storeId);
 
 
+    /**
+     * 急速转铺
+     * @param param
+     * @return
+     */
+    ResponseResult fastTransferShop(FastTransferShopParam param);
 
+
+    /**
+     * 我的转铺列表
+     * @param id
+     * @return
+     */
+    ResponseResult myTransferShopList(Long id);
 
 }
