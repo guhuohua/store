@@ -1,6 +1,7 @@
 package com.ch.service;
 
 import com.ch.base.ResponseResult;
+import com.ch.model.ViewWXLoginParam;
 
 public interface ViewBaseService {
 
@@ -81,4 +82,18 @@ public interface ViewBaseService {
      * @return
      */
     ResponseResult decorateType();
+
+    /**
+     * 小程序首页轮播图
+     * @return
+     */
+    ResponseResult advert();
+
+
+    /**
+     * 微信授权登录
+     * @param param
+     * @return
+     */
+    ResponseResult wxLogin(ViewWXLoginParam param);
 }

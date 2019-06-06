@@ -1,16 +1,14 @@
 package com.ch.controller;
 
 import com.ch.base.ResponseResult;
+import com.ch.model.ViewWXLoginParam;
 import com.ch.service.ViewBaseService;
 import com.ch.service.ViewIconService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping(value = "/view/base")
@@ -201,6 +199,36 @@ public class ViewBaseController{
             result.setCode(600);
             result.setError(e.getMessage());
             result.setError_description("获取装修类型失败");
+        }
+        return result;
+    }
+
+    @GetMapping("/advert")
+    @ApiOperation("获取轮播图")
+    public ResponseResult advert() {
+        ResponseResult result = new ResponseResult();
+        try {
+            result = viewBaseService.advert();
+        } catch (Exception e) {
+            log.error("获取轮播图失败" + e.getMessage(), e);
+            result.setCode(600);
+            result.setError(e.getMessage());
+            result.setError_description("获取轮播图失败");
+        }
+        return result;
+    }
+
+    @PostMapping("/wxLogin")
+    @ApiOperation("微信授权登录")
+    public ResponseResult wxLogin(@RequestBody ViewWXLoginParam param) {
+        ResponseResult result = new ResponseResult();
+        try {
+            result = viewBaseService.wxLogin(param);
+        } catch (Exception e) {
+            log.error("微信授权登录失败" + e.getMessage(), e);
+            result.setCode(600);
+            result.setError(e.getMessage());
+            result.setError_description("微信授权登录失败");
         }
         return result;
     }

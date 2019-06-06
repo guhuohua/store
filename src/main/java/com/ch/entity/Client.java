@@ -25,6 +25,26 @@ public class Client {
 
     private Long totalFee;
 
+    private Integer gender;
+
+    private String openId;
+
+    public String getOpenId() {
+        return openId;
+    }
+
+    public void setOpenId(String openId) {
+        this.openId = openId;
+    }
+
+    public Integer getGender() {
+        return gender;
+    }
+
+    public void setGender(Integer gender) {
+        this.gender = gender;
+    }
+
     public Long getId() {
         return id;
     }
