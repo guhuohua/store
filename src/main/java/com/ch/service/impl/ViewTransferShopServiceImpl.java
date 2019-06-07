@@ -3,8 +3,10 @@ package com.ch.service.impl;
 import com.ch.base.BeanUtils;
 import com.ch.base.ResponseResult;
 import com.ch.dao.*;
+import com.ch.dto.ViewMyTransferShopLIstDTO;
 import com.ch.dto.ViewTransferShopDTO;
 import com.ch.entity.*;
+import com.ch.model.FastTransferShopParam;
 import com.ch.model.ViewTransferShopListParam;
 import com.ch.model.ViewTransferShopParam;
 import com.ch.service.ViewTransferShopService;
@@ -77,6 +79,9 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
     @Autowired
     TransferShopBusinessMapper transferShopBusinessMapper;
 
+    @Autowired
+    FastTransferShopMapper fastTransferShopMapper;
+
     @Override
     @Transactional
     public ResponseResult addTransferShop(ViewTransferShopParam param) {
@@ -86,8 +91,9 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
         transferShop.setId(IdUtil.getId());
         transferShop.setCheckTime(new Date());
         transferShop.setStatus(0);
-        transferShop.setCheckStatus(0);
+        transferShop.setCheckStatus(2);
         transferShop.setFakeTel("15629013877");
+        transferShop.setShopSn((IdUtil.getId() + 1) + "");
         transferShopMapper.insert(transferShop);
         List<TransferImage> transferImages = param.getTransferImages();
         for (TransferImage transferImage:transferImages) {
@@ -173,6 +179,14 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
             } else {
                 params = new StringBuilder();
                 params.append(" AND (storeStatus:" + param.getStoreStatus() + ")");
+            }
+        }
+        if (BeanUtils.isNotEmpty(param.getCityId())) {
+            if (params != null) {
+                params.append(" AND (clientId:" + param.getCityId() + ")");
+            } else {
+                params = new StringBuilder();
+                params.append(" AND (clientId:" + param.getCityId() + ")");
             }
         }
         if ("TIME".equals(param.getSort())) {
@@ -277,6 +291,50 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
             viewTransferShopDTO.setProvince(bsProvince.getProvinceName());
         }
         result.setData(viewTransferShopDTO);
+        return result;
+    }
+
+    @Override
+    public ResponseResult fastTransferShop(FastTransferShopParam param) {
+        ResponseResult result = new ResponseResult();
+        FastTransferShop fastTransferShop = new FastTransferShop();
+        fastTransferShop.setId(IdUtil.getId());
+        fastTransferShop.setContacts(param.getContacts());
+        fastTransferShop.setCreateDate(new Date());
+        fastTransferShop.setAllocationStatus(0);
+        fastTransferShop.setDescribe(param.getDescribe());
+        fastTransferShop.setTel(param.getTel());
+        fastTransferShopMapper.insert(fastTransferShop);
+        return result;
+    }
+
+    @Override
+    public ResponseResult myTransferShopList(Long id) {
+        ResponseResult result = new ResponseResult();
+        TransferShop transferShop = transferShopMapper.selectByPrimaryKey(id);
+        ViewMyTransferShopLIstDTO viewMyTransferShopLIstDTO = new ViewMyTransferShopLIstDTO();
+        viewMyTransferShopLIstDTO.setId(transferShop.getId());
+        viewMyTransferShopLIstDTO.setArea(transferShop.getArea());
+        viewMyTransferShopLIstDTO.setCheckStatus(transferShop.getCheckStatus());
+        viewMyTransferShopLIstDTO.setRent(transferShop.getRent());
+        viewMyTransferShopLIstDTO.setTitle(transferShop.getTitle());
+        BsProvince bsProvince = bsProvinceMapper.selectByPrimaryKey(transferShop.getProvinceId());
+        if (BeanUtils.isNotEmpty(bsProvince)) {
+            viewMyTransferShopLIstDTO.setProvince(bsProvince.getProvinceName());
+        }
+        BsCity bsCity = bsCityMapper.selectByPrimaryKey(transferShop.getCityId());
+        if (BeanUtils.isNotEmpty(bsCity)) {
+            viewMyTransferShopLIstDTO.setCity(bsCity.getCityName());
+        }
+        BsArea bsArea = bsAreaMapper.selectByPrimaryKey(transferShop.getAreaId());
+        if (BeanUtils.isNotEmpty(bsArea)) {
+            viewMyTransferShopLIstDTO.setAreaName(bsArea.getAreaName());
+        }
+        BsStreet bsStreet = bsStreetMapper.selectByPrimaryKey(transferShop.getStreetId());
+        if (BeanUtils.isNotEmpty(bsStreet)) {
+            viewMyTransferShopLIstDTO.setStreet(bsStreet.getStreetName());
+        }
+        result.setData(viewMyTransferShopLIstDTO);
         return result;
     }
 }

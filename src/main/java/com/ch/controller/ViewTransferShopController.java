@@ -1,6 +1,7 @@
 package com.ch.controller;
 
 import com.ch.base.ResponseResult;
+import com.ch.model.FastTransferShopParam;
 import com.ch.model.ViewTransferShopListParam;
 import com.ch.model.ViewTransferShopParam;
 import com.ch.service.ViewTransferShopService;
@@ -36,7 +37,7 @@ public class ViewTransferShopController {
 
     @GetMapping("/list")
     @ApiOperation("转铺列表")
-    public ResponseResult addTransferShop(@RequestParam ViewTransferShopListParam param) {
+    public ResponseResult transferShopList(@RequestParam ViewTransferShopListParam param) {
         ResponseResult result = new ResponseResult();
         try {
             result = viewTransferShopService.transferShopList(param);
@@ -60,6 +61,36 @@ public class ViewTransferShopController {
             result.setCode(600);
             result.setError(e.getMessage());
             result.setError_description("获取转铺详情失败");
+        }
+        return result;
+    }
+
+    @PostMapping("/fastTransferShop")
+    @ApiOperation("急速转铺")
+    public ResponseResult fastTransferShop(@RequestBody FastTransferShopParam param) {
+        ResponseResult result = new ResponseResult();
+        try {
+            result = viewTransferShopService.fastTransferShop(param);
+        } catch (Exception e) {
+            log.error("急速转铺失败" + e.getMessage(), e);
+            result.setCode(600);
+            result.setError(e.getMessage());
+            result.setError_description("急速转铺失败");
+        }
+        return result;
+    }
+
+    @GetMapping("/myTransferShopList")
+    @ApiOperation("我的转铺列表")
+    public ResponseResult fastTransferShop(@RequestParam Long id) {
+        ResponseResult result = new ResponseResult();
+        try {
+            result = viewTransferShopService.myTransferShopList(id);
+        } catch (Exception e) {
+            log.error("获取我的转铺列表失败" + e.getMessage(), e);
+            result.setCode(600);
+            result.setError(e.getMessage());
+            result.setError_description("获取我的转铺列表失败");
         }
         return result;
     }

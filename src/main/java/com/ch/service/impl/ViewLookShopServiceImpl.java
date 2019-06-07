@@ -5,6 +5,7 @@ import com.ch.base.ResponseResult;
 import com.ch.dao.*;
 import com.ch.dto.ViewLookShopInfoDTO;
 import com.ch.entity.*;
+import com.ch.model.FastTransferShopParam;
 import com.ch.model.ViewLookShopAddParam;
 import com.ch.service.ViewLookShopService;
 import com.ch.util.IdUtil;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -51,6 +53,9 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
 
     @Autowired
     DecorateTypeMapper decorateTypeMapper;
+
+    @Autowired
+    FastLookShopMapper fastLookShopMapper;
 
     @Override
     @Transactional
@@ -121,6 +126,21 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
             viewLookShopInfoDTO.setDecorateType(decorateType.getDecorateType());
         }
         result.setData(viewLookShopInfoDTO);
+        return result;
+    }
+
+
+    @Override
+    public ResponseResult fastLookShop(FastTransferShopParam param) {
+        ResponseResult result = new ResponseResult();
+        FastLookShop fastLookShop = new FastLookShop();
+        fastLookShop.setId(IdUtil.getId());
+        fastLookShop.setContacts(param.getContacts());
+        fastLookShop.setTel(param.getTel());
+        fastLookShop.setDescribe(param.getDescribe());
+        fastLookShop.setCreateDate(new Date());
+        fastLookShop.setAllocationStatus(0);
+        fastLookShopMapper.insert(fastLookShop);
         return result;
     }
 }

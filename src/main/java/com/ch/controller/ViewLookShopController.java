@@ -1,6 +1,7 @@
 package com.ch.controller;
 
 import com.ch.base.ResponseResult;
+import com.ch.model.FastTransferShopParam;
 import com.ch.model.ViewLookShopAddParam;
 import com.ch.service.ViewLookShopService;
 import io.swagger.annotations.Api;
@@ -44,6 +45,21 @@ public class ViewLookShopController {
             result.setCode(600);
             result.setError(e.getMessage());
             result.setError_description("获取选址详情失败");
+        }
+        return result;
+    }
+
+    @PostMapping("/fastLookShop")
+    @ApiOperation("急速选址")
+    public ResponseResult fastLookShop(@RequestBody FastTransferShopParam param) {
+        ResponseResult result = new ResponseResult();
+        try {
+            result = viewLookShopService.fastLookShop(param);
+        } catch (Exception e) {
+            log.error("急速选址失败" + e.getMessage(), e);
+            result.setCode(600);
+            result.setError(e.getMessage());
+            result.setError_description("急速选址失败");
         }
         return result;
     }
