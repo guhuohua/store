@@ -51,7 +51,7 @@ public class SysTransferShopController {
     public ResponseResult showTransferShopInfo(@RequestParam Long storeId) {
         ResponseResult result = new ResponseResult();
         try {
-            result = viewTransferShopService.transferShopInfo(storeId);
+            result = sysTransferShopService.transferShopInfo(storeId);
         } catch (Exception e) {
             log.error("获取转铺详情失败" + e.getMessage(), e);
             result.setCode(600);

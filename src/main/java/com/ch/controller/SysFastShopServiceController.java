@@ -14,11 +14,12 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Slf4j
-@RequestMapping(value = "user")
+@RequestMapping(value = "shop")
 @Api(value = "极速店铺接口")
 public class SysFastShopServiceController {
 
@@ -27,7 +28,7 @@ public class SysFastShopServiceController {
 
     @PostMapping ("showFastTransferShop")
     @ApiOperation("展示后台极速转铺")
-    public ResponseResult showFastFastTransferShop(SysFastShopDTO sysFastShopDTO) {
+    public ResponseResult showFastFastTransferShop(@RequestBody SysFastShopDTO sysFastShopDTO) {
         ResponseResult result = new ResponseResult();
         try {
             result = sysFastShopService.showFastTransferShop(sysFastShopDTO);
@@ -43,7 +44,7 @@ public class SysFastShopServiceController {
 
     @PostMapping("showFastLookShop")
     @ApiOperation("展示后台极速找铺")
-    public ResponseResult showFastLookShop(SysFastShopDTO sysFastShopDTO) {
+    public ResponseResult showFastLookShop(@RequestBody SysFastShopDTO sysFastShopDTO) {
         ResponseResult result = new ResponseResult();
         try {
             result = sysFastShopService.showFastLookShop(sysFastShopDTO);

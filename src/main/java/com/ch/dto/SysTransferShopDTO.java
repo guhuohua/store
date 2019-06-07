@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 @Data
-public class ViewTransferShopDTO {
+public class SysTransferShopDTO {
 
     private Long id;
 
@@ -15,7 +15,7 @@ public class ViewTransferShopDTO {
 
     private String tel;
 
-    private List<String> businessTypes;
+    private String businessTypes;
 
     private String propertyType;
 
@@ -94,8 +94,6 @@ public class ViewTransferShopDTO {
     private String address;
 
     private String reasons;
-
-
 
 
 

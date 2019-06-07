@@ -97,9 +97,19 @@ public class TransferShop {
 
     private String otherTwo;
 
-    private Long otherThree;
+    private Long shopRentTypeId;
 
     private Integer otherFour;
+
+    private Long transferShopId;
+
+    public Long getTransferShopId() {
+        return transferShopId;
+    }
+
+    public void setTransferShopId(Long transferShopId) {
+        this.transferShopId = transferShopId;
+    }
 
     public Long getId() {
         return id;
@@ -477,12 +487,12 @@ public class TransferShop {
         this.otherTwo = otherTwo == null ? null : otherTwo.trim();
     }
 
-    public Long getOtherThree() {
-        return otherThree;
+    public Long getShopRentTypeId() {
+        return shopRentTypeId;
     }
 
-    public void setOtherThree(Long otherThree) {
-        this.otherThree = otherThree;
+    public void setShopRentTypeId(Long shopRentTypeId) {
+        this.shopRentTypeId = shopRentTypeId;
     }
 
     public Integer getOtherFour() {

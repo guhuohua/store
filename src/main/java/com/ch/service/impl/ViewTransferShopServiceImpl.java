@@ -234,6 +234,7 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
                 type.add(businessType.getBusinessType());
             }
         }
+
         viewTransferShopDTO.setBusinessTypes(type);
         PropertyType propertyType = propertyTypeMapper.selectByPrimaryKey(transferShop.getPropertyTypeId());
         if (BeanUtils.isNotEmpty(propertyType)) {

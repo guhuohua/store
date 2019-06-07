@@ -9,4 +9,12 @@ public interface SysLookShopService {
      *
      */
     ResponseResult showLookShopList(ShowShopDto showShopDto);
+
+
+    /**
+     * 选址详情
+     * @param id
+     * @return
+     */
+    ResponseResult lookShopInfo(Long id);
 }

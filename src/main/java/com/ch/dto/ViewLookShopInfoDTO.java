@@ -15,6 +15,8 @@ public class ViewLookShopInfoDTO {
 
     private List<String> businessTypes;
 
+    private String businessType;
+
     private String propertyType;
 
     private String shopType;

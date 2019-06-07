@@ -17,7 +17,7 @@ public class FastTransferShop {
 
     private Integer allocationStatus;
 
-    private Integer sysSuerId;
+    private Integer sysUserId;
 
     public Long getId() {
         return id;
@@ -75,11 +75,11 @@ public class FastTransferShop {
         this.allocationStatus = allocationStatus;
     }
 
-    public Integer getSysSuerId() {
-        return sysSuerId;
+    public Integer getSysUserId() {
+        return sysUserId;
     }
 
-    public void setSysSuerId(Integer sysSuerId) {
-        this.sysSuerId = sysSuerId;
+    public void setSysUserId(Integer sysUserId) {
+        this.sysUserId = sysUserId;
     }
 }
