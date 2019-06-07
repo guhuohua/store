@@ -181,12 +181,12 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
                 params.append(" AND (storeStatus:" + param.getStoreStatus() + ")");
             }
         }
-        if (BeanUtils.isNotEmpty(param.getCityId())) {
+        if (BeanUtils.isNotEmpty(param.getClientId())) {
             if (params != null) {
-                params.append(" AND (clientId:" + param.getCityId() + ")");
+                params.append(" AND (userId:" + param.getClientId() + ")");
             } else {
                 params = new StringBuilder();
-                params.append(" AND (clientId:" + param.getCityId() + ")");
+                params.append(" AND (userId:" + param.getClientId() + ")");
             }
         }
         if ("TIME".equals(param.getSort())) {

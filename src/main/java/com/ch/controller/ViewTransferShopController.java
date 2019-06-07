@@ -37,7 +37,7 @@ public class ViewTransferShopController {
 
     @GetMapping("/list")
     @ApiOperation("转铺列表")
-    public ResponseResult transferShopList(@RequestParam ViewTransferShopListParam param) {
+    public ResponseResult transferShopList(ViewTransferShopListParam param) {
         ResponseResult result = new ResponseResult();
         try {
             result = viewTransferShopService.transferShopList(param);

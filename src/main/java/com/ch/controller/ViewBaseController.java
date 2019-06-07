@@ -52,6 +52,21 @@ public class ViewBaseController{
         return result;
     }
 
+    @GetMapping("/businessTypeList")
+    @ApiOperation("获取经营范围")
+    public ResponseResult businessTypeList() {
+        ResponseResult result = new ResponseResult();
+        try {
+            result = viewBaseService.businessTypeList();
+        } catch (Exception e) {
+            log.error("获取经营范围失败" + e.getMessage(), e);
+            result.setCode(600);
+            result.setError(e.getMessage());
+            result.setError_description("获取经营范围失败");
+        }
+        return result;
+    }
+
     @GetMapping("/city")
     @ApiOperation("获取市级列表")
     public ResponseResult cityList(@RequestParam String code) {
@@ -158,7 +173,7 @@ public class ViewBaseController{
         return result;
     }
 
-    @GetMapping("/lookLineList")
+    @GetMapping("/loopLineList")
     @ApiOperation("获取环线")
     public ResponseResult lookLineList() {
         ResponseResult result = new ResponseResult();
