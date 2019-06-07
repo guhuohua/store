@@ -48,7 +48,7 @@ public class SysLookShopController {
     public ResponseResult showLookShopInfo(@RequestParam Long storeId) {
         ResponseResult result = new ResponseResult();
         try {
-            result = viewLookShopService.lookShopInfo(storeId);
+            result = sysLookShopService.lookShopInfo(storeId);
         } catch (Exception e) {
             log.error("获取找铺详情失败" + e.getMessage(), e);
             result.setCode(600);

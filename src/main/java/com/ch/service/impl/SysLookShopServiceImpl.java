@@ -6,17 +6,18 @@
 
 package com.ch.service.impl;
 
+import com.ch.base.BeanUtils;
 import com.ch.base.ResponseResult;
-import com.ch.dao.LookShopMapper;
+import com.ch.dao.*;
 import com.ch.dto.ShowShopDto;
+
 import com.ch.dto.ViewLookShopInfoDTO;
-import com.ch.dto.ViewTransferShopDTO;
-import com.ch.entity.LookShop;
-import com.ch.entity.TransferShop;
+import com.ch.entity.*;
 import com.ch.service.SysLookShopService;
 import com.ch.service.ViewLookShopService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +30,35 @@ public class SysLookShopServiceImpl implements SysLookShopService {
     @Autowired
     LookShopMapper lookShopMapper;
 
+    @Autowired
+    LookShopBusinessMapper lookShopBusinessMapper;
+
+    @Autowired
+    ModelMapper modelMapper;
+
+    @Autowired
+    BusinessTypeMapper businessTypeMapper;
+
+    @Autowired
+    PropertyTypeMapper propertyTypeMapper;
+
+    @Autowired
+    ShopTypeMapper shopTypeMapper;
+
+    @Autowired
+    BsAreaMapper bsAreaMapper;
+
+    @Autowired
+    BsStreetMapper bsStreetMapper;
+
+    @Autowired
+    BsProvinceMapper bsProvinceMapper;
+
+    @Autowired
+    BsCityMapper bsCityMapper;
+
+    @Autowired
+    DecorateTypeMapper decorateTypeMapper;
     @Autowired
     ViewLookShopService viewLookShopService;
 
@@ -48,4 +78,59 @@ public class SysLookShopServiceImpl implements SysLookShopService {
         result.setData(page);
         return result;
     }
+
+    @Override
+    public ResponseResult lookShopInfo(Long id) {
+        ResponseResult result = new ResponseResult();
+        ViewLookShopInfoDTO viewLookShopInfoDTO = new ViewLookShopInfoDTO();
+        LookShop lookShop = lookShopMapper.selectByPrimaryKey(id);
+        viewLookShopInfoDTO.setUsername(lookShop.getContacts());
+        modelMapper.map(lookShop, viewLookShopInfoDTO);
+        viewLookShopInfoDTO.setUsername(lookShop.getContacts());
+        LookShopBusinessExample lookShopBusinessExample = new LookShopBusinessExample();
+        lookShopBusinessExample.createCriteria().andLookShopIdEqualTo(id);
+        List<LookShopBusiness> lookShopBusinesses = lookShopBusinessMapper.selectByExample(lookShopBusinessExample);
+        List<String> lookShopBusName = new ArrayList<>();
+        StringBuilder type = new StringBuilder();
+        for (LookShopBusiness lookShopBusiness:lookShopBusinesses) {
+            BusinessType businessType = businessTypeMapper.selectByPrimaryKey(lookShopBusiness.getBusinessTypeId());
+            if (BeanUtils.isNotEmpty(businessType)) {
+                lookShopBusName.add(businessType.getBusinessType());
+                type.append(businessType.getBusinessType()+",");
+            }
+        }
+        viewLookShopInfoDTO.setBusinessType(type.toString());
+        //viewLookShopInfoDTO.setBusinessTypes(lookShopBusName);
+        PropertyType propertyType = propertyTypeMapper.selectByPrimaryKey(lookShop.getPropertyTypeId());
+        if (BeanUtils.isNotEmpty(propertyType)) {
+            viewLookShopInfoDTO.setPropertyType(propertyType.getPropertyType());
+        }
+        ShopType shopType = shopTypeMapper.selectByPrimaryKey(lookShop.getShopTypeId());
+        if (BeanUtils.isNotEmpty(shopType)) {
+            viewLookShopInfoDTO.setShopType(shopType.getShopType());
+        }
+        BsCity bsCity = bsCityMapper.selectByPrimaryKey(lookShop.getCityId());
+        if (BeanUtils.isNotEmpty(bsCity)) {
+            viewLookShopInfoDTO.setCity(bsCity.getCityName());
+        }
+        BsArea bsArea = bsAreaMapper.selectByPrimaryKey(lookShop.getAreaId());
+        if (BeanUtils.isNotEmpty(bsArea)) {
+            viewLookShopInfoDTO.setArea(bsArea.getAreaName());
+        }
+        BsStreet bsStreet = bsStreetMapper.selectByPrimaryKey(lookShop.getStreetId());
+        if (BeanUtils.isNotEmpty(bsStreet)) {
+            viewLookShopInfoDTO.setStreet(bsStreet.getStreetName());
+        }
+        BsProvince bsProvince = bsProvinceMapper.selectByPrimaryKey(lookShop.getProvinceId());
+        if (BeanUtils.isNotEmpty(bsProvince)) {
+            viewLookShopInfoDTO.setProvince(bsProvince.getProvinceName());
+        }
+        DecorateType decorateType = decorateTypeMapper.selectByPrimaryKey(lookShop.getDecorateTypeId());
+        if (BeanUtils.isNotEmpty(decorateType)) {
+            viewLookShopInfoDTO.setDecorateType(decorateType.getDecorateType());
+        }
+        result.setData(viewLookShopInfoDTO);
+        return result;
+    }
+
 }

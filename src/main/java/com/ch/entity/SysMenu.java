@@ -1,5 +1,8 @@
 package com.ch.entity;
 
+import java.awt.*;
+import java.util.List;
+
 public class SysMenu {
     private Integer id;
 
@@ -16,6 +19,16 @@ public class SysMenu {
     private Integer sortOrder;
 
     private String label;
+
+    private List<SysMenu> children;
+
+    public List<SysMenu> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<SysMenu> children) {
+        this.children = children;
+    }
 
     public Integer getId() {
         return id;

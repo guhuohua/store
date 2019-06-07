@@ -70,7 +70,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, contacts, tel, describe, create_date, modify_date, allocation_status, sys_user_id
+    id, contacts, tel, `describe`, create_date, modify_date, allocation_status, sys_user_id
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ch.entity.FastLookShopExample" >
     select

@@ -21,4 +21,11 @@ public interface SysTransferShopService {
      */
     ResponseResult updateCategory(UpdateStatusDTO updateStatusDTO);
 
+    /**
+     * 转铺详情
+     * @param storeId
+     * @return
+     */
+    ResponseResult  transferShopInfo(Long storeId);
+
 }

@@ -16,7 +16,7 @@
     <result column="city_id" property="cityId" jdbcType="INTEGER" />
     <result column="decorate_type_id" property="decorateTypeId" jdbcType="BIGINT" />
     <result column="requirement_details" property="requirementDetails" jdbcType="VARCHAR" />
-    <result column="accessory _requirements" property="accessoryRequirements" jdbcType="VARCHAR" />
+    <result column="accessory_requirements" property="accessoryRequirements" jdbcType="VARCHAR" />
     <result column="gate_width" property="gateWidth" jdbcType="BIGINT" />
     <result column="transfer_fee" property="transferFee" jdbcType="BIGINT" />
     <result column="shop_sn" property="shopSn" jdbcType="VARCHAR" />
@@ -49,7 +49,7 @@
     <result column="reasons" property="reasons" jdbcType="VARCHAR" />
     <result column="other_one" property="otherOne" jdbcType="VARCHAR" />
     <result column="other_two" property="otherTwo" jdbcType="VARCHAR" />
-    <result column="other_three" property="otherThree" jdbcType="BIGINT" />
+    <result column="shop_rent_type_id" property="shopRentTypeId" jdbcType="BIGINT" />
     <result column="other_four" property="otherFour" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -112,12 +112,12 @@
   </sql>
   <sql id="Base_Column_List" >
     id, client_id, tel, business_type_id, property_type_id, shop_type_id, rent, area, 
-    transfer_status, status, title, city_id, decorate_type_id, requirement_details, "accessory _requirements", 
+    transfer_status, status, title, city_id, decorate_type_id, requirement_details, accessory_requirements,
     gate_width, transfer_fee, shop_sn, service_type, medium_status, shop_readme, floor_number, 
     orientation_id, loop_line_id, subway_line_id, update_time, lon, published_time, check_time, 
     success_time, free_period, transfer_icon_id, fake_tel, image, sort, area_id, street_id, 
     province_id, recommend_type, check_status, create_time, address, contacts, lat, reasons, 
-    other_one, other_two, other_three, other_four
+    other_one, other_two, shop_rent_type_id, other_four
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ch.entity.TransferShopExample" >
     select
@@ -155,7 +155,7 @@
       business_type_id, property_type_id, shop_type_id, 
       rent, area, transfer_status, 
       status, title, city_id, 
-      decorate_type_id, requirement_details, "accessory _requirements", 
+      decorate_type_id, requirement_details, accessory_requirements,
       gate_width, transfer_fee, shop_sn, 
       service_type, medium_status, shop_readme, 
       floor_number, orientation_id, loop_line_id, 
@@ -166,7 +166,7 @@
       street_id, province_id, recommend_type, 
       check_status, create_time, address, 
       contacts, lat, reasons, 
-      other_one, other_two, other_three, 
+      other_one, other_two, shop_rent_type_id,
       other_four)
     values (#{id,jdbcType=BIGINT}, #{clientId,jdbcType=BIGINT}, #{tel,jdbcType=VARCHAR}, 
       #{businessTypeId,jdbcType=BIGINT}, #{propertyTypeId,jdbcType=BIGINT}, #{shopTypeId,jdbcType=BIGINT}, 
@@ -183,7 +183,7 @@
       #{streetId,jdbcType=INTEGER}, #{provinceId,jdbcType=INTEGER}, #{recommendType,jdbcType=INTEGER}, 
       #{checkStatus,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{address,jdbcType=VARCHAR}, 
       #{contacts,jdbcType=VARCHAR}, #{lat,jdbcType=VARCHAR}, #{reasons,jdbcType=VARCHAR}, 
-      #{otherOne,jdbcType=VARCHAR}, #{otherTwo,jdbcType=VARCHAR}, #{otherThree,jdbcType=BIGINT}, 
+      #{otherOne,jdbcType=VARCHAR}, #{otherTwo,jdbcType=VARCHAR}, #{shopRentTypeId,jdbcType=BIGINT},
       #{otherFour,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.ch.entity.TransferShop" >
@@ -330,8 +330,8 @@
       <if test="otherTwo != null" >
         other_two,
       </if>
-      <if test="otherThree != null" >
-        other_three,
+      <if test="shopRentTypeId != null" >
+        shop_rent_type_id,
       </if>
       <if test="otherFour != null" >
         other_four,
@@ -479,8 +479,8 @@
       <if test="otherTwo != null" >
         #{otherTwo,jdbcType=VARCHAR},
       </if>
-      <if test="otherThree != null" >
-        #{otherThree,jdbcType=BIGINT},
+      <if test="shopRentTypeId != null" >
+        #{shopRentTypeId,jdbcType=BIGINT},
       </if>
       <if test="otherFour != null" >
         #{otherFour,jdbcType=INTEGER},
@@ -637,8 +637,8 @@
       <if test="record.otherTwo != null" >
         other_two = #{record.otherTwo,jdbcType=VARCHAR},
       </if>
-      <if test="record.otherThree != null" >
-        other_three = #{record.otherThree,jdbcType=BIGINT},
+      <if test="record.shopRentTypeId != null" >
+        shop_rent_type_id = #{record.shopRentTypeId,jdbcType=BIGINT},
       </if>
       <if test="record.otherFour != null" >
         other_four = #{record.otherFour,jdbcType=INTEGER},
@@ -664,7 +664,7 @@
       city_id = #{record.cityId,jdbcType=INTEGER},
       decorate_type_id = #{record.decorateTypeId,jdbcType=BIGINT},
       requirement_details = #{record.requirementDetails,jdbcType=VARCHAR},
-      "accessory _requirements" = #{record.accessoryRequirements,jdbcType=VARCHAR},
+      accessory_requirements = #{record.accessoryRequirements,jdbcType=VARCHAR},
       gate_width = #{record.gateWidth,jdbcType=BIGINT},
       transfer_fee = #{record.transferFee,jdbcType=BIGINT},
       shop_sn = #{record.shopSn,jdbcType=VARCHAR},
@@ -697,7 +697,7 @@
       reasons = #{record.reasons,jdbcType=VARCHAR},
       other_one = #{record.otherOne,jdbcType=VARCHAR},
       other_two = #{record.otherTwo,jdbcType=VARCHAR},
-      other_three = #{record.otherThree,jdbcType=BIGINT},
+      shop_rent_type_id = #{record.shopRentTypeId,jdbcType=BIGINT},
       other_four = #{record.otherFour,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -746,7 +746,7 @@
         requirement_details = #{requirementDetails,jdbcType=VARCHAR},
       </if>
       <if test="accessoryRequirements != null" >
-        "accessory _requirements" = #{accessoryRequirements,jdbcType=VARCHAR},
+        accessory_requirements = #{accessoryRequirements,jdbcType=VARCHAR},
       </if>
       <if test="gateWidth != null" >
         gate_width = #{gateWidth,jdbcType=BIGINT},
@@ -844,8 +844,8 @@
       <if test="otherTwo != null" >
         other_two = #{otherTwo,jdbcType=VARCHAR},
       </if>
-      <if test="otherThree != null" >
-        other_three = #{otherThree,jdbcType=BIGINT},
+      <if test="shopRentTypeId != null" >
+        shop_rent_type_id = #{shopRentTypeId,jdbcType=BIGINT},
       </if>
       <if test="otherFour != null" >
         other_four = #{otherFour,jdbcType=INTEGER},
@@ -868,7 +868,7 @@
       city_id = #{cityId,jdbcType=INTEGER},
       decorate_type_id = #{decorateTypeId,jdbcType=BIGINT},
       requirement_details = #{requirementDetails,jdbcType=VARCHAR},
-      "accessory _requirements" = #{accessoryRequirements,jdbcType=VARCHAR},
+      accessory_requirements = #{accessoryRequirements,jdbcType=VARCHAR},
       gate_width = #{gateWidth,jdbcType=BIGINT},
       transfer_fee = #{transferFee,jdbcType=BIGINT},
       shop_sn = #{shopSn,jdbcType=VARCHAR},
@@ -901,7 +901,7 @@
       reasons = #{reasons,jdbcType=VARCHAR},
       other_one = #{otherOne,jdbcType=VARCHAR},
       other_two = #{otherTwo,jdbcType=VARCHAR},
-      other_three = #{otherThree,jdbcType=BIGINT},
+      shop_rent_type_id = #{shopRentTypeId,jdbcType=BIGINT},
       other_four = #{otherFour,jdbcType=INTEGER}
     where id = #{id,jdbcType=BIGINT}
   </update>
