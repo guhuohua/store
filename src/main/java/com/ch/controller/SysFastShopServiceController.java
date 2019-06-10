@@ -42,18 +42,5 @@ public class SysFastShopServiceController {
     }
 
 
-    @PostMapping("showFastLookShop")
-    @ApiOperation("展示后台极速找铺")
-    public ResponseResult showFastLookShop(@RequestBody SysFastShopDTO sysFastShopDTO) {
-        ResponseResult result = new ResponseResult();
-        try {
-            result = sysFastShopService.showFastLookShop(sysFastShopDTO);
-        } catch (Exception e) {
-            log.error("展示后台极速找铺失败" + e.getMessage(), e);
-            result.setCode(600);
-            result.setError(e.getMessage());
-            result.setError_description("展示后台极速找铺失败");
-        }
-        return result;
-    }
+
 }
