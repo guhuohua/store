@@ -1,11 +1,33 @@
 package com.ch.entity;
 
+import java.util.List;
+
 public class BusinessType {
     private Long id;
 
     private String businessType;
 
     private String typeDesc;
+
+    private Long parentId;
+
+    private List<BusinessType> children;
+
+    public Long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
+    }
+
+    public List<BusinessType> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<BusinessType> children) {
+        this.children = children;
+    }
 
     public Long getId() {
         return id;

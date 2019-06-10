@@ -53,7 +53,7 @@ public class ViewTransferShopParam {
 
     private String shopReadme;
 
-    private String floorNumber;
+    private Integer floorNumber;
 
     private Long orientationId;
 
@@ -90,4 +90,6 @@ public class ViewTransferShopParam {
     private String contacts;
 
     private List<TransferImage> transferImages;
+
+    private Long shopRentTypeId;
 }

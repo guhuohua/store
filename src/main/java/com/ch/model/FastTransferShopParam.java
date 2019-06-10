@@ -11,4 +11,5 @@ public class FastTransferShopParam {
 
     private String describe;
 
+    private String type;
 }

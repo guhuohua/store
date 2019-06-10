@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.annotation.QueryAnnotation;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -63,9 +65,43 @@ public class ViewBaseServiceImpl implements ViewBaseService {
     public ResponseResult businessTypeList() {
         ResponseResult result = new ResponseResult();
         List<BusinessType> businessTypes = businessTypeMapper.selectByExample(null);
-        result.setData(businessTypes);
+        List<BusinessType> rootMenu = new ArrayList<BusinessType>();
+        for (BusinessType nav : businessTypes) {
+            if (nav.getParentId() == 0) {
+                rootMenu.add(nav);
+            }
+        }
+        //为根菜单设置子菜单，getClild是递归调用的
+        for (BusinessType nav : rootMenu) {
+            /* 获取根节点下的所有子节点 使用getChild方法*/
+            List<BusinessType> childList = getChild(nav.getId(), businessTypes);
+            nav.setChildren(childList);//给根节点设置子节点
+        }
+        result.setData(rootMenu);
         return result;
     }
+
+    public List<BusinessType> getChild(Long id, List<BusinessType> allMenu) {
+        //子菜单
+        List<BusinessType> childList = new ArrayList<BusinessType>();
+        for (BusinessType nav : allMenu) {
+            // 遍历所有节点，将所有菜单的父id与传过来的根节点的id比较
+            //相等说明：为该根节点的子节点。
+            if ((nav.getParentId() != null) && nav.getParentId().equals(id)) {
+                childList.add(nav);
+            }
+        }
+        //递归
+        for (BusinessType nav : childList) {
+            nav.setChildren(getChild(nav.getId(), allMenu));
+        }
+        //如果节点下没有子节点，返回一个空List（递归退出）
+        if (childList.size() == 0) {
+            return new ArrayList<BusinessType>();
+        }
+        return childList;
+    }
+
 
     @Override
     public ResponseResult provinceList() {
