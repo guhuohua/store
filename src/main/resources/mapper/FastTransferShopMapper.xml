@@ -10,6 +10,7 @@
     <result column="modify_date" property="modifyDate" jdbcType="TIMESTAMP" />
     <result column="allocation_status" property="allocationStatus" jdbcType="INTEGER" />
     <result column="sys_user_id" property="sysUserId" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -70,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, contacts, tel, `describe`, create_date, modify_date, allocation_status, sys_user_id
+    id, contacts, tel, `describe`, create_date, modify_date, allocation_status, sys_user_id,type
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ch.entity.FastTransferShopExample" >
     select
@@ -106,10 +107,10 @@
   <insert id="insert" parameterType="com.ch.entity.FastTransferShop" >
     insert into fast_transfer_shop (id, contacts, tel, 
       `describe`, create_date, modify_date,
-      allocation_status, sys_user_id)
+      allocation_status, sys_user_id,`type`)
     values (#{id,jdbcType=BIGINT}, #{contacts,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, 
       #{describe,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{modifyDate,jdbcType=TIMESTAMP}, 
-      #{allocationStatus,jdbcType=INTEGER}, #{sysUserId,jdbcType=INTEGER})
+      #{allocationStatus,jdbcType=INTEGER}, #{sysUserId,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.ch.entity.FastTransferShop" >
     insert into fast_transfer_shop
@@ -213,7 +214,8 @@
       create_date = #{record.createDate,jdbcType=TIMESTAMP},
       modify_date = #{record.modifyDate,jdbcType=TIMESTAMP},
       allocation_status = #{record.allocationStatus,jdbcType=INTEGER},
-      sys_user_id = #{record.sysSuerId,jdbcType=INTEGER}
+      sys_user_id = #{record.sysSuerId,jdbcType=INTEGER},
+    type = #{record.type,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -253,7 +255,8 @@
       create_date = #{createDate,jdbcType=TIMESTAMP},
       modify_date = #{modifyDate,jdbcType=TIMESTAMP},
       allocation_status = #{allocationStatus,jdbcType=INTEGER},
-      sys_user_id = #{sysUserId,jdbcType=INTEGER}
+      sys_user_id = #{sysUserId,jdbcType=INTEGER},
+      type = #{type,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

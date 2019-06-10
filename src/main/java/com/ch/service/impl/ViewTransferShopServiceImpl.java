@@ -304,6 +304,7 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
         fastTransferShop.setAllocationStatus(0);
         fastTransferShop.setDescribe(param.getDescribe());
         fastTransferShop.setTel(param.getTel());
+        fastTransferShop.setType(param.getType());
         fastTransferShopMapper.insert(fastTransferShop);
         return result;
     }
