@@ -92,4 +92,6 @@ public class ViewTransferShopParam {
     private List<TransferImage> transferImages;
 
     private Long shopRentTypeId;
+
+    private String address;
 }

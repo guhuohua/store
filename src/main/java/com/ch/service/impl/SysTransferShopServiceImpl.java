@@ -92,8 +92,8 @@ public class SysTransferShopServiceImpl implements SysTransferShopService {
     @Async
     public ResponseResult showTransferShopList(ShowShopDto showShopDto) {
         ResponseResult result = new ResponseResult();
-        PageHelper.startPage(showShopDto.getPageNum(), showShopDto.getPageSize());
         List<TransferShop> transferShops = transferShopMapper.selectByExample(null);
+        PageHelper.startPage(showShopDto.getPageNum(), showShopDto.getPageSize());
         List<SysTransferShopDTO> sysTransferShopDTOS = new ArrayList<>();
         for (TransferShop transferShop : transferShops) {
             ResponseResult result1 = transferShopInfo(transferShop.getId());

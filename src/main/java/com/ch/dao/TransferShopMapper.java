@@ -4,6 +4,7 @@ import com.ch.entity.TransferShop;
 import com.ch.entity.TransferShopExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -29,4 +30,7 @@ public interface TransferShopMapper {
     int updateByPrimaryKeySelective(TransferShop record);
 
     int updateByPrimaryKey(TransferShop record);
+
+    @Select("select * from transfer_shop")
+    List<TransferShop> list();
 }
