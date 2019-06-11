@@ -25,7 +25,7 @@ public class ViewTransferShopController {
     public ResponseResult addTransferShop(@RequestBody ViewTransferShopParam param) {
         ResponseResult result = new ResponseResult();
         try {
-            result = viewTransferShopService.addTransferShop(param);
+            result = viewTransferShopService.addTransferShop(param, 123);
         } catch (Exception e) {
             log.error("新增转铺失败" + e.getMessage(), e);
             result.setCode(600);

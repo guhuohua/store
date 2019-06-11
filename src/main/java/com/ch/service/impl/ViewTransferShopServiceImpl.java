@@ -10,6 +10,7 @@ import com.ch.model.FastTransferShopParam;
 import com.ch.model.ViewTransferShopListParam;
 import com.ch.model.ViewTransferShopParam;
 import com.ch.service.ViewTransferShopService;
+import com.ch.util.GetLatAndLngByBaidu;
 import com.ch.util.IdUtil;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
@@ -84,12 +85,43 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
 
     @Override
     @Transactional
-    public ResponseResult addTransferShop(ViewTransferShopParam param) {
+    public ResponseResult addTransferShop(ViewTransferShopParam param, Integer userId) {
         ResponseResult result = new ResponseResult();
+        List<String> coordinate = GetLatAndLngByBaidu.getCoordinate(param.getAddress());
         TransferShop transferShop = new TransferShop();
-        modelMapper.map(param, transferShop);
         transferShop.setId(IdUtil.getId());
-        transferShop.setCheckTime(new Date());
+        transferShop.setCityId(userId);
+        transferShop.setTel(param.getTel());
+        transferShop.setPropertyTypeId(param.getPropertyTypeId());
+        transferShop.setShopTypeId(param.getShopTypeId());
+        transferShop.setRent(param.getRent());
+        transferShop.setArea(param.getArea());
+        transferShop.setTransferStatus(param.getTransferStatus());
+        transferShop.setTitle(param.getTitle());
+        transferShop.setCityId(param.getCityId());
+        transferShop.setDecorateTypeId(param.getDecorateTypeId());
+        transferShop.setRequirementDetails(param.getRequirementDetails());
+        transferShop.setAccessoryRequirements(param.getAccessoryRequirements());
+        transferShop.setGateWidth(param.getGateWidth());
+        transferShop.setTransferFee(param.getTransferFee());
+        transferShop.setShopSn(IdUtil.getId() + "");
+        transferShop.setServiceType(param.getServiceType());
+        transferShop.setMediumStatus(0);
+        transferShop.setShopReadme(param.getShopReadme());
+        transferShop.setFloorNumber(param.getFloorNumber());
+        transferShop.setOrientationId(param.getOrientationId());
+        transferShop.setLoopLineId(param.getLoopLineId());
+        transferShop.setSubwayLineId(param.getSubwayLineId());
+        transferShop.setLon(coordinate.get(0));
+        transferShop.setImage(param.getImage());
+        transferShop.setUpdateTime(new Date());
+        transferShop.setAreaId(param.getAreaId());
+        transferShop.setStreetId(param.getStreetId());
+        transferShop.setProvinceId(param.getProvinceId());
+        transferShop.setAddress(param.getAddress());
+        transferShop.setContacts(param.getContacts());
+        transferShop.setLat(coordinate.get(1));
+        transferShop.setShopRentTypeId(param.getShopRentTypeId());
         transferShop.setStatus(0);
         transferShop.setCheckStatus(2);
         transferShop.setFakeTel("15629013877");
