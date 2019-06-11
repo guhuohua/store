@@ -154,7 +154,7 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
                 params.append(" AND (storeName:*" + param.getStoreName() + "*)");
             } else {
                 params = new StringBuilder();
-                params.append(" AND (storeName:*" + param.getStoreName() + "*)");
+                params.append("storeName:*" + param.getStoreName() + "*");
             }
         }
         if (BeanUtils.isNotEmpty(param.getStoreCategory())) {
@@ -162,7 +162,7 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
                 params.append(" AND (storeCategory:" + param.getStoreCategory() + ")");
             } else {
                 params = new StringBuilder();
-                params.append(" AND (storeCategory:" + param.getStoreCategory() + ")");
+                params.append("storeCategory:" + param.getStoreCategory());
             }
         }
         if (BeanUtils.isNotEmpty(param.getProvinceId())) {
@@ -170,7 +170,7 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
                 params.append(" AND (provinceId:" + param.getProvinceId() + ")");
             } else {
                 params = new StringBuilder();
-                params.append(" AND (provinceId:" + param.getProvinceId() + ")");
+                params.append("provinceId:" + param.getProvinceId());
             }
         }
         if (BeanUtils.isNotEmpty(param.getCityId())) {
@@ -178,7 +178,7 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
                 params.append(" AND (cityId:" + param.getCityId() + ")");
             } else {
                 params = new StringBuilder();
-                params.append(" AND (cityId:" + param.getCityId() + ")");
+                params.append("cityId:" + param.getCityId());
             }
         }
         if (BeanUtils.isNotEmpty(param.getAreaId())) {
@@ -186,7 +186,7 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
                 params.append(" AND (areaId:" + param.getAreaId() + ")");
             } else {
                 params = new StringBuilder();
-                params.append(" AND (areaId:" + param.getAreaId() + ")");
+                params.append("areaId:" + param.getAreaId());
             }
         }
         if (BeanUtils.isNotEmpty(param.getStoreType())) {
@@ -194,7 +194,7 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
                 params.append(" AND (storeType:" + param.getStoreType() + ")");
             } else {
                 params = new StringBuilder();
-                params.append(" AND (storeType:" + param.getStoreType() + ")");
+                params.append("storeType:" + param.getStoreType());
             }
         }
         if (BeanUtils.isNotEmpty(param.getStoreType())) {
@@ -202,7 +202,7 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
                 params.append(" AND (storeType:" + param.getStoreType() + ")");
             } else {
                 params = new StringBuilder();
-                params.append(" AND (storeType:" + param.getStoreType() + ")");
+                params.append("storeType:" + param.getStoreType());
             }
         }
         if (BeanUtils.isNotEmpty(param.getStoreStatus())) {
@@ -210,7 +210,7 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
                 params.append(" AND (storeStatus:" + param.getStoreStatus() + ")");
             } else {
                 params = new StringBuilder();
-                params.append(" AND (storeStatus:" + param.getStoreStatus() + ")");
+                params.append("storeStatus:" + param.getStoreStatus());
             }
         }
         if (BeanUtils.isNotEmpty(param.getClientId())) {
@@ -218,7 +218,7 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
                 params.append(" AND (userId:" + param.getClientId() + ")");
             } else {
                 params = new StringBuilder();
-                params.append(" AND (userId:" + param.getClientId() + ")");
+                params.append("userId:" + param.getClientId());
             }
         }
         if ("TIME".equals(param.getSort())) {
