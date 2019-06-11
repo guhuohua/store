@@ -40,8 +40,8 @@ public class SysFastShopServiceImpl implements SysFastShopService {
         List<FastTransferShop> fastTransferShops = new ArrayList<>();
         FastTransferShopExample example = new FastTransferShopExample();
         FastTransferShopExample.Criteria criteria = example.createCriteria();
-        if (BeanUtils.isNotEmpty(sysFastShopDTO.getContacts())){
-           criteria.andContactsLike(sysFastShopDTO.getContacts());
+        if (BeanUtils.isNotEmpty(sysFastShopDTO.getType())){
+           criteria.andContactsLike(sysFastShopDTO.getType());
              fastTransferShops = fastTransferShopMapper.selectByExample(example);
        }
         if (BeanUtils.isNotEmpty(sysFastShopDTO.getTel())){
@@ -56,29 +56,5 @@ public class SysFastShopServiceImpl implements SysFastShopService {
         return result;
     }
 
-    @Override
-    public ResponseResult showFastLookShop(SysFastShopDTO sysFastShopDTO) {
-        ResponseResult result = new ResponseResult();
-        PageHelper.startPage(sysFastShopDTO.getPageNum(), sysFastShopDTO.getPageSize());
-        List<FastLookShop> fastLookShops = new ArrayList<>();
-        FastLookShopExample example = new FastLookShopExample();
-        FastLookShopExample.Criteria criteria = example.createCriteria();
 
-        if (BeanUtils.isNotEmpty(sysFastShopDTO.getContacts())){
-            criteria.andContactsLike(sysFastShopDTO.getContacts());
-             fastLookShops = fastLookShopMapper.selectByExample(example);
-        }
-        if (BeanUtils.isNotEmpty(sysFastShopDTO.getTel())){
-            criteria.andTelEqualTo(sysFastShopDTO.getTel());
-            fastLookShops = fastLookShopMapper.selectByExample(example);
-        }
-        else {
-            fastLookShops = fastLookShopMapper.selectByExample(null);
-        }
-
-
-        PageInfo<FastLookShop> page = new PageInfo<>(fastLookShops);
-        result.setData(page);
-        return result;
-    }
 }

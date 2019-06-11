@@ -7,7 +7,7 @@
 package com.ch.dto;
 
 public class SysFastShopDTO {
-    private String contacts;
+    private String type;
     private String tel;
     private Integer pageNum;
     private Integer pageSize;
@@ -28,12 +28,12 @@ public class SysFastShopDTO {
         this.pageSize = pageSize;
     }
 
-    public String getContacts() {
-        return contacts;
+    public String getType() {
+        return type;
     }
 
-    public void setContacts(String contacts) {
-        this.contacts = contacts;
+    public void setType(String type) {
+        this.type = type;
     }
 
     public String getTel() {
