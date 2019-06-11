@@ -139,7 +139,9 @@ public class SysTransferShopServiceImpl implements SysTransferShopService {
         TransferShop transferShop = transferShopMapper.selectByPrimaryKey(updateStatusDTO.getStoreId());
         transferShop.setRecommendType(updateStatusDTO.getStatus());
         transferShopMapper.updateByPrimaryKey(transferShop);
-
+        SolrDTO solrDTO = new SolrDTO();
+        solrDTO.setTransferShopId(transferShop.getId());
+        solrService.addSolr(solrDTO);
         return result;
     }
 
