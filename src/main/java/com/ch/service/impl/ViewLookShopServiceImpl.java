@@ -3,10 +3,12 @@ package com.ch.service.impl;
 import com.ch.base.BeanUtils;
 import com.ch.base.ResponseResult;
 import com.ch.dao.*;
+import com.ch.dto.SolrDTO;
 import com.ch.dto.ViewLookShopInfoDTO;
 import com.ch.entity.*;
 import com.ch.model.FastTransferShopParam;
 import com.ch.model.ViewLookShopAddParam;
+import com.ch.service.SolrService;
 import com.ch.service.ViewLookShopService;
 import com.ch.util.IdUtil;
 import org.modelmapper.ModelMapper;
@@ -57,6 +59,9 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
     @Autowired
     FastLookShopMapper fastLookShopMapper;
 
+    @Autowired
+    SolrService solrService;
+
     @Override
     @Transactional
     public ResponseResult addLookShop(ViewLookShopAddParam param) {
@@ -74,6 +79,9 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
             lookShopBusiness.setBusinessTypeId(id);
             lookShopBusinessMapper.insert(lookShopBusiness);
         }
+        SolrDTO solrDTO = new SolrDTO();
+        solrDTO.setLookShopId(lookShop.getId());
+        solrService.addSolr(solrDTO);
         return result;
     }
 

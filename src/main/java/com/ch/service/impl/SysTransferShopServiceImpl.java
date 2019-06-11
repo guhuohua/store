@@ -89,20 +89,11 @@ public class SysTransferShopServiceImpl implements SysTransferShopService {
 
 
     @Override
-    @Async
     public ResponseResult showTransferShopList(ShowShopDto showShopDto) {
         ResponseResult result = new ResponseResult();
-        List<TransferShop> transferShops = transferShopMapper.selectByExample(null);
         PageHelper.startPage(showShopDto.getPageNum(), showShopDto.getPageSize());
-        List<SysTransferShopDTO> sysTransferShopDTOS = new ArrayList<>();
-        for (TransferShop transferShop : transferShops) {
-            ResponseResult result1 = transferShopInfo(transferShop.getId());
-            SysTransferShopDTO data =(SysTransferShopDTO) result1.getData();
-            sysTransferShopDTOS.add(data);
-
-        }
-
-        PageInfo<SysTransferShopDTO> page = new PageInfo<>(sysTransferShopDTOS);
+        List<com.ch.model.SysTransferShopDTO> list = transferShopMapper.list(showShopDto.getName(), showShopDto.getTel(), showShopDto.getStatus(), showShopDto.getType());
+        PageInfo<com.ch.model.SysTransferShopDTO> page = new PageInfo<>(list);
         result.setData(page);
         return result;
     }

@@ -24,6 +24,7 @@ import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -46,6 +47,7 @@ public class SolrServiceImpl implements SolrService {
 
 
     @Override
+    @Async
     public void addSolr(SolrDTO solrDTO) {
         if (BeanUtils.isNotEmpty(solrDTO.getTransferShopId())){
             TransferShop transferShop = transferShopMapper.selectByPrimaryKey(solrDTO.getTransferShopId());

@@ -1,10 +1,14 @@
 package com.ch.dao;
 
+import com.ch.dao.provider.TransferShopProvider;
 import com.ch.entity.TransferShop;
 import com.ch.entity.TransferShopExample;
 import java.util.List;
+
+import com.ch.model.SysTransferShopDTO;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.SelectProvider;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -31,6 +35,6 @@ public interface TransferShopMapper {
 
     int updateByPrimaryKey(TransferShop record);
 
-    @Select("select * from transfer_shop")
-    List<TransferShop> list();
+    @SelectProvider(type = TransferShopProvider.class, method = "getList")
+    List<SysTransferShopDTO> list(@Param("name") String name, @Param("tel") String tel, @Param("status") Integer status, @Param("type") Integer type);
 }
