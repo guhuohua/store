@@ -139,6 +139,7 @@ public class SysTransferShopServiceImpl implements SysTransferShopService {
         TransferShop transferShop = transferShopMapper.selectByPrimaryKey(updateStatusDTO.getStoreId());
         transferShop.setRecommendType(updateStatusDTO.getStatus());
         transferShopMapper.updateByPrimaryKey(transferShop);
+
         return result;
     }
 

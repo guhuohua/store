@@ -2,32 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c7c5efcf-4e37-4408-b0be-13d133efabad" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ch/controller/SysSucceessCaseController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ch/dto/SysUserDTO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ch/service/SysDecorateTypeService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ch/service/SysShopSuccessService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ch/service/impl/SysDecorateTypeServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/ch/service/impl/SysShopSuccessServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ch/dto/SysBaseDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ch/service/SysLoopLineService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ch/service/SysOrientationService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ch/service/SysPropertyTypeService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ch/service/SysRentShopService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ch/service/SysShopTypeService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ch/service/impl/SysLoopLineServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ch/service/impl/SysOrientationServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ch/service/impl/SysPropertyTypeServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ch/service/impl/SysRentShopServiceImpl.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/ch/service/impl/SysShopTypeServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ch/controller/SysFastShopServiceController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ch/controller/SysFastShopServiceController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ch/controller/SysLookShopController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ch/controller/SysLookShopController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ch/dao/LookShopMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ch/dao/LookShopMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ch/dao/SysUserRoleMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ch/dao/SysUserRoleMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ch/dao/TransferShopMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ch/dao/TransferShopMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ch/dto/ShowShopDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ch/dto/ShowShopDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ch/entity/FastTransferShopExample.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ch/entity/FastTransferShopExample.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ch/entity/LookShop.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ch/entity/LookShop.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ch/entity/LoopLine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ch/entity/LoopLine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ch/entity/SubwayLine.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ch/entity/SubwayLine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ch/service/SysUserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ch/service/SysUserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ch/service/impl/SysFastShopServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ch/service/impl/SysFastShopServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ch/service/impl/SysLookShopServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ch/service/impl/SysLookShopServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ch/base/StoreSolrSchema.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ch/base/StoreSolrSchema.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ch/dao/LoopLineMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ch/dao/LoopLineMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ch/service/SolrService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ch/service/SolrService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ch/service/impl/SolrServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ch/service/impl/SolrServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ch/service/impl/SysTransferShopServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ch/service/impl/SysTransferShopServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ch/service/impl/SysUserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ch/service/impl/SysUserServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application-test.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-test.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/LookShopMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/LookShopMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/LoopLineMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/LoopLineMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/TransferShopMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/TransferShopMapper.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/classes/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -43,46 +34,37 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/controller/SysLookShopController.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/SolrService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="34" column="47" selection-start-line="34" selection-start-column="47" selection-end-line="34" selection-end-column="47" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/SysLookShopService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="99">
+            <state relative-caret-position="190">
               <caret line="10" selection-start-line="10" selection-end-line="10" />
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/impl/SysLookShopServiceImpl.java">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/impl/SolrServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="251">
-              <caret line="83" selection-start-line="83" selection-end-line="83" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="1026">
+              <caret line="117" column="4" selection-start-line="117" selection-start-column="4" selection-end-line="117" selection-end-column="4" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/entity/LookShop.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/entity/BsArea.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
-              <caret line="101" column="31" selection-start-line="101" selection-start-column="17" selection-end-line="101" selection-end-column="31" />
-              <folding>
-                <element signature="e#1622#1623#0" expanded="true" />
-                <element signature="e#1659#1660#0" expanded="true" />
-                <element signature="e#1717#1718#0" expanded="true" />
-                <element signature="e#1769#1770#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="209">
+              <caret line="11" column="27" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="27" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/base/StoreSolrSchema.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="285">
+              <caret line="18" column="31" selection-start-line="18" selection-start-column="17" selection-end-line="18" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -90,8 +72,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/entity/TransferShop.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="99" column="4" selection-start-line="99" selection-start-column="4" selection-end-line="99" selection-end-column="32" />
+            <state relative-caret-position="171">
+              <caret line="51" column="3" lean-forward="true" selection-start-line="51" selection-start-column="3" selection-end-line="53" selection-end-column="30" />
               <folding>
                 <element signature="e#1654#1655#0" expanded="true" />
                 <element signature="e#1691#1692#0" expanded="true" />
@@ -103,55 +85,50 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/SysTransferShopService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="92">
-              <caret line="10" column="19" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
+            <state relative-caret-position="134">
+              <caret line="21" column="19" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/LookShopMapper.xml">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/SysShopTypeService.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15681">
-              <caret line="872" column="41" selection-start-line="872" selection-start-column="41" selection-end-line="872" selection-end-column="41" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/entity/SubwayLine.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
-              <caret line="9" column="26" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="26" />
+            <state relative-caret-position="209">
+              <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
               <folding>
-                <element signature="e#253#254#0" expanded="true" />
-                <element signature="e#282#283#0" expanded="true" />
-                <element signature="e#327#328#0" expanded="true" />
-                <element signature="e#363#364#0" expanded="true" />
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/LoopLineMapper.xml">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/impl/SysTransferShopServiceImpl.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="206">
-              <caret line="162" column="57" lean-forward="true" selection-start-line="162" selection-start-column="57" selection-end-line="162" selection-end-column="57" />
+            <state relative-caret-position="2622">
+              <caret line="150" column="8" selection-start-line="150" selection-start-column="8" selection-end-line="150" selection-end-column="8" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/entity/LoopLine.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/controller/SysMenuTreeController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="171">
-              <caret line="9" column="32" selection-start-line="9" selection-start-column="32" selection-end-line="9" selection-end-column="32" />
-              <folding>
-                <element signature="e#197#198#0" expanded="true" />
-                <element signature="e#242#243#0" expanded="true" />
-                <element signature="e#278#279#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="134">
+              <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/controller/SysSucceessCaseController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="127">
+              <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -171,6 +148,7 @@
       <find>viewTransferShopDTO</find>
       <find>sys_suer_id</find>
       <find>personParam</find>
+      <find>add</find>
     </findStrings>
     <replaceStrings>
       <replace>sysTransferShopDTO</replace>
@@ -186,16 +164,7 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/main/java/com/ch/service/impl/SysMenuTreeImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/ch/service/SysTransferShopService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/ch/controller/SysMenuTreeController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/ch/dto/ViewTransferShopDTO.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/ch/entity/TransferShop.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/application.yml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/ch/base/StoreSolrSchema.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/ch/dto/SysTransferShopDTO.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/ch/service/impl/ViewTransferShopServiceImpl.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/ch/service/impl/SolrServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/ch/controller/SysTransferShopController.java" />
         <option value="$PROJECT_DIR$/src/main/resources/mapper/FastLookShopMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/ch/entity/FastTransferShop.java" />
@@ -223,13 +192,29 @@
         <option value="$PROJECT_DIR$/src/main/java/com/ch/dao/LookShopMapper.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/ch/service/impl/SysLookShopServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/ch/dao/TransferShopMapper.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/ch/service/impl/SysTransferShopServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/resources/mapper/TransferShopMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/ch/entity/LookShop.java" />
         <option value="$PROJECT_DIR$/src/main/resources/mapper/LookShopMapper.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/ch/entity/SubwayLine.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/ch/entity/LoopLine.java" />
         <option value="$PROJECT_DIR$/src/main/resources/mapper/LoopLineMapper.xml" />
+        <option value="$PROJECT_DIR$/src/main/resources/mapper/SubwayLineMapper.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/ch/service/SysPropertyTypeService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/ch/service/SysRentShopService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/ch/service/impl/SysRentShopServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/ch/service/impl/SysPropertyTypeServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/ch/service/SysShopTypeService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/ch/service/impl/SysShopTypeServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/ch/service/SysOrientationService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/ch/service/impl/SysOrientationServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/ch/dto/SysBaseDTO.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/ch/service/SysLoopLineService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/ch/dao/LoopLineMapper.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/ch/service/impl/SysLoopLineServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/ch/service/impl/SysTransferShopServiceImpl.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/ch/base/StoreSolrSchema.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/ch/service/SolrService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/ch/service/impl/SolrServiceImpl.java" />
       </list>
     </option>
   </component>
@@ -266,10 +251,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="7">
-    <option name="x" value="392" />
-    <option name="y" value="48" />
-    <option name="width" value="1368" />
-    <option name="height" value="565" />
+    <option name="x" value="100" />
+    <option name="y" value="61" />
+    <option name="width" value="1840" />
+    <option name="height" value="910" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -326,6 +311,16 @@
               <item name="store" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="com" type="462c0819:PsiDirectoryNode" />
+              <item name="ch" type="462c0819:PsiDirectoryNode" />
+              <item name="base" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ch" type="b2602c69:ProjectViewProjectNode" />
+              <item name="store" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -351,7 +346,7 @@
     <property name="RequestMappingsPanelWidth1" value="75" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../batu/batu/pom.xml" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../webshop/pom.xml" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="MavenSettings" />
@@ -432,12 +427,12 @@
       <workItem from="1559787847198" duration="19011000" />
       <workItem from="1560131265134" duration="11587000" />
       <workItem from="1560172082361" duration="1613000" />
-      <workItem from="1560214645863" duration="15277000" />
+      <workItem from="1560214645863" duration="23521000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="47488000" />
+    <option name="totallyTimeSpent" value="55732000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -449,10 +444,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.2546917" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.27949062" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -465,7 +460,7 @@
       <window_info anchor="bottom" id="Run" order="2" weight="0.2771261" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
-      <window_info anchor="bottom" id="Debug" order="5" visible="true" weight="0.3181818" />
+      <window_info anchor="bottom" id="Debug" order="5" weight="0.24780059" />
       <window_info anchor="bottom" id="Spring" order="6" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
@@ -487,7 +482,7 @@
       <window_info anchor="right" id="Bean Validation" order="9" />
     </layout>
     <layout-to-restore>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2546917" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.27949062" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Designer" order="2" />
       <window_info id="Image Layers" order="3" />
@@ -500,7 +495,7 @@
       <window_info anchor="bottom" id="Run" order="2" weight="0.2771261" />
       <window_info anchor="bottom" id="Cvs" order="3" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="4" weight="0.4" />
-      <window_info active="true" anchor="bottom" id="Debug" order="5" visible="true" weight="0.17008798" />
+      <window_info active="true" anchor="bottom" id="Debug" order="5" visible="true" weight="0.24780059" />
       <window_info anchor="bottom" id="Spring" order="6" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
@@ -538,222 +533,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/controller/SysMenuTreeController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="35" column="23" lean-forward="true" selection-start-line="35" selection-start-column="23" selection-end-line="35" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/impl/ViewLookShopServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="86" column="36" selection-start-line="86" selection-start-column="21" selection-end-line="86" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/ViewLookShopService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="532">
-          <caret line="29" column="19" selection-start-line="29" selection-start-column="19" selection-end-line="29" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/controller/ViewLookShopController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/dto/SysFastShopDTO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="30" column="29" selection-start-line="30" selection-start-column="29" selection-end-line="30" selection-end-column="29" />
-          <folding>
-            <element signature="e#587#588#0" expanded="true" />
-            <element signature="e#627#628#0" expanded="true" />
-            <element signature="e#659#660#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/dao/FastTransferShopMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="95">
-          <caret line="9" column="17" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/SysFastShopService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="7" selection-start-line="7" selection-end-line="7" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/entity/FastTransferShopExample.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1691">
-          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/controller/SysLoginController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="53" column="56" selection-start-line="53" selection-start-column="38" selection-end-line="53" selection-end-column="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/entity/SysUserRole.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/entity/SysUser.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/dao/SysUserRoleMapper.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="36" column="80" selection-start-line="36" selection-start-column="80" selection-end-line="36" selection-end-column="80" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/entity/FastTransferShop.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="301">
-          <caret line="77" column="5" lean-forward="true" selection-start-line="77" selection-start-column="5" selection-end-line="77" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/util/IdUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="11" column="23" selection-start-line="11" selection-start-column="23" selection-end-line="11" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/entity/SuccessCase.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/controller/SysFastShopServiceController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="25" column="14" selection-start-line="25" selection-start-column="14" selection-end-line="25" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/controller/SysSucceessCaseController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1235">
-          <caret line="78" selection-start-line="78" selection-end-line="78" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/SysShopSuccessService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="13" column="1" selection-start-line="13" selection-start-column="1" selection-end-line="13" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/SysUserService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="380">
-          <caret line="22" column="3" selection-start-line="22" selection-start-column="3" selection-end-line="22" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/SysDecorateTypeService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="76">
-          <caret line="5" column="39" selection-start-line="5" selection-start-column="17" selection-end-line="5" selection-end-column="39" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/entity/DecorateType.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/controller/ViewTransferShopController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/application-prd.properties">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/application-test.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="31" selection-start-line="2" selection-start-column="31" selection-end-line="2" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/impl/SolrServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-348">
-          <caret line="52" selection-start-line="52" selection-end-line="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/impl/SysShopSuccessServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="70" column="21" selection-start-line="70" selection-start-column="21" selection-end-line="70" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/impl/SysDecorateTypeServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="40" column="22" selection-start-line="40" selection-start-column="22" selection-end-line="40" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/impl/SysFastShopServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="56" selection-start-line="56" selection-end-line="56" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/impl/SysUserServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="230" column="39" selection-start-line="230" selection-start-column="39" selection-end-line="230" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/dto/SysUserDTO.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="19">
@@ -804,13 +583,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/controller/SysTransferShopController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="28">
-          <caret line="37" column="44" selection-start-line="37" selection-start-column="44" selection-end-line="37" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/dto/ShowShopDto.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="199">
@@ -843,34 +615,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/impl/SysTransferShopServiceImpl.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="100">
-          <caret line="97" column="63" lean-forward="true" selection-start-line="97" selection-start-column="63" selection-end-line="97" selection-end-column="63" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/TransferShopMapper.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="79">
           <caret line="918" column="3" lean-forward="true" selection-start-line="918" selection-start-column="3" selection-end-line="918" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/SysTransferShopService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="10" column="19" selection-start-line="10" selection-start-column="19" selection-end-line="10" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/controller/SysLookShopController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="34" column="47" selection-start-line="34" selection-start-column="47" selection-end-line="34" selection-end-column="47" />
         </state>
       </provider>
     </entry>
@@ -887,17 +635,6 @@
           <caret line="83" selection-start-line="83" selection-end-line="83" />
           <folding>
             <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/entity/TransferShop.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="99" column="4" selection-start-line="99" selection-start-column="4" selection-end-line="99" selection-end-column="32" />
-          <folding>
-            <element signature="e#1654#1655#0" expanded="true" />
-            <element signature="e#1691#1692#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -949,8 +686,302 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/LoopLineMapper.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="162" column="57" lean-forward="true" selection-start-line="162" selection-start-column="57" selection-end-line="162" selection-end-column="57" />
+        <state relative-caret-position="225">
+          <caret line="163" column="26" selection-start-line="163" selection-start-column="26" selection-end-line="163" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/mapper/SubwayLineMapper.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="166">
+          <caret line="163" column="8" lean-forward="true" selection-start-line="163" selection-start-column="8" selection-end-line="163" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/impl/SysDecorateTypeServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="182">
+          <caret line="22" column="26" selection-start-line="22" selection-start-column="26" selection-end-line="22" selection-end-column="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/SysDecorateTypeService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" column="4" selection-start-line="6" selection-start-column="4" selection-end-line="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/SysPropertyTypeService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="10" column="45" lean-forward="true" selection-start-line="8" selection-start-column="4" selection-end-line="10" selection-end-column="45" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/dao/ShopRentTypeMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="18" column="22" lean-forward="true" selection-start-line="18" selection-start-column="22" selection-end-line="18" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/entity/ShopRentType.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="38">
+          <caret line="2" column="13" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/impl/SysRentShopServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="41" column="21" selection-start-line="41" selection-start-column="21" selection-end-line="41" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/dao/PropertyTypeMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="11" column="35" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/impl/SysPropertyTypeServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-31">
+          <caret line="23" column="41" selection-start-line="23" selection-start-column="41" selection-end-line="23" selection-end-column="41" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/SysOrientationService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="6" column="38" selection-start-line="6" selection-start-column="17" selection-end-line="6" selection-end-column="38" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/impl/SysOrientationServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="406">
+          <caret line="40" column="21" selection-start-line="40" selection-start-column="21" selection-end-line="40" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/dto/SysBaseDTO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="13" column="33" selection-start-line="13" selection-start-column="33" selection-end-line="13" selection-end-column="33" />
+          <folding>
+            <element signature="e#264#265#0" expanded="true" />
+            <element signature="e#311#312#0" expanded="true" />
+            <element signature="e#349#350#0" expanded="true" />
+            <element signature="e#385#386#0" expanded="true" />
+            <element signature="e#416#417#0" expanded="true" />
+            <element signature="e#465#466#0" expanded="true" />
+            <element signature="e#505#506#0" expanded="true" />
+            <element signature="e#539#540#0" expanded="true" />
+            <element signature="e#568#569#0" expanded="true" />
+            <element signature="e#613#614#0" expanded="true" />
+            <element signature="e#649#650#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/SysLoopLineService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="11" column="47" selection-start-line="11" selection-start-column="47" selection-end-line="11" selection-end-column="47" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/controller/ViewLookShopController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="127">
+          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/controller/UploadController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/impl/SysShopTypeServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="39" column="21" selection-start-line="39" selection-start-column="21" selection-end-line="39" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/controller/ViewBaseController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-158">
+          <caret line="16" column="13" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/controller/ViewTransferShopController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-589">
+          <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/dao/LoopLineMapper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="212">
+          <caret line="37" column="17" selection-start-line="37" selection-start-column="17" selection-end-line="37" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/impl/SysLoopLineServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="60" column="25" selection-start-line="60" selection-start-column="25" selection-end-line="60" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/SysRentShopService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="9" column="45" lean-forward="true" selection-start-line="7" selection-start-column="3" selection-end-line="9" selection-end-column="45" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/SysShopSuccessService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="76">
+          <caret line="4" column="17" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/controller/SysLookShopController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-248">
+          <caret line="34" column="47" selection-start-line="34" selection-start-column="47" selection-end-line="34" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/controller/SysTransferShopController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="85" column="51" selection-start-line="85" selection-start-column="51" selection-end-line="85" selection-end-column="51" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/controller/SysSucceessCaseController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="127">
+          <caret line="23" column="13" selection-start-line="23" selection-start-column="13" selection-end-line="23" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/SysTransferShopService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="134">
+          <caret line="21" column="19" selection-start-line="21" selection-start-column="19" selection-end-line="21" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/SysShopTypeService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/controller/SysMenuTreeController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="134">
+          <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/impl/SysTransferShopServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2622">
+          <caret line="150" column="8" selection-start-line="150" selection-start-column="8" selection-end-line="150" selection-end-column="8" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/entity/TransferShop.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="171">
+          <caret line="51" column="3" lean-forward="true" selection-start-line="51" selection-start-column="3" selection-end-line="53" selection-end-column="30" />
+          <folding>
+            <element signature="e#1654#1655#0" expanded="true" />
+            <element signature="e#1691#1692#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/entity/BsArea.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="209">
+          <caret line="11" column="27" selection-start-line="11" selection-start-column="19" selection-end-line="11" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/base/StoreSolrSchema.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="18" column="31" selection-start-line="18" selection-start-column="17" selection-end-line="18" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/SolrService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="190">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/ch/service/impl/SolrServiceImpl.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1026">
+          <caret line="117" column="4" selection-start-line="117" selection-start-column="4" selection-end-line="117" selection-end-column="4" />
         </state>
       </provider>
     </entry>

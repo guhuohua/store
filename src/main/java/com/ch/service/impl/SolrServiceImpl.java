@@ -9,10 +9,12 @@ package com.ch.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.ch.base.BeanUtils;
 import com.ch.base.StoreSolrSchema;
+import com.ch.dao.BsAreaMapper;
 import com.ch.dao.BsStreetMapper;
 import com.ch.dao.LookShopMapper;
 import com.ch.dao.TransferShopMapper;
 import com.ch.dto.SolrDTO;
+import com.ch.entity.BsArea;
 import com.ch.entity.BsStreet;
 import com.ch.entity.LookShop;
 import com.ch.entity.TransferShop;
@@ -24,6 +26,7 @@ import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrServerException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -43,13 +46,18 @@ public class SolrServiceImpl implements SolrService {
     ModelMapper modelMapper;
    @Autowired
     BsStreetMapper bsStreetMapper;
+   @Autowired
+    BsAreaMapper bsAreaMapper;
 
 
     @Override
+    @Async
     public void addSolr(SolrDTO solrDTO) {
+        lowerShelf(solrDTO);
         if (BeanUtils.isNotEmpty(solrDTO.getTransferShopId())){
             TransferShop transferShop = transferShopMapper.selectByPrimaryKey(solrDTO.getTransferShopId());
             BsStreet bsStreet = bsStreetMapper.selectByPrimaryKey(transferShop.getStreetId());
+            BsArea bsArea = bsAreaMapper.selectByPrimaryKey(transferShop.getAreaId());
             StoreSolrSchema storeSolrSchema = new StoreSolrSchema();
             modelMapper.map(transferShop, storeSolrSchema);
             storeSolrSchema.setId(IdUtil.getId()+"");
@@ -63,6 +71,8 @@ public class SolrServiceImpl implements SolrService {
             storeSolrSchema.setUserId(transferShop.getClientId());
             storeSolrSchema.setStoreStatus(transferShop.getStatus());
             storeSolrSchema.setStoreName(transferShop.getTitle());
+            storeSolrSchema.setStoreAddress(bsArea.getAreaName()+"-"+bsStreet.getStreetName());
+
             try {
                 System.out.println("准备同步solr:"+ JSON.toJSONString(storeSolrSchema));
                 solrClient.addBean(storeSolrSchema);
@@ -77,11 +87,9 @@ public class SolrServiceImpl implements SolrService {
         }
         if (BeanUtils.isNotEmpty(solrDTO.getLookShopId())){
             LookShop lookShop = lookShopMapper.selectByPrimaryKey(solrDTO.getLookShopId());
-
             StoreSolrSchema storeSolrSchema = new StoreSolrSchema();
             modelMapper.map(lookShop, storeSolrSchema);
             storeSolrSchema.setId(IdUtil.getId()+"");
-
             storeSolrSchema.setStoreAddress(lookShop.getAddress());
             storeSolrSchema.setPresentPrice(lookShop.getTopRent());
             storeSolrSchema.setOriginalPrice(lookShop.getSmallRent());
@@ -90,6 +98,7 @@ public class SolrServiceImpl implements SolrService {
             /*storeSolrSchema.setStoreCategory(lookShop.G);*/
             storeSolrSchema.setStoreType(1);
             storeSolrSchema.setStoreStatus(lookShop.getStatus());
+
             try {
                 System.out.println("准备同步solr:"+ JSON.toJSONString(storeSolrSchema));
                 solrClient.addBean(storeSolrSchema);
@@ -102,5 +111,22 @@ public class SolrServiceImpl implements SolrService {
             }
         }
 
+    }
+
+
+    @Async
+    public  void lowerShelf(SolrDTO solrDTO) {
+        try {
+           if (BeanUtils.isNotEmpty(solrDTO.getLookShopId())){
+               solrClient.deleteByQuery("lookShopId:" + solrDTO.getLookShopId());
+           }
+           if (BeanUtils.isNotEmpty(solrDTO.getTransferShopId())){
+               solrClient.deleteByQuery("transferShopId:" + solrDTO.getTransferShopId());
+           }
+
+            solrClient.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
