@@ -24,7 +24,7 @@ public class ViewLookShopController {
     public ResponseResult addLookShop(@RequestBody ViewLookShopAddParam param) {
         ResponseResult result = new ResponseResult();
         try {
-            result = viewLookShopService.addLookShop(param);
+            result = viewLookShopService.addLookShop(param, 123);
         } catch (Exception e) {
             log.error("新增选址失败" + e.getMessage(), e);
             result.setCode(600);

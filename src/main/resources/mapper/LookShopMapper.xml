@@ -156,7 +156,7 @@
       small_area, top_area, transfer_status, 
       status, title, city_id, 
       area_id, decorate_type_id, requirement_details, 
-      "accessory _requirements", gate_width, service_type, 
+      accessory_requirements, gate_width, service_type,
       latitude, medium_status, sort, 
       craeate_time, other_tel, shop_readme, 
       floor, orientation_id, loop_line_id, 

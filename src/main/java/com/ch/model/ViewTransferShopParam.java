@@ -94,4 +94,6 @@ public class ViewTransferShopParam {
     private Long shopRentTypeId;
 
     private String address;
+
+    private String areaName;
 }

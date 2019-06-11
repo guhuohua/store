@@ -10,6 +10,7 @@ import com.ch.model.FastTransferShopParam;
 import com.ch.model.ViewLookShopAddParam;
 import com.ch.service.SolrService;
 import com.ch.service.ViewLookShopService;
+import com.ch.util.GetLatAndLngByBaidu;
 import com.ch.util.IdUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,11 +65,51 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
 
     @Override
     @Transactional
-    public ResponseResult addLookShop(ViewLookShopAddParam param) {
+    public ResponseResult addLookShop(ViewLookShopAddParam param, Integer userId) {
         ResponseResult result = new ResponseResult();
         LookShop lookShop = new LookShop();
-        modelMapper.map(param, lookShop);
+        List<String> coordinate = GetLatAndLngByBaidu.getCoordinate(param.getAddress());
+        if (BeanUtils.isEmpty(coordinate)) {
+            result.setCode(600);
+            result.setError("获取不到该地址的经纬度");
+            result.setError_description("获取不到该地址的经纬度");
+            return result;
+        }
+        lookShop.setLongitude(coordinate.get(0));
+        lookShop.setLatitude(coordinate.get(1));
         lookShop.setId(IdUtil.getId());
+        lookShop.setCityId(param.getCityId());
+        lookShop.setClientId(userId);
+        lookShop.setTel(param.getTel());
+        lookShop.setPropertyTypeId(param.getPropertyTypeId());
+        lookShop.setShopTypeId(param.getShopTypeId());
+        lookShop.setSmallRent(param.getSmallRent());
+        lookShop.setTopRent(param.getTopRent());
+        lookShop.setSmallArea(param.getSmallArea());
+        lookShop.setTopArea(param.getTopArea());
+        lookShop.setTransferStatus(param.getTransferStatus());
+        lookShop.setTitle(param.getTitle());
+        lookShop.setCityId(param.getCityId());
+        lookShop.setDecorateTypeId(param.getDecorateTypeId());
+        lookShop.setRequirementDetails(param.getRequirementDetails());
+        lookShop.setAccessoryRequirements(param.getAccessoryRequirements());
+        lookShop.setGateWidth(param.getGateWidth());
+        lookShop.setShopRentTypeId(param.getShopRentTypeId());
+        lookShop.setServiceType(param.getServiceType());
+        lookShop.setMediumStatus(0);
+        lookShop.setShopReadme(param.getShopReadme());
+        lookShop.setFloor(param.getFloor());
+        lookShop.setOrientationId(param.getOrientationId());
+        lookShop.setLoopLineId(param.getLoopLineId().toString());
+        lookShop.setSubwayLineId(param.getSubwayLineId().toString());
+        lookShop.setUpdateTime(new Date());
+        lookShop.setCraeateTime(new Date());
+        lookShop.setAreaId(param.getAreaId());
+        lookShop.setStreetId(param.getStreetId());
+        lookShop.setProvinceId(param.getProvinceId());
+        lookShop.setAddress(param.getAddress());
+        lookShop.setContacts(param.getContacts());
+        lookShop.setShopRentTypeId(param.getShopRentTypeId());
         lookShop.setStatus(0);
         lookShop.setMediumStatus(0);
         lookShopMapper.insert(lookShop);
@@ -79,9 +120,9 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
             lookShopBusiness.setBusinessTypeId(id);
             lookShopBusinessMapper.insert(lookShopBusiness);
         }
-        SolrDTO solrDTO = new SolrDTO();
-        solrDTO.setLookShopId(lookShop.getId());
-        solrService.addSolr(solrDTO);
+//        SolrDTO solrDTO = new SolrDTO();
+//        solrDTO.setLookShopId(lookShop.getId());
+//        solrService.addSolr(solrDTO);
         return result;
     }
 

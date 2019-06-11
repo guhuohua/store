@@ -87,8 +87,16 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
     @Transactional
     public ResponseResult addTransferShop(ViewTransferShopParam param, Integer userId) {
         ResponseResult result = new ResponseResult();
-        List<String> coordinate = GetLatAndLngByBaidu.getCoordinate(param.getAddress());
         TransferShop transferShop = new TransferShop();
+        List<String> coordinate = GetLatAndLngByBaidu.getCoordinate(param.getAddress());
+        if (BeanUtils.isEmpty(coordinate)) {
+            result.setCode(600);
+            result.setError("获取不到该地址的经纬度");
+            result.setError_description("获取不到该地址的经纬度");
+            return result;
+        }
+        transferShop.setLon(coordinate.get(0));
+        transferShop.setLat(coordinate.get(1));
         transferShop.setId(IdUtil.getId());
         transferShop.setCityId(userId);
         transferShop.setTel(param.getTel());
@@ -112,7 +120,6 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
         transferShop.setOrientationId(param.getOrientationId());
         transferShop.setLoopLineId(param.getLoopLineId());
         transferShop.setSubwayLineId(param.getSubwayLineId());
-        transferShop.setLon(coordinate.get(0));
         transferShop.setImage(param.getImage());
         transferShop.setUpdateTime(new Date());
         transferShop.setAreaId(param.getAreaId());
@@ -120,7 +127,7 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
         transferShop.setProvinceId(param.getProvinceId());
         transferShop.setAddress(param.getAddress());
         transferShop.setContacts(param.getContacts());
-        transferShop.setLat(coordinate.get(1));
+        transferShop.setRecommendType(0);
         transferShop.setShopRentTypeId(param.getShopRentTypeId());
         transferShop.setStatus(0);
         transferShop.setCheckStatus(2);
