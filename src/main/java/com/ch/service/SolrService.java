@@ -8,4 +8,5 @@ import com.ch.dto.SolrDTO;
 public interface SolrService {
 
     void addSolr(SolrDTO solrDTO);
+
 }

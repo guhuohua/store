@@ -95,7 +95,7 @@ public class SysTransferShopServiceImpl implements SysTransferShopService {
         List<SysTransferShopDTO> transferShops = new ArrayList<>();
         PageHelper.startPage(showShopDto.getPageNum(), showShopDto.getPageSize());
       if (BeanUtils.isNotEmpty(showShopDto.getContacts()) || BeanUtils.isNotEmpty(showShopDto.getTel()) || BeanUtils.isNotEmpty(showShopDto.getStatus()) || BeanUtils.isNotEmpty(showShopDto.getRecommendType()) ){
-          transferShops = transferShopMapper.list(showShopDto.getContacts(), showShopDto.getTel(), showShopDto.getStatus(), showShopDto.getRecommendType());
+          List<SysTransferShopDTO> list = transferShopMapper.list(showShopDto.getContacts(), showShopDto.getTel(), showShopDto.getStatus(), showShopDto.getRecommendType());
       }else {
          transferShops = transferShopMapper.findAll();
       }
@@ -139,9 +139,7 @@ public class SysTransferShopServiceImpl implements SysTransferShopService {
         TransferShop transferShop = transferShopMapper.selectByPrimaryKey(updateStatusDTO.getStoreId());
         transferShop.setRecommendType(updateStatusDTO.getStatus());
         transferShopMapper.updateByPrimaryKey(transferShop);
-        SolrDTO solrDTO = new SolrDTO();
-        solrDTO.setTransferShopId(transferShop.getId());
-        solrService.addSolr(solrDTO);
+
         return result;
     }
 
