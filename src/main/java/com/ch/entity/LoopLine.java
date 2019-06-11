@@ -5,6 +5,16 @@ public class LoopLine {
 
     private String loopLineDesc;
 
+    private Integer cityId;
+
+    public Integer getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(Integer cityId) {
+        this.cityId = cityId;
+    }
+
     public Long getId() {
         return id;
     }

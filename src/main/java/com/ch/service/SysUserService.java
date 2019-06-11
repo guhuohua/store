@@ -1,6 +1,7 @@
 package com.ch.service;
 
 import com.ch.base.ResponseResult;
+import com.ch.dto.SysUserDTO;
 import com.ch.dto.UserDTO;
 
 public interface SysUserService {
@@ -17,4 +18,13 @@ public interface SysUserService {
      * @return
      */
     ResponseResult login(UserDTO userDTO);
+
+
+    /**
+     * 人员管理
+     * @param sysUserDTO
+     * @return
+     */
+
+    ResponseResult updateOrInsertUser(SysUserDTO sysUserDTO);
 }

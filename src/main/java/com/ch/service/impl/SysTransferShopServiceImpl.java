@@ -89,20 +89,26 @@ public class SysTransferShopServiceImpl implements SysTransferShopService {
 
 
     @Override
-    @Async
+
     public ResponseResult showTransferShopList(ShowShopDto showShopDto) {
         ResponseResult result = new ResponseResult();
+        List<SysTransferShopDTO> transferShops = new ArrayList<>();
         PageHelper.startPage(showShopDto.getPageNum(), showShopDto.getPageSize());
-        List<TransferShop> transferShops = transferShopMapper.selectByExample(null);
-        List<SysTransferShopDTO> sysTransferShopDTOS = new ArrayList<>();
+      if (BeanUtils.isNotEmpty(showShopDto.getContacts()) || BeanUtils.isNotEmpty(showShopDto.getTel()) || BeanUtils.isNotEmpty(showShopDto.getStatus()) || BeanUtils.isNotEmpty(showShopDto.getRecommendType()) ){
+          List<SysTransferShopDTO> list = transferShopMapper.list(showShopDto.getContacts(), showShopDto.getTel(), showShopDto.getStatus(), showShopDto.getRecommendType());
+      }else {
+         transferShops = transferShopMapper.findAll();
+      }
+
+
+       /* List<SysTransferShopDTO> sysTransferShopDTOS = new ArrayList<>();
         for (TransferShop transferShop : transferShops) {
             ResponseResult result1 = transferShopInfo(transferShop.getId());
             SysTransferShopDTO data =(SysTransferShopDTO) result1.getData();
             sysTransferShopDTOS.add(data);
+        }*/
 
-        }
-
-        PageInfo<SysTransferShopDTO> page = new PageInfo<>(sysTransferShopDTOS);
+        PageInfo<SysTransferShopDTO> page = new PageInfo<>(transferShops);
         result.setData(page);
         return result;
     }

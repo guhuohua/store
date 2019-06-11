@@ -66,14 +66,21 @@ public class SysLookShopServiceImpl implements SysLookShopService {
     @Override
     public ResponseResult showLookShopList(ShowShopDto showShopDto) {
         ResponseResult result = new ResponseResult();
-        PageHelper.startPage(showShopDto.getPageNum(), showShopDto.getPageSize());
-        List<LookShop> LookShops = lookShopMapper.selectByExample(null);
         List<ViewLookShopInfoDTO> viewLookShopInfoDTOs = new ArrayList<>();
+        PageHelper.startPage(showShopDto.getPageNum(), showShopDto.getPageSize());
+        if (BeanUtils.isNotEmpty(showShopDto.getContacts()) || BeanUtils.isNotEmpty(showShopDto.getTel()) || BeanUtils.isNotEmpty(showShopDto.getStatus())){
+             viewLookShopInfoDTOs = lookShopMapper.list(showShopDto.getContacts(),showShopDto.getTel(),showShopDto.getStatus());
+        }else {
+           viewLookShopInfoDTOs = lookShopMapper.findAll();
+        }
+
+
+        /* List<ViewLookShopInfoDTO> viewLookShopInfoDTOs = new ArrayList<>();
         for (LookShop lookShop : LookShops) {
             ResponseResult result1 = viewLookShopService.lookShopInfo(lookShop.getId());
             ViewLookShopInfoDTO data =(ViewLookShopInfoDTO) result1.getData();
             viewLookShopInfoDTOs.add(data);
-        }
+        }*/
         PageInfo<ViewLookShopInfoDTO> page = new PageInfo<>(viewLookShopInfoDTOs);
         result.setData(page);
         return result;

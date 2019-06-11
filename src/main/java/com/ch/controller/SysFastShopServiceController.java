@@ -20,14 +20,14 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @Slf4j
 @RequestMapping(value = "shop")
-@Api(value = "极速店铺接口")
+@Api(value = "申请列表")
 public class SysFastShopServiceController {
 
     @Autowired
     SysFastShopService sysFastShopService;
 
-    @PostMapping ("showFastTransferShop")
-    @ApiOperation("展示后台极速转铺")
+    @PostMapping ("applyList")
+    @ApiOperation("申请列表")
     public ResponseResult showFastFastTransferShop(@RequestBody SysFastShopDTO sysFastShopDTO) {
         ResponseResult result = new ResponseResult();
         try {

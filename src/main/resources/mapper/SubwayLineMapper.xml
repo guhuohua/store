@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.ch.entity.SubwayLine" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="subway_line_desc" property="subwayLineDesc" jdbcType="VARCHAR" />
+    <result column="city_id" property="cityId" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -64,7 +65,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, subway_line_desc
+    id, subway_line_desc,city_id
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ch.entity.SubwayLineExample" >
     select
@@ -98,8 +99,8 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.ch.entity.SubwayLine" >
-    insert into subway_line (id, subway_line_desc)
-    values (#{id,jdbcType=BIGINT}, #{subwayLineDesc,jdbcType=VARCHAR})
+    insert into subway_line (id, subway_line_desc,city_id)
+    values (#{id,jdbcType=BIGINT}, #{subwayLineDesc,jdbcType=VARCHAR},#{cityId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.ch.entity.SubwayLine" >
     insert into subway_line
@@ -159,7 +160,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.ch.entity.SubwayLine" >
     update subway_line
-    set subway_line_desc = #{subwayLineDesc,jdbcType=VARCHAR}
+    set subway_line_desc = #{subwayLineDesc,jdbcType=VARCHAR},
+        city_id = #{cityId,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>
