@@ -11,7 +11,7 @@ public interface ViewLookShopService {
      * @param param
      * @return
      */
-    ResponseResult addLookShop(ViewLookShopAddParam param);
+    ResponseResult addLookShop(ViewLookShopAddParam param, Integer userId);
 
 
     /**

@@ -12,6 +12,8 @@ public class ViewLookShopAddParam {
 
     private Long clientId;
 
+    private Long shopRentTypeId;
+
     private String tel;
 
     private List<Long> businessTypeIds;
@@ -91,5 +93,7 @@ public class ViewLookShopAddParam {
     private String address;
 
     private String contacts;
+
+    private String areaName;
 
 }
