@@ -12,20 +12,20 @@ public class ShowShopDto {
     private Integer pageNum;
     private Integer pageSize;
 
-    private String name;
+    private String contacts;
 
     private String tel;
 
     private Integer status;
 
-    private Integer type;
+    private Integer recommendType;
 
-    public String getName() {
-        return name;
+    public String getContacts() {
+        return contacts;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setContacts(String contacts) {
+        this.contacts = contacts;
     }
 
     public String getTel() {
@@ -44,12 +44,12 @@ public class ShowShopDto {
         this.status = status;
     }
 
-    public Integer getType() {
-        return type;
+    public Integer getRecommendType() {
+        return recommendType;
     }
 
-    public void setType(Integer type) {
-        this.type = type;
+    public void setRecommendType(Integer recommendType) {
+        this.recommendType = recommendType;
     }
 
     public Integer getPageNum() {

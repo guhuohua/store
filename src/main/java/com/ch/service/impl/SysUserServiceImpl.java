@@ -9,20 +9,22 @@ package com.ch.service.impl;
 import com.ch.base.BeanUtils;
 import com.ch.base.ResponseResult;
 import com.ch.dao.*;
+import com.ch.dto.SysUserDTO;
 import com.ch.dto.UserDTO;
 import com.ch.entity.*;
 import com.ch.service.SysUserService;
+import com.ch.util.IdUtil;
 import com.ch.util.PasswordUtil;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
+import java.util.*;
 
 @Service
 public class SysUserServiceImpl implements SysUserService {
-
+    private static final Logger LOGGER = LogManager.getLogger(SysUserServiceImpl.class);
 
     @Autowired
     SysUserMapper sysUserMapper;
@@ -123,5 +125,118 @@ public class SysUserServiceImpl implements SysUserService {
             return result;
 
         }
+    }
+
+    @Override
+    public ResponseResult updateOrInsertUser(SysUserDTO sysUserDTO) {
+        ResponseResult result = new ResponseResult();
+        if (sysUserDTO.getUserId() == null || sysUserDTO.getUserId().equals("")) {
+            SysUserExample example = new SysUserExample();
+            example.createCriteria().andUsernameEqualTo(sysUserDTO.getUserName());
+            List<SysUser> btSysUsers = sysUserMapper.selectByExample(example);
+            SysUserExample example2 = new SysUserExample();
+            example2.createCriteria().andAccountEqualTo(sysUserDTO.getAccount());
+            List<SysUser> btSysUsers2 = sysUserMapper.selectByExample(example2);
+            SysUserExample example3 = new SysUserExample();
+            example3.createCriteria().andPhoneEqualTo(sysUserDTO.getPhone());
+            List<SysUser> btSysUsers3 = sysUserMapper.selectByExample(example3);
+            if (btSysUsers.size() > 0) {
+                result.setCode(500);
+                result.setError("用户名不能重复");
+                result.setError_description("用户名不能重复");
+                return result;
+            }
+            if (btSysUsers2.size() > 0) {
+                result.setCode(500);
+                result.setError("登录账户不能重复");
+                result.setError_description("登录账户不能重复");
+                return result;
+            }
+            if (btSysUsers3.size() > 0) {
+                result.setCode(500);
+                result.setError("手机号不能重复");
+                result.setError_description("手机号不能重复");
+                return result;
+            }
+            try {
+                SysUser btSysUser = new SysUser();
+                Long userId = IdUtil.getId();
+                btSysUser.setUserId(userId.intValue());
+                btSysUser.setAccount(sysUserDTO.getAccount());
+                String salt = UUID.randomUUID().toString();
+                PasswordUtil encoderMd5 = new PasswordUtil(salt, "sha-256");
+                String encodedPassword = encoderMd5.encode(sysUserDTO.getPassword());
+                btSysUser.setSalt(salt);
+                btSysUser.setPassword(encodedPassword);
+                btSysUser.setPhone(sysUserDTO.getPhone());
+                btSysUser.setUpdateTime(new Date());
+                btSysUser.setUsername(sysUserDTO.getUserName());
+                btSysUser.setStatus(sysUserDTO.getStatus());
+                sysUserMapper.insert(btSysUser);
+                SysUserRole userRole = new SysUserRole();
+                userRole.setRoleId(sysUserDTO.getRoleId());
+                userRole.setUserId(userId.intValue());
+                sysUserRoleMapper.insert(userRole);
+            } catch (Exception e) {
+                LOGGER.error("新增人员失败" + e.getMessage(),e);
+                result.setCode(500);
+                result.setError(e.getMessage());
+                result.setError_description("新增人员失败");
+                return result;
+            }
+        } else {
+            SysUserExample example = new SysUserExample();
+            example.createCriteria().andUsernameEqualTo(sysUserDTO.getUserName()).andUserIdNotEqualTo(sysUserDTO.getUserId());
+            List<SysUser> sysUsers = sysUserMapper.selectByExample(example);
+            SysUserExample example2 = new SysUserExample();
+            example2.createCriteria().andAccountEqualTo(sysUserDTO.getAccount()).andUserIdNotEqualTo(sysUserDTO.getUserId());
+            List<SysUser> sysUsers2 = sysUserMapper.selectByExample(example2);
+            SysUserExample example3 = new SysUserExample();
+            example3.createCriteria().andPhoneEqualTo(sysUserDTO.getPhone()).andUserIdNotEqualTo(sysUserDTO.getUserId());
+            List<SysUser> sysUsers3 = sysUserMapper.selectByExample(example3);
+            if (sysUsers.size() > 0) {
+                result.setCode(500);
+                result.setError("用户名不能重复");
+                result.setError_description("用户名不能重复");
+                return result;
+            }
+            if (sysUsers2.size() > 0) {
+                result.setCode(500);
+                result.setError("登录账户不能重复");
+                result.setError_description("登录账户不能重复");
+                return result;
+            }
+            if (sysUsers3.size() > 0) {
+                result.setCode(500);
+                result.setError("手机号不能重复");
+                result.setError_description("手机号不能重复");
+                return result;
+            }
+            SysUser sysUser = new SysUser();
+            sysUser.setAccount(sysUserDTO.getAccount());
+            if (BeanUtils.isNotEmpty(sysUserDTO.getPassword())) {
+                String salt = UUID.randomUUID().toString();
+                PasswordUtil encoderMd5 = new PasswordUtil(salt, "sha-256");
+                String encodedPassword = encoderMd5.encode(sysUserDTO.getPassword());
+                sysUser.setSalt(salt);
+                sysUser.setPassword(encodedPassword);
+            }
+            sysUser.setPhone(sysUserDTO.getPhone());
+            sysUser.setUpdateTime(new Date());
+            sysUser.setUsername(sysUserDTO.getUserName());
+            sysUser.setUserId(sysUserDTO.getUserId());
+            sysUser.setStatus(sysUserDTO.getStatus());
+            try {
+                sysUserMapper.updateByPrimaryKey(sysUser);
+                sysUserRoleMapper.updateByUserId(sysUserDTO.getUserId(),sysUserDTO.getRoleId());
+            } catch (Exception e) {
+                LOGGER.error("编辑人员失败" + e.getMessage(),e);
+                result.setCode(500);
+                result.setError(e.getMessage());
+                result.setError_description("编辑人员失败");
+                return result;
+            }
+        }
+        return result;
     }
 }

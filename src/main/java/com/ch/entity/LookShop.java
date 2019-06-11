@@ -99,6 +99,16 @@ public class LookShop {
 
     private String area;
 
+    private Long shopRentTypeId;
+
+    public Long getShopRentTypeId() {
+        return shopRentTypeId;
+    }
+
+    public void setShopRentTypeId(Long shopRentTypeId) {
+        this.shopRentTypeId = shopRentTypeId;
+    }
+
     public String getArea() {
         return area;
     }

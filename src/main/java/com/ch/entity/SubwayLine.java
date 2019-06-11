@@ -1,9 +1,21 @@
 package com.ch.entity;
 
+import org.springframework.data.redis.core.index.PathBasedRedisIndexDefinition;
+
 public class SubwayLine {
     private Long id;
 
     private String subwayLineDesc;
+
+    private Integer cityId;
+
+    public Integer getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(Integer cityId) {
+        this.cityId = cityId;
+    }
 
     public Long getId() {
         return id;
