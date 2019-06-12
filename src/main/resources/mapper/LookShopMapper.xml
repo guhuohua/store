@@ -843,7 +843,7 @@
       area_id = #{areaId,jdbcType=INTEGER},
       decorate_type_id = #{decorateTypeId,jdbcType=BIGINT},
       requirement_details = #{requirementDetails,jdbcType=VARCHAR},
-      "accessory _requirements" = #{accessoryRequirements,jdbcType=VARCHAR},
+      accessory_requirements = #{accessoryRequirements,jdbcType=VARCHAR},
       gate_width = #{gateWidth,jdbcType=BIGINT},
       service_type = #{serviceType,jdbcType=BIGINT},
       latitude = #{latitude,jdbcType=VARCHAR},
@@ -876,7 +876,7 @@
   </update>
 
   <select id="list" resultType="com.ch.entity.LookShop" >
-    SELECT  t.id, t.tel,t.address,t.small_rent,t.top_rent,t.small_area,t.top_area,t.transfer_status,t.`status`,b.business_type AS businessTypes ,t.contacts as username,p.property_type AS propertyType ,s.shop_type AS shopType ,d.decorate_type AS decorateType ,c.city_name as city FROM look_shop t
+    SELECT  t.id, t.tel,t.address,t.small_rent,t.top_rent,t.small_area,t.top_area,t.transfer_status,t.`status` AS doneStatus,b.business_type AS businessTypes ,t.contacts as username,p.property_type AS propertyType ,s.shop_type AS shopType ,d.decorate_type AS decorateType ,c.city_name as city FROM look_shop t
     JOIN  business_type   b  on  t.business_type_id=b.id
     JOIN  property_type p on p.id=t.property_type_id
     JOIN shop_type s on s.id = t.shop_type_id
