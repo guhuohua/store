@@ -120,9 +120,9 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
             lookShopBusiness.setBusinessTypeId(id);
             lookShopBusinessMapper.insert(lookShopBusiness);
         }
-//        SolrDTO solrDTO = new SolrDTO();
-//        solrDTO.setLookShopId(lookShop.getId());
-//        solrService.addSolr(solrDTO);
+        SolrDTO solrDTO = new SolrDTO();
+        solrDTO.setLookShopId(lookShop.getId());
+        solrService.addSolr(solrDTO);
         return result;
     }
 
