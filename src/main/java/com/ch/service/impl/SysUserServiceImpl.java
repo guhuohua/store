@@ -39,7 +39,7 @@ public class SysUserServiceImpl implements SysUserService {
     SysRolePermissionMapper sysRolePermissionMapper;
 
     @Override
-    public UserDTO findById(Integer userId) {
+    public UserDTO findById(Long userId) {
         UserDTO dto = new UserDTO();
         SysUser sysUser = sysUserMapper.selectByPrimaryKey(userId);
         if(sysUser!=null){
@@ -161,7 +161,7 @@ public class SysUserServiceImpl implements SysUserService {
             try {
                 SysUser btSysUser = new SysUser();
                 Long userId = IdUtil.getId();
-                btSysUser.setUserId(userId.intValue());
+                btSysUser.setUserId(userId);
                 btSysUser.setAccount(sysUserDTO.getAccount());
                 String salt = UUID.randomUUID().toString();
                 PasswordUtil encoderMd5 = new PasswordUtil(salt, "sha-256");
@@ -175,7 +175,7 @@ public class SysUserServiceImpl implements SysUserService {
                 sysUserMapper.insert(btSysUser);
                 SysUserRole userRole = new SysUserRole();
                 userRole.setRoleId(sysUserDTO.getRoleId());
-                userRole.setUserId(userId.intValue());
+                userRole.setUserId(userId);
                 sysUserRoleMapper.insert(userRole);
             } catch (Exception e) {
                 LOGGER.error("新增人员失败" + e.getMessage(),e);

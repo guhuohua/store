@@ -5,7 +5,7 @@ import java.util.Date;
 public class LookShop {
     private Long id;
 
-    private Integer clientId;
+    private Long clientId;
 
     private String tel;
 
@@ -125,11 +125,11 @@ public class LookShop {
         this.id = id;
     }
 
-    public Integer getClientId() {
+    public Long getClientId() {
         return clientId;
     }
 
-    public void setClientId(Integer clientId) {
+    public void setClientId(Long clientId) {
         this.clientId = clientId;
     }
 

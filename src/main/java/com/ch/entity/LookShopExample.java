@@ -175,7 +175,7 @@ public class LookShopExample {
             return (Criteria) this;
         }
 
-        public Criteria andClientIdEqualTo(Integer value) {
+        public Criteria andClientIdEqualTo(Long value) {
             addCriterion("client_id =", value, "clientId");
             return (Criteria) this;
         }

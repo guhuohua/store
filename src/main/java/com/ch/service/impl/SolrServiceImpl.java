@@ -89,18 +89,22 @@ public class SolrServiceImpl implements SolrService {
         }
         if (BeanUtils.isNotEmpty(solrDTO.getLookShopId())){
             LookShop lookShop = lookShopMapper.selectByPrimaryKey(solrDTO.getLookShopId());
+            BsStreet bsStreet = bsStreetMapper.selectByPrimaryKey(lookShop.getStreetId());
+            BsArea bsArea = bsAreaMapper.selectByPrimaryKey(lookShop.getAreaId());
             StoreSolrSchema storeSolrSchema = new StoreSolrSchema();
-            modelMapper.map(lookShop, storeSolrSchema);
             storeSolrSchema.setId(IdUtil.getId()+"");
-            storeSolrSchema.setStoreAddress(lookShop.getAddress());
+            storeSolrSchema.setLookShopId(lookShop.getId());
+            storeSolrSchema.setStoreName(lookShop.getTitle());
+            storeSolrSchema.setStoreAddress(bsArea.getAreaName() + "-" + bsStreet.getStreetName());
             storeSolrSchema.setPresentPrice(lookShop.getTopRent());
             storeSolrSchema.setOriginalPrice(lookShop.getSmallRent());
             storeSolrSchema.setMinStoreArea(lookShop.getSmallArea());
             storeSolrSchema.setMaxStoreArea(lookShop.getTopArea());
-            /*storeSolrSchema.setStoreCategory(lookShop.G);*/
             storeSolrSchema.setStoreType(1);
             storeSolrSchema.setStoreStatus(lookShop.getStatus());
-
+            storeSolrSchema.setLongitude(lookShop.getLongitude());
+            storeSolrSchema.setLatitude(lookShop.getLatitude());
+            storeSolrSchema.setCreateTime(lookShop.getCraeateTime().getTime());
             try {
                 System.out.println("准备同步solr:"+ JSON.toJSONString(storeSolrSchema));
                 solrClient.addBean(storeSolrSchema);

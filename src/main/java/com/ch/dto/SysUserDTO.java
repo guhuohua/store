@@ -7,7 +7,7 @@
 package com.ch.dto;
 
 public class SysUserDTO {
-    private Integer userId;
+    private Long userId;
 
     private Integer roleId;
 
@@ -21,11 +21,11 @@ public class SysUserDTO {
 
     private Integer status;
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

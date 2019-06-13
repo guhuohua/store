@@ -1,15 +1,19 @@
 package com.ch.controller;
 
+import com.ch.base.BeanUtils;
 import com.ch.base.ResponseResult;
 import com.ch.model.FastTransferShopParam;
 import com.ch.model.ViewTransferShopListParam;
 import com.ch.model.ViewTransferShopParam;
 import com.ch.service.ViewTransferShopService;
+import com.ch.util.TokenUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping(value = "/view/transferShop")
@@ -22,10 +26,24 @@ public class ViewTransferShopController {
 
     @PostMapping("/add")
     @ApiOperation("新增转铺")
-    public ResponseResult addTransferShop(@RequestBody ViewTransferShopParam param) {
+    public ResponseResult addTransferShop(HttpServletRequest req, @RequestBody ViewTransferShopParam param) {
         ResponseResult result = new ResponseResult();
+        String token = req.getHeader("Authorization");
+        if (BeanUtils.isEmpty(token)) {
+            result.setCode(999);
+            result.setError("token失效请重新登录");
+            result.setError_description("token失效请重新登录");
+            return result;
+        }
+        Long userId = TokenUtil.getUserId(token);
+        if (BeanUtils.isEmpty(userId)) {
+            result.setCode(999);
+            result.setError("token失效请重新登录");
+            result.setError_description("token失效请重新登录");
+            return result;
+        }
         try {
-            result = viewTransferShopService.addTransferShop(param, 123);
+            result = viewTransferShopService.addTransferShop(param, userId);
         } catch (Exception e) {
             log.error("新增转铺失败" + e.getMessage(), e);
             result.setCode(600);
@@ -82,10 +100,24 @@ public class ViewTransferShopController {
 
     @GetMapping("/myTransferShopList")
     @ApiOperation("我的转铺列表")
-    public ResponseResult fastTransferShop(@RequestParam Long id) {
+    public ResponseResult fastTransferShop(HttpServletRequest req) {
         ResponseResult result = new ResponseResult();
+        String token = req.getHeader("Authorization");
+        if (BeanUtils.isEmpty(token)) {
+            result.setCode(999);
+            result.setError("token失效请重新登录");
+            result.setError_description("token失效请重新登录");
+            return result;
+        }
+        Long userId = TokenUtil.getUserId(token);
+        if (BeanUtils.isEmpty(userId)) {
+            result.setCode(999);
+            result.setError("token失效请重新登录");
+            result.setError_description("token失效请重新登录");
+            return result;
+        }
         try {
-            result = viewTransferShopService.myTransferShopList(id);
+            result = viewTransferShopService.myTransferShopList(userId);
         } catch (Exception e) {
             log.error("获取我的转铺列表失败" + e.getMessage(), e);
             result.setCode(600);

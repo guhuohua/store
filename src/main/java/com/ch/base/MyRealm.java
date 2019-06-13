@@ -42,7 +42,7 @@ public class MyRealm extends AuthorizingRealm {
      */
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        Integer userId = TokenUtil.getUserId(principals.toString());
+        Long userId = TokenUtil.getUserId(principals.toString());
        UserDTO userDTO = sysUserService.findById(userId);
         SimpleAuthorizationInfo simpleAuthorizationInfo = new SimpleAuthorizationInfo();
         if (userDTO.getRoles().size() > 0) {
@@ -60,7 +60,7 @@ public class MyRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken auth) throws AuthenticationException {
         String token = (String) auth.getCredentials();
         // 解密获得username，用于和数据库进行对比
-        Integer userId = TokenUtil.getUserId(token);
+        Long userId = TokenUtil.getUserId(token);
         if (userId == null) {
             throw new AuthenticationException("token invalid");
         }

@@ -1,5 +1,6 @@
 package com.ch.service.impl;
 
+import com.ch.base.BeanUtils;
 import com.ch.base.ResponseResult;
 import com.ch.dao.*;
 import com.ch.entity.*;
@@ -220,7 +221,16 @@ public class ViewBaseServiceImpl implements ViewBaseService {
         List<Client> clients = clientMapper.selectByExample(clientExample);
         if (clients.size() > 0) {
             Client client = clients.stream().findFirst().get();
-            result.setData(TokenUtil.sign(client.getId().intValue()));
+            result.setData(TokenUtil.sign(client.getId()));
+            if (BeanUtils.isNotEmpty(param.getNickName())) {
+                client.setNickName(param.getNickName());
+            }
+            if (BeanUtils.isNotEmpty(param.getHeader())) {
+                client.setHeader(param.getHeader());
+            }
+            if (BeanUtils.isNotEmpty(param.getGender())) {
+                client.setGender(param.getGender());
+            }
             client.setQuitTime(new Date());
             clientMapper.updateByPrimaryKey(client);
         } else {
@@ -237,7 +247,7 @@ public class ViewBaseServiceImpl implements ViewBaseService {
             client.setSearchAreaCount(0);
             client.setBrowseCount(0);
             clientMapper.insert(client);
-            result.setData(TokenUtil.sign(client.getId().intValue()));
+            result.setData(TokenUtil.sign(client.getId()));
         }
         return result;
     }

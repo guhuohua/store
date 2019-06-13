@@ -5,6 +5,7 @@ import com.ch.base.ResponseResult;
 import com.ch.dao.*;
 import com.ch.dto.SolrDTO;
 import com.ch.dto.ViewLookShopInfoDTO;
+import com.ch.dto.ViewMyLookShopDTO;
 import com.ch.entity.*;
 import com.ch.model.FastTransferShopParam;
 import com.ch.model.ViewLookShopAddParam;
@@ -63,9 +64,15 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
     @Autowired
     SolrService solrService;
 
+    @Autowired
+    ShopRentTypeMapper shopRentTypeMapper;
+
+    @Autowired
+    ClientMapper clientMapper;
+
     @Override
     @Transactional
-    public ResponseResult addLookShop(ViewLookShopAddParam param, Integer userId) {
+    public ResponseResult addLookShop(ViewLookShopAddParam param, Long userId) {
         ResponseResult result = new ResponseResult();
         LookShop lookShop = new LookShop();
         List<String> coordinate = GetLatAndLngByBaidu.getCoordinate(param.getAddress());
@@ -174,22 +181,51 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
         if (BeanUtils.isNotEmpty(decorateType)) {
             viewLookShopInfoDTO.setDecorateType(decorateType.getDecorateType());
         }
+        ShopRentType shopRentType = shopRentTypeMapper.selectByPrimaryKey(lookShop.getShopRentTypeId());
+        if (BeanUtils.isNotEmpty(shopRentType)) {
+            viewLookShopInfoDTO.setShopRentType(shopRentType.getShopRentType());
+        }
+        Client client = clientMapper.selectByPrimaryKey(Long.valueOf(lookShop.getClientId()));
+        if (BeanUtils.isNotEmpty(client)) {
+            viewLookShopInfoDTO.setHeadImg(client.getHeader());
+        }
         result.setData(viewLookShopInfoDTO);
         return result;
     }
 
-
     @Override
-    public ResponseResult fastLookShop(FastTransferShopParam param) {
+    public ResponseResult myLookShopList(Long id) {
         ResponseResult result = new ResponseResult();
-        FastLookShop fastLookShop = new FastLookShop();
-        fastLookShop.setId(IdUtil.getId());
-        fastLookShop.setContacts(param.getContacts());
-        fastLookShop.setTel(param.getTel());
-        fastLookShop.setDescribe(param.getDescribe());
-        fastLookShop.setCreateDate(new Date());
-        fastLookShop.setAllocationStatus(0);
-        fastLookShopMapper.insert(fastLookShop);
+        LookShopExample lookShopExample = new LookShopExample();
+        lookShopExample.createCriteria().andClientIdEqualTo(id);
+        List<LookShop> lookShops = lookShopMapper.selectByExample(lookShopExample);
+        List<ViewMyLookShopDTO> viewMyLookShopDTOS = new ArrayList<>();
+        for (LookShop lookShop:lookShops) {
+            ViewMyLookShopDTO viewMyLookShopDTO = new ViewMyLookShopDTO();
+            viewMyLookShopDTO.setId(lookShop.getId());
+            viewMyLookShopDTO.setTitle(lookShop.getTitle());
+            viewMyLookShopDTO.setMaxArea(lookShop.getTopArea());
+            viewMyLookShopDTO.setMinArea(lookShop.getSmallArea());
+            viewMyLookShopDTO.setMaxPrice(lookShop.getTopRent());
+            viewMyLookShopDTO.setMinPrice(lookShop.getSmallRent());
+            BsArea bsArea = bsAreaMapper.selectByPrimaryKey(lookShop.getAreaId());
+            StringBuffer stringBuffer = new StringBuffer();
+            if (BeanUtils.isNotEmpty(bsArea)) {
+                stringBuffer.append(bsArea.getAreaName());
+            }
+            BsStreet bsStreet = bsStreetMapper.selectByPrimaryKey(lookShop.getStreetId());
+            if (BeanUtils.isNotEmpty(bsStreet)) {
+                stringBuffer.append("-").append(bsStreet.getStreetName());
+            }
+            viewMyLookShopDTO.setAddress(stringBuffer.toString());
+            Client client = clientMapper.selectByPrimaryKey(Long.valueOf(lookShop.getClientId()));
+            if (BeanUtils.isNotEmpty(client)) {
+                viewMyLookShopDTO.setName(client.getNickName());
+                viewMyLookShopDTO.setHeadImg(client.getHeader());
+            }
+            viewMyLookShopDTOS.add(viewMyLookShopDTO);
+        }
+        result.setData(viewMyLookShopDTOS);
         return result;
     }
 }

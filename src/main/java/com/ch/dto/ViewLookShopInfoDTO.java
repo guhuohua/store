@@ -92,4 +92,8 @@ public class ViewLookShopInfoDTO {
     private Integer doneStatus;
 
     private Integer checkStatus;
+
+    private String shopRentType;
+
+    private String headImg;
 }

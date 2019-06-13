@@ -34,7 +34,7 @@ public class SysMenuTreeImpl implements SysMenuTreeService {
    
    
     @Override
-    public ResponseResult findSysMenuTree(Integer userId) {
+    public ResponseResult findSysMenuTree(Long userId) {
 
         ResponseResult result = new ResponseResult();
         SysUserRoleExample sysUserRoleExample = new SysUserRoleExample();
