@@ -239,4 +239,18 @@ public class SysUserServiceImpl implements SysUserService {
         }
         return result;
     }
+
+    @Override
+    public ResponseResult userList(SysUserDTO sysUserDTO) {
+       ResponseResult result = new ResponseResult();
+        List<SysUser> sysUsers = sysUserMapper.selectByExample(null);
+        for (SysUser sysUser : sysUsers) {
+            SysUserRole sysUserRole = sysUserRoleMapper.findByUserId(sysUser.getUserId());
+
+        }
+
+        return null;
+    }
+
+
 }

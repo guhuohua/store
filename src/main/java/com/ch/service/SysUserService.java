@@ -21,10 +21,18 @@ public interface SysUserService {
 
 
     /**
-     * 人员管理
+     * 修改添加人员
      * @param sysUserDTO
      * @return
      */
 
     ResponseResult updateOrInsertUser(SysUserDTO sysUserDTO);
+
+    /**
+     * 展示人员列表
+     *
+     * @param sysUserDTO
+     * @return
+     */
+    ResponseResult userList(SysUserDTO sysUserDTO);
 }

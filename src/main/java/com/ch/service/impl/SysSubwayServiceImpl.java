@@ -1,17 +1,11 @@
-/**
- * Author: 常富文
- * Date:   2019/6/11 17:38
- * Description:
- */
-
 package com.ch.service.impl;
 
 import com.ch.base.BeanUtils;
 import com.ch.base.ResponseResult;
-import com.ch.dao.LoopLineMapper;
+import com.ch.dao.SubwayLineMapper;
 import com.ch.dto.SysBaseDTO;
-import com.ch.entity.LoopLine;
-import com.ch.service.SysLoopLineService;
+import com.ch.entity.SubwayLine;
+import com.ch.service.SysSubwayService;
 import com.ch.util.IdUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -22,45 +16,45 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class SysLoopLineServiceImpl implements SysLoopLineService {
+public class SysSubwayServiceImpl implements SysSubwayService {
 
     @Autowired
-    LoopLineMapper loopLineMapper;
+    SubwayLineMapper subwayLineMapper;
+
     @Override
-    public ResponseResult addLoopLine(LoopLine loopLine) {
+    public ResponseResult addSubwayLine(SubwayLine subwayLine) {
         ResponseResult result = new ResponseResult();
-        loopLine.setId(IdUtil.getId());
+        subwayLine.setId(IdUtil.getId());
+        subwayLineMapper.insert(subwayLine);
         return result;
     }
 
     @Override
-    public ResponseResult updateLoopLine(LoopLine loopLine) {
+    public ResponseResult updateSubwayLine(SubwayLine subwayLine) {
         ResponseResult result = new ResponseResult();
-        loopLineMapper.updateByPrimaryKey(loopLine);
+        subwayLineMapper.updateByPrimaryKey(subwayLine);
         return result;
     }
 
     @Override
-    public ResponseResult deleShopType(Long id) {
+    public ResponseResult deleSubwayLine(Long id) {
         ResponseResult result = new ResponseResult();
-        loopLineMapper.deleteByPrimaryKey(id);
+        subwayLineMapper.deleteByPrimaryKey(id);
         return result;
     }
 
     @Override
-    public ResponseResult list(SysBaseDTO sysBaseDTO) {
+    public ResponseResult listSubwayLine(SysBaseDTO sysBaseDTO) {
         ResponseResult result = new ResponseResult();
         PageHelper.startPage(sysBaseDTO.getPageNum(),sysBaseDTO.getPageSize());
-        List<LoopLine> loopLines = new ArrayList<>();
+        List<SubwayLine> subwayLines = new ArrayList<>();
         if (BeanUtils.isNotEmpty(sysBaseDTO.getCityId())){
-            loopLines = loopLineMapper.findByCityId(sysBaseDTO.getCityId());
+            subwayLines = subwayLineMapper.findByCityId(sysBaseDTO.getCityId());
         }else {
-             loopLines = loopLineMapper.selectByExample(null);
+            subwayLines = subwayLineMapper.selectByExample(null);
         }
-        PageInfo<LoopLine> page = new PageInfo<>(loopLines);
+        PageInfo<SubwayLine> page = new PageInfo<>(subwayLines);
         result.setData(page);
         return result;
     }
-
-
 }

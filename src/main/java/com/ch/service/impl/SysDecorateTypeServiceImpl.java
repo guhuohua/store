@@ -8,11 +8,16 @@ package com.ch.service.impl;
 
 import com.ch.base.ResponseResult;
 import com.ch.dao.DecorateTypeMapper;
+import com.ch.dto.SysBaseDTO;
 import com.ch.entity.DecorateType;
 import com.ch.service.SysDecorateTypeService;
 import com.ch.util.IdUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class SysDecorateTypeServiceImpl implements SysDecorateTypeService {
@@ -40,4 +45,15 @@ public class SysDecorateTypeServiceImpl implements SysDecorateTypeService {
         decorateTypeMapper.deleteByPrimaryKey(id);
         return result;
     }
+
+    @Override
+    public ResponseResult listDecorateType(SysBaseDTO sysBaseDTO) {
+        ResponseResult result = new ResponseResult();
+        PageHelper.startPage(sysBaseDTO.getPageNum(),sysBaseDTO.getPageSize());
+        List<DecorateType> decorateTypes = decorateTypeMapper.selectByExample(null);
+        PageInfo<DecorateType> page = new PageInfo<>(decorateTypes);
+        result.setData(page);
+        return result;
+    }
+
 }
