@@ -10,7 +10,7 @@ public interface SysUserService {
      * @param userId
      * @return
      */
-   UserDTO findById(Integer userId);
+   UserDTO findById(Long userId);
 
     /**
      * 登录

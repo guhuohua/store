@@ -12,7 +12,7 @@ public interface ViewTransferShopService {
      * @param param
      * @return
      */
-    ResponseResult addTransferShop(ViewTransferShopParam param, Integer userId);
+    ResponseResult addTransferShop(ViewTransferShopParam param, Long userId);
 
 
     /**

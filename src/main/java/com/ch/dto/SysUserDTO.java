@@ -7,14 +7,13 @@
 package com.ch.dto;
 
 public class SysUserDTO {
-    private Integer userId;
+    private Long userId;
 
     private Integer roleId;
 
     private String userName;
 
-   private String phone;
-
+    private String phone;
 
     private String account;
 
@@ -22,39 +21,11 @@ public class SysUserDTO {
 
     private Integer status;
 
-    private Integer pageNum;
-
-    private Integer pageSize;
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public Integer getPageNum() {
-        return pageNum;
-    }
-
-    public void setPageNum(Integer pageNum) {
-        this.pageNum = pageNum;
-    }
-
-    public Integer getPageSize() {
-        return pageSize;
-    }
-
-    public void setPageSize(Integer pageSize) {
-        this.pageSize = pageSize;
-    }
-
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -74,6 +45,13 @@ public class SysUserDTO {
         this.userName = userName;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
 
     public String getAccount() {
         return account;

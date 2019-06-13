@@ -4,5 +4,5 @@ import com.ch.base.ResponseResult;
 import io.swagger.models.auth.In;
 
 public interface SysMenuTreeService {
-    ResponseResult findSysMenuTree(Integer userId);
+    ResponseResult findSysMenuTree(Long userId);
 }

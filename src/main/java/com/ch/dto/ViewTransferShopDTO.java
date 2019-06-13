@@ -96,6 +96,9 @@ public class ViewTransferShopDTO {
     private String reasons;
 
 
+    private String shopRentType;
+
+    private String headImg;
 
 
 

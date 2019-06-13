@@ -11,7 +11,7 @@ public interface ViewLookShopService {
      * @param param
      * @return
      */
-    ResponseResult addLookShop(ViewLookShopAddParam param, Integer userId);
+    ResponseResult addLookShop(ViewLookShopAddParam param, Long userId);
 
 
     /**
@@ -23,10 +23,10 @@ public interface ViewLookShopService {
 
 
     /**
-     * 急速选址
-     * @param param
+     * 我的找铺列表
+     * @param id
      * @return
      */
-    ResponseResult fastLookShop(FastTransferShopParam param);
+    ResponseResult myLookShopList(Long id);
 
 }

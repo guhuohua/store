@@ -22,7 +22,7 @@ public interface SysUserMapper {
 
     List<SysUser> selectByExample(SysUserExample example);
 
-    SysUser selectByPrimaryKey(Integer userId);
+    SysUser selectByPrimaryKey(Long userId);
 
     int updateByExampleSelective(@Param("record") SysUser record, @Param("example") SysUserExample example);
 

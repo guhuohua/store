@@ -9,7 +9,7 @@ package com.ch.dto;
 import java.util.Set;
 
 public class UserDTO {
-    private Integer userId;
+    private Long userId;
     private String username;
     private String password;
 
@@ -17,11 +17,11 @@ public class UserDTO {
 
     private Set<String> permissions;
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

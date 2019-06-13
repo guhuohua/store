@@ -33,7 +33,7 @@ public class SysMenuTreeController {
         ResponseResult result = new ResponseResult();
         try {
             String token = request.getHeader("Authorization");
-            Integer userId = TokenUtil.getUserId(token);
+            Long userId = TokenUtil.getUserId(token);
             result = sysMenuTreeService.findSysMenuTree(userId);
         } catch (Exception e) {
             result.setCode(600);
