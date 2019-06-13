@@ -1,12 +1,13 @@
 package com.ch.dao;
 
 
-import java.util.List;
-
 import com.ch.entity.SubwayLine;
 import com.ch.entity.SubwayLineExample;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface SubwayLineMapper {
@@ -31,4 +32,8 @@ public interface SubwayLineMapper {
     int updateByPrimaryKeySelective(SubwayLine record);
 
     int updateByPrimaryKey(SubwayLine record);
+
+
+    @Select("select * from subway_line t where t.city_id = #{cityId} ")
+    List<SubwayLine> findByCityId(@Param("cityId") Integer cityId);
 }

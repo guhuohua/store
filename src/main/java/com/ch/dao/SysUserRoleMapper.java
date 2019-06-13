@@ -1,13 +1,14 @@
 package com.ch.dao;
 
 
-import java.util.List;
-
 import com.ch.entity.SysUserRole;
 import com.ch.entity.SysUserRoleExample;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface SysUserRoleMapper {
@@ -35,6 +36,10 @@ public interface SysUserRoleMapper {
      */
     @Update("update bt_sys_user_role set role_id = #{roleId} where user_id = #{userId}")
     int updateByUserId(@Param("userId") Long userId, @Param("roleId") Integer roleId);
+
+    @Select("select * from sys_user_role t  where t.user_id = #{userId}")
+    SysUserRole findByUserId(@Param("userId") Integer userId);
+
 
 
 }
