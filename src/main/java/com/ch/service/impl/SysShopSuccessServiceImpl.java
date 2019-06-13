@@ -48,6 +48,7 @@ public class SysShopSuccessServiceImpl implements SysShopSuccessService {
        ResponseResult result = new ResponseResult();
         TransferShop transferShop = transferShopMapper.selectByPrimaryKey(storeId);
         transferShop.setStatus(1);
+        transferShopMapper.updateByPrimaryKey(transferShop);
         return result;
     }
 
@@ -68,6 +69,8 @@ public class SysShopSuccessServiceImpl implements SysShopSuccessService {
         successCase.setLookShopId(storeId+"");
         successCase.setTransferShopId(transferShop.getId()+"");
         successCaseMapper.updateByPrimaryKey(successCase);
+        updateLookShopStatus(storeId);
+        updateTransferShopStatus(transferShop.getId());
         return result;
     }
 }
