@@ -85,7 +85,6 @@ public class SolrServiceImpl implements SolrService {
             } catch (SolrServerException e) {
                 e.printStackTrace();
             }
-
         }
         if (BeanUtils.isNotEmpty(solrDTO.getLookShopId())){
             LookShop lookShop = lookShopMapper.selectByPrimaryKey(solrDTO.getLookShopId());
@@ -105,6 +104,10 @@ public class SolrServiceImpl implements SolrService {
             storeSolrSchema.setLongitude(lookShop.getLongitude());
             storeSolrSchema.setLatitude(lookShop.getLatitude());
             storeSolrSchema.setCreateTime(lookShop.getCraeateTime().getTime());
+            storeSolrSchema.setProvinceId(lookShop.getProvinceId());
+            storeSolrSchema.setCityId(lookShop.getCityId());
+            storeSolrSchema.setAreaId(lookShop.getAreaId());
+            storeSolrSchema.setStreetId(lookShop.getStreetId());
             try {
                 System.out.println("准备同步solr:"+ JSON.toJSONString(storeSolrSchema));
                 solrClient.addBean(storeSolrSchema);
