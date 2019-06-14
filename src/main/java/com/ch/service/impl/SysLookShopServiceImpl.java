@@ -78,10 +78,29 @@ public class SysLookShopServiceImpl implements SysLookShopService {
         ResponseResult result = new ResponseResult();
         List<ViewLookShopInfoDTO> viewLookShopInfoDTOs = new ArrayList<>();
         PageHelper.startPage(showShopDto.getPageNum(), showShopDto.getPageSize());
-        if (BeanUtils.isNotEmpty(showShopDto.getContacts()) || BeanUtils.isNotEmpty(showShopDto.getTel()) || BeanUtils.isNotEmpty(showShopDto.getStatus())){
-             viewLookShopInfoDTOs = lookShopMapper.list(showShopDto.getContacts(),showShopDto.getTel(),showShopDto.getStatus());
-        }else {
+        if (BeanUtils.isNotEmpty(showShopDto.getUsername())){
+             viewLookShopInfoDTOs = lookShopMapper.list(showShopDto.getUsername(),showShopDto.getTel(),showShopDto.getDoneStatus());
+            PageInfo<ViewLookShopInfoDTO> page = new PageInfo<>(viewLookShopInfoDTOs);
+            result.setData(page);
+            return result;
+        }
+       if (BeanUtils.isNotEmpty(showShopDto.getTel())){
+           viewLookShopInfoDTOs = lookShopMapper.list(showShopDto.getUsername(),showShopDto.getTel(),showShopDto.getDoneStatus());
+           PageInfo<ViewLookShopInfoDTO> page = new PageInfo<>(viewLookShopInfoDTOs);
+           result.setData(page);
+           return result;
+       }
+       if (null != showShopDto.getDoneStatus()){
+           viewLookShopInfoDTOs = lookShopMapper.list(showShopDto.getUsername(),showShopDto.getTel(),showShopDto.getDoneStatus());
+           PageInfo<ViewLookShopInfoDTO> page = new PageInfo<>(viewLookShopInfoDTOs);
+           result.setData(page);
+           return result;
+       }
+        else {
            viewLookShopInfoDTOs = lookShopMapper.findAll();
+            PageInfo<ViewLookShopInfoDTO> page = new PageInfo<>(viewLookShopInfoDTOs);
+            result.setData(page);
+            return result;
         }
 
 
@@ -91,9 +110,7 @@ public class SysLookShopServiceImpl implements SysLookShopService {
             ViewLookShopInfoDTO data =(ViewLookShopInfoDTO) result1.getData();
             viewLookShopInfoDTOs.add(data);
         }*/
-        PageInfo<ViewLookShopInfoDTO> page = new PageInfo<>(viewLookShopInfoDTOs);
-        result.setData(page);
-        return result;
+
     }
 
     @Override
@@ -154,6 +171,7 @@ public class SysLookShopServiceImpl implements SysLookShopService {
         if (BeanUtils.isNotEmpty(orientation)){
             viewLookShopInfoDTO.setOrientation(orientation.getOrientationDesc());
         }
+
         SubwayLine subwayLine = subwayLineMapper.selectByPrimaryKey(Long.valueOf(lookShop.getSubwayLineId()));
         if (BeanUtils.isNotEmpty(subwayLine)){
             viewLookShopInfoDTO.setSubwayLine(subwayLine.getSubwayLineDesc());

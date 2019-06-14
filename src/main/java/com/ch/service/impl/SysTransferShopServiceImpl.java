@@ -82,6 +82,8 @@ public class SysTransferShopServiceImpl implements SysTransferShopService {
     TransferShopBusinessMapper transferShopBusinessMapper;
     @Autowired
     SolrService solrService;
+    @Autowired
+    ShopRentTypeMapper shopRentTypeMapper;
 
 
 
@@ -91,10 +93,42 @@ public class SysTransferShopServiceImpl implements SysTransferShopService {
         ResponseResult result = new ResponseResult();
         List<SysTransferShopDTO> transferShops = new ArrayList<>();
         PageHelper.startPage(showShopDto.getPageNum(), showShopDto.getPageSize());
-      if (BeanUtils.isNotEmpty(showShopDto.getContacts()) || BeanUtils.isNotEmpty(showShopDto.getTel()) || BeanUtils.isNotEmpty(showShopDto.getStatus()) || BeanUtils.isNotEmpty(showShopDto.getRecommendType()) ){
-          List<SysTransferShopDTO> list = transferShopMapper.list(showShopDto.getContacts(), showShopDto.getTel(), showShopDto.getStatus(), showShopDto.getRecommendType());
-      }else {
+      if (BeanUtils.isNotEmpty(showShopDto.getUsername())){
+           transferShops = transferShopMapper.list(showShopDto.getUsername(), showShopDto.getTel(), showShopDto.getDoneStatus(), showShopDto.getRecommendType(),showShopDto.getCheckStatus());
+          PageInfo<SysTransferShopDTO> page = new PageInfo<>(transferShops);
+          result.setData(page);
+          return result;
+      }
+      if (BeanUtils.isNotEmpty(showShopDto.getTel())){
+          transferShops = transferShopMapper.list(showShopDto.getUsername(), showShopDto.getTel(), showShopDto.getDoneStatus(), showShopDto.getRecommendType(),showShopDto.getCheckStatus());
+          PageInfo<SysTransferShopDTO> page = new PageInfo<>(transferShops);
+          result.setData(page);
+          return result;
+      }
+      if (null != showShopDto.getDoneStatus()){
+          transferShops = transferShopMapper.list(showShopDto.getUsername(), showShopDto.getTel(), showShopDto.getDoneStatus(), showShopDto.getRecommendType(),showShopDto.getCheckStatus());
+          PageInfo<SysTransferShopDTO> page = new PageInfo<>(transferShops);
+          result.setData(page);
+          return result;
+      }
+        if (null != showShopDto.getRecommendType()){
+            transferShops = transferShopMapper.list(showShopDto.getUsername(), showShopDto.getTel(), showShopDto.getDoneStatus(), showShopDto.getRecommendType(),showShopDto.getCheckStatus());
+            PageInfo<SysTransferShopDTO> page = new PageInfo<>(transferShops);
+            result.setData(page);
+            return result;
+        }
+
+      if (null != showShopDto.getCheckStatus()){
+          transferShops = transferShopMapper.list(showShopDto.getUsername(), showShopDto.getTel(), showShopDto.getDoneStatus(), showShopDto.getRecommendType(),showShopDto.getCheckStatus());
+          PageInfo<SysTransferShopDTO> page = new PageInfo<>(transferShops);
+          result.setData(page);
+          return result;
+      }
+      else {
          transferShops = transferShopMapper.findAll();
+          PageInfo<SysTransferShopDTO> page = new PageInfo<>(transferShops);
+          result.setData(page);
+          return result;
       }
 
 
@@ -105,9 +139,7 @@ public class SysTransferShopServiceImpl implements SysTransferShopService {
             sysTransferShopDTOS.add(data);
         }*/
 
-        PageInfo<SysTransferShopDTO> page = new PageInfo<>(transferShops);
-        result.setData(page);
-        return result;
+
     }
 
     @Override
@@ -173,6 +205,11 @@ public class SysTransferShopServiceImpl implements SysTransferShopService {
         if (BeanUtils.isNotEmpty(shopType)) {
             sysTransferShopDTO.setShopType(shopType.getShopType());
         }
+        ShopRentType shopRentType = shopRentTypeMapper.selectByPrimaryKey(transferShop.getShopRentTypeId());
+        if(BeanUtils.isNotEmpty(shopRentType)){
+            sysTransferShopDTO.setShopRentType(shopRentType.getShopRentType());
+        }
+
         DecorateType decorateType = decorateTypeMapper.selectByPrimaryKey(transferShop.getDecorateTypeId());
         if (BeanUtils.isNotEmpty(decorateType)) {
             sysTransferShopDTO.setDecorateType(decorateType.getDecorateType());
