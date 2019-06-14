@@ -95,6 +95,8 @@ public class SysTransferShopDTO {
 
     private String reasons;
 
+    private String shopRentType;
+
 
 
 }
