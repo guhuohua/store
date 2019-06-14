@@ -13,17 +13,14 @@ import com.ch.dto.ShowShopDto;
 import com.ch.dto.SolrDTO;
 import com.ch.dto.SysTransferShopDTO;
 import com.ch.dto.UpdateStatusDTO;
-
 import com.ch.entity.*;
 import com.ch.service.SolrService;
 import com.ch.service.SysTransferShopService;
-import com.ch.service.ViewTransferShopService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.solr.client.solrj.SolrClient;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -114,7 +111,8 @@ public class SysTransferShopServiceImpl implements SysTransferShopService {
     }
 
     @Override
-    public ResponseResult updateStatus(UpdateStatusDTO updateStatusDTO){
+    public ResponseResult
+    updateStatus(UpdateStatusDTO updateStatusDTO){
         ResponseResult result = new ResponseResult();
         TransferShop transferShop = transferShopMapper.selectByPrimaryKey(updateStatusDTO.getStoreId());
         if (updateStatusDTO.getStatus() == 1){
@@ -122,7 +120,6 @@ public class SysTransferShopServiceImpl implements SysTransferShopService {
             SolrDTO solrDTO = new SolrDTO();
             solrDTO.setTransferShopId(updateStatusDTO.getStoreId());
             solrService.addSolr(solrDTO);
-
         }
         if (updateStatusDTO.getStatus() == 0){
             transferShop.setCheckTime(new Date());

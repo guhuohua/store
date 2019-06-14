@@ -10,11 +10,15 @@ import com.ch.base.BeanUtils;
 import com.ch.base.ResponseResult;
 import com.ch.dao.*;
 import com.ch.dto.SysUserDTO;
+import com.ch.dto.SysUserMangerDTO;
 import com.ch.dto.UserDTO;
+import com.ch.dto.UserParms;
 import com.ch.entity.*;
 import com.ch.service.SysUserService;
 import com.ch.util.IdUtil;
 import com.ch.util.PasswordUtil;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -241,15 +245,42 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
-    public ResponseResult userList(SysUserDTO sysUserDTO) {
-       ResponseResult result = new ResponseResult();
-        List<SysUser> sysUsers = sysUserMapper.selectByExample(null);
-        for (SysUser sysUser : sysUsers) {
-            SysUserRole sysUserRole = sysUserRoleMapper.findByUserId(sysUser.getUserId());
+    public ResponseResult userList(UserParms userParms) {
+        ResponseResult result = new ResponseResult();
+        PageHelper.startPage(userParms.getPageNum(), userParms.getPageSize());
+        List<SysUserMangerDTO> sysUserMangerDTOs = sysUserMapper.btUserList(userParms.getUsername(), userParms.getPhone());
+        PageInfo<SysUserMangerDTO> btSysRolePageInfo = new PageInfo<>(sysUserMangerDTOs);
+        result.setData(btSysRolePageInfo);
+        return result;
+    }
 
+    @Override
+    public ResponseResult resetPassword(Long userId) {
+
+        ResponseResult result = new ResponseResult();
+        int resetPassword = sysUserMapper.resetPassword(userId);
+        if (resetPassword > 0) {
+            return result;
+        } else {
+            result.setCode(500);
+            result.setError("重置密码失败");
+            result.setError_description("重置密码失败");
+            return result;
         }
+    }
 
-        return null;
+    @Override
+    public ResponseResult updateUserStatus(Long userId, int status) {
+        ResponseResult result = new ResponseResult();
+        int resetPassword = sysUserMapper.updateStatus(userId, status);
+        if (resetPassword > 0) {
+            return result;
+        } else {
+            result.setCode(500);
+            result.setError("修改人员状态失败");
+            result.setError_description("修改人员状态失败");
+            return result;
+        }
     }
 
 
