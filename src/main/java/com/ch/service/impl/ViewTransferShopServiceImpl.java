@@ -21,6 +21,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -139,12 +140,12 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
         transferShop.setShopSn((IdUtil.getId() + 1) + "");
         transferShopMapper.insert(transferShop);
         List<TransferImage> transferImages = param.getTransferImages();
-        for (TransferImage transferImage:transferImages) {
+        for (TransferImage transferImage : transferImages) {
             transferImage.setId(IdUtil.getId());
             transferImage.setTransferShopId(transferShop.getId().toString());
             transferImageMapper.insert(transferImage);
         }
-        for (Long id:param.getBusinessTypeIds()) {
+        for (Long id : param.getBusinessTypeIds()) {
             TransferShopBusiness transferShopBusiness = new TransferShopBusiness();
             transferShopBusiness.setId(IdUtil.getId());
             transferShopBusiness.setBusinessTypeId(id);
@@ -208,15 +209,7 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
                 params.append("areaId:" + param.getAreaId());
             }
         }
-        if (BeanUtils.isNotEmpty(param.getStoreType())) {
-            if (params != null) {
-                params.append(" AND (storeType:" + param.getStoreType() + ")");
-            } else {
-                params = new StringBuilder();
-                params.append("storeType:" + param.getStoreType());
-            }
-        }
-        if (BeanUtils.isNotEmpty(param.getStoreType())) {
+        if (null != param.getStoreType()) {
             if (params != null) {
                 params.append(" AND (storeType:" + param.getStoreType() + ")");
             } else {
@@ -256,13 +249,13 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
         if ("MINAREA".equals(param.getSort())) {
             solrQuery.addSort("storeArea", SolrQuery.ORDER.asc);
         }
-        if (BeanUtils.isNotEmpty(param.getMaxArea()) && BeanUtils.isNotEmpty(param.getMinArea())) {
-            solrQuery.setFilterQueries("storeArea:[" +param.getMinArea() + "TO" + param.getMaxArea() + "]");
+        if (null != param.getMaxArea() && null != param.getMinArea()) {
+            solrQuery.setFilterQueries("storeArea:[" + param.getMinArea() + " TO " + param.getMaxArea() + "]");
         }
-        if (BeanUtils.isNotEmpty(param.getMaxRent()) && BeanUtils.isNotEmpty(param.getMinRent())) {
-            solrQuery.setFilterQueries("originalPrice:[" +param.getMinRent() + "TO" + param.getMaxRent() + "]");
+        if (null != param.getMaxRent() && null != param.getMinRent()) {
+            solrQuery.setFilterQueries("originalPrice:[" + param.getMinRent() + " TO " + param.getMaxRent() + "]");
         }
-        if (params!=null) {
+        if (params != null) {
             solrQuery.setQuery(params.toString());
         }
         solrQuery.setStart(start);
@@ -297,7 +290,7 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
             example.createCriteria().andTransferShopIdEqualTo(storeId);
             List<TransferShopBusiness> transferShopBusinesses = transferShopBusinessMapper.selectByExample(example);
             List<String> type = new ArrayList<>();
-            for (TransferShopBusiness transferShopBusiness:transferShopBusinesses) {
+            for (TransferShopBusiness transferShopBusiness : transferShopBusinesses) {
                 BusinessType businessType = businessTypeMapper.selectByPrimaryKey(transferShopBusiness.getBusinessTypeId());
                 if (BeanUtils.isNotEmpty(businessType)) {
                     type.add(businessType.getBusinessType());
@@ -380,7 +373,7 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
         transferShopExample.createCriteria().andClientIdEqualTo(Long.valueOf(id));
         List<TransferShop> transferShops = transferShopMapper.selectByExample(transferShopExample);
         List<ViewMyTransferShopLIstDTO> viewMyTransferShopLIstDTOS = new ArrayList<>();
-        for (TransferShop transferShop:transferShops) {
+        for (TransferShop transferShop : transferShops) {
             ViewMyTransferShopLIstDTO viewMyTransferShopLIstDTO = new ViewMyTransferShopLIstDTO();
             viewMyTransferShopLIstDTO.setId(transferShop.getId());
             viewMyTransferShopLIstDTO.setArea(transferShop.getArea());

@@ -62,6 +62,16 @@ public class SysLookShopServiceImpl implements SysLookShopService {
     @Autowired
     ViewLookShopService viewLookShopService;
 
+    @Autowired
+    OrientationMapper orientationMapper;
+    @Autowired
+    LoopLineMapper loopLineMapper;
+    @Autowired
+    SubwayLineMapper subwayLineMapper;
+    @Autowired
+    ShopRentTypeMapper shopRentTypeMapper;
+
+
 
     @Override
     public ResponseResult showLookShopList(ShowShopDto showShopDto) {
@@ -136,7 +146,22 @@ public class SysLookShopServiceImpl implements SysLookShopService {
         if (BeanUtils.isNotEmpty(decorateType)) {
             viewLookShopInfoDTO.setDecorateType(decorateType.getDecorateType());
         }
-
+        ShopRentType shopRentType = shopRentTypeMapper.selectByPrimaryKey(lookShop.getShopRentTypeId());
+        if (BeanUtils.isNotEmpty(shopRentType)){
+            viewLookShopInfoDTO.setShopRentType(shopRentType.getShopRentType());
+        }
+        Orientation orientation = orientationMapper.selectByPrimaryKey(lookShop.getOrientationId());
+        if (BeanUtils.isNotEmpty(orientation)){
+            viewLookShopInfoDTO.setOrientation(orientation.getOrientationDesc());
+        }
+        SubwayLine subwayLine = subwayLineMapper.selectByPrimaryKey(Long.valueOf(lookShop.getSubwayLineId()));
+        if (BeanUtils.isNotEmpty(subwayLine)){
+            viewLookShopInfoDTO.setSubwayLine(subwayLine.getSubwayLineDesc());
+        }
+        LoopLine loopLine = loopLineMapper.selectByPrimaryKey(Long.valueOf(lookShop.getLoopLineId()));
+        if (BeanUtils.isNotEmpty(loopLine)){
+            viewLookShopInfoDTO.setLoopLine(loopLine.getLoopLineDesc());
+        }
 
         result.setData(viewLookShopInfoDTO);
         return result;
