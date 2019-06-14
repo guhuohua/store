@@ -38,7 +38,7 @@ public interface SysUserRoleMapper {
     int updateByUserId(@Param("userId") Long userId, @Param("roleId") Integer roleId);
 
     @Select("select * from sys_user_role t  where t.user_id = #{userId}")
-    SysUserRole findByUserId(@Param("userId") Integer userId);
+    SysUserRole findByUserId(@Param("userId") Long userId);
 
 
 
