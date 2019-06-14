@@ -23,4 +23,6 @@ public class ViewMyTransferShopLIstDTO {
 
     private Integer checkStatus;
 
+    private String storeImg;
+
 }

@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -220,9 +221,11 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
             viewMyLookShopDTO.setAddress(stringBuffer.toString());
             Client client = clientMapper.selectByPrimaryKey(Long.valueOf(lookShop.getClientId()));
             if (BeanUtils.isNotEmpty(client)) {
-                viewMyLookShopDTO.setName(client.getNickName());
+                viewMyLookShopDTO.setName(lookShop.getContacts());
                 viewMyLookShopDTO.setHeadImg(client.getHeader());
             }
+            String format = (new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")).format(lookShop.getCraeateTime());
+            viewMyLookShopDTO.setCreateTime(format);
             viewMyLookShopDTOS.add(viewMyLookShopDTO);
         }
         result.setData(viewMyLookShopDTOS);

@@ -2,6 +2,7 @@ package com.ch.dto;
 
 import lombok.Data;
 
+
 @Data
 public class ViewMyLookShopDTO {
 
@@ -22,4 +23,7 @@ public class ViewMyLookShopDTO {
     private String address;
 
     private String headImg;
+
+    private String createTime;
+
 }
