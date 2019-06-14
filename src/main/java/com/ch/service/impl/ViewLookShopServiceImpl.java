@@ -7,7 +7,6 @@ import com.ch.dto.SolrDTO;
 import com.ch.dto.ViewLookShopInfoDTO;
 import com.ch.dto.ViewMyLookShopDTO;
 import com.ch.entity.*;
-import com.ch.model.FastTransferShopParam;
 import com.ch.model.ViewLookShopAddParam;
 import com.ch.service.SolrService;
 import com.ch.service.ViewLookShopService;
@@ -186,6 +185,7 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
         if (BeanUtils.isNotEmpty(shopRentType)) {
             viewLookShopInfoDTO.setShopRentType(shopRentType.getShopRentType());
         }
+        
         Client client = clientMapper.selectByPrimaryKey(Long.valueOf(lookShop.getClientId()));
         if (BeanUtils.isNotEmpty(client)) {
             viewLookShopInfoDTO.setHeadImg(client.getHeader());
