@@ -1,13 +1,13 @@
 package com.ch.dao;
 
-import com.ch.dto.ShowShopDto;
 import com.ch.dto.ViewLookShopInfoDTO;
 import com.ch.entity.LookShop;
 import com.ch.entity.LookShopExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface LookShopMapper {

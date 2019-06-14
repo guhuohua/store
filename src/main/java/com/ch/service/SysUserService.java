@@ -3,6 +3,7 @@ package com.ch.service;
 import com.ch.base.ResponseResult;
 import com.ch.dto.SysUserDTO;
 import com.ch.dto.UserDTO;
+import com.ch.dto.UserParms;
 
 public interface SysUserService {
     /**
@@ -31,8 +32,27 @@ public interface SysUserService {
     /**
      * 展示人员列表
      *
-     * @param sysUserDTO
+     * @param userParms
+     *
      * @return
      */
-    ResponseResult userList(SysUserDTO sysUserDTO);
+    ResponseResult userList(UserParms userParms);
+
+
+
+    /**
+     * 重置密码
+     * @param userId
+     * @return
+     */
+    ResponseResult resetPassword(Long userId);
+
+    /**
+     * 修改人员状态
+     * @param userId
+     * @param status
+     * @return
+     */
+    ResponseResult updateUserStatus(Long userId, int status);
+
 }

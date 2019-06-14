@@ -136,6 +136,8 @@ public class SysLookShopServiceImpl implements SysLookShopService {
         if (BeanUtils.isNotEmpty(decorateType)) {
             viewLookShopInfoDTO.setDecorateType(decorateType.getDecorateType());
         }
+
+
         result.setData(viewLookShopInfoDTO);
         return result;
     }

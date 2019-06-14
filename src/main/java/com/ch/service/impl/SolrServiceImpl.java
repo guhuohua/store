@@ -48,8 +48,6 @@ public class SolrServiceImpl implements SolrService {
     BsStreetMapper bsStreetMapper;
    @Autowired
     BsAreaMapper bsAreaMapper;
-
-
     @Override
     @Async
     public void addSolr(SolrDTO solrDTO) {

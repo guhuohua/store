@@ -240,6 +240,7 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
                 params.append("userId:" + param.getClientId());
             }
         }
+
         if ("TIME".equals(param.getSort())) {
             solrQuery.addSort("createTime", SolrQuery.ORDER.asc);
         }

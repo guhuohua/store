@@ -21,6 +21,9 @@ public class SysUserDTO {
 
     private Integer status;
 
+
+
+
     public Long getUserId() {
         return userId;
     }
