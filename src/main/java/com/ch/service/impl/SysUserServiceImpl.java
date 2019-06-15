@@ -48,8 +48,7 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public UserDTO findById(Long userId) {
         UserDTO dto = new UserDTO();
-        UserDTO dto1 = (UserDTO) redisTemplate.boundHashOps("content").get(userId+"");
-        if (null == dto1){
+
             SysUser sysUser = sysUserMapper.selectByPrimaryKey(userId);
             if(sysUser!=null){
                 dto.setUserId(sysUser.getUserId());
@@ -80,11 +79,9 @@ public class SysUserServiceImpl implements SysUserService {
                 dto.setRoles(roles);
                 dto.setPermissions(permissions);
             }
-            redisTemplate.boundHashOps("content").put(userId+"",dto);
+          //  redisTemplate.boundHashOps("content").put(userId+"",dto);
             return dto;
-        }else {
-            return dto1;
-        }
+
 
 
     }
