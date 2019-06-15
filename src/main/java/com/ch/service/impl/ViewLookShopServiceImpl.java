@@ -185,7 +185,7 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
         if (BeanUtils.isNotEmpty(shopRentType)) {
             viewLookShopInfoDTO.setShopRentType(shopRentType.getShopRentType());
         }
-        
+
         Client client = clientMapper.selectByPrimaryKey(Long.valueOf(lookShop.getClientId()));
         if (BeanUtils.isNotEmpty(client)) {
             viewLookShopInfoDTO.setHeadImg(client.getHeader());

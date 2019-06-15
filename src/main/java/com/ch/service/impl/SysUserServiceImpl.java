@@ -22,6 +22,7 @@ import com.github.pagehelper.PageInfo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -41,42 +42,51 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Autowired
     SysRolePermissionMapper sysRolePermissionMapper;
+    @Autowired
+    RedisTemplate redisTemplate;
 
     @Override
     public UserDTO findById(Long userId) {
         UserDTO dto = new UserDTO();
-        SysUser sysUser = sysUserMapper.selectByPrimaryKey(userId);
-        if(sysUser!=null){
-            dto.setUserId(sysUser.getUserId());
-            dto.setUsername(sysUser.getUsername());
-
-            SysUserRoleExample example = new SysUserRoleExample();
-            SysUserRoleExample.Criteria criteria = example.createCriteria();
-            criteria.andUserIdEqualTo(userId);
-            List<SysUserRole> sysUserRoles = sysUserRoleMapper.selectByExample(example);
-            Set<String> roles = new HashSet<>();
-            Set<String> permissions = new HashSet<>();
-            for (SysUserRole role : sysUserRoles){
-                if (role != null){
-                    SysRole sysRole = sysRoleMapper.selectByPrimaryKey(role.getRoleId());
-                    SysRolePermissionExample example1 = new SysRolePermissionExample();
-                    SysRolePermissionExample.Criteria criteria1 = example1.createCriteria();
-                    criteria1.andRoleIdEqualTo(role.getRoleId());
-                    List<SysRolePermission> sysRolePermissions = sysRolePermissionMapper.selectByExample(example1);
-                    for (SysRolePermission rolePermission: sysRolePermissions ){
-                        SysPermission sysPermission = sysPermissionMapper.selectByPrimaryKey(rolePermission.getPermissionId());
-                        System.out.println(sysPermission);
-                        if (BeanUtils.isNotEmpty(sysPermission)) {
-                            permissions.add(sysPermission.getPermissionDesc());
+        UserDTO dto1 = (UserDTO) redisTemplate.boundHashOps("content").get(userId+"");
+        if (null == dto1){
+            SysUser sysUser = sysUserMapper.selectByPrimaryKey(userId);
+            if(sysUser!=null){
+                dto.setUserId(sysUser.getUserId());
+                dto.setUsername(sysUser.getUsername());
+                SysUserRoleExample example = new SysUserRoleExample();
+                SysUserRoleExample.Criteria criteria = example.createCriteria();
+                criteria.andUserIdEqualTo(userId);
+                List<SysUserRole> sysUserRoles = sysUserRoleMapper.selectByExample(example);
+                Set<String> roles = new HashSet<>();
+                Set<String> permissions = new HashSet<>();
+                for (SysUserRole role : sysUserRoles){
+                    if (role != null){
+                        SysRole sysRole = sysRoleMapper.selectByPrimaryKey(role.getRoleId());
+                        SysRolePermissionExample example1 = new SysRolePermissionExample();
+                        SysRolePermissionExample.Criteria criteria1 = example1.createCriteria();
+                        criteria1.andRoleIdEqualTo(role.getRoleId());
+                        List<SysRolePermission> sysRolePermissions = sysRolePermissionMapper.selectByExample(example1);
+                        for (SysRolePermission rolePermission: sysRolePermissions ){
+                            SysPermission sysPermission = sysPermissionMapper.selectByPrimaryKey(rolePermission.getPermissionId());
+                            // System.out.println(sysPermission);
+                            if (BeanUtils.isNotEmpty(sysPermission)) {
+                                permissions.add(sysPermission.getPermissionDesc());
+                            }
                         }
+                        roles.add(sysRole.getRoleName());
                     }
-                    roles.add(sysRole.getRoleName());
                 }
+                dto.setRoles(roles);
+                dto.setPermissions(permissions);
             }
-            dto.setRoles(roles);
-            dto.setPermissions(permissions);
+            redisTemplate.boundHashOps("content").put(userId+"",dto);
+            return dto;
+        }else {
+            return dto1;
         }
-        return dto;
+
+
     }
 
     @Override
@@ -109,7 +119,7 @@ public class SysUserServiceImpl implements SysUserService {
             PasswordUtil encoderMd5 = new PasswordUtil(sysUser.getSalt(), "sha-256");
             String encodedPassword = encoderMd5.encode(userDto.getPassword());
             if (sysUser.getPassword().equals(encodedPassword)) {
-                System.out.println(sysUser.getUserId());
+               // System.out.println(sysUser.getUserId());
 
                 /* UserDTO dto = new UserDTO();
                 dto.setUserId(sysUser.getUserId());*/
