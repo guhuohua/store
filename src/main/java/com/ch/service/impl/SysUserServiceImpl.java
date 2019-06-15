@@ -48,40 +48,37 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public UserDTO findById(Long userId) {
         UserDTO dto = new UserDTO();
-
-            SysUser sysUser = sysUserMapper.selectByPrimaryKey(userId);
-            if(sysUser!=null){
-                dto.setUserId(sysUser.getUserId());
-                dto.setUsername(sysUser.getUsername());
-                SysUserRoleExample example = new SysUserRoleExample();
-                SysUserRoleExample.Criteria criteria = example.createCriteria();
-                criteria.andUserIdEqualTo(userId);
-                List<SysUserRole> sysUserRoles = sysUserRoleMapper.selectByExample(example);
-                Set<String> roles = new HashSet<>();
-                Set<String> permissions = new HashSet<>();
-                for (SysUserRole role : sysUserRoles){
-                    if (role != null){
-                        SysRole sysRole = sysRoleMapper.selectByPrimaryKey(role.getRoleId());
-                        SysRolePermissionExample example1 = new SysRolePermissionExample();
-                        SysRolePermissionExample.Criteria criteria1 = example1.createCriteria();
-                        criteria1.andRoleIdEqualTo(role.getRoleId());
-                        List<SysRolePermission> sysRolePermissions = sysRolePermissionMapper.selectByExample(example1);
-                        for (SysRolePermission rolePermission: sysRolePermissions ){
-                            SysPermission sysPermission = sysPermissionMapper.selectByPrimaryKey(rolePermission.getPermissionId());
-                            // System.out.println(sysPermission);
-                            if (BeanUtils.isNotEmpty(sysPermission)) {
-                                permissions.add(sysPermission.getPermissionDesc());
-                            }
+        SysUser sysUser = sysUserMapper.selectByPrimaryKey(userId);
+        if (sysUser != null) {
+            dto.setUserId(sysUser.getUserId());
+            dto.setUsername(sysUser.getUsername());
+            SysUserRoleExample example = new SysUserRoleExample();
+            SysUserRoleExample.Criteria criteria = example.createCriteria();
+            criteria.andUserIdEqualTo(userId);
+            List<SysUserRole> sysUserRoles = sysUserRoleMapper.selectByExample(example);
+            Set<String> roles = new HashSet<>();
+            Set<String> permissions = new HashSet<>();
+            for (SysUserRole role : sysUserRoles) {
+                if (role != null) {
+                    SysRole sysRole = sysRoleMapper.selectByPrimaryKey(role.getRoleId());
+                    SysRolePermissionExample example1 = new SysRolePermissionExample();
+                    SysRolePermissionExample.Criteria criteria1 = example1.createCriteria();
+                    criteria1.andRoleIdEqualTo(role.getRoleId());
+                    List<SysRolePermission> sysRolePermissions = sysRolePermissionMapper.selectByExample(example1);
+                    for (SysRolePermission rolePermission : sysRolePermissions) {
+                        SysPermission sysPermission = sysPermissionMapper.selectByPrimaryKey(rolePermission.getPermissionId());
+                        // System.out.println(sysPermission);
+                        if (BeanUtils.isNotEmpty(sysPermission)) {
+                            permissions.add(sysPermission.getPermissionDesc());
                         }
-                        roles.add(sysRole.getRoleName());
                     }
+                    roles.add(sysRole.getRoleName());
                 }
-                dto.setRoles(roles);
-                dto.setPermissions(permissions);
             }
-          //  redisTemplate.boundHashOps("content").put(userId+"",dto);
-            return dto;
-
+            dto.setRoles(roles);
+            dto.setPermissions(permissions);
+        }
+        return dto;
 
 
     }
@@ -101,13 +98,13 @@ public class SysUserServiceImpl implements SysUserService {
             result.setError_description("密码不能为空");
             return result;
         }
-        SysUserExample example  = new SysUserExample();
+        SysUserExample example = new SysUserExample();
         SysUserExample.Criteria criteria = example.createCriteria();
         criteria.andAccountEqualTo(userDto.getUsername());
         List<SysUser> sysUsers = sysUserMapper.selectByExample(example);
-        if(sysUsers.size()>0){
+        if (sysUsers.size() > 0) {
             SysUser sysUser = sysUsers.get(0);
-            if(sysUser.getStatus()==0){
+            if (sysUser.getStatus() == 0) {
                 result.setCode(500);
                 result.setError("该用户已被禁用，请联系管理员");
                 result.setError_description("该用户已被禁用，请联系管理员");
@@ -116,7 +113,7 @@ public class SysUserServiceImpl implements SysUserService {
             PasswordUtil encoderMd5 = new PasswordUtil(sysUser.getSalt(), "sha-256");
             String encodedPassword = encoderMd5.encode(userDto.getPassword());
             if (sysUser.getPassword().equals(encodedPassword)) {
-               // System.out.println(sysUser.getUserId());
+                // System.out.println(sysUser.getUserId());
 
                 /* UserDTO dto = new UserDTO();
                 dto.setUserId(sysUser.getUserId());*/
@@ -129,7 +126,7 @@ public class SysUserServiceImpl implements SysUserService {
                 return result;
             }
 
-        }else {
+        } else {
             result.setCode(500);
             result.setError("该用户不存在，请重新输入");
             result.setError_description("该用户不存在，请重新输入");
@@ -189,7 +186,7 @@ public class SysUserServiceImpl implements SysUserService {
                 userRole.setUserId(userId);
                 sysUserRoleMapper.insert(userRole);
             } catch (Exception e) {
-                LOGGER.error("新增人员失败" + e.getMessage(),e);
+                LOGGER.error("新增人员失败" + e.getMessage(), e);
                 result.setCode(500);
                 result.setError(e.getMessage());
                 result.setError_description("新增人员失败");
@@ -239,9 +236,9 @@ public class SysUserServiceImpl implements SysUserService {
             sysUser.setStatus(sysUserDTO.getStatus());
             try {
                 sysUserMapper.updateByPrimaryKey(sysUser);
-                sysUserRoleMapper.updateByUserId(sysUserDTO.getUserId(),sysUserDTO.getRoleId());
+                sysUserRoleMapper.updateByUserId(sysUserDTO.getUserId(), sysUserDTO.getRoleId());
             } catch (Exception e) {
-                LOGGER.error("编辑人员失败" + e.getMessage(),e);
+                LOGGER.error("编辑人员失败" + e.getMessage(), e);
                 result.setCode(500);
                 result.setError(e.getMessage());
                 result.setError_description("编辑人员失败");
