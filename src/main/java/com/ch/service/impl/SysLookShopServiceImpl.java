@@ -76,9 +76,9 @@ public class SysLookShopServiceImpl implements SysLookShopService {
     @Override
     public ResponseResult showLookShopList(ShowShopDto showShopDto) {
         ResponseResult result = new ResponseResult();
-        List<ViewLookShopInfoDTO> viewLookShopInfoDTOs = new ArrayList<>();
+       // List<ViewLookShopInfoDTO> viewLookShopInfoDTOs = new ArrayList<>();
         PageHelper.startPage(showShopDto.getPageNum(), showShopDto.getPageSize());
-        if (BeanUtils.isNotEmpty(showShopDto.getUsername())){
+       /* if (BeanUtils.isNotEmpty(showShopDto.getUsername())){
              viewLookShopInfoDTOs = lookShopMapper.list(showShopDto.getUsername(),showShopDto.getTel(),showShopDto.getDoneStatus());
             PageInfo<ViewLookShopInfoDTO> page = new PageInfo<>(viewLookShopInfoDTOs);
             result.setData(page);
@@ -101,7 +101,7 @@ public class SysLookShopServiceImpl implements SysLookShopService {
             PageInfo<ViewLookShopInfoDTO> page = new PageInfo<>(viewLookShopInfoDTOs);
             result.setData(page);
             return result;
-        }
+        }*/
 
 
         /* List<ViewLookShopInfoDTO> viewLookShopInfoDTOs = new ArrayList<>();
@@ -110,6 +110,10 @@ public class SysLookShopServiceImpl implements SysLookShopService {
             ViewLookShopInfoDTO data =(ViewLookShopInfoDTO) result1.getData();
             viewLookShopInfoDTOs.add(data);
         }*/
+        List<ViewLookShopInfoDTO> viewLookShopInfoDTOs = lookShopMapper.list(showShopDto.getUsername(),showShopDto.getTel(),showShopDto.getDoneStatus());
+        PageInfo<ViewLookShopInfoDTO> page = new PageInfo<>(viewLookShopInfoDTOs);
+        result.setData(page);
+        return result;
 
     }
 

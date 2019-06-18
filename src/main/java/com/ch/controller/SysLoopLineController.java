@@ -9,10 +9,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Slf4j
@@ -24,7 +21,7 @@ public class SysLoopLineController {
 
     @PostMapping("editLoopLine")
     @ApiOperation("编辑换线")
-    public ResponseResult editShopType(LoopLine loopLine) {
+    public ResponseResult editShopType(@RequestBody LoopLine loopLine) {
         ResponseResult result = new ResponseResult();
         try {
             if (BeanUtils.isNotEmpty(loopLine.getId())) {
@@ -44,7 +41,7 @@ public class SysLoopLineController {
 
     @PostMapping("listLoopLine")
     @ApiOperation("换线列表")
-    public ResponseResult listLoopLine(SysBaseDTO sysBaseDTO) {
+    public ResponseResult listLoopLine(@RequestBody SysBaseDTO sysBaseDTO) {
         ResponseResult result = new ResponseResult();
         try {
             sysLoopLineService.list(sysBaseDTO);
@@ -60,7 +57,7 @@ public class SysLoopLineController {
 
     @GetMapping("deleLoopLine")
     @ApiOperation("删除环线")
-    public ResponseResult deleLoopLine(Long id)  {
+    public ResponseResult deleLoopLine(@RequestParam Long id)  {
         ResponseResult result = new ResponseResult();
         try {
             sysLoopLineService.deleShopType(id);

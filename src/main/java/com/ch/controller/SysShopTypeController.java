@@ -9,10 +9,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Slf4j
@@ -25,7 +22,7 @@ public class SysShopTypeController {
 
     @PostMapping("editShopType")
     @ApiOperation("编辑店铺类型")
-    public ResponseResult editShopType(ShopType shopType) {
+    public ResponseResult editShopType(@RequestBody ShopType shopType) {
         ResponseResult result = new ResponseResult();
         try {
             if (BeanUtils.isNotEmpty(shopType.getId())) {
@@ -45,7 +42,7 @@ public class SysShopTypeController {
 
     @PostMapping("listShopType")
     @ApiOperation("物业类型列表")
-    public ResponseResult listShopType(SysBaseDTO sysBaseDTO) {
+    public ResponseResult listShopType(@RequestBody SysBaseDTO sysBaseDTO) {
         ResponseResult result = new ResponseResult();
         try {
             sysShopTypeService.listShopType(sysBaseDTO);
@@ -61,7 +58,7 @@ public class SysShopTypeController {
 
     @GetMapping("deleShopType")
     @ApiOperation("删除店铺类型")
-    public ResponseResult delShopType(Long id)  {
+    public ResponseResult delShopType(@RequestParam Long id)  {
         ResponseResult result = new ResponseResult();
         try {
             sysShopTypeService.deleShopType(id);

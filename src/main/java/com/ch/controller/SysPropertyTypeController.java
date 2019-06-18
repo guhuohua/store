@@ -9,10 +9,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Slf4j
@@ -24,7 +21,7 @@ public class SysPropertyTypeController {
 
     @PostMapping("editPropertyType")
     @ApiOperation("编辑物业类型")
-    public ResponseResult editPropertyType(PropertyType propertyType) {
+    public ResponseResult editPropertyType(@RequestBody PropertyType propertyType) {
         ResponseResult result = new ResponseResult();
         try {
             if (BeanUtils.isNotEmpty(propertyType.getId())) {
@@ -44,10 +41,10 @@ public class SysPropertyTypeController {
 
     @PostMapping("listPropertyType")
     @ApiOperation("物业类型列表")
-    public ResponseResult listPropertyType(SysBaseDTO sysBaseDTO) {
+    public ResponseResult listPropertyType( @RequestBody SysBaseDTO sysBaseDTO) {
         ResponseResult result = new ResponseResult();
         try {
-            sysPropertyTypeService.listPropertyType(sysBaseDTO);
+            result =  sysPropertyTypeService.listPropertyType(sysBaseDTO);
 
         } catch (Exception e) {
             log.error("物业类型列表失败" + e.getMessage(), e);
@@ -60,7 +57,7 @@ public class SysPropertyTypeController {
 
     @GetMapping("delePropertyType")
     @ApiOperation("删除物业类型")
-    public ResponseResult delePropertyType(Long id)  {
+    public ResponseResult delePropertyType(@RequestParam Long id)  {
         ResponseResult result = new ResponseResult();
         try {
             sysPropertyTypeService.delePropertyType(id);

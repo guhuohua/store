@@ -9,10 +9,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Slf4j
@@ -24,7 +21,7 @@ public class SysSubwayController {
 
     @PostMapping("editSubwayLine")
     @ApiOperation("编辑地铁线")
-    public ResponseResult editSubwayLine(SubwayLine subwayLine) {
+    public ResponseResult editSubwayLine(@RequestBody SubwayLine subwayLine) {
         ResponseResult result = new ResponseResult();
         try {
             if (BeanUtils.isNotEmpty(subwayLine.getId())) {
@@ -44,7 +41,7 @@ public class SysSubwayController {
 
     @PostMapping("listSubwayLine")
     @ApiOperation("地铁线列表")
-    public ResponseResult listSubwayLine(SysBaseDTO sysBaseDTO) {
+    public ResponseResult listSubwayLine(@RequestBody SysBaseDTO sysBaseDTO) {
         ResponseResult result = new ResponseResult();
         try {
             sysSubwayService.listSubwayLine(sysBaseDTO);
@@ -60,7 +57,7 @@ public class SysSubwayController {
 
     @GetMapping("deleSubwayLine")
     @ApiOperation("删除地铁线")
-    public ResponseResult deleLoopLine(Long id)  {
+    public ResponseResult deleLoopLine(@RequestParam Long id)  {
         ResponseResult result = new ResponseResult();
         try {
             sysSubwayService.deleSubwayLine(id);

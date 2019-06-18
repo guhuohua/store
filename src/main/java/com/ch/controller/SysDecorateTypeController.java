@@ -9,10 +9,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Slf4j
@@ -26,7 +23,7 @@ public class SysDecorateTypeController {
    
     @PostMapping("editDecorateType")
     @ApiOperation("编辑装修类型")
-    public ResponseResult editDecorateType(DecorateType decorateType) {
+    public ResponseResult editDecorateType(@RequestBody DecorateType decorateType) {
         ResponseResult result = new ResponseResult();
         try {
             if (BeanUtils.isNotEmpty(decorateType.getId())) {
@@ -46,10 +43,10 @@ public class SysDecorateTypeController {
 
     @PostMapping("listDecorateType")
     @ApiOperation("装修类型列表")
-    public ResponseResult listDecorateType(SysBaseDTO sysBaseDTO) {
+    public ResponseResult listDecorateType(@RequestBody SysBaseDTO sysBaseDTO) {
         ResponseResult result = new ResponseResult();
         try {
-            sysDecorateTypeService.listDecorateType(sysBaseDTO);
+            result = sysDecorateTypeService.listDecorateType(sysBaseDTO);
 
         } catch (Exception e) {
             log.error("装修类型列表失败" + e.getMessage(), e);
@@ -62,7 +59,7 @@ public class SysDecorateTypeController {
 
     @GetMapping("deleDecorateType")
     @ApiOperation("删除装修类型")
-    public ResponseResult deleDecorateType(Long id)  {
+    public ResponseResult deleDecorateType(@RequestParam Long id)  {
         ResponseResult result = new ResponseResult();
         try {
             sysDecorateTypeService.deleDecorateType(id);
