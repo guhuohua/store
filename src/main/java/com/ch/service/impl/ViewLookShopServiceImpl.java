@@ -119,6 +119,7 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
         lookShop.setShopRentTypeId(param.getShopRentTypeId());
         lookShop.setStatus(0);
         lookShop.setMediumStatus(0);
+        lookShop.setPublishedTime(new Date());
         lookShopMapper.insert(lookShop);
         for (Long id:param.getBusinessTypeIds()) {
             LookShopBusiness lookShopBusiness = new LookShopBusiness();

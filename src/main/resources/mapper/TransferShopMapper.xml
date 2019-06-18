@@ -907,8 +907,8 @@
   </update>
 
 
-  <select id="list" resultType="com.ch.dto.SysTransferShopDTO" >
-    SELECT  t.id, t.tel,t.shop_sn as shopSn,t.accessory_requirements,t.address,t.area,t.rent,t.transfer_fee,t.`status` AS doneStatus,t.check_status ,t.contacts as username,p.property_type AS propertyType ,s.shop_type AS shopType ,d.decorate_type AS decorateType ,c.city_name as city FROM transfer_shop t
+  <select id="list1" resultType="com.ch.dto.SysTransferShopDTO" >
+    SELECT  t.id, t.tel,t.recommend_type,t.shop_sn as shopSn,t.accessory_requirements,t.address,t.area,t.rent,t.transfer_fee,t.`status` AS doneStatus,t.check_status ,t.contacts as username,p.property_type AS propertyType ,s.shop_type AS shopType ,d.decorate_type AS decorateType ,c.city_name as city FROM transfer_shop t
     JOIN  property_type p on p.id=t.property_type_id
     JOIN shop_type s on s.id = t.shop_type_id
     JOIN decorate_type d on d.id = t.decorate_type_id
@@ -924,10 +924,11 @@
       and t.status =  #{status,jdbcType=INTEGER}
     </if>
     <if test="recommendType != null ">
-      and t.recommend_type =  #{recommendType,jdbcType=INTEGER}
+      and t.recommend_type =  #{recommendType}
     </if>
     <if test="checkStatus != null">
-      and t.check_status =  #{checkStatus,jdbcType=INTEGER}
+      and t.check_status =  #{checkStatus}
     </if>
+    order by create_time desc
   </select>
 </mapper>

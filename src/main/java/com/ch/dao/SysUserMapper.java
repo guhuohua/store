@@ -5,6 +5,7 @@ import com.ch.dao.provider.BtSysUserProvider;
 import com.ch.dto.SysUserMangerDTO;
 import com.ch.entity.SysUser;
 import com.ch.entity.SysUserExample;
+import com.ch.model.RolePermissionModel;
 import org.apache.ibatis.annotations.*;
 import org.springframework.stereotype.Repository;
 
@@ -42,8 +43,8 @@ public interface SysUserMapper {
             @Result(column = "account", property = "account", javaType = String.class),
             @Result(column = "status", property = "status", javaType = Integer.class),
             @Result(column = "update_time", property = "createDate", javaType = String.class),
-            @Result(column = "user_id", property = "userId", javaType = String.class),
-            @Result(column = "role_id", property = "roleId", javaType = String.class)
+            @Result(column = "user_id", property = "userId", javaType = Long.class),
+            @Result(column = "role_id", property = "roleId", javaType = Integer.class)
     })
     List<SysUserMangerDTO> btUserList(@Param("userName") String userName, @Param("phone") String phone);
 
@@ -65,5 +66,36 @@ public interface SysUserMapper {
      */
     @Update("update sys_user set password = #{status} where user_id = #{userId}")
     int updateStatus(@Param("userId") Long userId, @Param("status") int status);
+
+
+    /**
+     * 查询所有角色权限
+     * @return
+     */
+    @Select("select permission_id,name,parent_id,sort from sys_permission")
+    @Results({
+            @Result(column = "permission_id", property = "permissionId", javaType = Integer.class),
+            @Result(column = "name", property = "permissionName", javaType = String.class),
+            @Result(column = "parent_id", property = "parentId", javaType = Integer.class),
+            @Result(column = "sort", property = "sortOrder", javaType = Integer.class)
+    })
+    List<RolePermissionModel> findAll();
+
+
+    /**
+     * 根据角色ID查询对应权限
+     * @param roleId
+     * @return
+     */
+    @Select("select bsrp.role_id,bsp.permission_id,bsp.name,bsp.parent_id,bsp.sort from sys_role_permission bsrp" +
+            "  left join sys_permission bsp on bsp.permission_id = bsrp.permission_id where bsrp.role_id = #{roleId}")
+    @Results({
+            @Result(column = "role_id", property = "roleId", javaType = Integer.class),
+            @Result(column = "permission_id", property = "permissionId", javaType = Integer.class),
+            @Result(column = "name", property = "permissionName", javaType = String.class),
+            @Result(column = "parent_id", property = "parentId", javaType = Integer.class),
+            @Result(column = "sort", property = "sortOrder", javaType = Integer.class)
+    })
+    List<RolePermissionModel> findAllByRoleId(@Param("roleId") Integer roleId);
 
 }

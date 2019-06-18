@@ -12,9 +12,10 @@ public class TransferShopProvider {
         String tel = (String) map.get("tel");
         Integer status = (Integer) map.get("status");
         Integer type = (Integer) map.get("type");
-        StringBuilder sb = new StringBuilder("select id, shop_sn, contacts, tel,(select city_name from bs_city where city_id = ts.city_id) as city," +
+        Integer checkStatus = (Integer) map.get("checkStatus");
+        StringBuilder sb = new StringBuilder("select id, shop_sn, contacts as username, tel,(select city_name from bs_city where city_id = ts.city_id) as city," +
                 "       (select property_type from property_type where id = ts.property_type_id) as propertyType," +
-                "       (select shop_type from shop_type where id = ts.shop_type_id) as shopTye, rent, area, transfer_fee, status, check_status" +
+                "       (select shop_type from shop_type where id = ts.shop_type_id) as shopType, rent, area, transfer_fee, status as doneStatus,recommend_type as recommendType, check_status" +
                 " from transfer_shop ts where 1 = 1");
         if (BeanUtils.isNotEmpty(name)) {
             sb.append(" and contacts  like '%").append(name).append("%'");
@@ -27,6 +28,9 @@ public class TransferShopProvider {
         }
         if (null != type) {
             sb.append(" and recommend_type = ").append(type);
+        }
+        if (null != checkStatus) {
+            sb.append(" and check_status = ").append(checkStatus);
         }
         sb.append(" order by update_time desc");
         return sb.toString();

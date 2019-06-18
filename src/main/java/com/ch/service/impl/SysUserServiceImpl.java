@@ -14,6 +14,7 @@ import com.ch.dto.SysUserMangerDTO;
 import com.ch.dto.UserDTO;
 import com.ch.dto.UserParms;
 import com.ch.entity.*;
+import com.ch.model.PasswordParam;
 import com.ch.service.SysUserService;
 import com.ch.util.IdUtil;
 import com.ch.util.PasswordUtil;
@@ -24,6 +25,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 
@@ -44,6 +46,7 @@ public class SysUserServiceImpl implements SysUserService {
     SysRolePermissionMapper sysRolePermissionMapper;
     @Autowired
     RedisTemplate redisTemplate;
+
 
     @Override
     public UserDTO findById(Long userId) {
@@ -78,6 +81,7 @@ public class SysUserServiceImpl implements SysUserService {
             dto.setRoles(roles);
             dto.setPermissions(permissions);
         }
+
         return dto;
 
 
@@ -136,6 +140,7 @@ public class SysUserServiceImpl implements SysUserService {
     }
 
     @Override
+    @Transactional
     public ResponseResult updateOrInsertUser(SysUserDTO sysUserDTO) {
         ResponseResult result = new ResponseResult();
         if (sysUserDTO.getUserId() == null || sysUserDTO.getUserId().equals("")) {
@@ -285,6 +290,37 @@ public class SysUserServiceImpl implements SysUserService {
             result.setError_description("修改人员状态失败");
             return result;
         }
+    }
+
+    @Override
+    public ResponseResult findRoleList() {
+        ResponseResult result = new ResponseResult();
+        List<SysRole> sysRoles = sysRoleMapper.selectByExample(null);
+        result.setData(sysRoles);
+        return result;
+    }
+
+    @Override
+    public ResponseResult updatePassword(PasswordParam passwordParam) {
+        ResponseResult result = new ResponseResult();
+        SysUser sysUser = sysUserMapper.selectByPrimaryKey(passwordParam.getUserId());
+        PasswordUtil encoderMd5 = new PasswordUtil(sysUser.getSalt(), "sha-256");
+        String encodedPassword = encoderMd5.encode(passwordParam.getOldPassword());
+        if (!encodedPassword.equals(sysUser.getPassword())){
+            result.setCode(600);
+            result.setError("请输入正确密码");
+            result.setError_description("请输入正确密码");
+        }
+        else {
+            String salt1 = UUID.randomUUID().toString();
+            PasswordUtil encoderMd51 = new PasswordUtil(salt1, "sha-256");
+            String encodedPassword1 = encoderMd51.encode(passwordParam.getNewPassword());
+            sysUser.setSalt(salt1);
+            sysUser.setPassword(encodedPassword1);
+            sysUserMapper.updateByPrimaryKey(sysUser);
+
+        }
+        return result;
     }
 
 

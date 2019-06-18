@@ -136,6 +136,7 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
         transferShop.setShopRentTypeId(param.getShopRentTypeId());
         transferShop.setStatus(0);
         transferShop.setCheckStatus(2);
+        transferShop.setPublishedTime(new Date());
         transferShop.setFakeTel("15629013877");
         transferShop.setShopSn((IdUtil.getId() + 1) + "");
         transferShopMapper.insert(transferShop);

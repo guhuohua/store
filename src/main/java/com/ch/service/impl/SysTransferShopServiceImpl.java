@@ -23,7 +23,6 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -91,45 +90,49 @@ public class SysTransferShopServiceImpl implements SysTransferShopService {
 
     public ResponseResult showTransferShopList(ShowShopDto showShopDto) {
         ResponseResult result = new ResponseResult();
-        List<SysTransferShopDTO> transferShops = new ArrayList<>();
+        //List<SysTransferShopDTO> transferShops = new ArrayList<>();
         PageHelper.startPage(showShopDto.getPageNum(), showShopDto.getPageSize());
-      if (BeanUtils.isNotEmpty(showShopDto.getUsername())){
-           transferShops = transferShopMapper.list(showShopDto.getUsername(), showShopDto.getTel(), showShopDto.getDoneStatus(), showShopDto.getRecommendType(),showShopDto.getCheckStatus());
-          PageInfo<SysTransferShopDTO> page = new PageInfo<>(transferShops);
-          result.setData(page);
-          return result;
-      }
-      if (BeanUtils.isNotEmpty(showShopDto.getTel())){
-          transferShops = transferShopMapper.list(showShopDto.getUsername(), showShopDto.getTel(), showShopDto.getDoneStatus(), showShopDto.getRecommendType(),showShopDto.getCheckStatus());
-          PageInfo<SysTransferShopDTO> page = new PageInfo<>(transferShops);
-          result.setData(page);
-          return result;
-      }
-      if (null != showShopDto.getDoneStatus()){
-          transferShops = transferShopMapper.list(showShopDto.getUsername(), showShopDto.getTel(), showShopDto.getDoneStatus(), showShopDto.getRecommendType(),showShopDto.getCheckStatus());
-          PageInfo<SysTransferShopDTO> page = new PageInfo<>(transferShops);
-          result.setData(page);
-          return result;
-      }
-        if (null != showShopDto.getRecommendType()){
-            transferShops = transferShopMapper.list(showShopDto.getUsername(), showShopDto.getTel(), showShopDto.getDoneStatus(), showShopDto.getRecommendType(),showShopDto.getCheckStatus());
-            PageInfo<SysTransferShopDTO> page = new PageInfo<>(transferShops);
-            result.setData(page);
-            return result;
-        }
-
-      if (null != showShopDto.getCheckStatus()){
-          transferShops = transferShopMapper.list(showShopDto.getUsername(), showShopDto.getTel(), showShopDto.getDoneStatus(), showShopDto.getRecommendType(),showShopDto.getCheckStatus());
-          PageInfo<SysTransferShopDTO> page = new PageInfo<>(transferShops);
-          result.setData(page);
-          return result;
-      }
-      else {
-         transferShops = transferShopMapper.findAll();
-          PageInfo<SysTransferShopDTO> page = new PageInfo<>(transferShops);
-          result.setData(page);
-          return result;
-      }
+        List<SysTransferShopDTO> list = transferShopMapper.list(showShopDto.getUsername(), showShopDto.getTel(), showShopDto.getDoneStatus(), showShopDto.getRecommendType(), showShopDto.getCheckStatus());
+        PageInfo<SysTransferShopDTO> page = new PageInfo<>(list);
+        result.setData(page);
+        return result;
+        //if (BeanUtils.isNotEmpty(showShopDto.getUsername())){
+      //     transferShops = transferShopMapper.list(showShopDto.getUsername(), showShopDto.getTel(), showShopDto.getDoneStatus(), showShopDto.getRecommendType(),showShopDto.getCheckStatus());
+      //    PageInfo<SysTransferShopDTO> page = new PageInfo<>(transferShops);
+      //    result.setData(page);
+      //    return result;
+      //}
+      //if (BeanUtils.isNotEmpty(showShopDto.getTel())){
+      //    transferShops = transferShopMapper.list(showShopDto.getUsername(), showShopDto.getTel(), showShopDto.getDoneStatus(), showShopDto.getRecommendType(),showShopDto.getCheckStatus());
+      //    PageInfo<SysTransferShopDTO> page = new PageInfo<>(transferShops);
+      //    result.setData(page);
+      //    return result;
+      //}
+      //if (null != showShopDto.getDoneStatus()){
+      //    transferShops = transferShopMapper.list(showShopDto.getUsername(), showShopDto.getTel(), showShopDto.getDoneStatus(), showShopDto.getRecommendType(),showShopDto.getCheckStatus());
+      //    PageInfo<SysTransferShopDTO> page = new PageInfo<>(transferShops);
+      //    result.setData(page);
+      //    return result;
+      //}
+      //  if (null != showShopDto.getRecommendType()){
+      //      transferShops = transferShopMapper.list(showShopDto.getUsername(), showShopDto.getTel(), showShopDto.getDoneStatus(), showShopDto.getRecommendType(),showShopDto.getCheckStatus());
+      //      PageInfo<SysTransferShopDTO> page = new PageInfo<>(transferShops);
+      //      result.setData(page);
+      //      return result;
+      //  }
+      //
+      //if (null != showShopDto.getCheckStatus()){
+      //    transferShops = transferShopMapper.list(showShopDto.getUsername(), showShopDto.getTel(), showShopDto.getDoneStatus(), showShopDto.getRecommendType(),showShopDto.getCheckStatus());
+      //    PageInfo<SysTransferShopDTO> page = new PageInfo<>(transferShops);
+      //    result.setData(page);
+      //    return result;
+      //}
+      //else {
+      //   transferShops = transferShopMapper.findAll();
+      //    PageInfo<SysTransferShopDTO> page = new PageInfo<>(transferShops);
+      //    result.setData(page);
+      //    return result;
+      //}
 
 
        /* List<SysTransferShopDTO> sysTransferShopDTOS = new ArrayList<>();

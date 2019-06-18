@@ -13,9 +13,9 @@ public class SysUserMangerDTO {
 
     private String createDate;
 
-    private String userId;
+    private Long userId;
 
-    private String roleId;
+    private Integer roleId;
 
 
 
@@ -71,19 +71,19 @@ public class SysUserMangerDTO {
         this.createDate = createDate;
     }
 
-    public String getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
-    public String getRoleId() {
+    public Integer getRoleId() {
         return roleId;
     }
 
-    public void setRoleId(String roleId) {
+    public void setRoleId(Integer roleId) {
         this.roleId = roleId;
     }
 }

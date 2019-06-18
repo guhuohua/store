@@ -46,7 +46,7 @@ public interface LookShopMapper {
             " JOIN  property_type p on p.id=t.property_type_id\n" +
             " JOIN shop_type s on s.id = t.shop_type_id\n" +
             "JOIN decorate_type d on d.id = t.decorate_type_id\n" +
-            "JOIN bs_city c on c.city_id = t.city_id")
+            "JOIN bs_city c on c.city_id = t.city_id order by craeate_time desc ")
    List<ViewLookShopInfoDTO> findAll();
 
 }

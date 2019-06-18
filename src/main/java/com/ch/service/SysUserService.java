@@ -4,6 +4,7 @@ import com.ch.base.ResponseResult;
 import com.ch.dto.SysUserDTO;
 import com.ch.dto.UserDTO;
 import com.ch.dto.UserParms;
+import com.ch.model.PasswordParam;
 
 public interface SysUserService {
     /**
@@ -54,5 +55,10 @@ public interface SysUserService {
      * @return
      */
     ResponseResult updateUserStatus(Long userId, int status);
+
+
+    ResponseResult findRoleList();
+
+    ResponseResult updatePassword(PasswordParam passwordParam);
 
 }

@@ -3,21 +3,24 @@ package com.ch.controller;
 import com.ch.base.ResponseResult;
 import com.ch.dto.SysUserDTO;
 import com.ch.dto.UserParms;
+import com.ch.model.PasswordParam;
 import com.ch.service.SysUserService;
+import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.shiro.authz.annotation.Logical;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@RequestMapping(value = "/sys/user")
+@Slf4j
+@Api(value = "人员管理")
+@RestController
 public class SysUserController {
 
     @Autowired
@@ -82,7 +85,7 @@ public class SysUserController {
     @GetMapping(value = "updateUserStatus")
     @RequiresPermissions(logical = Logical.OR, value = {"sys_person_mange_insert","sys_person_mange_edit","sys_person_mange_mange"})
     @ApiOperation("修改人员状态失败")
-    public ResponseResult updateUserStatus(Long userId, int status) {
+    public ResponseResult updateUserStatus( @RequestParam Long userId,@RequestParam int status) {
         ResponseResult result = new ResponseResult();
         try {
             result = sysUserService.updateUserStatus(userId,status);
@@ -95,5 +98,42 @@ public class SysUserController {
         }
         return result;
     }
+
+
+    @GetMapping(value = "findRoleList")
+    @RequiresPermissions(logical = Logical.OR, value = {"sys_person_mange_insert","sys_person_mange_edit","sys_person_mange_mange"})
+    @ApiOperation("查询所有角色")
+    public ResponseResult findRoleList() {
+        ResponseResult result = new ResponseResult();
+        try {
+            result = sysUserService.findRoleList();
+        }
+        catch (Exception e) {
+            LOGGER.error("查询所有角色失败" + e.getMessage(), e);
+            result.setCode(500);
+            result.setError(e.getMessage());
+            result.setError_description("服务异常，请稍后重试");
+        }
+        return result;
+    }
+
+
+    @PostMapping(value = "updatePassword")
+    @RequiresPermissions(logical = Logical.OR, value = {"sys_person_mange_insert","sys_person_mange_edit","sys_person_mange_mange"})
+    @ApiOperation("修改密码")
+    public ResponseResult updatePassword(@RequestBody PasswordParam passwordParam) {
+        ResponseResult result = new ResponseResult();
+        try {
+            result = sysUserService.updatePassword(passwordParam);
+        }
+        catch (Exception e) {
+            LOGGER.error("修改密码失败" + e.getMessage(), e);
+            result.setCode(500);
+            result.setError(e.getMessage());
+            result.setError_description("服务异常，请稍后重试");
+        }
+        return result;
+    }
+
 
 }

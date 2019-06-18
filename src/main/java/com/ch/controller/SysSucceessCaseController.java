@@ -7,15 +7,13 @@
 package com.ch.controller;
 
 import com.ch.base.ResponseResult;
+import com.ch.model.SysSuccessCaseParm;
 import com.ch.service.SysShopSuccessService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequestMapping(value = "/sys/success")
 @Slf4j
@@ -55,6 +53,22 @@ public class SysSucceessCaseController {
             result.setCode(600);
             result.setError(e.getMessage());
             result.setError_description("转铺铺设置为已成交状态失败");
+        }
+        return result;
+    }
+
+
+    @PostMapping("showSuccessCaseList")
+    @ApiOperation("成功案例列表")
+    public ResponseResult showSuccessCaseList(@RequestBody SysSuccessCaseParm sysSuccessCaseParm) {
+        ResponseResult result = new ResponseResult();
+        try {
+            result = sysShopSuccessService.showSuccessCaseList(sysSuccessCaseParm);
+        } catch (Exception e) {
+            log.error("成功案例列表失败" + e.getMessage(), e);
+            result.setCode(600);
+            result.setError(e.getMessage());
+            result.setError_description("成功案例列表失败");
         }
         return result;
     }

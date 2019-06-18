@@ -10,6 +10,7 @@
     <result column="introduction" property="introduction" jdbcType="VARCHAR" />
     <result column="browse_number" property="browseNumber" jdbcType="BIGINT" />
     <result column="transfer_degree" property="transferDegree" jdbcType="INTEGER" />
+    <result column="sys_user" property="sysUser" jdbcType="BIGINT" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -71,7 +72,7 @@
   </sql>
   <sql id="Base_Column_List" >
     id, look_shop_id, transfer_shop_id, look_degree, success_time, introduction, browse_number, 
-    transfer_degree
+    transfer_degree,sys_user
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ch.entity.SuccessCaseExample" >
     select
@@ -107,10 +108,10 @@
   <insert id="insert" parameterType="com.ch.entity.SuccessCase" >
     insert into success_case (id, look_shop_id, transfer_shop_id, 
       look_degree, success_time, introduction, 
-      browse_number, transfer_degree)
+      browse_number, transfer_degree,sys_user)
     values (#{id,jdbcType=BIGINT}, #{lookShopId,jdbcType=VARCHAR}, #{transferShopId,jdbcType=VARCHAR}, 
       #{lookDegree,jdbcType=INTEGER}, #{successTime,jdbcType=TIMESTAMP}, #{introduction,jdbcType=VARCHAR}, 
-      #{browseNumber,jdbcType=BIGINT}, #{transferDegree,jdbcType=INTEGER})
+      #{browseNumber,jdbcType=BIGINT}, #{transferDegree,jdbcType=INTEGER}, #{sysUser,jdbcType=BIGINT})
   </insert>
   <insert id="insertSelective" parameterType="com.ch.entity.SuccessCase" >
     insert into success_case
@@ -254,7 +255,30 @@
       success_time = #{successTime,jdbcType=TIMESTAMP},
       introduction = #{introduction,jdbcType=VARCHAR},
       browse_number = #{browseNumber,jdbcType=BIGINT},
-      transfer_degree = #{transferDegree,jdbcType=INTEGER}
+      transfer_degree = #{transferDegree,jdbcType=INTEGER},
+      sys_user = #{sysUser,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
+  <select id="list" resultType="com.ch.dto.SuccessCaseDTO">
+    SELECT p.id as storeId , p.tel as transferTel ,s.tel AS lookTel ,p.contacts AS transfer , s.contacts AS looker ,t.sys_user AS sysUser ,(SELECT city_name FROM bs_city WHERE city_id = p.city_id) as city , t.success_time as successTime FROM success_case t
+              JOIN  transfer_shop p on p.id=t.transfer_shop_id
+              JOIN look_shop s on s.id = t.look_shop_id
+    where 5 = 5
+    <if test='transfer != null and transfer != "" '>
+      and  p.contacts like  '%${transfer}%'
+    </if>
+
+    <if test='looker != null and looker != "" '>
+      and  s.contacts like  '%${looker}%'
+    </if>
+    <if test='transferTel != null and transferTel != ""'>
+      and p.tel = #{transferTel,jdbcType=VARCHAR}
+    </if>
+
+    <if test='lookTel != null and lookTel != ""'>
+      and s.tel = #{lookTel,jdbcType=VARCHAR}
+    </if>
+
+    order by t.success_time desc
+  </select>
 </mapper>
