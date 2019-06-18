@@ -404,4 +404,13 @@ public class ViewBaseController{
         return result1;
 
     }
+
+    @GetMapping("test")
+    @ApiOperation("test")
+    public ResponseResult test(String code, String appId) {
+        ResponseResult result = new ResponseResult();
+        result.setData("当前端口8083");
+        return result;
+
+    }
 }
