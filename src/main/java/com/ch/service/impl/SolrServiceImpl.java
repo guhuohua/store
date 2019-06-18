@@ -69,7 +69,9 @@ public class SolrServiceImpl implements SolrService {
             storeSolrSchema.setLongitude(transferShop.getLon());
             storeSolrSchema.setStoreAddress(bsArea.getAreaName()+"-"+bsStreet.getStreetName());
             storeSolrSchema.setCreateTime(transferShop.getCreateTime().getTime());
-
+            if (transferShop.getStatus() == 1) {
+                storeSolrSchema.setStoreAttribute("DEAL");
+            }
             try {
                 System.out.println("准备同步solr:"+ JSON.toJSONString(storeSolrSchema));
                 solrClient.addBean(storeSolrSchema);
@@ -106,6 +108,9 @@ public class SolrServiceImpl implements SolrService {
             storeSolrSchema.setAreaId(lookShop.getAreaId());
             storeSolrSchema.setStreetId(lookShop.getStreetId());
             storeSolrSchema.setCreateTime(lookShop.getCraeateTime().getTime());
+            if (lookShop.getStatus() == 1) {
+                storeSolrSchema.setStoreAttribute("DEAL");
+            }
             try {
                 System.out.println("准备同步solr:"+ JSON.toJSONString(storeSolrSchema));
                 solrClient.addBean(storeSolrSchema);

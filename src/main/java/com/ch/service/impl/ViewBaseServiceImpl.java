@@ -5,6 +5,7 @@ import com.ch.base.ResponseResult;
 import com.ch.dao.*;
 import com.ch.entity.*;
 import com.ch.model.ViewBrowseParam;
+import com.ch.model.ViewFeedBackParam;
 import com.ch.model.ViewWXLoginParam;
 import com.ch.service.ViewBaseService;
 import com.ch.util.IdUtil;
@@ -66,6 +67,9 @@ public class ViewBaseServiceImpl implements ViewBaseService {
 
     @Autowired
     HouseCollectMapper houseCollectMapper;
+
+    @Autowired
+    FeedBackMapper feedBackMapper;
 
     @Override
     public ResponseResult businessTypeList() {
@@ -259,7 +263,7 @@ public class ViewBaseServiceImpl implements ViewBaseService {
 
     @Override
     public void saveBrowse(Long userId, ViewBrowseParam param) {
-        int i = browsingHistoryMapper.seleteExits(userId, param.getLookShopId(), param.getTransferShopId());
+        int i = browsingHistoryMapper.seleteExits(userId);
         if (i == 0) {
             BrowsingHistory history = new BrowsingHistory();
             history.setId(IdUtil.getId());
@@ -332,6 +336,20 @@ public class ViewBaseServiceImpl implements ViewBaseService {
             criteria.andTransferShopIdEqualTo(param.getTransferShopId());
         }
         houseCollectMapper.deleteByExample(example);
+        return result;
+    }
+
+    @Override
+    public ResponseResult feedBack(Long userId, ViewFeedBackParam param) {
+        ResponseResult result = new ResponseResult();
+        FeedBack feedBack = new FeedBack();
+        feedBack.setId(IdUtil.getId());
+        feedBack.setClientId(userId);
+        feedBack.setContacts(param.getContacts());
+        feedBack.setTel(param.getTel());
+        feedBack.setDetail(param.getDetail());
+        feedBack.setCreateDate(new Date());
+        feedBackMapper.insert(feedBack);
         return result;
     }
 }

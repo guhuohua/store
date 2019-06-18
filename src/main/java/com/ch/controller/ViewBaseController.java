@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.ch.base.BeanUtils;
 import com.ch.base.ResponseResult;
 import com.ch.model.ViewBrowseParam;
+import com.ch.model.ViewFeedBackParam;
 import com.ch.model.ViewWXLoginParam;
 import com.ch.service.ViewBaseService;
 import com.ch.service.ViewIconService;
@@ -245,6 +246,8 @@ public class ViewBaseController{
         }
     }
 
+
+
     @GetMapping("/orientation")
     @ApiOperation("获取朝向")
     public ResponseResult orientation() {
@@ -334,6 +337,36 @@ public class ViewBaseController{
         }
         return result;
     }
+
+    @PostMapping("/feedBack")
+    @ApiOperation("意见反馈")
+    public ResponseResult myBrowseTransferShopList(HttpServletRequest req, @RequestBody ViewFeedBackParam param) {
+        ResponseResult result = new ResponseResult();
+        String token = req.getHeader("Authorization");
+        if (BeanUtils.isEmpty(token)) {
+            result.setCode(999);
+            result.setError("token失效请重新登录");
+            result.setError_description("token失效请重新登录");
+            return result;
+        }
+        Long userId = TokenUtil.getUserId(token);
+        if (BeanUtils.isEmpty(userId)) {
+            result.setCode(999);
+            result.setError("token失效请重新登录");
+            result.setError_description("token失效请重新登录");
+            return result;
+        }
+        try {
+            result = viewBaseService.feedBack(userId, param);
+        } catch (Exception e) {
+            log.error("提交意见反馈失败" + e.getMessage(), e);
+            result.setCode(600);
+            result.setError(e.getMessage());
+            result.setError_description("提交意见反馈失败");
+        }
+        return result;
+    }
+
 
     @GetMapping("getOpenId")
     @ApiOperation("获取OpenId")
