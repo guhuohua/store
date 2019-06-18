@@ -9,15 +9,9 @@ package com.ch.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.ch.base.BeanUtils;
 import com.ch.base.StoreSolrSchema;
-import com.ch.dao.BsAreaMapper;
-import com.ch.dao.BsStreetMapper;
-import com.ch.dao.LookShopMapper;
-import com.ch.dao.TransferShopMapper;
+import com.ch.dao.*;
 import com.ch.dto.SolrDTO;
-import com.ch.entity.BsArea;
-import com.ch.entity.BsStreet;
-import com.ch.entity.LookShop;
-import com.ch.entity.TransferShop;
+import com.ch.entity.*;
 import com.ch.service.SolrService;
 import com.ch.util.IdUtil;
 import org.apache.logging.log4j.LogManager;
@@ -48,6 +42,8 @@ public class SolrServiceImpl implements SolrService {
     BsStreetMapper bsStreetMapper;
    @Autowired
     BsAreaMapper bsAreaMapper;
+   @Autowired
+   ClientMapper clientMapper;
     @Override
     @Async
     public void addSolr(SolrDTO solrDTO) {
@@ -89,6 +85,7 @@ public class SolrServiceImpl implements SolrService {
             LookShop lookShop = lookShopMapper.selectByPrimaryKey(solrDTO.getLookShopId());
             BsStreet bsStreet = bsStreetMapper.selectByPrimaryKey(lookShop.getStreetId());
             BsArea bsArea = bsAreaMapper.selectByPrimaryKey(lookShop.getAreaId());
+            Client client = clientMapper.selectByPrimaryKey(lookShop.getClientId());
             StoreSolrSchema storeSolrSchema = new StoreSolrSchema();
             storeSolrSchema.setId(IdUtil.getId()+"");
             storeSolrSchema.setLookShopId(lookShop.getId());
@@ -99,6 +96,7 @@ public class SolrServiceImpl implements SolrService {
             storeSolrSchema.setMinStoreArea(lookShop.getSmallArea());
             storeSolrSchema.setMaxStoreArea(lookShop.getTopArea());
             storeSolrSchema.setStoreType(1);
+            storeSolrSchema.setStoreImg(client.getHeader());
             storeSolrSchema.setStoreStatus(lookShop.getStatus());
             storeSolrSchema.setLongitude(lookShop.getLongitude());
             storeSolrSchema.setLatitude(lookShop.getLatitude());

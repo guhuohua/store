@@ -1,5 +1,6 @@
 package com.ch.dao;
 
+import com.ch.dto.ViewBrowseLookShopDTO;
 import com.ch.dto.ViewLookShopInfoDTO;
 import com.ch.entity.LookShop;
 import com.ch.entity.LookShopExample;
@@ -49,4 +50,13 @@ public interface LookShopMapper {
             "JOIN bs_city c on c.city_id = t.city_id order by craeate_time desc ")
    List<ViewLookShopInfoDTO> findAll();
 
+
+    @Select(" select   c.header as  image, t.title, t.top_rent, t.small_rent, t.top_area, t.small_area, b.create_date, t.id,CONCAT((select area_name from bs_area aa where aa.area_id = t.area_id),'-', (select street_name from bs_street sa where sa.street_id = t.street_id)) as address" +
+            " from  browsing_history  b   join look_shop  t on  b.look_shop_id=t.id   join client  c   on  c.id=t.client_id where b.client_id = #{userId} order by b.create_date desc")
+    List<ViewBrowseLookShopDTO> myList(@Param("userId") Long userId);
+
+
+    @Select(" select   c.header as  image, t.title, t.top_rent, t.small_rent, t.top_area, t.small_area, b.create_date, t.id  ,CONCAT((select area_name from bs_area aa where aa.area_id = t.area_id),'-', (select street_name from bs_street sa where sa.street_id = t.street_id)) as address" +
+            " from  house_collect  b   join look_shop  t on  b.look_shop_id=t.id   join client  c   on  c.id=t.client_id where b.client_id = #{userId} order by b.create_date desc")
+    List<ViewBrowseLookShopDTO> myHouseCollectList(@Param("userId") Long userId);
 }

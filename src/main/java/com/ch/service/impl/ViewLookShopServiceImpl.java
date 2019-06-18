@@ -4,6 +4,7 @@ import com.ch.base.BeanUtils;
 import com.ch.base.ResponseResult;
 import com.ch.dao.*;
 import com.ch.dto.SolrDTO;
+import com.ch.dto.ViewBrowseLookShopDTO;
 import com.ch.dto.ViewLookShopInfoDTO;
 import com.ch.dto.ViewMyLookShopDTO;
 import com.ch.entity.*;
@@ -230,6 +231,22 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
             viewMyLookShopDTOS.add(viewMyLookShopDTO);
         }
         result.setData(viewMyLookShopDTOS);
+        return result;
+    }
+
+    @Override
+    public ResponseResult myBrowesLookShopList(Long id) {
+        ResponseResult result = new ResponseResult();
+        List<ViewBrowseLookShopDTO> viewBrowseLookShopDTOS = lookShopMapper.myList(id);
+        result.setData(viewBrowseLookShopDTOS);
+        return result;
+    }
+
+    @Override
+    public ResponseResult myHouseLookShopList(Long userId) {
+        ResponseResult result = new ResponseResult();
+        List<ViewBrowseLookShopDTO> viewBrowseLookShopDTOS = lookShopMapper.myHouseCollectList(userId);
+        result.setData(viewBrowseLookShopDTOS);
         return result;
     }
 }

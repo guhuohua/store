@@ -4,16 +4,15 @@ import com.ch.base.BeanUtils;
 import com.ch.base.ResponseResult;
 import com.ch.dao.*;
 import com.ch.entity.*;
+import com.ch.model.ViewBrowseParam;
 import com.ch.model.ViewWXLoginParam;
 import com.ch.service.ViewBaseService;
 import com.ch.util.IdUtil;
 import com.ch.util.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.annotation.QueryAnnotation;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -61,6 +60,12 @@ public class ViewBaseServiceImpl implements ViewBaseService {
 
     @Autowired
     ClientMapper clientMapper;
+
+    @Autowired
+    BrowsingHistoryMapper browsingHistoryMapper;
+
+    @Autowired
+    HouseCollectMapper houseCollectMapper;
 
     @Override
     public ResponseResult businessTypeList() {
@@ -249,6 +254,84 @@ public class ViewBaseServiceImpl implements ViewBaseService {
             clientMapper.insert(client);
             result.setData(TokenUtil.sign(client.getId()));
         }
+        return result;
+    }
+
+    @Override
+    public void saveBrowse(Long userId, ViewBrowseParam param) {
+        int i = browsingHistoryMapper.seleteExits(userId, param.getLookShopId(), param.getTransferShopId());
+        if (i == 0) {
+            BrowsingHistory history = new BrowsingHistory();
+            history.setId(IdUtil.getId());
+            history.setClientId(userId);
+            history.setCreateDate(new Date());
+            if (BeanUtils.isNotEmpty(param.getLookShopId())) {
+                history.setLookShopId(param.getLookShopId());
+            }
+            if (BeanUtils.isNotEmpty(param.getTransferShopId())) {
+                history.setTransferShopId(param.getTransferShopId());
+            }
+            if (BeanUtils.isNotEmpty(param.getSysUserId())) {
+                history.setSysUserId(param.getSysUserId());
+            }
+            if (BeanUtils.isNotEmpty(param.getSuccessCaseId())) {
+                history.setSuccessCaseId(param.getSuccessCaseId());
+            }
+            browsingHistoryMapper.insert(history);
+        }
+    }
+
+    @Override
+    public void deleteBrowse(Long userId, ViewBrowseParam param) {
+        BrowsingHistoryExample browsingHistoryExample = new BrowsingHistoryExample();
+        BrowsingHistoryExample.Criteria criteria = browsingHistoryExample.createCriteria();
+        criteria.andClientIdEqualTo(userId);
+        if (BeanUtils.isNotEmpty(param.getLookShopId())) {
+            criteria.andLookShopIdEqualTo(param.getLookShopId());
+        }
+        if (BeanUtils.isNotEmpty(param.getTransferShopId())) {
+            criteria.andTransferShopIdEqualTo(param.getTransferShopId());
+        }
+        if (BeanUtils.isNotEmpty(param.getSysUserId())) {
+            criteria.andSysUserIdEqualTo(param.getSysUserId());
+        }
+        if (BeanUtils.isNotEmpty(param.getSuccessCaseId())) {
+            criteria.andSuccessCaseIdEqualTo(param.getSuccessCaseId());
+        }
+        browsingHistoryMapper.deleteByExample(browsingHistoryExample);
+    }
+
+
+    @Override
+    public ResponseResult saveCollection(Long userId, ViewBrowseParam param) {
+        ResponseResult result = new ResponseResult();
+        HouseCollect houseCollect = new HouseCollect();
+        houseCollect.setId(IdUtil.getId());
+        houseCollect.setCreateDate(new Date());
+        houseCollect.setClientId(userId);
+        if (BeanUtils.isNotEmpty(param.getTransferShopId())) {
+            houseCollect.setTransferShopId(param.getTransferShopId());
+        }
+        if (BeanUtils.isNotEmpty(param.getLookShopId())) {
+            houseCollect.setLookShopId(param.getLookShopId());
+        }
+        houseCollectMapper.insert(houseCollect);
+        return result;
+    }
+
+    @Override
+    public ResponseResult deleteCollection(Long userId, ViewBrowseParam param) {
+        ResponseResult result = new ResponseResult();
+        HouseCollectExample example = new HouseCollectExample();
+        HouseCollectExample.Criteria criteria = example.createCriteria();
+        criteria.andClientIdEqualTo(userId);
+        if (BeanUtils.isNotEmpty(param.getLookShopId())) {
+            criteria.andLookShopIdEqualTo(param.getLookShopId());
+        }
+        if (BeanUtils.isNotEmpty(param.getTransferShopId())) {
+            criteria.andTransferShopIdEqualTo(param.getTransferShopId());
+        }
+        houseCollectMapper.deleteByExample(example);
         return result;
     }
 }

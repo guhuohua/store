@@ -1,6 +1,7 @@
 package com.ch.service;
 
 import com.ch.base.ResponseResult;
+import com.ch.model.ViewBrowseParam;
 import com.ch.model.ViewWXLoginParam;
 
 public interface ViewBaseService {
@@ -96,4 +97,34 @@ public interface ViewBaseService {
      * @return
      */
     ResponseResult wxLogin(ViewWXLoginParam param);
+
+    /**
+     * 保存用户浏览记录
+     * @param userId
+     */
+    void saveBrowse(Long userId, ViewBrowseParam param);
+
+    /**
+     * 删除用户浏览记录
+     * @param userId
+     * @param param
+     */
+    void deleteBrowse(Long userId, ViewBrowseParam param);
+
+
+    /**
+     * 用户收藏
+     * @param userId
+     * @param param
+     * @return
+     */
+    ResponseResult saveCollection(Long userId, ViewBrowseParam param);
+
+    /**
+     * 取消用户收藏
+     * @param userId
+     * @param param
+     * @return
+     */
+    ResponseResult deleteCollection(Long userId, ViewBrowseParam param);
 }

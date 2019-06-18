@@ -1,5 +1,7 @@
 package com.ch.entity;
 
+import java.util.Date;
+
 public class HouseCollect {
     private Long id;
 
@@ -8,6 +10,16 @@ public class HouseCollect {
     private Long lookShopId;
 
     private Long transferShopId;
+
+    private Date createDate;
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
 
     public Long getId() {
         return id;

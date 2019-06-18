@@ -1,12 +1,13 @@
 package com.ch.dao;
 
 
-import java.util.List;
-
 import com.ch.entity.BrowsingHistory;
 import com.ch.entity.BrowsingHistoryExample;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface BrowsingHistoryMapper {
@@ -31,4 +32,8 @@ public interface BrowsingHistoryMapper {
     int updateByPrimaryKeySelective(BrowsingHistory record);
 
     int updateByPrimaryKey(BrowsingHistory record);
+
+
+    @Select("select count(*) from browsing_history where client_id = #{clientId} or look_shop_id = #{lookShopId} or transfer_shop_id = #{transferShopId}")
+    int seleteExits(@Param("clientId") Long clientId, @Param("lookShopId") Long lookShopId, @Param("transferShopId") Long transferShopId);
 }
