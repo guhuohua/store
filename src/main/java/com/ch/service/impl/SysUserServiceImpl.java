@@ -257,7 +257,7 @@ public class SysUserServiceImpl implements SysUserService {
     public ResponseResult userList(UserParms userParms) {
         ResponseResult result = new ResponseResult();
         PageHelper.startPage(userParms.getPageNum(), userParms.getPageSize());
-        List<SysUserMangerDTO> sysUserMangerDTOs = sysUserMapper.btUserList(userParms.getUsername(), userParms.getPhone());
+        List<SysUserMangerDTO> sysUserMangerDTOs = sysUserMapper.btUserList(userParms.getUserName(), userParms.getPhone());
         PageInfo<SysUserMangerDTO> btSysRolePageInfo = new PageInfo<>(sysUserMangerDTOs);
         result.setData(btSysRolePageInfo);
         return result;

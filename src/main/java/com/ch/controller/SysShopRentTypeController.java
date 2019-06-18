@@ -9,10 +9,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Slf4j
@@ -24,7 +21,7 @@ public class SysShopRentTypeController {
 
     @PostMapping("editRentShopType")
     @ApiOperation("编辑店铺类型")
-    public ResponseResult editShopType(ShopRentType shopRentType) {
+    public ResponseResult editShopType( @RequestBody ShopRentType shopRentType) {
         ResponseResult result = new ResponseResult();
         try {
             if (BeanUtils.isNotEmpty(shopRentType.getId())) {
@@ -44,10 +41,10 @@ public class SysShopRentTypeController {
 
     @PostMapping("listRentShopType")
     @ApiOperation("物业类型列表")
-    public ResponseResult listRentShopType(SysBaseDTO sysBaseDTO) {
+    public ResponseResult listRentShopType(@RequestBody SysBaseDTO sysBaseDTO) {
         ResponseResult result = new ResponseResult();
         try {
-            sysRentShopService.listShopRentType(sysBaseDTO);
+          result =  sysRentShopService.listShopRentType(sysBaseDTO);
 
         } catch (Exception e) {
             log.error("物业类型列表失败" + e.getMessage(), e);

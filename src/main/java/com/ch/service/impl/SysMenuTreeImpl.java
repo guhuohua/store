@@ -95,6 +95,113 @@ public class SysMenuTreeImpl implements SysMenuTreeService {
 
     }
 
+    @Override
+    public ResponseResult findALLTree() {
+        ResponseResult result = new ResponseResult();
+
+        try {//查询所有菜单
+
+            List<SysMenu> allMenu = sysMenuMapper.selectByExample(null);
+            //根节点
+            List<SysMenu> rootMenu = new ArrayList<SysMenu>();
+            for (SysMenu nav : allMenu) {
+                if (nav.getParentId() == 0) {
+                    rootMenu.add(nav);
+                }
+            }
+            /* 根据Menu类的order排序 */
+            Collections.sort(rootMenu, order());
+            //为根菜单设置子菜单，getClild是递归调用的
+            for (SysMenu nav : rootMenu) {
+                /* 获取根节点下的所有子节点 使用getChild方法*/
+                List<SysMenu> childList = getChild(nav.getId(), allMenu);
+                nav.setChildren(childList);//给根节点设置子节点
+            }
+            /**
+             * 输出构建好的菜单数据。
+             *
+             */
+            result.setCode(0);
+
+            result.setData(rootMenu);
+            return result;
+
+        } catch (Exception e) {
+            result.setCode(500);
+            result.setError(e.getMessage());
+            result.setError_description("菜单生成异常");
+            return result;
+        }
+    }
+
+    @Override
+    public ResponseResult dele(Integer id) {
+        ResponseResult result = new ResponseResult();
+
+        SysMenu btSysMenu = sysMenuMapper.selectByPrimaryKey(id);
+        if (btSysMenu.getParentId() == 0) {
+
+            SysMenuExample example = new SysMenuExample();
+            SysMenuExample.Criteria criteria = example.createCriteria();
+            criteria.andParentIdEqualTo(id);
+            List<SysMenu> btViewMenus = sysMenuMapper.selectByExample(example);
+            if (btViewMenus != null) {
+                for (SysMenu btSysMenu1 : btViewMenus) {
+                    // System.out.println(btSysMenu1.getId());
+                    SysMenuExample example1 = new SysMenuExample();
+                    SysMenuExample.Criteria criteria1 = example1.createCriteria();
+                    criteria1.andParentIdEqualTo(btSysMenu1.getId());
+                    List<SysMenu> btSysMenus = sysMenuMapper.selectByExample(example1);
+
+                    for (SysMenu btSysMenu2 : btSysMenus) {
+                        sysMenuMapper.deleteByPrimaryKey(btSysMenu2.getId());
+                    }
+                    sysMenuMapper.deleteByPrimaryKey(btSysMenu1.getId());
+
+                   /* BtSysMenuExample example1 = new BtSysMenuExample();
+                    BtSysMenuExample.Criteria criteria1 = example.createCriteria();
+                    criteria.andParentIdEqualTo(btSysMenu1.getId()+"");
+                    List<BtSysMenu> btSysMenus = btSysMenuMapper.selectByExample(example1);
+                    for (BtSysMenu btSysMenu2 :btSysMenus ){
+                        btSysMenuMapper.deleteByExample(example1);
+                    }*/
+                }
+            } else {
+                sysMenuMapper.deleteByPrimaryKey(id);
+            }
+            sysMenuMapper.deleteByPrimaryKey(id);
+        } else {
+            SysMenuExample example = new SysMenuExample();
+            SysMenuExample.Criteria criteria = example.createCriteria();
+            criteria.andParentIdEqualTo(id);
+            List<SysMenu> btSysMenus = sysMenuMapper.selectByExample(example);
+            if (btSysMenus != null) {
+                for (SysMenu btSysMenus1 : btSysMenus) {
+                    sysMenuMapper.deleteByExample(example);
+                }
+                sysMenuMapper.deleteByPrimaryKey(id);
+            } else {
+                sysMenuMapper.deleteByPrimaryKey(id);
+            }
+        }
+
+        return result;
+    }
+
+    @Override
+    public ResponseResult add(SysMenu sysMenu) {
+        ResponseResult result = new ResponseResult();
+        sysMenuMapper.insert(sysMenu);
+        return result;
+    }
+
+    @Override
+    public ResponseResult update(SysMenu sysMenu) {
+        ResponseResult result = new ResponseResult();
+        sysMenuMapper.updateByPrimaryKey(sysMenu);
+        return result;
+    }
+
 
     public List<SysMenu> getChild(Integer id, List<SysMenu> allMenu) {
         //子菜单

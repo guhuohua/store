@@ -60,12 +60,11 @@ public class ViewBaseServiceImpl implements ViewBaseService {
 
     @Autowired
     ClientMapper clientMapper;
-
+    @Autowired
+    HouseCollectMapper houseCollectMapper;
     @Autowired
     BrowsingHistoryMapper browsingHistoryMapper;
 
-    @Autowired
-    HouseCollectMapper houseCollectMapper;
 
     @Override
     public ResponseResult businessTypeList() {
@@ -256,7 +255,6 @@ public class ViewBaseServiceImpl implements ViewBaseService {
         }
         return result;
     }
-
     @Override
     public void saveBrowse(Long userId, ViewBrowseParam param) {
         int i = browsingHistoryMapper.seleteExits(userId, param.getLookShopId(), param.getTransferShopId());
