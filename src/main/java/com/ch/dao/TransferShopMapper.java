@@ -1,6 +1,7 @@
 package com.ch.dao;
 
 import com.ch.dto.SysTransferShopDTO;
+import com.ch.dto.ViewBrowseTransferShopDTO;
 import com.ch.entity.TransferShop;
 import com.ch.entity.TransferShopExample;
 import org.apache.ibatis.annotations.Param;
@@ -38,8 +39,18 @@ public interface TransferShopMapper {
            " JOIN shop_type s on s.id = t.shop_type_id\n" +
            "JOIN decorate_type d on d.id = t.decorate_type_id\n" +
            "JOIN bs_city c on c.city_id = t.city_id\n")
-
     List<SysTransferShopDTO> findAll();
 
     List<SysTransferShopDTO> list(@Param("contacts") String contacts ,@Param("tel") String tel,@Param("status")Integer status,@Param("recommendType")Integer recommendType,@Param("checkStatus") Integer checkStatus);
+
+
+    @Select("select ts.image, ts.title,CONCAT((select area_name from bs_area aa where aa.area_id = ts.area_id),'-', (select street_name from bs_street sa where sa.street_id = ts.street_id)) as address," +
+            "       ts.area, ts.rent, bs.create_date, ts.id from browsing_history bs  join transfer_shop ts on bs.transfer_shop_id = ts.id and bs.client_id = ts.client_id where bs.client_id  = #{userId} order by bs.create_date desc")
+    List<ViewBrowseTransferShopDTO> myList(@Param("userId") Long userId);
+
+    @Select(" select   c.header as  image, t.title ,CONCAT((select area_name from bs_area aa where aa.area_id = t.area_id),'-', (select street_name from bs_street sa where sa.street_id = t.street_id)) as address," +
+            "        t.rent, t.area, b.create_date, t.id" +
+            " from  house_collect  b   join transfer_shop  t on  b.transfer_shop_id=t.id   join client  c   on  c.id=t.client_id where b.client_id = #{userId} order by b.create_date desc")
+    List<ViewBrowseTransferShopDTO> myHouseCollectList(@Param("userId") Long userId);
+
 }

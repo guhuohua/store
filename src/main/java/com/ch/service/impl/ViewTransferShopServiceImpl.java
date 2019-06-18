@@ -3,6 +3,7 @@ package com.ch.service.impl;
 import com.ch.base.BeanUtils;
 import com.ch.base.ResponseResult;
 import com.ch.dao.*;
+import com.ch.dto.ViewBrowseTransferShopDTO;
 import com.ch.dto.ViewMyTransferShopLIstDTO;
 import com.ch.dto.ViewTransferShopDTO;
 import com.ch.entity.*;
@@ -93,7 +94,26 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
     public ResponseResult addTransferShop(ViewTransferShopParam param, Long userId) {
         ResponseResult result = new ResponseResult();
         TransferShop transferShop = new TransferShop();
-        List<String> coordinate = GetLatAndLngByBaidu.getCoordinate(param.getAddress());
+        StringBuffer sb = new StringBuffer();
+        BsProvince bsProvince = bsProvinceMapper.selectByPrimaryKey(param.getProvinceId());
+        if (BeanUtils.isNotEmpty(bsProvince)) {
+            sb.append(bsProvince.getProvinceName());
+        }
+        BsCity bsCity = bsCityMapper.selectByPrimaryKey(param.getCityId());
+        if (BeanUtils.isNotEmpty(bsCity)) {
+            sb.append(bsCity.getCityName());
+        }
+        BsArea bsArea = bsAreaMapper.selectByPrimaryKey(param.getAreaId());
+        if (BeanUtils.isNotEmpty(bsArea)) {
+            sb.append(bsArea.getAreaName());
+        }
+        BsStreet bsStreet = bsStreetMapper.selectByPrimaryKey(param.getStreetId());
+        if (BeanUtils.isNotEmpty(bsStreet)) {
+            sb.append(bsStreet.getStreetName());
+        }
+        sb.append(param.getAddress());
+
+        List<String> coordinate = GetLatAndLngByBaidu.getCoordinate(sb.toString());
         if (BeanUtils.isEmpty(coordinate)) {
             result.setCode(600);
             result.setError("获取不到该地址的经纬度");
@@ -135,6 +155,7 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
         transferShop.setRecommendType(0);
         transferShop.setShopRentTypeId(param.getShopRentTypeId());
         transferShop.setStatus(0);
+        transferShop.setCreateTime(new Date());
         transferShop.setCheckStatus(2);
         transferShop.setFakeTel("15629013877");
         transferShop.setShopSn((IdUtil.getId() + 1) + "");
@@ -400,6 +421,22 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
             viewMyTransferShopLIstDTOS.add(viewMyTransferShopLIstDTO);
         }
         result.setData(viewMyTransferShopLIstDTOS);
+        return result;
+    }
+
+    @Override
+    public ResponseResult myBrowseTransferShopList(Long id) {
+        ResponseResult result = new ResponseResult();
+        List<ViewBrowseTransferShopDTO> viewBrowseTransferShopDTOS = transferShopMapper.myList(id);
+        result.setData(viewBrowseTransferShopDTOS);
+        return result;
+    }
+
+    @Override
+    public ResponseResult myHouseCollectTransferShopList(Long userId) {
+        ResponseResult result = new ResponseResult();
+        List<ViewBrowseTransferShopDTO> viewBrowseTransferShopDTOS = transferShopMapper.myHouseCollectList(userId);
+        result.setData(viewBrowseTransferShopDTOS);
         return result;
     }
 }

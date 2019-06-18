@@ -2,7 +2,6 @@ package com.ch.controller;
 
 import com.ch.base.BeanUtils;
 import com.ch.base.ResponseResult;
-import com.ch.model.FastTransferShopParam;
 import com.ch.model.ViewLookShopAddParam;
 import com.ch.service.ViewLookShopService;
 import com.ch.util.TokenUtil;
@@ -63,6 +62,64 @@ public class ViewLookShopController {
             result.setCode(600);
             result.setError(e.getMessage());
             result.setError_description("获取选址详情失败");
+        }
+        return result;
+    }
+
+    @GetMapping("/myBrowesLookShopList")
+    @ApiOperation("我的浏览找铺列表")
+    public ResponseResult myBrowesLookShopList(HttpServletRequest req) {
+        ResponseResult result = new ResponseResult();
+        String token = req.getHeader("Authorization");
+        if (BeanUtils.isEmpty(token)) {
+            result.setCode(999);
+            result.setError("token失效请重新登录");
+            result.setError_description("token失效请重新登录");
+            return result;
+        }
+        Long userId = TokenUtil.getUserId(token);
+        if (BeanUtils.isEmpty(userId)) {
+            result.setCode(999);
+            result.setError("token失效请重新登录");
+            result.setError_description("token失效请重新登录");
+            return result;
+        }
+        try {
+            result = viewLookShopService.myBrowesLookShopList(userId);
+        } catch (Exception e) {
+            log.error("获取我的浏览找铺列表失败" + e.getMessage(), e);
+            result.setCode(600);
+            result.setError(e.getMessage());
+            result.setError_description("获取我的浏览找铺列表失败");
+        }
+        return result;
+    }
+
+    @GetMapping("/myHouseLookShopList")
+    @ApiOperation("我的收藏找铺列表")
+    public ResponseResult myHouseLookShopList(HttpServletRequest req) {
+        ResponseResult result = new ResponseResult();
+        String token = req.getHeader("Authorization");
+        if (BeanUtils.isEmpty(token)) {
+            result.setCode(999);
+            result.setError("token失效请重新登录");
+            result.setError_description("token失效请重新登录");
+            return result;
+        }
+        Long userId = TokenUtil.getUserId(token);
+        if (BeanUtils.isEmpty(userId)) {
+            result.setCode(999);
+            result.setError("token失效请重新登录");
+            result.setError_description("token失效请重新登录");
+            return result;
+        }
+        try {
+            result = viewLookShopService.myHouseLookShopList(userId);
+        } catch (Exception e) {
+            log.error("获取我的收藏找铺列表" + e.getMessage(), e);
+            result.setCode(600);
+            result.setError(e.getMessage());
+            result.setError_description("获取我的收藏找铺列表");
         }
         return result;
     }

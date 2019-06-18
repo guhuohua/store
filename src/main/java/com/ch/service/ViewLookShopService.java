@@ -1,7 +1,6 @@
 package com.ch.service;
 
 import com.ch.base.ResponseResult;
-import com.ch.model.FastTransferShopParam;
 import com.ch.model.ViewLookShopAddParam;
 
 public interface ViewLookShopService {
@@ -28,5 +27,21 @@ public interface ViewLookShopService {
      * @return
      */
     ResponseResult myLookShopList(Long id);
+
+
+    /**
+     * 我的浏览找铺列表
+     * @param id
+     * @return
+     */
+    ResponseResult myBrowesLookShopList(Long id);
+
+
+    /**
+     * 我的收藏找铺列表
+     * @param userId
+     * @return
+     */
+    ResponseResult myHouseLookShopList(Long userId);
 
 }

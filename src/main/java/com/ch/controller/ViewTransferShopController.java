@@ -70,9 +70,9 @@ public class ViewTransferShopController {
 
     @GetMapping("/info")
     @ApiOperation("转铺详情")
-    public ResponseResult transferShopInfo(@RequestParam Long id) {
+    public ResponseResult transferShopInfo(HttpServletRequest req, @RequestParam Long id) {
         ResponseResult result = new ResponseResult();
-        try {
+         try {
             result = viewTransferShopService.transferShopInfo(id);
         } catch (Exception e) {
             log.error("获取转铺详情失败" + e.getMessage(), e);
@@ -94,6 +94,64 @@ public class ViewTransferShopController {
             result.setCode(600);
             result.setError(e.getMessage());
             result.setError_description("急速转铺失败");
+        }
+        return result;
+    }
+
+    @GetMapping("/myBrowseTransferShopList")
+    @ApiOperation("我的浏览转铺记录")
+    public ResponseResult myBrowseTransferShopList(HttpServletRequest req) {
+        ResponseResult result = new ResponseResult();
+        String token = req.getHeader("Authorization");
+        if (BeanUtils.isEmpty(token)) {
+            result.setCode(999);
+            result.setError("token失效请重新登录");
+            result.setError_description("token失效请重新登录");
+            return result;
+        }
+        Long userId = TokenUtil.getUserId(token);
+        if (BeanUtils.isEmpty(userId)) {
+            result.setCode(999);
+            result.setError("token失效请重新登录");
+            result.setError_description("token失效请重新登录");
+            return result;
+        }
+        try {
+            result = viewTransferShopService.myBrowseTransferShopList(userId);
+        } catch (Exception e) {
+            log.error("获取我的浏览转铺记录失败" + e.getMessage(), e);
+            result.setCode(600);
+            result.setError(e.getMessage());
+            result.setError_description("获取我的浏览转铺记录失败");
+        }
+        return result;
+    }
+
+    @GetMapping("/myHouseCollectTransferShopList")
+    @ApiOperation("我的收藏转铺记录")
+    public ResponseResult myHouseCollectTransferShopList(HttpServletRequest req) {
+        ResponseResult result = new ResponseResult();
+        String token = req.getHeader("Authorization");
+        if (BeanUtils.isEmpty(token)) {
+            result.setCode(999);
+            result.setError("token失效请重新登录");
+            result.setError_description("token失效请重新登录");
+            return result;
+        }
+        Long userId = TokenUtil.getUserId(token);
+        if (BeanUtils.isEmpty(userId)) {
+            result.setCode(999);
+            result.setError("token失效请重新登录");
+            result.setError_description("token失效请重新登录");
+            return result;
+        }
+        try {
+            result = viewTransferShopService.myHouseCollectTransferShopList(userId);
+        } catch (Exception e) {
+            log.error("获取我的收藏转铺记录" + e.getMessage(), e);
+            result.setCode(600);
+            result.setError(e.getMessage());
+            result.setError_description("获取我的收藏转铺记录");
         }
         return result;
     }

@@ -28,7 +28,7 @@ public class TransferShopProvider {
         if (null != type) {
             sb.append(" and recommend_type = ").append(type);
         }
-        sb.append(" order by update_time desc");
+        sb.append(" order by create_time desc");
         return sb.toString();
     }
 }

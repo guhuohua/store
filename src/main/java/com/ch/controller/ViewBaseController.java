@@ -1,17 +1,21 @@
 package com.ch.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.ch.base.BeanUtils;
 import com.ch.base.ResponseResult;
+import com.ch.model.ViewBrowseParam;
 import com.ch.model.ViewWXLoginParam;
 import com.ch.service.ViewBaseService;
 import com.ch.service.ViewIconService;
 import com.ch.util.HttpRequestUtil;
+import com.ch.util.TokenUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -161,6 +165,84 @@ public class ViewBaseController{
             result.setError_description("获取物业类型失败");
         }
         return result;
+    }
+
+    @PostMapping("/saveCollection")
+    @ApiOperation("保存我的收藏")
+    public ResponseResult saveCollection(HttpServletRequest req, @RequestBody ViewBrowseParam param) {
+        ResponseResult result = new ResponseResult();
+        String token = req.getHeader("Authorization");
+        if (BeanUtils.isEmpty(token)) {
+            result.setCode(999);
+            result.setError("token失效请重新登录");
+            result.setError_description("token失效请重新登录");
+            return result;
+        }
+        Long userId = TokenUtil.getUserId(token);
+        if (BeanUtils.isEmpty(userId)) {
+            result.setCode(999);
+            result.setError("token失效请重新登录");
+            result.setError_description("token失效请重新登录");
+            return result;
+        }
+        try {
+            result = viewBaseService.saveCollection(userId, param);
+        } catch (Exception e) {
+            log.error("收藏失败，请稍后重试" + e.getMessage(), e);
+            result.setCode(600);
+            result.setError(e.getMessage());
+            result.setError_description("收藏失败，请稍后重试");
+        }
+        return result;
+    }
+
+    @PostMapping("/deleteCollection")
+    @ApiOperation("取消我的收藏")
+    public ResponseResult deleteCollection(HttpServletRequest req, @RequestBody ViewBrowseParam param) {
+        ResponseResult result = new ResponseResult();
+        String token = req.getHeader("Authorization");
+        if (BeanUtils.isEmpty(token)) {
+            result.setCode(999);
+            result.setError("token失效请重新登录");
+            result.setError_description("token失效请重新登录");
+            return result;
+        }
+        Long userId = TokenUtil.getUserId(token);
+        if (BeanUtils.isEmpty(userId)) {
+            result.setCode(999);
+            result.setError("token失效请重新登录");
+            result.setError_description("token失效请重新登录");
+            return result;
+        }
+        try {
+            result = viewBaseService.deleteCollection(userId, param);
+        } catch (Exception e) {
+            log.error("取消我的收藏失败" + e.getMessage(), e);
+            result.setCode(600);
+            result.setError(e.getMessage());
+            result.setError_description("取消我的收藏失败，请稍后重试");
+        }
+        return result;
+    }
+
+    @PostMapping("/saveBrowse")
+    @ApiOperation("保存用户浏览记录")
+    public void saveBrowse(HttpServletRequest req, @RequestBody ViewBrowseParam param) {
+        String token = req.getHeader("Authorization");
+        if (BeanUtils.isNotEmpty(token)) {
+            Long userId = TokenUtil.getUserId(token);
+            viewBaseService.saveBrowse(userId, param);
+        }
+    }
+
+    @PostMapping("/deleteBrowse")
+    @ApiOperation("删除用户浏览记录")
+    public void deleteBrowse(HttpServletRequest req, @RequestBody ViewBrowseParam param) {
+        String token = req.getHeader("Authorization");
+        if (BeanUtils.isNotEmpty(token)) {
+            Long userId = TokenUtil.getUserId(token);
+            viewBaseService.deleteBrowse(userId, param);
+        }
     }
 
     @GetMapping("/orientation")

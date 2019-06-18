@@ -45,4 +45,18 @@ public interface ViewTransferShopService {
      */
     ResponseResult myTransferShopList(Long id);
 
+
+    /**
+     * 我的浏览转铺列表
+     * @param id
+     * @return
+     */
+    ResponseResult myBrowseTransferShopList(Long id);
+
+    /**
+     * 我的收藏转铺列表
+     * @param userId
+     * @return
+     */
+    ResponseResult myHouseCollectTransferShopList(Long userId);
 }
