@@ -44,7 +44,7 @@ public class SysSubwayController {
     public ResponseResult listSubwayLine(@RequestBody SysBaseDTO sysBaseDTO) {
         ResponseResult result = new ResponseResult();
         try {
-            sysSubwayService.listSubwayLine(sysBaseDTO);
+           result =  sysSubwayService.listSubwayLine(sysBaseDTO);
 
         } catch (Exception e) {
             log.error("地铁线列表失败" + e.getMessage(), e);

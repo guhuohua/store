@@ -182,4 +182,15 @@
       parent_id = #{parentId,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id="list" resultType="com.ch.entity.BusinessType">
+    SELECT * FROM business_type t
+
+    where 5 = 5
+
+    <if test="parentId != null">
+      and t.parent_id =  #{parentId,jdbcType=INTEGER}
+    </if>
+
+  </select>
 </mapper>

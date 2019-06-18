@@ -42,8 +42,7 @@ public class SysMenuTreeController {
         return result;
     }
 
-
-    @ApiOperation("编辑菜单")
+   @ApiOperation("编辑菜单")
     @PostMapping(value = "edit")
     public ResponseResult editSysMenuTree(@RequestBody SysMenu sysMenu){
         ResponseResult result = new ResponseResult();

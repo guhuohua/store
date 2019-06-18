@@ -1,12 +1,12 @@
 package com.ch.dao;
 
 
-import java.util.List;
-
 import com.ch.entity.BusinessType;
 import com.ch.entity.BusinessTypeExample;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface BusinessTypeMapper {
@@ -31,4 +31,7 @@ public interface BusinessTypeMapper {
     int updateByPrimaryKeySelective(BusinessType record);
 
     int updateByPrimaryKey(BusinessType record);
+
+    List<BusinessType> list(@Param("parentId") Long parentId);
+
 }

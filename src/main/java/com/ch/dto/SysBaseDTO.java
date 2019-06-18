@@ -11,6 +11,16 @@ public class SysBaseDTO {
     private Integer pageSize;
     private Integer cityId;
 
+    private Long parentId;
+
+    public Long getParentId() {
+        return parentId;
+    }
+
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
+    }
+
     public Integer getPageNum() {
         return pageNum;
     }
