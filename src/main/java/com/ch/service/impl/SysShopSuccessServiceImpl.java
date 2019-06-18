@@ -11,12 +11,14 @@ import com.ch.base.ResponseResult;
 import com.ch.dao.LookShopMapper;
 import com.ch.dao.SuccessCaseMapper;
 import com.ch.dao.TransferShopMapper;
+import com.ch.dto.SolrDTO;
 import com.ch.dto.SuccessCaseDTO;
 import com.ch.entity.LookShop;
 import com.ch.entity.SuccessCase;
 import com.ch.entity.TransferShop;
 import com.ch.entity.TransferShopExample;
 import com.ch.model.SysSuccessCaseParm;
+import com.ch.service.SolrService;
 import com.ch.service.SysShopSuccessService;
 import com.ch.util.IdUtil;
 import com.github.pagehelper.PageHelper;
@@ -37,6 +39,8 @@ public class SysShopSuccessServiceImpl implements SysShopSuccessService {
     TransferShopMapper transferShopMapper;
     @Autowired
     SuccessCaseMapper successCaseMapper;
+    @Autowired
+    SolrService solrService;
 
 
     @Override
@@ -78,6 +82,11 @@ public class SysShopSuccessServiceImpl implements SysShopSuccessService {
         successCaseMapper.insert(successCase);
         updateLookShopStatus(storeId);
         updateTransferShopStatus(transferShop.getId());
+        SolrDTO solrDTO = new SolrDTO();
+        solrDTO.setLookShopId(storeId);
+        solrDTO.setTransferShopId(transferShop.getId());
+        solrService.addSolr(solrDTO);
+
         return result;
     }
 

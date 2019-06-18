@@ -44,7 +44,7 @@ public class SysLoopLineController {
     public ResponseResult listLoopLine(@RequestBody SysBaseDTO sysBaseDTO) {
         ResponseResult result = new ResponseResult();
         try {
-            sysLoopLineService.list(sysBaseDTO);
+          result =   sysLoopLineService.list(sysBaseDTO);
 
         } catch (Exception e) {
             log.error("换线列表失败" + e.getMessage(), e);

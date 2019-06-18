@@ -41,11 +41,11 @@ public class SysShopTypeController {
 
 
     @PostMapping("listShopType")
-    @ApiOperation("物业类型列表")
+    @ApiOperation("店铺类型列表")
     public ResponseResult listShopType(@RequestBody SysBaseDTO sysBaseDTO) {
         ResponseResult result = new ResponseResult();
         try {
-            sysShopTypeService.listShopType(sysBaseDTO);
+          result =  sysShopTypeService.listShopType(sysBaseDTO);
 
         } catch (Exception e) {
             log.error("店铺类型列表失败" + e.getMessage(), e);

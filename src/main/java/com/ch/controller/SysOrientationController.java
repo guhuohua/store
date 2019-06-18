@@ -9,10 +9,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @Slf4j
@@ -24,7 +21,7 @@ public class SysOrientationController {
 
     @PostMapping("editOrientation")
     @ApiOperation("编辑朝向")
-    public ResponseResult editOrientation(Orientation orientation) {
+    public ResponseResult editOrientation(@RequestBody Orientation orientation) {
         ResponseResult result = new ResponseResult();
         try {
             if (BeanUtils.isNotEmpty(orientation.getId())) {
@@ -44,10 +41,10 @@ public class SysOrientationController {
 
     @PostMapping("listOrientation")
     @ApiOperation("朝向列表")
-    public ResponseResult listOrientation(SysBaseDTO sysBaseDTO) {
+    public ResponseResult listOrientation(@RequestBody SysBaseDTO sysBaseDTO) {
         ResponseResult result = new ResponseResult();
         try {
-            sysOrientationService.listOrientation(sysBaseDTO);
+         result =    sysOrientationService.listOrientation(sysBaseDTO);
 
         } catch (Exception e) {
             log.error("朝向列表失败" + e.getMessage(), e);
@@ -60,7 +57,7 @@ public class SysOrientationController {
 
     @GetMapping("deleOrientation")
     @ApiOperation("删除朝向类型")
-    public ResponseResult deleOrientation(Long id)  {
+    public ResponseResult deleOrientation(@RequestParam Long id)  {
         ResponseResult result = new ResponseResult();
         try {
             sysOrientationService.deleOrientation(id);

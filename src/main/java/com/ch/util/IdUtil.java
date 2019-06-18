@@ -18,7 +18,7 @@ public class IdUtil {
             {
                 tmpIDlocked = true;
                 //当前：（年、月、日、时、分、秒、毫秒）*10000
-                ltime = Long.valueOf(new SimpleDateFormat("yyMMddhhmmssSSS").format(new Date()).toString()) * 10000;
+                ltime = Long.valueOf(new SimpleDateFormat("yyMMddhhmmss").format(new Date()).toString()) * 10000;
                 if(tmpID < ltime)
                 {
                     tmpID = ltime;
