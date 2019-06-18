@@ -6,7 +6,6 @@
 
 package com.ch.service.impl;
 
-import com.ch.base.BeanUtils;
 import com.ch.base.ResponseResult;
 import com.ch.dao.LookShopMapper;
 import com.ch.dao.SuccessCaseMapper;
@@ -95,7 +94,7 @@ public class SysShopSuccessServiceImpl implements SysShopSuccessService {
         ResponseResult result = new ResponseResult();
         PageHelper.startPage(sysSuccessCaseParm.getPageNum(), sysSuccessCaseParm.getPageSize());
         List<SuccessCaseDTO> successCaseDTOS = new ArrayList<>();
-        if (BeanUtils.isNotEmpty(sysSuccessCaseParm.getLooker())) {
+      /*  if (BeanUtils.isNotEmpty(sysSuccessCaseParm.getLooker())) {
             successCaseDTOS = successCaseMapper.list(sysSuccessCaseParm.getLooker(), sysSuccessCaseParm.getTransferTel(), sysSuccessCaseParm.getTransfer(), sysSuccessCaseParm.getTransferTel());
             for (SuccessCaseDTO successCaseDTO : successCaseDTOS) {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -138,19 +137,18 @@ public class SysShopSuccessServiceImpl implements SysShopSuccessService {
             PageInfo<SuccessCaseDTO> page = new PageInfo<>(successCaseDTOS);
             result.setData(page);
             return result;
-        }else {
-            successCaseDTOS = successCaseMapper.findAll();
-            for (SuccessCaseDTO successCaseDTO : successCaseDTOS) {
+        }*/
+        List<SuccessCaseDTO> list = successCaseMapper.list(sysSuccessCaseParm.getLooker(), sysSuccessCaseParm.getLookTel(), sysSuccessCaseParm.getTransfer(), sysSuccessCaseParm.getTransferTel());
+        for (SuccessCaseDTO successCaseDTO : list) {
                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 successCaseDTO.setFormartTime(sdf.format(successCaseDTO.getSuccessTime()));
 
-            }
-            PageInfo<SuccessCaseDTO> page = new PageInfo<>(successCaseDTOS);
-            result.setData(page);
-            return result;
+
         }
 
-
+        PageInfo<SuccessCaseDTO> page = new PageInfo<>(list);
+        result.setData(page);
+        return result;
 
 
     }
