@@ -89,6 +89,9 @@ public class StoreSolrSchema {
     @Field
     private Long userId;
 
+    @Field
+    private String storeAttribute;
+
     private Long loopLineId;
 
     private Long subwayLineId;

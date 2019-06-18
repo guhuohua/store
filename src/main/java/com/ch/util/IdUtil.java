@@ -1,7 +1,6 @@
 package com.ch.util;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Random;
 
 public class IdUtil {
 
@@ -9,28 +8,19 @@ public class IdUtil {
 
     private static boolean tmpIDlocked = false;
 
-    public static long getId()
-    {
-        long ltime = 0;
-        while (true)
-        {
-            if(tmpIDlocked == false)
-            {
-                tmpIDlocked = true;
-                //当前：（年、月、日、时、分、秒、毫秒）*10000
-                ltime = Long.valueOf(new SimpleDateFormat("yyMMddhhmmss").format(new Date()).toString()) * 10000;
-                if(tmpID < ltime)
-                {
-                    tmpID = ltime;
-                }
-                else
-                {
-                    tmpID = tmpID + 1;
-                    ltime = tmpID;
-                }
-                tmpIDlocked = false;
-                return ltime;
-            }
-        }
+    public static long getId() {
+        //取当前时间的长整形值包含毫秒
+        long millis = System.currentTimeMillis();
+        //加上两位随机数
+        Random random = new Random();
+        int end2 = random.nextInt(99);
+        //如果不足两位前面补0
+        String str = millis + String.format("%02d", end2);
+        long id = new Long(str);
+        return id;
+    }
+
+    public static void main(String[] args) {
+        System.out.println(IdUtil.getId());
     }
 }

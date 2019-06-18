@@ -2,6 +2,7 @@ package com.ch.service;
 
 import com.ch.base.ResponseResult;
 import com.ch.model.ViewBrowseParam;
+import com.ch.model.ViewFeedBackParam;
 import com.ch.model.ViewWXLoginParam;
 
 public interface ViewBaseService {
@@ -127,4 +128,13 @@ public interface ViewBaseService {
      * @return
      */
     ResponseResult deleteCollection(Long userId, ViewBrowseParam param);
+
+
+    /**
+     * 意见反馈
+     * @param userId
+     * @param param
+     * @return
+     */
+    ResponseResult feedBack(Long userId, ViewFeedBackParam param);
 }

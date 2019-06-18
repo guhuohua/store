@@ -246,6 +246,20 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>org.mybatis.generator</groupId>
+				<artifactId>mybatis-generator-maven-plugin</artifactId>
+				<!--版本号-->
+				<version>1.3.5</version>
+				<configuration>
+					<!--路径-->
+					<configurationFile>${basedir}/src/main/resources/mybatis-generator.xml
+					</configurationFile>
+					<!--设置可以覆盖 不然会追加-->
+					<overwrite>true</overwrite>
+					<verbose>true</verbose>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 

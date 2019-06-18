@@ -239,7 +239,7 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
                 params.append("storeType:" + param.getStoreType());
             }
         }
-        if (BeanUtils.isNotEmpty(param.getStoreStatus())) {
+        if (null != param.getStoreStatus()) {
             if (params != null) {
                 params.append(" AND (storeStatus:" + param.getStoreStatus() + ")");
             } else {
@@ -255,7 +255,14 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
                 params.append("userId:" + param.getClientId());
             }
         }
-
+        if (BeanUtils.isNotEmpty(param.getStoreAttribute())) {
+            if (params != null) {
+                params.append(" AND (storeAttribute:" + param.getStoreAttribute() + ")");
+            } else {
+                params = new StringBuilder();
+                params.append("storeAttribute:" + param.getStoreAttribute());
+            }
+        }
         if ("TIME".equals(param.getSort())) {
             solrQuery.addSort("createTime", SolrQuery.ORDER.asc);
         }
