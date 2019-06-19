@@ -92,6 +92,9 @@ public class StoreSolrSchema {
     @Field
     private String storeAttribute;
 
+    @Field
+    private Long dealDate;
+
     private Long loopLineId;
 
     private Long subwayLineId;

@@ -44,6 +44,9 @@ public class SolrServiceImpl implements SolrService {
     BsAreaMapper bsAreaMapper;
    @Autowired
    ClientMapper clientMapper;
+
+   @Autowired
+   SuccessCaseMapper successCaseMapper;
     @Override
     @Async
     public void addSolr(SolrDTO solrDTO) {
@@ -62,6 +65,7 @@ public class SolrServiceImpl implements SolrService {
             storeSolrSchema.setStoreArea( Long.valueOf(transferShop.getArea()));
             storeSolrSchema.setStoreCategory(transferShop.getRecommendType());
             storeSolrSchema.setStoreType(0);
+            storeSolrSchema.setDealDate(transferShop.getSuccessTime().getTime());
             storeSolrSchema.setUserId(transferShop.getClientId());
             storeSolrSchema.setStoreStatus(transferShop.getStatus());
             storeSolrSchema.setStoreName(transferShop.getTitle());
