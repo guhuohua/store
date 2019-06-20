@@ -263,6 +263,13 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
                 params = new StringBuilder();
                 params.append("storeAttribute:" + param.getStoreAttribute());
             }
+        } else {
+            if (params != null) {
+                params.append(" AND (storeAttribute:" + param.getStoreAttribute() + ")");
+            } else {
+                params = new StringBuilder();
+                params.append("storeAttribute:" + param.getStoreAttribute());
+            }
         }
         if ("TIME".equals(param.getSort())) {
             solrQuery.addSort("createTime", SolrQuery.ORDER.asc);

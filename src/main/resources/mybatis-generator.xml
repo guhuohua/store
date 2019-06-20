@@ -30,7 +30,7 @@
         <javaClientGenerator type="XMLMAPPER" targetPackage="com.ch.dao"  targetProject="src">
         </javaClientGenerator>
         <!--为哪些表生成代码 tableName:表名 schema:不用填写,其余属性是禁用例子查询的生成 -->
-        <table schema="" tableName="feed_back">
+        <table schema="" tableName="client_collection_record">
         </table>
     </context>
 </generatorConfiguration>

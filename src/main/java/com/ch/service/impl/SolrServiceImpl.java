@@ -65,7 +65,9 @@ public class SolrServiceImpl implements SolrService {
             storeSolrSchema.setStoreArea( Long.valueOf(transferShop.getArea()));
             storeSolrSchema.setStoreCategory(transferShop.getRecommendType());
             storeSolrSchema.setStoreType(0);
-            storeSolrSchema.setDealDate(transferShop.getSuccessTime().getTime());
+            if (BeanUtils.isNotEmpty(transferShop.getSuccessTime())) {
+                storeSolrSchema.setDealDate(transferShop.getSuccessTime().getTime());
+            }
             storeSolrSchema.setUserId(transferShop.getClientId());
             storeSolrSchema.setStoreStatus(transferShop.getStatus());
             storeSolrSchema.setStoreName(transferShop.getTitle());
