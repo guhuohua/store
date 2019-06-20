@@ -72,8 +72,13 @@ public class ViewTransferShopController {
     @ApiOperation("转铺详情")
     public ResponseResult transferShopInfo(HttpServletRequest req, @RequestParam Long id) {
         ResponseResult result = new ResponseResult();
+        String token = req.getHeader("Authorization");
+        Long userId = null;
+        if (BeanUtils.isNotEmpty(token)) {
+            userId = TokenUtil.getUserId(token);
+        }
          try {
-            result = viewTransferShopService.transferShopInfo(id);
+            result = viewTransferShopService.transferShopInfo(userId, id);
         } catch (Exception e) {
             log.error("获取转铺详情失败" + e.getMessage(), e);
             result.setCode(600);

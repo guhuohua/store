@@ -100,6 +100,6 @@ public class ViewTransferShopDTO {
 
     private String headImg;
 
-
+    private Integer collection;
 
 }

@@ -27,7 +27,7 @@ public interface ViewTransferShopService {
      * @param storeId
      * @return
      */
-    ResponseResult transferShopInfo(Long storeId);
+    ResponseResult transferShopInfo(Long userId, Long storeId);
 
 
     /**

@@ -89,6 +89,8 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
     @Autowired
     ShopRentTypeMapper shopRentTypeMapper;
 
+    @Autowired
+    HouseCollectMapper houseCollectMapper;
 
     @Override
     @Transactional
@@ -310,12 +312,20 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
     }
 
     @Override
-    public ResponseResult transferShopInfo(Long storeId) {
+    public ResponseResult transferShopInfo(Long userId, Long storeId) {
         ResponseResult result = new ResponseResult();
         TransferShop transferShop = transferShopMapper.selectByPrimaryKey(storeId);
         ViewTransferShopDTO viewTransferShopDTO = new ViewTransferShopDTO();
         if (BeanUtils.isNotEmpty(transferShop)) {
             modelMapper.map(transferShop, viewTransferShopDTO);
+            if (BeanUtils.isNotEmpty(userId)) {
+                HouseCollectExample houseCollectExample = new HouseCollectExample();
+                houseCollectExample.createCriteria().andClientIdEqualTo(userId).andTransferShopIdEqualTo(storeId);
+                List<HouseCollect> houseCollects = houseCollectMapper.selectByExample(houseCollectExample);
+                if (houseCollects.size() > 0) {
+                    viewTransferShopDTO.setCollection(1);
+                }
+            }
             viewTransferShopDTO.setLongitude(transferShop.getLon());
             viewTransferShopDTO.setLatitude(transferShop.getLat());
             viewTransferShopDTO.setUsername(transferShop.getContacts());

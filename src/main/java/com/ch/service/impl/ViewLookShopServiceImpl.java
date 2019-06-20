@@ -71,6 +71,9 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
     @Autowired
     ClientMapper clientMapper;
 
+    @Autowired
+    HouseCollectMapper houseCollectMapper;
+
     @Override
     @Transactional
     public ResponseResult addLookShop(ViewLookShopAddParam param, Long userId) {
@@ -136,13 +139,22 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
     }
 
     @Override
-    public ResponseResult lookShopInfo(Long id) {
+    public ResponseResult lookShopInfo(Long userId, Long id) {
         ResponseResult result = new ResponseResult();
         ViewLookShopInfoDTO viewLookShopInfoDTO = new ViewLookShopInfoDTO();
         LookShop lookShop = lookShopMapper.selectByPrimaryKey(id);
         viewLookShopInfoDTO.setUsername(lookShop.getContacts());
         modelMapper.map(lookShop, viewLookShopInfoDTO);
         viewLookShopInfoDTO.setUsername(lookShop.getContacts());
+        if (BeanUtils.isNotEmpty(userId)) {
+            HouseCollectExample houseCollectExample = new HouseCollectExample();
+            houseCollectExample.createCriteria().andClientIdEqualTo(userId).andLookShopIdEqualTo(id);
+            List<HouseCollect> houseCollects = houseCollectMapper.selectByExample(houseCollectExample);
+            if (houseCollects.size() > 0) {
+                viewLookShopInfoDTO.setCollection(1);
+            }
+        }
+
 
         LookShopBusinessExample lookShopBusinessExample = new LookShopBusinessExample();
         lookShopBusinessExample.createCriteria().andLookShopIdEqualTo(id);

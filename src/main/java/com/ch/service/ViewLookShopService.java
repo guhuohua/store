@@ -18,7 +18,7 @@ public interface ViewLookShopService {
      * @param id
      * @return
      */
-    ResponseResult lookShopInfo(Long id);
+    ResponseResult lookShopInfo(Long userId, Long id);
 
 
     /**

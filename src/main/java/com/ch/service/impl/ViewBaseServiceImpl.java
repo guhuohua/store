@@ -66,7 +66,11 @@ public class ViewBaseServiceImpl implements ViewBaseService {
     HouseCollectMapper houseCollectMapper;
     @Autowired
     BrowsingHistoryMapper browsingHistoryMapper;
+    @Autowired
+    LookShopMapper lookShopMapper;
 
+    @Autowired
+    TransferShopMapper transferShopMapper;
 
     @Autowired
     FeedBackMapper feedBackMapper;
@@ -265,6 +269,22 @@ public class ViewBaseServiceImpl implements ViewBaseService {
     @Override
     @Transactional
     public void saveBrowse(Long userId, ViewBrowseParam param) {
+        if (null != param.getLookShopId()) {
+            LookShopExample lookShopExample = new LookShopExample();
+            lookShopExample.createCriteria().andIdEqualTo(param.getLookShopId()).andClientIdEqualTo(userId);
+            List<LookShop> lookShops = lookShopMapper.selectByExample(lookShopExample);
+            if (lookShops.size() > 0) {
+                return;
+            }
+        }
+        if (null != param.getTransferShopId()) {
+            TransferShopExample transferShopExample = new TransferShopExample();
+            transferShopExample.createCriteria().andIdEqualTo(param.getTransferShopId()).andClientIdEqualTo(userId);
+            List<TransferShop> transferShops = transferShopMapper.selectByExample(transferShopExample);
+            if (transferShops.size() > 0) {
+                return;
+            }
+        }
         int i = browsingHistoryMapper.seleteExits(userId);
         List<BrowsingHistory> browsingHistories = browsingHistoryMapper.selectByclientId(userId);
         if (browsingHistories.size() > 50) {

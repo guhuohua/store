@@ -96,4 +96,6 @@ public class ViewLookShopInfoDTO {
     private String shopRentType;
 
     private String headImg;
+
+    private Integer collection;
 }

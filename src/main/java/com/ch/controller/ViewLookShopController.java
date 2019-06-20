@@ -53,10 +53,15 @@ public class ViewLookShopController {
 
     @GetMapping("/info")
     @ApiOperation("选址详情")
-    public ResponseResult lookShopInfo(@RequestParam Long id) {
+    public ResponseResult lookShopInfo(HttpServletRequest req, @RequestParam Long id) {
         ResponseResult result = new ResponseResult();
         try {
-            result = viewLookShopService.lookShopInfo(id);
+            String token = req.getHeader("Authorization");
+            Long userId = null;
+            if (BeanUtils.isNotEmpty(token)) {
+                userId = TokenUtil.getUserId(token);
+            }
+            result = viewLookShopService.lookShopInfo(userId, id);
         } catch (Exception e) {
             log.error("获取选址详情失败" + e.getMessage(), e);
             result.setCode(600);

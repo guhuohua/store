@@ -85,7 +85,7 @@ public class SysMenuTreeImpl implements SysMenuTreeService {
                     result.setCode(0);
 
                     result.setData(rootMenu);
-                    redisTemplate.boundHashOps("permission").put(userId,rootMenu);
+//                    redisTemplate.boundHashOps("permission").put(userId,rootMenu);
                     return result;
 
                 } catch (Exception e) {

@@ -23,6 +23,7 @@ import com.github.pagehelper.PageInfo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,6 +50,7 @@ public class SysUserServiceImpl implements SysUserService {
 
 
     @Override
+    @Cacheable(value = "findById" , key = "'userId'+#userId")
     public UserDTO findById(Long userId) {
         UserDTO dto = new UserDTO();
         SysUser sysUser = sysUserMapper.selectByPrimaryKey(userId);
