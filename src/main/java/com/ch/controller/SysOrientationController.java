@@ -8,6 +8,8 @@ import com.ch.service.SysOrientationService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +23,7 @@ public class SysOrientationController {
 
     @PostMapping("editOrientation")
     @ApiOperation("编辑朝向")
+    @RequiresPermissions(logical = Logical.OR, value = {"orientation_add","orientation_edit","orientation"})
     public ResponseResult editOrientation(@RequestBody Orientation orientation) {
         ResponseResult result = new ResponseResult();
         try {
@@ -41,6 +44,7 @@ public class SysOrientationController {
 
     @PostMapping("listOrientation")
     @ApiOperation("朝向列表")
+    @RequiresPermissions(logical = Logical.OR, value = {"orientation_see","orientation"})
     public ResponseResult listOrientation(@RequestBody SysBaseDTO sysBaseDTO) {
         ResponseResult result = new ResponseResult();
         try {
@@ -57,6 +61,7 @@ public class SysOrientationController {
 
     @GetMapping("deleOrientation")
     @ApiOperation("删除朝向类型")
+    @RequiresPermissions(logical = Logical.OR, value = {"orientation_dele","orientation"})
     public ResponseResult deleOrientation(@RequestParam Long id)  {
         ResponseResult result = new ResponseResult();
         try {

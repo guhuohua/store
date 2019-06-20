@@ -8,6 +8,8 @@ import com.ch.service.SysPropertyTypeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +23,7 @@ public class SysPropertyTypeController {
 
     @PostMapping("editPropertyType")
     @ApiOperation("编辑物业类型")
+    @RequiresPermissions(logical = Logical.OR, value = {"property_add","property_edit","property_type"})
     public ResponseResult editPropertyType(@RequestBody PropertyType propertyType) {
         ResponseResult result = new ResponseResult();
         try {
@@ -41,6 +44,7 @@ public class SysPropertyTypeController {
 
     @PostMapping("listPropertyType")
     @ApiOperation("物业类型列表")
+    @RequiresPermissions(logical = Logical.OR, value = {"property_see","property_type"})
     public ResponseResult listPropertyType( @RequestBody SysBaseDTO sysBaseDTO) {
         ResponseResult result = new ResponseResult();
         try {
@@ -57,6 +61,7 @@ public class SysPropertyTypeController {
 
     @GetMapping("delePropertyType")
     @ApiOperation("删除物业类型")
+    @RequiresPermissions(logical = Logical.OR, value = {"property_dele","property_type"})
     public ResponseResult delePropertyType(@RequestParam Long id)  {
         ResponseResult result = new ResponseResult();
         try {

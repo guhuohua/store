@@ -2,12 +2,13 @@ package com.ch.controller;
 
 import com.ch.base.BeanUtils;
 import com.ch.base.ResponseResult;
-import com.ch.dto.SysBaseDTO;
 import com.ch.entity.BusinessType;
 import com.ch.service.SysBusinessTypeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +23,7 @@ public class SysBusinessTypeController {
 
     @PostMapping("editBusinessType")
     @ApiOperation("编辑经营范围")
+    @RequiresPermissions(logical = Logical.OR, value = {"sys_person_mange_add","sys_person_mange_edit","sys_person_mange"})
     public ResponseResult editBusinessType(@RequestBody BusinessType businessType) {
         ResponseResult result = new ResponseResult();
         try {
@@ -42,10 +44,11 @@ public class SysBusinessTypeController {
 
     @PostMapping("listBusinessType")
     @ApiOperation("经营范围列表")
-    public ResponseResult listDecorateType(@RequestBody SysBaseDTO sysBaseDTO) {
+    @RequiresPermissions(logical = Logical.OR, value = {"sys_person_mange_add","sys_person_mange_edit","sys_person_mange"})
+    public ResponseResult listDecorateType() {
         ResponseResult result = new ResponseResult();
         try {
-            result = sysBusinessTypeService.listBusinessType(sysBaseDTO);
+            result = sysBusinessTypeService.listBusinessType();
 
         } catch (Exception e) {
             log.error("经营范围表失败" + e.getMessage(), e);
@@ -58,6 +61,7 @@ public class SysBusinessTypeController {
 
     @GetMapping("deleBusinessType")
     @ApiOperation("删除经营范围")
+    @RequiresPermissions(logical = Logical.OR, value = {"sys_person_mange_add","sys_person_mange_edit","sys_person_mange"})
     public ResponseResult deleBusinessType(@RequestParam Long id)  {
         ResponseResult result = new ResponseResult();
         try {

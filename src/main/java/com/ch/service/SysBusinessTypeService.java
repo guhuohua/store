@@ -1,7 +1,6 @@
 package com.ch.service;
 
 import com.ch.base.ResponseResult;
-import com.ch.dto.SysBaseDTO;
 import com.ch.entity.BusinessType;
 
 public interface SysBusinessTypeService {
@@ -29,8 +28,8 @@ public interface SysBusinessTypeService {
 
     /**
      * 列表展示
-     * @param sysBaseDTO
+     * @param
      * @return
      */
-    ResponseResult listBusinessType(SysBaseDTO sysBaseDTO);
+    ResponseResult listBusinessType();
 }

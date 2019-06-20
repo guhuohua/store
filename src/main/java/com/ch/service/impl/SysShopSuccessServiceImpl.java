@@ -24,6 +24,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -63,6 +64,7 @@ public class SysShopSuccessServiceImpl implements SysShopSuccessService {
     }
 
     @Override
+    @Transactional
     public ResponseResult addSuccessCase(Long storeId, String shopSn) {
         ResponseResult result = new ResponseResult();
         SuccessCase successCase = new SuccessCase();

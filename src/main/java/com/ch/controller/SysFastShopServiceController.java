@@ -12,6 +12,8 @@ import com.ch.service.SysFastShopService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,6 +31,7 @@ public class SysFastShopServiceController {
 
     @PostMapping ("applyList")
     @ApiOperation("申请列表")
+    @RequiresPermissions(logical = Logical.OR, value = {"apply_list_see","apply_list"})
     public ResponseResult showFastFastTransferShop(@RequestBody SysFastShopDTO sysFastShopDTO) {
         ResponseResult result = new ResponseResult();
         try {

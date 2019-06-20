@@ -31,7 +31,7 @@ public class SysUserController {
 
 
     @PostMapping(value = "insert_or_update")
-    @RequiresPermissions(logical = Logical.OR, value = {"sys_person_mange_insert","sys_person_mange_edit","sys_person_mange_mange"})
+    @RequiresPermissions(logical = Logical.OR, value = {"sys_person_mange_add","sys_person_mange_edit","sys_person_mange"})
     @ApiOperation("新增编辑人员")
     public ResponseResult insertOrUpdate(HttpServletRequest req, HttpServletResponse res, @RequestBody SysUserDTO sysUserDTO) {
         ResponseResult result = new ResponseResult();
@@ -48,7 +48,7 @@ public class SysUserController {
 
 
     @PostMapping(value = "userList")
-    @RequiresPermissions(logical = Logical.OR, value = {"sys_person_mange_insert","sys_person_mange_edit","sys_person_mange_mange"})
+    @RequiresPermissions(logical = Logical.OR, value = {"sys_person_mange_see","sys_person_mange"})
     @ApiOperation("展示人员列表")
     public ResponseResult userList(HttpServletRequest req, HttpServletResponse res, @RequestBody UserParms userParms) {
         ResponseResult result = new ResponseResult();
@@ -65,7 +65,7 @@ public class SysUserController {
 
 
     @GetMapping(value = "resetPassword")
-    @RequiresPermissions(logical = Logical.OR, value = {"sys_person_mange_insert","sys_person_mange_edit","sys_person_mange_mange"})
+    @RequiresPermissions(logical = Logical.OR, value = {"sys_person_mange_reset","sys_person_mange"})
     @ApiOperation("重置密码")
     public ResponseResult resetPassword( @RequestParam  Long userId) {
         ResponseResult result = new ResponseResult();
@@ -83,7 +83,7 @@ public class SysUserController {
 
 
     @GetMapping(value = "updateUserStatus")
-    @RequiresPermissions(logical = Logical.OR, value = {"sys_person_mange_insert","sys_person_mange_edit","sys_person_mange_mange"})
+    @RequiresPermissions(logical = Logical.OR, value = {"sys_person_mange_edit","sys_person_mange"})
     @ApiOperation("修改人员状态失败")
     public ResponseResult updateUserStatus( @RequestParam Long userId,@RequestParam int status) {
         ResponseResult result = new ResponseResult();
@@ -101,7 +101,7 @@ public class SysUserController {
 
 
     @GetMapping(value = "findRoleList")
-    @RequiresPermissions(logical = Logical.OR, value = {"sys_person_mange_insert","sys_person_mange_edit","sys_person_mange_mange"})
+    @RequiresPermissions(logical = Logical.OR, value = {"sys_person_mange_see","sys_person_mange"})
     @ApiOperation("查询所有角色")
     public ResponseResult findRoleList() {
         ResponseResult result = new ResponseResult();
@@ -119,7 +119,7 @@ public class SysUserController {
 
 
     @PostMapping(value = "updatePassword")
-    @RequiresPermissions(logical = Logical.OR, value = {"sys_person_mange_insert","sys_person_mange_edit","sys_person_mange_mange"})
+    @RequiresPermissions(logical = Logical.OR, value = {"sys_person_mange_edit_password","sys_person_mange"})
     @ApiOperation("修改密码")
     public ResponseResult updatePassword(@RequestBody PasswordParam passwordParam) {
         ResponseResult result = new ResponseResult();
@@ -134,6 +134,21 @@ public class SysUserController {
         }
         return result;
     }
-
+    @GetMapping(value = "deleUser")
+    @RequiresPermissions(logical = Logical.OR, value = {"sys_person_mange_dele","sys_person_mange"})
+    @ApiOperation("删除人员")
+    public ResponseResult delePassword(@RequestParam Long userId) {
+        ResponseResult result = new ResponseResult();
+        try {
+            result = sysUserService.dele(userId);
+        }
+        catch (Exception e) {
+            LOGGER.error("删除人员失败" + e.getMessage(), e);
+            result.setCode(500);
+            result.setError(e.getMessage());
+            result.setError_description("服务异常，请稍后重试");
+        }
+        return result;
+    }
 
 }
