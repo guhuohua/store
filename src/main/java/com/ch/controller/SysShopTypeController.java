@@ -8,6 +8,8 @@ import com.ch.service.SysShopTypeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +24,7 @@ public class SysShopTypeController {
 
     @PostMapping("editShopType")
     @ApiOperation("编辑店铺类型")
+    @RequiresPermissions(logical = Logical.OR, value = {"shop_type_add","shop_type_edit","shop_type"})
     public ResponseResult editShopType(@RequestBody ShopType shopType) {
         ResponseResult result = new ResponseResult();
         try {
@@ -42,6 +45,7 @@ public class SysShopTypeController {
 
     @PostMapping("listShopType")
     @ApiOperation("店铺类型列表")
+    @RequiresPermissions(logical = Logical.OR, value = {"shop_type_see","shop_rent_type"})
     public ResponseResult listShopType(@RequestBody SysBaseDTO sysBaseDTO) {
         ResponseResult result = new ResponseResult();
         try {
@@ -58,6 +62,7 @@ public class SysShopTypeController {
 
     @GetMapping("deleShopType")
     @ApiOperation("删除店铺类型")
+    @RequiresPermissions(logical = Logical.OR, value = {"shop_type_dele","shop_rent_type"})
     public ResponseResult delShopType(@RequestParam Long id)  {
         ResponseResult result = new ResponseResult();
         try {

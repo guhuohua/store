@@ -8,6 +8,8 @@ import com.ch.service.SysDecorateTypeService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -23,6 +25,7 @@ public class SysDecorateTypeController {
    
     @PostMapping("editDecorateType")
     @ApiOperation("编辑装修类型")
+    @RequiresPermissions(logical = Logical.OR, value = {"decorate_type_add","decorate_type_edit","decorate_type"})
     public ResponseResult editDecorateType(@RequestBody DecorateType decorateType) {
         ResponseResult result = new ResponseResult();
         try {
@@ -43,6 +46,7 @@ public class SysDecorateTypeController {
 
     @PostMapping("listDecorateType")
     @ApiOperation("装修类型列表")
+    @RequiresPermissions(logical = Logical.OR, value = {"decorate_type_see","decorate_type"})
     public ResponseResult listDecorateType(@RequestBody SysBaseDTO sysBaseDTO) {
         ResponseResult result = new ResponseResult();
         try {
@@ -59,6 +63,7 @@ public class SysDecorateTypeController {
 
     @GetMapping("deleDecorateType")
     @ApiOperation("删除装修类型")
+    @RequiresPermissions(logical = Logical.OR, value = {"decorate_type_dele","decorate_type"})
     public ResponseResult deleDecorateType(@RequestParam Long id)  {
         ResponseResult result = new ResponseResult();
         try {

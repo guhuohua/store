@@ -6,14 +6,14 @@ public class RolePermissionDTO {
 
     private Integer roleId;
 
-    private List<String> permissions;
+    private List<Integer> permissions;
 
 
-    public List<String> getPermissions() {
+    public List<Integer> getPermissions() {
         return permissions;
     }
 
-    public void setPermissions(List<String> permissions) {
+    public void setPermissions(List<Integer> permissions) {
         this.permissions = permissions;
     }
 

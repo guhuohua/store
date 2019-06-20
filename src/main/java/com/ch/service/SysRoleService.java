@@ -2,18 +2,16 @@ package com.ch.service;
 
 import com.ch.base.ResponseResult;
 import com.ch.dto.RoleDTO;
+import com.ch.model.RoleParam;
 import com.ch.model.RolePermissionDTO;
-import com.ch.model.SysRoleParam;
-
-import java.util.List;
 
 public interface SysRoleService {
    /**
     * 获取角色列表
-    * @param sysRoleParam
+    * @param
     * @return
     */
-   ResponseResult findRoleList(SysRoleParam sysRoleParam);
+   ResponseResult findRoleList(RoleParam roleParam);
 
 
    /**
@@ -26,10 +24,10 @@ public interface SysRoleService {
 
    /**
     * 批量删除或单个删除
-    * @param stringList
+    * @param
     * @return
     */
-   ResponseResult deleteRoles(List<Integer> stringList);
+   ResponseResult deleteRoles(Integer roleId);
 
    /**
     * 根据ID进行编辑

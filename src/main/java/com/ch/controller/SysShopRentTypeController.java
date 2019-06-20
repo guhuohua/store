@@ -8,6 +8,8 @@ import com.ch.service.SysRentShopService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +23,7 @@ public class SysShopRentTypeController {
 
     @PostMapping("editRentShopType")
     @ApiOperation("编辑店铺类型")
+    @RequiresPermissions(logical = Logical.OR, value = {"shop_rent_type_add","shop_rent_type_edit","shop_rent_type"})
     public ResponseResult editShopType( @RequestBody ShopRentType shopRentType) {
         ResponseResult result = new ResponseResult();
         try {
@@ -41,6 +44,7 @@ public class SysShopRentTypeController {
 
     @PostMapping("listRentShopType")
     @ApiOperation("物业类型列表")
+    @RequiresPermissions(logical = Logical.OR, value = {"shop_rent_type_see","shop_rent_type"})
     public ResponseResult listRentShopType(@RequestBody SysBaseDTO sysBaseDTO) {
         ResponseResult result = new ResponseResult();
         try {
@@ -57,6 +61,7 @@ public class SysShopRentTypeController {
 
     @GetMapping("deleRentShopType")
     @ApiOperation("删除租铺类型")
+    @RequiresPermissions(logical = Logical.OR, value = {"shop_rent_type_dele","shop_rent_type"})
     public ResponseResult delRentShopType(Long id)  {
         ResponseResult result = new ResponseResult();
         try {

@@ -8,6 +8,8 @@ import com.ch.service.SysLoopLineService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +23,7 @@ public class SysLoopLineController {
 
     @PostMapping("editLoopLine")
     @ApiOperation("编辑换线")
+    @RequiresPermissions(logical = Logical.OR, value = {"loop_line_add","loop_line_edit","loop_line"})
     public ResponseResult editShopType(@RequestBody LoopLine loopLine) {
         ResponseResult result = new ResponseResult();
         try {
@@ -41,6 +44,7 @@ public class SysLoopLineController {
 
     @PostMapping("listLoopLine")
     @ApiOperation("换线列表")
+    @RequiresPermissions(logical = Logical.OR, value = {"loop_line_see","loop_line"})
     public ResponseResult listLoopLine(@RequestBody SysBaseDTO sysBaseDTO) {
         ResponseResult result = new ResponseResult();
         try {
@@ -57,6 +61,7 @@ public class SysLoopLineController {
 
     @GetMapping("deleLoopLine")
     @ApiOperation("删除环线")
+    @RequiresPermissions(logical = Logical.OR, value = {"loop_line_dele","loop_line"})
     public ResponseResult deleLoopLine(@RequestParam Long id)  {
         ResponseResult result = new ResponseResult();
         try {

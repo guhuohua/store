@@ -17,6 +17,16 @@ public class SysRole {
 
     private Integer parentId;
 
+    private String forMatTime;
+
+    public String getForMatTime() {
+        return forMatTime;
+    }
+
+    public void setForMatTime(String forMatTime) {
+        this.forMatTime = forMatTime;
+    }
+
     public Integer getRoleId() {
         return roleId;
     }

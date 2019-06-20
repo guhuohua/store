@@ -28,6 +28,7 @@ public class SysMenuTreeController {
     private static final Logger LOGGER = LogManager.getLogger(SysMenuTreeController.class);
     @ApiOperation("后台菜单")
     @GetMapping (value = "free")
+
     public ResponseResult findSysMenuTree(HttpServletRequest request){
         ResponseResult result = new ResponseResult();
         try {

@@ -13,6 +13,8 @@ public class BusinessType {
 
     private List<BusinessType> children;
 
+
+
     public Long getParentId() {
         return parentId;
     }

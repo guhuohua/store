@@ -225,22 +225,23 @@ public class SysUserServiceImpl implements SysUserService {
                 result.setError_description("手机号不能重复");
                 return result;
             }
-            SysUser sysUser = new SysUser();
-            sysUser.setAccount(sysUserDTO.getAccount());
-            if (BeanUtils.isNotEmpty(sysUserDTO.getPassword())) {
+            SysUser sysUser1 = sysUserMapper.selectByPrimaryKey(sysUserDTO.getUserId());
+
+            sysUser1.setAccount(sysUserDTO.getAccount());
+           /* if (BeanUtils.isNotEmpty(sysUserDTO.getPassword())) {
                 String salt = UUID.randomUUID().toString();
                 PasswordUtil encoderMd5 = new PasswordUtil(salt, "sha-256");
                 String encodedPassword = encoderMd5.encode(sysUserDTO.getPassword());
                 sysUser.setSalt(salt);
                 sysUser.setPassword(encodedPassword);
-            }
-            sysUser.setPhone(sysUserDTO.getPhone());
-            sysUser.setUpdateTime(new Date());
-            sysUser.setUsername(sysUserDTO.getUserName());
-            sysUser.setUserId(sysUserDTO.getUserId());
-            sysUser.setStatus(sysUserDTO.getStatus());
+            }*/
+            sysUser1.setPhone(sysUserDTO.getPhone());
+            sysUser1.setUpdateTime(new Date());
+            sysUser1.setUsername(sysUserDTO.getUserName());
+            sysUser1.setUserId(sysUserDTO.getUserId());
+            sysUser1.setStatus(sysUserDTO.getStatus());
             try {
-                sysUserMapper.updateByPrimaryKey(sysUser);
+                sysUserMapper.updateByPrimaryKey(sysUser1);
                 sysUserRoleMapper.updateByUserId(sysUserDTO.getUserId(), sysUserDTO.getRoleId());
             } catch (Exception e) {
                 LOGGER.error("编辑人员失败" + e.getMessage(), e);
@@ -306,12 +307,11 @@ public class SysUserServiceImpl implements SysUserService {
         SysUser sysUser = sysUserMapper.selectByPrimaryKey(passwordParam.getUserId());
         PasswordUtil encoderMd5 = new PasswordUtil(sysUser.getSalt(), "sha-256");
         String encodedPassword = encoderMd5.encode(passwordParam.getOldPassword());
-        if (!encodedPassword.equals(sysUser.getPassword())){
+        if (!encodedPassword.equals(sysUser.getPassword())) {
             result.setCode(600);
             result.setError("请输入正确密码");
             result.setError_description("请输入正确密码");
-        }
-        else {
+        } else {
             String salt1 = UUID.randomUUID().toString();
             PasswordUtil encoderMd51 = new PasswordUtil(salt1, "sha-256");
             String encodedPassword1 = encoderMd51.encode(passwordParam.getNewPassword());
@@ -320,6 +320,13 @@ public class SysUserServiceImpl implements SysUserService {
             sysUserMapper.updateByPrimaryKey(sysUser);
 
         }
+        return result;
+    }
+
+    @Override
+    public ResponseResult dele(Long userId) {
+        ResponseResult result = new ResponseResult();
+        sysUserMapper.deleteByPrimaryKey(userId);
         return result;
     }
 

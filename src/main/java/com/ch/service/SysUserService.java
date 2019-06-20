@@ -9,13 +9,15 @@ import com.ch.model.PasswordParam;
 public interface SysUserService {
     /**
      * 根据主键ID进行查找实体对象
+     *
      * @param userId
      * @return
      */
-   UserDTO findById(Long userId);
+    UserDTO findById(Long userId);
 
     /**
      * 登录
+     *
      * @param userDTO
      * @return
      */
@@ -24,6 +26,7 @@ public interface SysUserService {
 
     /**
      * 修改添加人员
+     *
      * @param sysUserDTO
      * @return
      */
@@ -34,15 +37,14 @@ public interface SysUserService {
      * 展示人员列表
      *
      * @param userParms
-     *
      * @return
      */
     ResponseResult userList(UserParms userParms);
 
 
-
     /**
      * 重置密码
+     *
      * @param userId
      * @return
      */
@@ -50,6 +52,7 @@ public interface SysUserService {
 
     /**
      * 修改人员状态
+     *
      * @param userId
      * @param status
      * @return
@@ -60,5 +63,11 @@ public interface SysUserService {
     ResponseResult findRoleList();
 
     ResponseResult updatePassword(PasswordParam passwordParam);
+
+    /**
+     * @param userId
+     * @return
+     */
+    ResponseResult dele(Long userId);
 
 }

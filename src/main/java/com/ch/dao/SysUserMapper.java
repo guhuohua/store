@@ -17,7 +17,7 @@ public interface SysUserMapper {
 
     int deleteByExample(SysUserExample example);
 
-    int deleteByPrimaryKey(Integer userId);
+    int deleteByPrimaryKey(Long userId);
 
     int insert(SysUser record);
 
