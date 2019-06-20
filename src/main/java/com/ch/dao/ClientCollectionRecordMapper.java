@@ -2,8 +2,9 @@ package com.ch.dao;
 
 import com.ch.entity.ClientCollectionRecord;
 import com.ch.entity.ClientCollectionRecordExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface ClientCollectionRecordMapper {
     long countByExample(ClientCollectionRecordExample example);
