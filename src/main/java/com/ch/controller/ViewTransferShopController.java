@@ -98,6 +98,21 @@ public class ViewTransferShopController {
         return result;
     }
 
+    @GetMapping("/nearbyShop")
+    @ApiOperation("附近的转铺")
+    public ResponseResult nearbyShop(@RequestParam String lon, @RequestParam String lat) {
+        ResponseResult result = new ResponseResult();
+        try {
+            result = viewTransferShopService.nearbyShop(lon, lat);
+        } catch (Exception e) {
+            log.error("获取附近的店铺失败" + e.getMessage(), e);
+            result.setCode(600);
+            result.setError(e.getMessage());
+            result.setError_description("获取附近的店铺失败");
+        }
+        return result;
+    }
+
     @GetMapping("/myBrowseTransferShopList")
     @ApiOperation("我的浏览转铺记录")
     public ResponseResult myBrowseTransferShopList(HttpServletRequest req) {

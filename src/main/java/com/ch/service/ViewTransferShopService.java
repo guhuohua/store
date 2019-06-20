@@ -59,4 +59,13 @@ public interface ViewTransferShopService {
      * @return
      */
     ResponseResult myHouseCollectTransferShopList(Long userId);
+
+
+    /**
+     * 附近的找铺
+     * @param lon
+     * @param lat
+     * @return
+     */
+    ResponseResult nearbyShop(String lon, String lat);
 }

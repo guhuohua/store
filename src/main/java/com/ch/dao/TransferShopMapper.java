@@ -3,6 +3,7 @@ package com.ch.dao;
 import com.ch.dao.provider.TransferShopProvider;
 import com.ch.dto.SysTransferShopDTO;
 import com.ch.dto.ViewBrowseTransferShopDTO;
+import com.ch.dto.ViewNearbyShopDTO;
 import com.ch.entity.TransferShop;
 import com.ch.entity.TransferShopExample;
 import org.apache.ibatis.annotations.Param;
@@ -58,4 +59,20 @@ public interface TransferShopMapper {
             " from  house_collect  b   join transfer_shop  t on  b.transfer_shop_id=t.id   join client  c   on  c.id=t.client_id where b.client_id = #{userId} order by b.create_date desc")
     List<ViewBrowseTransferShopDTO> myHouseCollectList(@Param("userId") Long userId);
 
+
+    @Select("SELECT" +
+            "  id,title, image, CONCAT((select area_name from bs_area aa where aa.area_id = ts.area_id),'-', (select street_name from bs_street sa where sa.street_id = ts.street_id)) as address," +
+            "     area,rent,lon,lat,(" +
+            "    6371 * acos (" +
+            "      cos ( radians(#{lat}) )" +
+            "      * cos( radians( lat ) )" +
+            "      * cos( radians( lon ) - radians(#{lon}) )" +
+            "      + sin ( radians(#{lat}) )" +
+            "      * sin( radians( lat ) )" +
+            "    )" +
+            "  ) AS distance" +
+            " FROM transfer_shop ts" +
+            " HAVING distance < 3" +
+            " ORDER BY distance desc")
+    List<ViewNearbyShopDTO> nearbyShop(@Param("lon") String lon, @Param("lat") String lat);
 }

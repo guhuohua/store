@@ -5,6 +5,7 @@ import com.ch.base.ResponseResult;
 import com.ch.dao.*;
 import com.ch.dto.ViewBrowseTransferShopDTO;
 import com.ch.dto.ViewMyTransferShopLIstDTO;
+import com.ch.dto.ViewNearbyShopDTO;
 import com.ch.dto.ViewTransferShopDTO;
 import com.ch.entity.*;
 import com.ch.model.FastTransferShopParam;
@@ -445,6 +446,14 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
         ResponseResult result = new ResponseResult();
         List<ViewBrowseTransferShopDTO> viewBrowseTransferShopDTOS = transferShopMapper.myHouseCollectList(userId);
         result.setData(viewBrowseTransferShopDTOS);
+        return result;
+    }
+
+    @Override
+    public ResponseResult nearbyShop(String lon, String lat) {
+        ResponseResult result = new ResponseResult();
+        List<ViewNearbyShopDTO> viewNearbyShopDTOS = transferShopMapper.nearbyShop(lon, lat);
+        result.setData(viewNearbyShopDTOS);
         return result;
     }
 }

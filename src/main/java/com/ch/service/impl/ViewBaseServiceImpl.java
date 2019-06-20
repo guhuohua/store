@@ -12,6 +12,7 @@ import com.ch.util.IdUtil;
 import com.ch.util.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -259,9 +260,18 @@ public class ViewBaseServiceImpl implements ViewBaseService {
         }
         return result;
     }
+
+
     @Override
+    @Transactional
     public void saveBrowse(Long userId, ViewBrowseParam param) {
         int i = browsingHistoryMapper.seleteExits(userId);
+        List<BrowsingHistory> browsingHistories = browsingHistoryMapper.selectByclientId(userId);
+        if (browsingHistories.size() > 50) {
+            for (int j = 49; j <= browsingHistories.size(); j++) {
+                browsingHistoryMapper.deleteByPrimaryKey(browsingHistories.get(j).getId());
+            }
+        }
         if (i == 0) {
             BrowsingHistory history = new BrowsingHistory();
             history.setId(IdUtil.getId());
