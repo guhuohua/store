@@ -1,6 +1,8 @@
 package com.ch.entity;
 
-public class SysUserRole {
+import java.io.Serializable;
+
+public class SysUserRole implements Serializable {
     private Long userId;
 
     private Integer roleId;

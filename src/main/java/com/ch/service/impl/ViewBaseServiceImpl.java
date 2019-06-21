@@ -13,6 +13,7 @@ import com.ch.service.ViewBaseService;
 import com.ch.util.IdUtil;
 import com.ch.util.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -79,6 +80,8 @@ public class ViewBaseServiceImpl implements ViewBaseService {
 
     @Autowired
     SolrService solrService;
+    @Autowired
+    RedisTemplate redisTemplate;
 
     @Override
     public ResponseResult businessTypeList() {
@@ -125,43 +128,70 @@ public class ViewBaseServiceImpl implements ViewBaseService {
     @Override
     public ResponseResult provinceList() {
         ResponseResult result = new ResponseResult();
-        BsProvinceExample bsProvinceExample = new BsProvinceExample();
-        bsProvinceExample.setOrderByClause("sort");
-        List<BsProvince> bsProvinces = bsProvinceMapper.selectByExample(bsProvinceExample);
-        result.setData(bsProvinces);
+        List<BsProvince> bsProvinces = (List<BsProvince>) redisTemplate.boundHashOps("provinceList").get("province");
+        if (null == bsProvinces) {
+            BsProvinceExample bsProvinceExample = new BsProvinceExample();
+            bsProvinceExample.setOrderByClause("sort");
+            bsProvinces = bsProvinceMapper.selectByExample(bsProvinceExample);
+            redisTemplate.boundHashOps("provinceList").put("province", bsProvinces);
+            result.setData(bsProvinces);
+        } else {
+            result.setData(bsProvinces);
+        }
         return result;
     }
 
     @Override
     public ResponseResult findCityByProvinceCode(String code) {
         ResponseResult result = new ResponseResult();
-        BsCityExample bsCityExample = new BsCityExample();
-        bsCityExample.setOrderByClause("sort");
-        bsCityExample.createCriteria().andProvinceCodeEqualTo(code);
-        List<BsCity> bsCities = bsCityMapper.selectByExample(bsCityExample);
-        result.setData(bsCities);
+        List<BsCity> bsCities = (List<BsCity>) redisTemplate.boundHashOps("cityList").get(code);
+        if (null == bsCities) {
+            BsCityExample bsCityExample = new BsCityExample();
+            bsCityExample.setOrderByClause("sort");
+            bsCityExample.createCriteria().andProvinceCodeEqualTo(code);
+            bsCities = bsCityMapper.selectByExample(bsCityExample);
+            redisTemplate.boundHashOps("cityList").put(code, bsCities);
+            result.setData(bsCities);
+        } else {
+            result.setData(bsCities);
+        }
+
         return result;
     }
 
     @Override
     public ResponseResult findAreaByCityCode(String code) {
         ResponseResult result = new ResponseResult();
-        BsAreaExample bsAreaExample = new BsAreaExample();
-        bsAreaExample.setOrderByClause("sort");
-        bsAreaExample.createCriteria().andCityCodeEqualTo(code);
-        List<BsArea> bsAreas = bsAreaMapper.selectByExample(bsAreaExample);
-        result.setData(bsAreas);
+        List<BsArea> bsAreas = (List<BsArea>) redisTemplate.boundHashOps("areaList").get(code);
+        if (null == bsAreas) {
+            BsAreaExample bsAreaExample = new BsAreaExample();
+            bsAreaExample.setOrderByClause("sort");
+            bsAreaExample.createCriteria().andCityCodeEqualTo(code);
+            bsAreas = bsAreaMapper.selectByExample(bsAreaExample);
+            redisTemplate.boundHashOps("areaList").put(code, bsAreas);
+            result.setData(bsAreas);
+        } else {
+            result.setData(bsAreas);
+        }
+
         return result;
     }
 
     @Override
     public ResponseResult findStweetByAreaCode(String code) {
         ResponseResult result = new ResponseResult();
-        BsStreetExample bsStreetExample = new BsStreetExample();
-        bsStreetExample.setOrderByClause("sort");
-        bsStreetExample.createCriteria().andAreaCodeEqualTo(code);
-        List<BsStreet> bsStreets = bsStreetMapper.selectByExample(bsStreetExample);
-        result.setData(bsStreets);
+        List<BsStreet> bsStreets = (List<BsStreet>) redisTemplate.boundHashOps("stweetList").get(code);
+        if (null == bsStreets) {
+            BsStreetExample bsStreetExample = new BsStreetExample();
+            bsStreetExample.setOrderByClause("sort");
+            bsStreetExample.createCriteria().andAreaCodeEqualTo(code);
+            bsStreets = bsStreetMapper.selectByExample(bsStreetExample);
+            redisTemplate.boundHashOps("stweetList").put(code, bsStreets);
+            result.setData(bsStreets);
+        } else {
+            result.setData(bsStreets);
+        }
+
         return result;
     }
 
@@ -391,7 +421,7 @@ public class ViewBaseServiceImpl implements ViewBaseService {
         TransferShopExample transferShopExample = new TransferShopExample();
         transferShopExample.createCriteria().andCheckStatusEqualTo(1).andStatusNotEqualTo(1);
         List<TransferShop> transferShops = transferShopMapper.selectByExample(transferShopExample);
-        for (TransferShop transferShop:transferShops) {
+        for (TransferShop transferShop : transferShops) {
             SolrDTO solrDTO = new SolrDTO();
             solrDTO.setTransferShopId(transferShop.getId());
             solrService.addSolr(solrDTO);
@@ -400,7 +430,7 @@ public class ViewBaseServiceImpl implements ViewBaseService {
         LookShopExample lookShopExample = new LookShopExample();
         lookShopExample.createCriteria().andStatusNotEqualTo(1);
         List<LookShop> lookShops = lookShopMapper.selectByExample(lookShopExample);
-        for (LookShop lookShop:lookShops) {
+        for (LookShop lookShop : lookShops) {
             SolrDTO solrDTO = new SolrDTO();
             solrDTO.setLookShopId(lookShop.getId());
             solrService.addSolr(solrDTO);

@@ -23,7 +23,7 @@ public class SysBusinessTypeController {
 
     @PostMapping("editBusinessType")
     @ApiOperation("编辑经营范围")
-    @RequiresPermissions(logical = Logical.OR, value = {"sys_person_mange_add","sys_person_mange_edit","sys_person_mange"})
+    @RequiresPermissions(logical = Logical.OR, value = {"business_parent_type_add","business_parent_type_edit","business_parent_type"})
     public ResponseResult editBusinessType(@RequestBody BusinessType businessType) {
         ResponseResult result = new ResponseResult();
         try {
@@ -44,7 +44,7 @@ public class SysBusinessTypeController {
 
     @PostMapping("listBusinessType")
     @ApiOperation("经营范围列表")
-    @RequiresPermissions(logical = Logical.OR, value = {"sys_person_mange_add","sys_person_mange_edit","sys_person_mange"})
+    @RequiresPermissions(logical = Logical.OR, value = {"business_parent_type_see","business_parent_type"})
     public ResponseResult listDecorateType() {
         ResponseResult result = new ResponseResult();
         try {
@@ -61,7 +61,7 @@ public class SysBusinessTypeController {
 
     @GetMapping("deleBusinessType")
     @ApiOperation("删除经营范围")
-    @RequiresPermissions(logical = Logical.OR, value = {"sys_person_mange_add","sys_person_mange_edit","sys_person_mange"})
+    @RequiresPermissions(logical = Logical.OR, value = {"business_parent_type_dele","business_parent_type"})
     public ResponseResult deleBusinessType(@RequestParam Long id)  {
         ResponseResult result = new ResponseResult();
         try {

@@ -1,8 +1,9 @@
 package com.ch.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class BsArea {
+public class BsArea implements Serializable {
     private Integer areaId;
 
     private String areaCode;

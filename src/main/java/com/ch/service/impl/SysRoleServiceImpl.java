@@ -1,10 +1,12 @@
 package com.ch.service.impl;
 
 import com.ch.base.ResponseResult;
+import com.ch.dao.SysPermissionMapper;
 import com.ch.dao.SysRoleMapper;
 import com.ch.dao.SysRolePermissionMapper;
 import com.ch.dao.SysUserMapper;
 import com.ch.dto.RoleDTO;
+import com.ch.entity.SysPermission;
 import com.ch.entity.SysRole;
 import com.ch.entity.SysRolePermission;
 import com.ch.entity.SysRolePermissionExample;
@@ -31,6 +33,8 @@ public class SysRoleServiceImpl implements SysRoleService {
 
     @Autowired
     SysRolePermissionMapper sysRolePermissionMapper;
+    @Autowired
+    SysPermissionMapper sysPermissionMapper;
 
 
     @Override
@@ -91,20 +95,12 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Override
     public ResponseResult editRole(RoleDTO roleDTO) {
         ResponseResult result = new ResponseResult();
-        SysRole sysRole = new SysRole();
-        sysRole.setRoleId(roleDTO.getRoleId());
+        SysRole sysRole = sysRoleMapper.selectByPrimaryKey(roleDTO.getRoleId());
         sysRole.setRoleName(roleDTO.getRoleName());
         sysRole.setRoleDesc(roleDTO.getRoleDesc());
-        try {
-            int delete = sysRoleMapper.update(sysRole);
-            result.setData(delete > 0 ? true : false);
-        } catch (Exception e) {
-            e.printStackTrace();
-            result.setCode(500);
-            result.setError(e.getMessage());
-            result.setError_description("更新角色失败");
-            result.setData(false);
-        }
+        sysRole.setUpdateTime(new Date());
+        sysRoleMapper.updateByPrimaryKey(sysRole);
+
         return result;
     }
 
@@ -184,9 +180,11 @@ public class SysRoleServiceImpl implements SysRoleService {
         ResponseResult result = new ResponseResult();
         Integer roleId = rolePermissionDTO.getRoleId();
         rolePermissionDTO.getPermissions().forEach(item -> {
+            SysPermission sysPermission = sysPermissionMapper.selectByPrimaryKey(item);
             SysRolePermission btSysRolePermission = new SysRolePermission();
             btSysRolePermission.setRoleId(roleId);
             btSysRolePermission.setPermissionId(item);
+
             sysRolePermissionMapper.insert(btSysRolePermission);
         });
         result.setData(true);
