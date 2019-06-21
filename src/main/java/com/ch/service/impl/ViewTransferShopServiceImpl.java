@@ -267,7 +267,12 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
             solrQuery.setFilterQueries("storeArea:[" + param.getMinArea() + " TO " + param.getMaxArea() + "]");
         }
         if (null != param.getMaxRent() && null != param.getMinRent()) {
-            solrQuery.setFilterQueries("originalPrice:[" + param.getMinRent() + " TO " + param.getMaxRent() + "]");
+            if (0 == param.getStoreType()) {
+                solrQuery.setFilterQueries("presentPrice:[" + param.getMinRent() + " TO " + param.getMaxRent() + "]");
+            } else {
+                solrQuery.setFilterQueries("originalPrice:[" + param.getMinRent() + " TO " + param.getMaxRent() + "]");
+            }
+
         }
         if (params != null) {
             solrQuery.setQuery(params.toString());

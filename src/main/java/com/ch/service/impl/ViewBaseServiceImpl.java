@@ -132,6 +132,7 @@ public class ViewBaseServiceImpl implements ViewBaseService {
         if (null == bsProvinces) {
             BsProvinceExample bsProvinceExample = new BsProvinceExample();
             bsProvinceExample.setOrderByClause("sort");
+            bsProvinceExample.createCriteria().andProvinceIdEqualTo(17);
             bsProvinces = bsProvinceMapper.selectByExample(bsProvinceExample);
             redisTemplate.boundHashOps("provinceList").put("province", bsProvinces);
             result.setData(bsProvinces);
