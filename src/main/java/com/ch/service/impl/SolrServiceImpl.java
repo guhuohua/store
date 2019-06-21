@@ -65,9 +65,6 @@ public class SolrServiceImpl implements SolrService {
             storeSolrSchema.setStoreArea( Long.valueOf(transferShop.getArea()));
             storeSolrSchema.setStoreCategory(transferShop.getRecommendType());
             storeSolrSchema.setStoreType(0);
-            if (BeanUtils.isNotEmpty(transferShop.getSuccessTime())) {
-                storeSolrSchema.setDealDate(transferShop.getSuccessTime().getTime());
-            }
             storeSolrSchema.setUserId(transferShop.getClientId());
             storeSolrSchema.setStoreStatus(transferShop.getStatus());
             storeSolrSchema.setStoreName(transferShop.getTitle());
@@ -75,9 +72,6 @@ public class SolrServiceImpl implements SolrService {
             storeSolrSchema.setLongitude(transferShop.getLon());
             storeSolrSchema.setStoreAddress(bsArea.getAreaName()+"-"+bsStreet.getStreetName());
             storeSolrSchema.setCreateTime(transferShop.getCreateTime().getTime());
-            if (transferShop.getStatus() == 1) {
-                storeSolrSchema.setStoreAttribute("DEAL");
-            }
             try {
                 System.out.println("准备同步solr:"+ JSON.toJSONString(storeSolrSchema));
                 solrClient.addBean(storeSolrSchema);
@@ -114,9 +108,6 @@ public class SolrServiceImpl implements SolrService {
             storeSolrSchema.setAreaId(lookShop.getAreaId());
             storeSolrSchema.setStreetId(lookShop.getStreetId());
             storeSolrSchema.setCreateTime(lookShop.getCraeateTime().getTime());
-            if (lookShop.getStatus() == 1) {
-                storeSolrSchema.setStoreAttribute("DEAL");
-            }
             try {
                 System.out.println("准备同步solr:"+ JSON.toJSONString(storeSolrSchema));
                 solrClient.addBean(storeSolrSchema);

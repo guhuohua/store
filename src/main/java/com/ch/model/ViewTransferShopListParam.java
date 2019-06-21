@@ -39,5 +39,4 @@ public class ViewTransferShopListParam {
 
     private Integer streetId;
 
-    private String storeAttribute;
 }

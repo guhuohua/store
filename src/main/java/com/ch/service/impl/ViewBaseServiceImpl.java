@@ -3,10 +3,12 @@ package com.ch.service.impl;
 import com.ch.base.BeanUtils;
 import com.ch.base.ResponseResult;
 import com.ch.dao.*;
+import com.ch.dto.SolrDTO;
 import com.ch.entity.*;
 import com.ch.model.ViewBrowseParam;
 import com.ch.model.ViewFeedBackParam;
 import com.ch.model.ViewWXLoginParam;
+import com.ch.service.SolrService;
 import com.ch.service.ViewBaseService;
 import com.ch.util.IdUtil;
 import com.ch.util.TokenUtil;
@@ -74,6 +76,9 @@ public class ViewBaseServiceImpl implements ViewBaseService {
 
     @Autowired
     FeedBackMapper feedBackMapper;
+
+    @Autowired
+    SolrService solrService;
 
     @Override
     public ResponseResult businessTypeList() {
@@ -379,5 +384,26 @@ public class ViewBaseServiceImpl implements ViewBaseService {
         feedBack.setCreateDate(new Date());
         feedBackMapper.insert(feedBack);
         return result;
+    }
+
+    @Override
+    public void solr() {
+        TransferShopExample transferShopExample = new TransferShopExample();
+        transferShopExample.createCriteria().andCheckStatusEqualTo(1).andStatusNotEqualTo(1);
+        List<TransferShop> transferShops = transferShopMapper.selectByExample(transferShopExample);
+        for (TransferShop transferShop:transferShops) {
+            SolrDTO solrDTO = new SolrDTO();
+            solrDTO.setTransferShopId(transferShop.getId());
+            solrService.addSolr(solrDTO);
+        }
+
+        LookShopExample lookShopExample = new LookShopExample();
+        lookShopExample.createCriteria().andStatusNotEqualTo(1);
+        List<LookShop> lookShops = lookShopMapper.selectByExample(lookShopExample);
+        for (LookShop lookShop:lookShops) {
+            SolrDTO solrDTO = new SolrDTO();
+            solrDTO.setLookShopId(lookShop.getId());
+            solrService.addSolr(solrDTO);
+        }
     }
 }

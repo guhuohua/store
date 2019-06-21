@@ -3,6 +3,7 @@ package com.ch.dao;
 import com.ch.dao.provider.TransferShopProvider;
 import com.ch.dto.SysTransferShopDTO;
 import com.ch.dto.ViewBrowseTransferShopDTO;
+import com.ch.dto.ViewDealDTO;
 import com.ch.dto.ViewNearbyShopDTO;
 import com.ch.entity.TransferShop;
 import com.ch.entity.TransferShopExample;
@@ -75,4 +76,9 @@ public interface TransferShopMapper {
             " HAVING distance < 3" +
             " ORDER BY distance desc")
     List<ViewNearbyShopDTO> nearbyShop(@Param("lon") String lon, @Param("lat") String lat);
+
+
+    @Select("select id, title, CONCAT((select area_name from bs_area aa where aa.area_id = ts.area_id),'-', (select street_name from bs_street sa where sa.street_id = ts.street_id)) as address," +
+            " area, rent, success_time from transfer_shop ts where ts.status = 1")
+    List<ViewDealDTO> dealList();
 }

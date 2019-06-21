@@ -409,7 +409,7 @@ public class ViewBaseController{
     @ApiOperation("test")
     public ResponseResult test(String code, String appId) {
         ResponseResult result = new ResponseResult();
-        result.setData("当前端口8083");
+        viewBaseService.solr();
         return result;
 
     }

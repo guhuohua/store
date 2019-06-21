@@ -137,4 +137,7 @@ public interface ViewBaseService {
      * @return
      */
     ResponseResult feedBack(Long userId, ViewFeedBackParam param);
+
+
+    void solr();
 }

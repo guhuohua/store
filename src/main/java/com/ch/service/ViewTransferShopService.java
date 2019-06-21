@@ -68,4 +68,13 @@ public interface ViewTransferShopService {
      * @return
      */
     ResponseResult nearbyShop(String lon, String lat);
+
+
+    /**
+     * 成交案例
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    ResponseResult dealTransferShopList(Integer pageNum, Integer pageSize);
 }

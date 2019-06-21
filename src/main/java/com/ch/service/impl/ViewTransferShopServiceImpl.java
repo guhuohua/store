@@ -3,10 +3,7 @@ package com.ch.service.impl;
 import com.ch.base.BeanUtils;
 import com.ch.base.ResponseResult;
 import com.ch.dao.*;
-import com.ch.dto.ViewBrowseTransferShopDTO;
-import com.ch.dto.ViewMyTransferShopLIstDTO;
-import com.ch.dto.ViewNearbyShopDTO;
-import com.ch.dto.ViewTransferShopDTO;
+import com.ch.dto.*;
 import com.ch.entity.*;
 import com.ch.model.FastTransferShopParam;
 import com.ch.model.ViewTransferShopListParam;
@@ -14,6 +11,7 @@ import com.ch.model.ViewTransferShopParam;
 import com.ch.service.ViewTransferShopService;
 import com.ch.util.GetLatAndLngByBaidu;
 import com.ch.util.IdUtil;
+import com.github.pagehelper.PageHelper;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -184,8 +182,8 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
     public ResponseResult transferShopList(ViewTransferShopListParam param) {
         ResponseResult result = new ResponseResult();
         int start = (param.getStart() - 1) * param.getRows();
-        SolrQuery solrQuery = new SolrQuery("*:*");
-        StringBuilder params = null;
+        SolrQuery solrQuery = new SolrQuery();
+        StringBuilder params = new StringBuilder("storeType:" + param.getStoreType());
         if (BeanUtils.isNotEmpty(param.getStoreName())) {
             if (params != null) {
                 params.append(" AND (storeName:*" + param.getStoreName() + "*)");
@@ -234,14 +232,6 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
                 params.append("areaId:" + param.getAreaId());
             }
         }
-        if (null != param.getStoreType()) {
-            if (params != null) {
-                params.append(" AND (storeType:" + param.getStoreType() + ")");
-            } else {
-                params = new StringBuilder();
-                params.append("storeType:" + param.getStoreType());
-            }
-        }
         if (null != param.getStoreStatus()) {
             if (params != null) {
                 params.append(" AND (storeStatus:" + param.getStoreStatus() + ")");
@@ -256,21 +246,6 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
             } else {
                 params = new StringBuilder();
                 params.append("userId:" + param.getClientId());
-            }
-        }
-        if (BeanUtils.isNotEmpty(param.getStoreAttribute())) {
-            if (params != null) {
-                params.append(" AND (storeAttribute:" + param.getStoreAttribute() + ")");
-            } else {
-                params = new StringBuilder();
-                params.append("storeAttribute:" + param.getStoreAttribute());
-            }
-        } else {
-            if (params != null) {
-                params.append(" AND (storeAttribute:" + param.getStoreAttribute() + ")");
-            } else {
-                params = new StringBuilder();
-                params.append("storeAttribute:" + param.getStoreAttribute());
             }
         }
         if ("TIME".equals(param.getSort())) {
@@ -471,6 +446,15 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
         ResponseResult result = new ResponseResult();
         List<ViewNearbyShopDTO> viewNearbyShopDTOS = transferShopMapper.nearbyShop(lon, lat);
         result.setData(viewNearbyShopDTOS);
+        return result;
+    }
+
+    @Override
+    public ResponseResult dealTransferShopList(Integer pageNum, Integer pageSize) {
+        ResponseResult result = new ResponseResult();
+        PageHelper.startPage(pageNum, pageSize);
+        List<ViewDealDTO> viewDealDTOS = transferShopMapper.dealList();
+        result.setData(viewDealDTOS);
         return result;
     }
 }

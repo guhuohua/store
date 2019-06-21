@@ -31,7 +31,7 @@ public class SysLookShopController {
     ViewLookShopService viewLookShopService;
     @PostMapping ("showLookShopList")
     @ApiOperation("展示后台找铺列表")
-    @RequiresPermissions(logical = Logical.OR, value = {"apply_list_see","apply_list"})
+    @RequiresPermissions(logical = Logical.OR, value = {"look_shop_manage_list","look_shop_manage_see_list"})
     public ResponseResult showLookShopList(@RequestBody ShowShopDto pageInfo) {
         ResponseResult result = new ResponseResult();
         try {
