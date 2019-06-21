@@ -86,7 +86,8 @@ public class SysShopSuccessServiceImpl implements SysShopSuccessService {
         SolrDTO solrDTO = new SolrDTO();
         solrDTO.setLookShopId(storeId);
         solrDTO.setTransferShopId(transferShop.getId());
-        solrService.addSolr(solrDTO);
+
+        solrService.lowerShelf(solrDTO);
 
         return result;
     }
