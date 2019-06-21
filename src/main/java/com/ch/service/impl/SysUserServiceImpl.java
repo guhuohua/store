@@ -52,39 +52,46 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     @Cacheable(value = "findById" , key = "'userId'+#userId")
     public UserDTO findById(Long userId) {
-        UserDTO dto = new UserDTO();
-        SysUser sysUser = sysUserMapper.selectByPrimaryKey(userId);
-        if (sysUser != null) {
-            dto.setUserId(sysUser.getUserId());
-            dto.setUsername(sysUser.getUsername());
-            SysUserRoleExample example = new SysUserRoleExample();
-            SysUserRoleExample.Criteria criteria = example.createCriteria();
-            criteria.andUserIdEqualTo(userId);
-            List<SysUserRole> sysUserRoles = sysUserRoleMapper.selectByExample(example);
-            Set<String> roles = new HashSet<>();
-            Set<String> permissions = new HashSet<>();
-            for (SysUserRole role : sysUserRoles) {
-                if (role != null) {
-                    SysRole sysRole = sysRoleMapper.selectByPrimaryKey(role.getRoleId());
-                    SysRolePermissionExample example1 = new SysRolePermissionExample();
-                    SysRolePermissionExample.Criteria criteria1 = example1.createCriteria();
-                    criteria1.andRoleIdEqualTo(role.getRoleId());
-                    List<SysRolePermission> sysRolePermissions = sysRolePermissionMapper.selectByExample(example1);
-                    for (SysRolePermission rolePermission : sysRolePermissions) {
-                        SysPermission sysPermission = sysPermissionMapper.selectByPrimaryKey(rolePermission.getPermissionId());
-                        // System.out.println(sysPermission);
-                        if (BeanUtils.isNotEmpty(sysPermission)) {
-                            permissions.add(sysPermission.getPermissionDesc());
+        UserDTO dto = (UserDTO) redisTemplate.boundHashOps("userDto").get(userId);
+        if (null == dto){
+             dto = new UserDTO();
+            SysUser sysUser = sysUserMapper.selectByPrimaryKey(userId);
+            if (sysUser != null) {
+                dto.setUserId(sysUser.getUserId());
+                dto.setUsername(sysUser.getUsername());
+                SysUserRoleExample example = new SysUserRoleExample();
+                SysUserRoleExample.Criteria criteria = example.createCriteria();
+                criteria.andUserIdEqualTo(userId);
+                List<SysUserRole> sysUserRoles = sysUserRoleMapper.selectByExample(example);
+                Set<String> roles = new HashSet<>();
+                Set<String> permissions = new HashSet<>();
+                for (SysUserRole role : sysUserRoles) {
+                    if (role != null) {
+                        SysRole sysRole = sysRoleMapper.selectByPrimaryKey(role.getRoleId());
+                        SysRolePermissionExample example1 = new SysRolePermissionExample();
+                        SysRolePermissionExample.Criteria criteria1 = example1.createCriteria();
+                        criteria1.andRoleIdEqualTo(role.getRoleId());
+                        List<SysRolePermission> sysRolePermissions = sysRolePermissionMapper.selectByExample(example1);
+                        dto.setSysRolePermissions(sysRolePermissions);
+                        for (SysRolePermission rolePermission : sysRolePermissions) {
+                            SysPermission sysPermission = sysPermissionMapper.selectByPrimaryKey(rolePermission.getPermissionId());
+                            // System.out.println(sysPermission);
+                            if (BeanUtils.isNotEmpty(sysPermission)) {
+                                permissions.add(sysPermission.getPermissionDesc());
+                            }
                         }
+                        roles.add(sysRole.getRoleName());
                     }
-                    roles.add(sysRole.getRoleName());
                 }
+                dto.setRoles(roles);
+                dto.setPermissions(permissions);
             }
-            dto.setRoles(roles);
-            dto.setPermissions(permissions);
+            redisTemplate.boundHashOps("userDto").put(userId,dto);
+            return dto;
+        }else {
+            return dto;
         }
 
-        return dto;
 
 
     }

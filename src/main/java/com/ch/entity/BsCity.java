@@ -1,8 +1,9 @@
 package com.ch.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class BsCity {
+public class BsCity implements Serializable {
     private Integer cityId;
 
     private String cityCode;

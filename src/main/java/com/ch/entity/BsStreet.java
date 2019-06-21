@@ -1,8 +1,9 @@
 package com.ch.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class BsStreet {
+public class BsStreet implements Serializable {
     private Integer streetId;
 
     private String streetCode;

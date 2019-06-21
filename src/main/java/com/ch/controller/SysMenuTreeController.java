@@ -35,6 +35,7 @@ public class SysMenuTreeController {
         try {
             String token = request.getHeader("Authorization");
             Long userId = TokenUtil.getUserId(token);
+           // Long userId = 156101913015452l;
             result = sysMenuTreeService.findSysMenuTree(userId);
         } catch (Exception e) {
             result.setCode(600);

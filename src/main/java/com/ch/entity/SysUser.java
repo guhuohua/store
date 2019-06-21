@@ -1,8 +1,9 @@
 package com.ch.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class SysUser {
+public class SysUser implements Serializable {
     private Long userId;
 
     private String username;
