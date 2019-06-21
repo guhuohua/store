@@ -52,7 +52,7 @@ public interface TransferShopMapper {
     List<SysTransferShopDTO> list(@Param("name") String name, @Param("tel") String tel, @Param("status") Integer status, @Param("type") Integer type, @Param("checkStatus") Integer checkStatus);
 
     @Select("select ts.image, ts.title,CONCAT((select area_name from bs_area aa where aa.area_id = ts.area_id),'-', (select street_name from bs_street sa where sa.street_id = ts.street_id)) as address," +
-            "       ts.area, ts.rent, bs.create_date, ts.id from browsing_history bs  join transfer_shop ts on bs.transfer_shop_id = ts.id and bs.client_id = ts.client_id where bs.client_id  = #{userId} order by bs.create_date desc")
+            "       ts.area, ts.rent, bs.create_date, ts.id from browsing_history bs  join transfer_shop ts on bs.transfer_shop_id = ts.id  where bs.client_id  = #{userId} order by bs.create_date desc")
     List<ViewBrowseTransferShopDTO> myList(@Param("userId") Long userId);
 
     @Select(" select   c.header as  image, t.title ,CONCAT((select area_name from bs_area aa where aa.area_id = t.area_id),'-', (select street_name from bs_street sa where sa.street_id = t.street_id)) as address," +

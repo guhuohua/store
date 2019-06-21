@@ -127,6 +127,7 @@ public class ViewBaseServiceImpl implements ViewBaseService {
         ResponseResult result = new ResponseResult();
         BsProvinceExample bsProvinceExample = new BsProvinceExample();
         bsProvinceExample.setOrderByClause("sort");
+        bsProvinceExample.createCriteria().andProvinceIdEqualTo(17);
         List<BsProvince> bsProvinces = bsProvinceMapper.selectByExample(bsProvinceExample);
         result.setData(bsProvinces);
         return result;
