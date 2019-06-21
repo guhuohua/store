@@ -83,7 +83,7 @@ public class SolrServiceImpl implements SolrService {
                 e.printStackTrace();
             }
         }
-        if (BeanUtils.isNotEmpty(solrDTO.getLookShopId())){
+        if (BeanUtils.isNotEmpty(solrDTO.getLookShopId())) {
             LookShop lookShop = lookShopMapper.selectByPrimaryKey(solrDTO.getLookShopId());
             BsStreet bsStreet = bsStreetMapper.selectByPrimaryKey(lookShop.getStreetId());
             BsArea bsArea = bsAreaMapper.selectByPrimaryKey(lookShop.getAreaId());

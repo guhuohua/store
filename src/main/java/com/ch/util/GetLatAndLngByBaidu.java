@@ -5,7 +5,6 @@ import net.sf.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -18,8 +17,8 @@ public class GetLatAndLngByBaidu {
     static String AK = "X7a2OqwFK1ktCQDG6SdT39zPNF9jmLtt"; // 百度地图密钥
 
     public static void main(String[] args) {
-        String dom = "金地雄楚1号";
-        // System.err.println("######同步坐标已达到日配额6000限制，请明天再试！#####");
+        String dom = "武汉市洪山区梨园街道华中科技大学同济医学院附属梨园医院";
+        // System.err.println("######同达到日配额6000限制，请明天再试！#####");
     }
 
     // 调用百度地图API根据地址，获取坐标
