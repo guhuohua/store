@@ -139,5 +139,14 @@ public interface ViewBaseService {
     ResponseResult feedBack(Long userId, ViewFeedBackParam param);
 
 
+    /**
+     * 重新同步所有solr
+     */
     void solr();
+
+    /**
+     * 根据店铺ID同步solr
+     * @param storeId
+     */
+    void solrByStoreId(Long storeId);
 }

@@ -77,4 +77,11 @@ public interface ViewTransferShopService {
      * @return
      */
     ResponseResult dealTransferShopList(Integer pageNum, Integer pageSize);
+
+
+    /**
+     * 统计今日审核通过的店铺的数量
+     * @return
+     */
+    ResponseResult countTodayShop();
 }

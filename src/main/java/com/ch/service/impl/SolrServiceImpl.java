@@ -53,35 +53,38 @@ public class SolrServiceImpl implements SolrService {
         lowerShelf(solrDTO);
         if (BeanUtils.isNotEmpty(solrDTO.getTransferShopId())){
             TransferShop transferShop = transferShopMapper.selectByPrimaryKey(solrDTO.getTransferShopId());
-            BsStreet bsStreet = bsStreetMapper.selectByPrimaryKey(transferShop.getStreetId());
-            BsArea bsArea = bsAreaMapper.selectByPrimaryKey(transferShop.getAreaId());
-            StoreSolrSchema storeSolrSchema = new StoreSolrSchema();
-            modelMapper.map(transferShop, storeSolrSchema);
-            storeSolrSchema.setId(IdUtil.getId()+"");
-            storeSolrSchema.setTransferShopId(transferShop.getId());
-            storeSolrSchema.setStoreImg(transferShop.getImage());
-            storeSolrSchema.setStoreAddress(bsStreet.getStreetName());
-            storeSolrSchema.setPresentPrice(transferShop.getRent());
-            storeSolrSchema.setStoreArea( Long.valueOf(transferShop.getArea()));
-            storeSolrSchema.setStoreCategory(transferShop.getRecommendType());
-            storeSolrSchema.setStoreType(0);
-            storeSolrSchema.setUserId(transferShop.getClientId());
-            storeSolrSchema.setStoreStatus(transferShop.getStatus());
-            storeSolrSchema.setStoreName(transferShop.getTitle());
-            storeSolrSchema.setLatitude(transferShop.getLat());
-            storeSolrSchema.setLongitude(transferShop.getLon());
-            storeSolrSchema.setStoreAddress(bsArea.getAreaName()+"-"+bsStreet.getStreetName());
-            storeSolrSchema.setCreateTime(transferShop.getCreateTime().getTime());
-            try {
-                System.out.println("准备同步solr:"+ JSON.toJSONString(storeSolrSchema));
-                solrClient.addBean(storeSolrSchema);
-                solrClient.commit();
-            } catch (IOException e) {
-                e.printStackTrace();
-                LOGGER.error("SOLR同步失败");
-            } catch (SolrServerException e) {
-                e.printStackTrace();
+            if (transferShop.getCheckStatus() == 1) {
+                BsStreet bsStreet = bsStreetMapper.selectByPrimaryKey(transferShop.getStreetId());
+                BsArea bsArea = bsAreaMapper.selectByPrimaryKey(transferShop.getAreaId());
+                StoreSolrSchema storeSolrSchema = new StoreSolrSchema();
+                modelMapper.map(transferShop, storeSolrSchema);
+                storeSolrSchema.setId(IdUtil.getId()+"");
+                storeSolrSchema.setTransferShopId(transferShop.getId());
+                storeSolrSchema.setStoreImg(transferShop.getImage());
+                storeSolrSchema.setStoreAddress(bsStreet.getStreetName());
+                storeSolrSchema.setPresentPrice(transferShop.getRent());
+                storeSolrSchema.setStoreArea( Long.valueOf(transferShop.getArea()));
+                storeSolrSchema.setStoreCategory(transferShop.getRecommendType());
+                storeSolrSchema.setStoreType(0);
+                storeSolrSchema.setUserId(transferShop.getClientId());
+                storeSolrSchema.setStoreStatus(transferShop.getStatus());
+                storeSolrSchema.setStoreName(transferShop.getTitle());
+                storeSolrSchema.setLatitude(transferShop.getLat());
+                storeSolrSchema.setLongitude(transferShop.getLon());
+                storeSolrSchema.setStoreAddress(bsArea.getAreaName()+"-"+bsStreet.getStreetName());
+                storeSolrSchema.setCreateTime(transferShop.getCreateTime().getTime());
+                try {
+                    System.out.println("准备同步solr:"+ JSON.toJSONString(storeSolrSchema));
+                    solrClient.addBean(storeSolrSchema);
+                    solrClient.commit();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    LOGGER.error("SOLR同步失败");
+                } catch (SolrServerException e) {
+                    e.printStackTrace();
+                }
             }
+
         }
         if (BeanUtils.isNotEmpty(solrDTO.getLookShopId())) {
             LookShop lookShop = lookShopMapper.selectByPrimaryKey(solrDTO.getLookShopId());

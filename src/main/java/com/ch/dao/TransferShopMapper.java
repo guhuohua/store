@@ -81,4 +81,7 @@ public interface TransferShopMapper {
     @Select("select id, title, CONCAT((select area_name from bs_area aa where aa.area_id = ts.area_id),'-', (select street_name from bs_street sa where sa.street_id = ts.street_id)) as address," +
             " area, rent, success_time from transfer_shop ts where ts.status = 1")
     List<ViewDealDTO> dealList();
+
+    @Select("select count(*) from transfer_shop where to_days(check_time) = to_days(now())")
+    int countTodayShop();
 }

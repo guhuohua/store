@@ -9,7 +9,6 @@ import com.ch.model.FastTransferShopParam;
 import com.ch.model.ViewTransferShopListParam;
 import com.ch.model.ViewTransferShopParam;
 import com.ch.service.ViewTransferShopService;
-import com.ch.util.GetLatAndLngByBaidu;
 import com.ch.util.IdUtil;
 import com.github.pagehelper.PageHelper;
 import org.apache.solr.client.solrj.SolrClient;
@@ -114,15 +113,15 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
         }
         sb.append(param.getAddress());
 
-        List<String> coordinate = GetLatAndLngByBaidu.getCoordinate(sb.toString());
-        if (BeanUtils.isEmpty(coordinate)) {
-            result.setCode(600);
-            result.setError("获取不到该地址的经纬度");
-            result.setError_description("获取不到该地址的经纬度");
-            return result;
-        }
-        transferShop.setLon(coordinate.get(0));
-        transferShop.setLat(coordinate.get(1));
+//        List<String> coordinate = GetLatAndLngByBaidu.getCoordinate(sb.toString());
+//        if (BeanUtils.isEmpty(coordinate)) {
+//            result.setCode(600);
+//            result.setError("获取不到该地址的经纬度");
+//            result.setError_description("获取不到该地址的经纬度");
+//            return result;
+//        }
+//        transferShop.setLon(coordinate.get(0));
+//        transferShop.setLat(coordinate.get(1));
         transferShop.setId(IdUtil.getId());
         transferShop.setClientId(userId);
         transferShop.setTel(param.getTel());
@@ -460,6 +459,13 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
         PageHelper.startPage(pageNum, pageSize);
         List<ViewDealDTO> viewDealDTOS = transferShopMapper.dealList();
         result.setData(viewDealDTOS);
+        return result;
+    }
+
+    @Override
+    public ResponseResult countTodayShop() {
+        ResponseResult result = new ResponseResult();
+        result.setData(transferShopMapper.countTodayShop());
         return result;
     }
 }

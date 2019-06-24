@@ -219,4 +219,19 @@ public class ViewTransferShopController {
         }
         return result;
     }
+
+    @GetMapping("/countTodayShop")
+    @ApiOperation("今日新增")
+    public ResponseResult countTodayShop() {
+        ResponseResult result = new ResponseResult();
+        try {
+            result = viewTransferShopService.countTodayShop();
+        } catch (Exception e) {
+            log.error("获取今日新增失败" + e.getMessage(), e);
+            result.setCode(600);
+            result.setError(e.getMessage());
+            result.setError_description("获取今日新增失败");
+        }
+        return result;
+    }
 }

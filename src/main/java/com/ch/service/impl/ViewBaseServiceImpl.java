@@ -324,7 +324,7 @@ public class ViewBaseServiceImpl implements ViewBaseService {
         int i = browsingHistoryMapper.seleteExits(userId);
         List<BrowsingHistory> browsingHistories = browsingHistoryMapper.selectByclientId(userId);
         if (browsingHistories.size() > 50) {
-            for (int j = 49; j <= browsingHistories.size(); j++) {
+            for (int j = 49; j < browsingHistories.size(); j++) {
                 browsingHistoryMapper.deleteByPrimaryKey(browsingHistories.get(j).getId());
             }
         }
@@ -436,5 +436,18 @@ public class ViewBaseServiceImpl implements ViewBaseService {
             solrDTO.setLookShopId(lookShop.getId());
             solrService.addSolr(solrDTO);
         }
+    }
+
+
+    @Override
+    public void solrByStoreId(Long storeId) {
+        TransferShop transferShop = transferShopMapper.selectByPrimaryKey(storeId);
+        SolrDTO solrDTO = new SolrDTO();
+        if (BeanUtils.isNotEmpty(transferShop)) {
+            solrDTO.setTransferShopId(storeId);
+        } else {
+            solrDTO.setLookShopId(storeId);
+        }
+        solrService.addSolr(solrDTO);
     }
 }

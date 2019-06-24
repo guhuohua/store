@@ -407,9 +407,17 @@ public class ViewBaseController{
 
     @GetMapping("test")
     @ApiOperation("test")
-    public ResponseResult test(String code, String appId) {
+    public ResponseResult test() {
         ResponseResult result = new ResponseResult();
         viewBaseService.solr();
+        return result;
+
+    }
+    @GetMapping("solrByStoreId")
+    @ApiOperation("solrByStoreId")
+    public ResponseResult test(Long id) {
+        ResponseResult result = new ResponseResult();
+        viewBaseService.solrByStoreId(id);
         return result;
 
     }
