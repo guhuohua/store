@@ -152,9 +152,8 @@ public class SysTransferShopServiceImpl implements SysTransferShopService {
         TransferShop transferShop = transferShopMapper.selectByPrimaryKey(updateStatusDTO.getStoreId());
         if (updateStatusDTO.getStatus() == 1){
             transferShop.setCheckTime(new Date());
-            SolrDTO solrDTO = new SolrDTO();
-            solrDTO.setTransferShopId(updateStatusDTO.getStoreId());
-            solrService.addSolr(solrDTO);
+
+
         }
         if (updateStatusDTO.getStatus() == 0){
             transferShop.setCheckTime(new Date());
@@ -162,6 +161,9 @@ public class SysTransferShopServiceImpl implements SysTransferShopService {
         }
         transferShop.setCheckStatus(updateStatusDTO.getStatus());
         transferShopMapper.updateByPrimaryKey(transferShop);
+        SolrDTO solrDTO = new SolrDTO();
+        solrDTO.setTransferShopId(updateStatusDTO.getStoreId());
+        solrService.addSolr(solrDTO);
         return result;
     }
 

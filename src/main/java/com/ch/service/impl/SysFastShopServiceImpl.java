@@ -34,6 +34,7 @@ public class SysFastShopServiceImpl implements SysFastShopService {
         ResponseResult result = new ResponseResult();
         PageHelper.startPage(sysFastShopDTO.getPageNum(), sysFastShopDTO.getPageSize());
         FastTransferShopExample example = new FastTransferShopExample();
+        example.setOrderByClause("create_date desc");
         FastTransferShopExample.Criteria criteria = example.createCriteria();
         List<FastTransferShop> fastTransferShops = null;
 
