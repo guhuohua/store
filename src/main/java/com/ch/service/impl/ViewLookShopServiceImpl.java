@@ -111,8 +111,9 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
         lookShop.setShopReadme(param.getShopReadme());
         lookShop.setFloor(param.getFloor());
         lookShop.setOrientationId(param.getOrientationId());
-        lookShop.setLoopLineId(param.getLoopLineId().toString());
-        lookShop.setSubwayLineId(param.getSubwayLineId().toString());
+        if (BeanUtils.isNotEmpty(param.getLoopLineId())) {
+            lookShop.setLoopLineId(param.getLoopLineId().toString());
+        }
         lookShop.setUpdateTime(new Date());
         lookShop.setCraeateTime(new Date());
         lookShop.setAreaId(param.getAreaId());

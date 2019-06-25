@@ -35,9 +35,8 @@ public interface BrowsingHistoryMapper {
 
 
     @Select("select count(*) from browsing_history where" +
-            "                 look_shop_id in (select id from look_shop where look_shop.client_id =#{clientId})" +
-            "                        or transfer_shop_id in (select id from transfer_shop where transfer_shop.client_id =#{clientId} ) ")
-    int seleteExits(@Param("clientId") Long clientId);
+            " client_id = #{clientId} and look_shop_id = #{lookShopId} or transfer_shop_id = #{id} ")
+    int seleteExits(@Param("clientId") Long clientId, @Param("lookShopId") Long lookShopId, @Param("id") Long id);
 
 
     @Select("select * from browsing_history where client_id = #{clientId} order by create_date desc")
