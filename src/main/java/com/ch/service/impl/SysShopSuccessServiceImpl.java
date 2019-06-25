@@ -67,9 +67,7 @@ public class SysShopSuccessServiceImpl implements SysShopSuccessService {
     @Transactional
     public ResponseResult addSuccessCase(Long storeId, String shopSn) {
         ResponseResult result = new ResponseResult();
-        SuccessCase successCase = new SuccessCase();
-        successCase.setId(IdUtil.getId());
-        successCase.setSuccessTime(new Date());
+
         TransferShopExample example = new TransferShopExample();
         TransferShopExample.Criteria criteria = example.createCriteria();
         criteria.andShopSnEqualTo(shopSn);
@@ -78,17 +76,37 @@ public class SysShopSuccessServiceImpl implements SysShopSuccessService {
         if (transferShops.size() > 0) {
             transferShop = transferShops.get(0);
         }
-        successCase.setLookShopId(storeId + "");
-        successCase.setTransferShopId(transferShop.getId() + "");
-        successCaseMapper.insert(successCase);
-        updateLookShopStatus(storeId);
-        updateTransferShopStatus(transferShop.getId());
-        SolrDTO solrDTO = new SolrDTO();
-        solrDTO.setLookShopId(storeId);
-        solrDTO.setTransferShopId(transferShop.getId());
+        if (2 != transferShop.getCheckStatus()) {
+            result.setCode(600);
+            result.setError_description("请先通过审核");
+            return result;
+        }
+        if (0 != transferShop.getCheckStatus()) {
+            result.setCode(600);
+            result.setError_description("未通过审核");
+            return result;
+        }
+        if (1 == transferShop.getStatus()) {
+            result.setCode(600);
+            result.setError_description("该店铺已成交");
+            return result;
+        }
 
-        solrService.lowerShelf(solrDTO);
+        if (1 == transferShop.getCheckStatus() && 0 == transferShop.getStatus()) {
+            SuccessCase successCase = new SuccessCase();
+            successCase.setId(IdUtil.getId());
+            successCase.setSuccessTime(new Date());
+            successCase.setLookShopId(storeId + "");
+            successCase.setTransferShopId(transferShop.getId() + "");
+            successCaseMapper.insert(successCase);
+            updateLookShopStatus(storeId);
+            updateTransferShopStatus(transferShop.getId());
+            SolrDTO solrDTO = new SolrDTO();
+            solrDTO.setLookShopId(storeId);
+            solrDTO.setTransferShopId(transferShop.getId());
+            solrService.lowerShelf(solrDTO);
 
+        }
         return result;
     }
 
@@ -143,19 +161,16 @@ public class SysShopSuccessServiceImpl implements SysShopSuccessService {
         }*/
         List<SuccessCaseDTO> list = successCaseMapper.list(sysSuccessCaseParm.getLooker(), sysSuccessCaseParm.getLookTel(), sysSuccessCaseParm.getTransfer(), sysSuccessCaseParm.getTransferTel());
         for (SuccessCaseDTO successCaseDTO : list) {
-                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-                successCaseDTO.setFormartTime(sdf.format(successCaseDTO.getSuccessTime()));
-
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            successCaseDTO.setFormartTime(sdf.format(successCaseDTO.getSuccessTime()));
 
         }
-
         PageInfo<SuccessCaseDTO> page = new PageInfo<>(list);
         result.setData(page);
         return result;
 
 
     }
-
 
 
 }
