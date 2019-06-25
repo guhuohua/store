@@ -321,7 +321,7 @@ public class ViewBaseServiceImpl implements ViewBaseService {
                 return;
             }
         }
-        int i = browsingHistoryMapper.seleteExits(userId);
+        int i = browsingHistoryMapper.seleteExits(userId, param.getLookShopId(), param.getTransferShopId());
         List<BrowsingHistory> browsingHistories = browsingHistoryMapper.selectByclientId(userId);
         if (browsingHistories.size() > 50) {
             for (int j = 49; j < browsingHistories.size(); j++) {
