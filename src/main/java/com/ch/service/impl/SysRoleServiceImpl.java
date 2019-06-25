@@ -187,6 +187,9 @@ public class SysRoleServiceImpl implements SysRoleService {
 
             sysRolePermissionMapper.insert(btSysRolePermission);
         });
+        SysRole sysRole = sysRoleMapper.selectByPrimaryKey(rolePermissionDTO.getRoleId());
+        sysRole.setUpdateTime(new Date());
+        sysRoleMapper.updateByPrimaryKey(sysRole);
         result.setData(true);
         return result;
     }
