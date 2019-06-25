@@ -76,12 +76,12 @@ public class SysShopSuccessServiceImpl implements SysShopSuccessService {
         if (transferShops.size() > 0) {
             transferShop = transferShops.get(0);
         }
-        if (2 != transferShop.getCheckStatus()) {
+        if (2 == transferShop.getCheckStatus()) {
             result.setCode(600);
             result.setError_description("请先通过审核");
             return result;
         }
-        if (0 != transferShop.getCheckStatus()) {
+        if (0 == transferShop.getCheckStatus()) {
             result.setCode(600);
             result.setError_description("未通过审核");
             return result;
