@@ -247,6 +247,7 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
                 params.append("userId:" + param.getClientId());
             }
         }
+        solrQuery.addSort("createTime", SolrQuery.ORDER.desc);
         if ("TIME".equals(param.getSort())) {
             solrQuery.addSort("createTime", SolrQuery.ORDER.asc);
         }
@@ -263,7 +264,11 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
             solrQuery.addSort("storeArea", SolrQuery.ORDER.asc);
         }
         if (null != param.getMaxArea() && null != param.getMinArea()) {
-            solrQuery.setFilterQueries("storeArea:[" + param.getMinArea() + " TO " + param.getMaxArea() + "]");
+            if (0 == param.getStoreType()) {
+                solrQuery.setFilterQueries("storeArea:[" + param.getMinArea() + " TO " + param.getMaxArea() + "]");
+            } else {
+                solrQuery.setFilterQueries("minStoreArea:[" + param.getMinArea() + " TO " + param.getMaxArea() + "]");
+            }
         }
         if (null != param.getMaxRent() && null != param.getMinRent()) {
             if (0 == param.getStoreType()) {
