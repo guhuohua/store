@@ -1,5 +1,6 @@
 package com.ch.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.ch.base.BeanUtils;
 import com.ch.base.ResponseResult;
 import com.ch.dao.*;
@@ -307,7 +308,7 @@ public class ViewBaseServiceImpl implements ViewBaseService {
     @Override
     @Transactional
     public void saveBrowse(Long userId, ViewBrowseParam param) {
-        log.info("进入保存浏览记录");
+        log.info("进入保存浏览记录" + JSON.toJSONString(param));
         if (null != param.getLookShopId()) {
             LookShopExample lookShopExample = new LookShopExample();
             lookShopExample.createCriteria().andIdEqualTo(param.getLookShopId()).andClientIdEqualTo(userId);
@@ -351,7 +352,7 @@ public class ViewBaseServiceImpl implements ViewBaseService {
                 history.setSuccessCaseId(param.getSuccessCaseId());
             }
             browsingHistoryMapper.insert(history);
-            log.info("保存成功，[{}]" + history.getId());
+            log.info("保存成功，" + history.getId());
         }
     }
 
