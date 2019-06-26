@@ -51,10 +51,10 @@ public class SysLoopLineController {
           result =   sysLoopLineService.list(sysBaseDTO);
 
         } catch (Exception e) {
-            log.error("换线列表失败" + e.getMessage(), e);
+            log.error("环线列表失败" + e.getMessage(), e);
             result.setCode(600);
             result.setError(e.getMessage());
-            result.setError_description("换线列表失败");
+            result.setError_description("环线列表失败");
         }
         return result;
     }
