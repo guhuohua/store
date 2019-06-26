@@ -44,4 +44,12 @@ public interface ViewLookShopService {
      */
     ResponseResult myHouseLookShopList(Long userId);
 
+    /**
+     * 删除我的找铺
+     * @param id
+     * @return
+     */
+    ResponseResult deleteShop(Long id);
+
+
 }

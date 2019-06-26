@@ -12,6 +12,7 @@ import com.ch.service.SolrService;
 import com.ch.service.ViewBaseService;
 import com.ch.util.IdUtil;
 import com.ch.util.TokenUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
+@Slf4j
 public class ViewBaseServiceImpl implements ViewBaseService {
 
     @Autowired
@@ -305,11 +307,13 @@ public class ViewBaseServiceImpl implements ViewBaseService {
     @Override
     @Transactional
     public void saveBrowse(Long userId, ViewBrowseParam param) {
+        log.info("进入保存浏览记录");
         if (null != param.getLookShopId()) {
             LookShopExample lookShopExample = new LookShopExample();
             lookShopExample.createCriteria().andIdEqualTo(param.getLookShopId()).andClientIdEqualTo(userId);
             List<LookShop> lookShops = lookShopMapper.selectByExample(lookShopExample);
             if (lookShops.size() > 0) {
+                log.info("自己的发布找铺，不予保存");
                 return;
             }
         }
@@ -318,6 +322,7 @@ public class ViewBaseServiceImpl implements ViewBaseService {
             transferShopExample.createCriteria().andIdEqualTo(param.getTransferShopId()).andClientIdEqualTo(userId);
             List<TransferShop> transferShops = transferShopMapper.selectByExample(transferShopExample);
             if (transferShops.size() > 0) {
+                log.info("自己的发布转铺，不予保存");
                 return;
             }
         }
@@ -346,6 +351,7 @@ public class ViewBaseServiceImpl implements ViewBaseService {
                 history.setSuccessCaseId(param.getSuccessCaseId());
             }
             browsingHistoryMapper.insert(history);
+            log.info("保存成功，[{}]" + history.getId());
         }
     }
 

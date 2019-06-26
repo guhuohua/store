@@ -8,6 +8,7 @@ import com.ch.entity.*;
 import com.ch.model.FastTransferShopParam;
 import com.ch.model.ViewTransferShopListParam;
 import com.ch.model.ViewTransferShopParam;
+import com.ch.service.SolrService;
 import com.ch.service.ViewTransferShopService;
 import com.ch.util.GetLatAndLngByBaidu;
 import com.ch.util.IdUtil;
@@ -90,6 +91,9 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
     @Autowired
     HouseCollectMapper houseCollectMapper;
 
+    @Autowired
+    SolrService solrService;
+
     @Override
     @Transactional
     public ResponseResult addTransferShop(ViewTransferShopParam param, Long userId) {
@@ -108,14 +112,10 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
         if (BeanUtils.isNotEmpty(bsArea)) {
             sb.append(bsArea.getAreaName());
         }
-        BsStreet bsStreet = bsStreetMapper.selectByPrimaryKey(param.getStreetId());
-        if (BeanUtils.isNotEmpty(bsStreet)) {
-            sb.append(bsStreet.getStreetName());
-        }
         sb.append(param.getAddress());
 
         List<String> coordinate = GetLatAndLngByBaidu.getCoordinate(sb.toString());
-        if (BeanUtils.isEmpty(coordinate)) {
+        if (BeanUtils.isEmpty(coordinate.get(0)) && BeanUtils.isEmpty(coordinate.get(1))) {
             result.setCode(600);
             result.setError("获取不到该地址的经纬度");
             result.setError_description("获取不到该地址的经纬度");
@@ -175,6 +175,7 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
             transferShopBusiness.setTransferShopId(transferShop.getId());
             transferShopBusinessMapper.insert(transferShopBusiness);
         }
+        result.setData(transferShop.getId());
         return result;
     }
 
@@ -402,6 +403,7 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
     public ResponseResult myTransferShopList(Long id) {
         ResponseResult result = new ResponseResult();
         TransferShopExample transferShopExample = new TransferShopExample();
+        transferShopExample.setOrderByClause(" create_time desc");
         transferShopExample.createCriteria().andClientIdEqualTo(Long.valueOf(id));
         List<TransferShop> transferShops = transferShopMapper.selectByExample(transferShopExample);
         List<ViewMyTransferShopLIstDTO> viewMyTransferShopLIstDTOS = new ArrayList<>();
@@ -413,6 +415,7 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
             viewMyTransferShopLIstDTO.setRent(transferShop.getRent());
             viewMyTransferShopLIstDTO.setTitle(transferShop.getTitle());
             viewMyTransferShopLIstDTO.setStoreImg(transferShop.getImage());
+            viewMyTransferShopLIstDTO.setDoneStatus(transferShop.getStatus());
             BsProvince bsProvince = bsProvinceMapper.selectByPrimaryKey(transferShop.getProvinceId());
             if (BeanUtils.isNotEmpty(bsProvince)) {
                 viewMyTransferShopLIstDTO.setProvince(bsProvince.getProvinceName());
@@ -472,6 +475,18 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
     public ResponseResult countTodayShop() {
         ResponseResult result = new ResponseResult();
         result.setData(transferShopMapper.countTodayShop());
+        return result;
+    }
+
+    @Override
+    public ResponseResult deleteShop(Long id) {
+        ResponseResult result = new ResponseResult();
+        int i = transferShopMapper.deleteByPrimaryKey(id);
+        if (i > 0) {
+            SolrDTO solrDTO = new SolrDTO();
+            solrDTO.setTransferShopId(id);
+            solrService.lowerShelf(solrDTO);
+        }
         return result;
     }
 }
