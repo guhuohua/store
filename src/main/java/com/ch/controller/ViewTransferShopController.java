@@ -234,4 +234,19 @@ public class ViewTransferShopController {
         }
         return result;
     }
+
+    @PostMapping("/deleteShop")
+    @ApiOperation("删除我的转铺")
+    public ResponseResult deleteShop(@RequestBody Long id) {
+        ResponseResult result = new ResponseResult();
+        try {
+            result = viewTransferShopService.deleteShop(id);
+        } catch (Exception e) {
+            log.error("删除我的转铺失败" + e.getMessage(), e);
+            result.setCode(600);
+            result.setError(e.getMessage());
+            result.setError_description("删除我的转铺失败");
+        }
+        return result;
+    }
 }

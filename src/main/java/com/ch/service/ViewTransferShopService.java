@@ -84,4 +84,12 @@ public interface ViewTransferShopService {
      * @return
      */
     ResponseResult countTodayShop();
+
+
+    /**
+     * 根据ID进行删除
+     * @param id
+     * @return
+     */
+    ResponseResult deleteShop(Long id);
 }

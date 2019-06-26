@@ -136,6 +136,7 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
         SolrDTO solrDTO = new SolrDTO();
         solrDTO.setLookShopId(lookShop.getId());
         solrService.addSolr(solrDTO);
+        result.setData(lookShop.getId());
         return result;
     }
 
@@ -213,6 +214,7 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
     public ResponseResult myLookShopList(Long id) {
         ResponseResult result = new ResponseResult();
         LookShopExample lookShopExample = new LookShopExample();
+        lookShopExample.setOrderByClause(" craeate_time desc");
         lookShopExample.createCriteria().andClientIdEqualTo(id);
         List<LookShop> lookShops = lookShopMapper.selectByExample(lookShopExample);
         List<ViewMyLookShopDTO> viewMyLookShopDTOS = new ArrayList<>();
@@ -260,6 +262,18 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
         ResponseResult result = new ResponseResult();
         List<ViewBrowseLookShopDTO> viewBrowseLookShopDTOS = lookShopMapper.myHouseCollectList(userId);
         result.setData(viewBrowseLookShopDTOS);
+        return result;
+    }
+
+    @Override
+    public ResponseResult deleteShop(Long id) {
+        ResponseResult result = new ResponseResult();
+        int i = lookShopMapper.deleteByPrimaryKey(id);
+        if (i > 0) {
+            SolrDTO solrDTO = new SolrDTO();
+            solrDTO.setLookShopId(id);
+            solrService.lowerShelf(solrDTO);
+        }
         return result;
     }
 }

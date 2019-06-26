@@ -2,8 +2,6 @@ package com.ch.dto;
 
 import lombok.Data;
 
-import java.util.Date;
-
 @Data
 public class ViewBrowseLookShopDTO {
 
@@ -21,7 +19,7 @@ public class ViewBrowseLookShopDTO {
 
     private Long smallArea;
 
-    private Date createDate;
+    private Long createDate;
 
     private Long id;
 }

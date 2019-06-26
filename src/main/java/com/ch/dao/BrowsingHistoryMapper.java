@@ -35,7 +35,7 @@ public interface BrowsingHistoryMapper {
 
 
     @Select("select count(*) from browsing_history where" +
-            " client_id = #{clientId} and look_shop_id = #{lookShopId} or transfer_shop_id = #{id} ")
+            " client_id = #{clientId} and (look_shop_id = #{lookShopId} or transfer_shop_id = #{id}) ")
     int seleteExits(@Param("clientId") Long clientId, @Param("lookShopId") Long lookShopId, @Param("id") Long id);
 
 
