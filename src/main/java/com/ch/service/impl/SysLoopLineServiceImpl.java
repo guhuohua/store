@@ -30,6 +30,7 @@ public class SysLoopLineServiceImpl implements SysLoopLineService {
     public ResponseResult addLoopLine(LoopLine loopLine) {
         ResponseResult result = new ResponseResult();
         loopLine.setId(IdUtil.getId());
+        loopLineMapper.insert(loopLine);
         return result;
     }
 
