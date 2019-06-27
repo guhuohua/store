@@ -140,6 +140,13 @@ public interface ViewBaseService {
 
 
     /**
+     * 生成极光签名
+     * @return
+     */
+    ResponseResult generateSignature();
+
+
+    /**
      * 重新同步所有solr
      */
     void solr();

@@ -95,6 +95,7 @@ public class ViewTransferShopDTO {
 
     private String reasons;
 
+    private String openId;
 
     private String shopRentType;
 

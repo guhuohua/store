@@ -338,6 +338,21 @@ public class ViewBaseController{
         return result;
     }
 
+    @GetMapping("/generateSignature")
+    @ApiOperation("极光生成签名")
+    public ResponseResult generateSignature() {
+        ResponseResult result = new ResponseResult();
+        try {
+            result = viewBaseService.generateSignature();
+        } catch (Exception e) {
+            log.error("极光生成签名失败" + e.getMessage(), e);
+            result.setCode(600);
+            result.setError(e.getMessage());
+            result.setError_description("极光生成签名失败");
+        }
+        return result;
+    }
+
     @PostMapping("/feedBack")
     @ApiOperation("意见反馈")
     public ResponseResult myBrowseTransferShopList(HttpServletRequest req, @RequestBody ViewFeedBackParam param) {
