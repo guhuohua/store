@@ -98,4 +98,6 @@ public class ViewLookShopInfoDTO {
     private String headImg;
 
     private Integer collection;
+
+    private String openId;
 }

@@ -72,7 +72,7 @@ public interface TransferShopMapper {
             "      * sin( radians( lat ) )" +
             "    )" +
             "  ) AS distance" +
-            " FROM transfer_shop ts" +
+            " FROM transfer_shop ts where check_status = 1 and status = 0" +
             " HAVING distance < 3" +
             " ORDER BY distance desc")
     List<ViewNearbyShopDTO> nearbyShop(@Param("lon") String lon, @Param("lat") String lat);

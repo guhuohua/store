@@ -205,6 +205,7 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
         Client client = clientMapper.selectByPrimaryKey(Long.valueOf(lookShop.getClientId()));
         if (BeanUtils.isNotEmpty(client)) {
             viewLookShopInfoDTO.setHeadImg(client.getHeader());
+            viewLookShopInfoDTO.setOpenId(client.getOpenId());
         }
         result.setData(viewLookShopInfoDTO);
         return result;

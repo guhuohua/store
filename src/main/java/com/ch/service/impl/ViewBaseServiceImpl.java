@@ -2,8 +2,10 @@ package com.ch.service.impl;
 
 import com.alibaba.fastjson.JSON;
 import com.ch.base.BeanUtils;
+import com.ch.base.MD5;
 import com.ch.base.ResponseResult;
 import com.ch.dao.*;
+import com.ch.dto.IMDTO;
 import com.ch.dto.SolrDTO;
 import com.ch.entity.*;
 import com.ch.model.ViewBrowseParam;
@@ -147,12 +149,13 @@ public class ViewBaseServiceImpl implements ViewBaseService {
 
     @Override
     public ResponseResult findCityByProvinceCode(String code) {
+        code = "420100";
         ResponseResult result = new ResponseResult();
         List<BsCity> bsCities = (List<BsCity>) redisTemplate.boundHashOps("cityList").get(code);
         if (null == bsCities) {
             BsCityExample bsCityExample = new BsCityExample();
             bsCityExample.setOrderByClause("sort");
-            bsCityExample.createCriteria().andProvinceCodeEqualTo(code);
+            bsCityExample.createCriteria().andCityCodeEqualTo(code);
             bsCities = bsCityMapper.selectByExample(bsCityExample);
             redisTemplate.boundHashOps("cityList").put(code, bsCities);
             result.setData(bsCities);
@@ -423,6 +426,20 @@ public class ViewBaseServiceImpl implements ViewBaseService {
         feedBackMapper.insert(feedBack);
         return result;
     }
+
+    @Override
+    public ResponseResult generateSignature() {
+        ResponseResult result = new ResponseResult();
+        long time = new Date().getTime();
+        String s = "appkey=c15e97a8225d5572f2a8aa47&timestamp=" + time + "&random_str=qwertyuiopasdfghjklzxcvbnm_3541w&key=941b5e2749704dea9b66c743";
+        String s1 = MD5.getInstance().getMD5(s);
+        IMDTO imdto = new IMDTO();
+        imdto.setTime(time);
+        imdto.setSign(s1);
+        result.setData(imdto);
+        return result;
+    }
+
 
     @Override
     public void solr() {

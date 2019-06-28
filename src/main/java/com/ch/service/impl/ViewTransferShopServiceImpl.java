@@ -377,6 +377,7 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
             Client client = clientMapper.selectByPrimaryKey(transferShop.getClientId());
             if (BeanUtils.isNotEmpty(client)) {
                 viewTransferShopDTO.setHeadImg(client.getHeader());
+                viewTransferShopDTO.setOpenId(client.getOpenId());
             }
             viewTransferShopDTO.setTel(null);
             result.setData(viewTransferShopDTO);
