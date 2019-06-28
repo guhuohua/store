@@ -29,6 +29,8 @@ import java.io.IOException;
 public class SolrServiceImpl implements SolrService {
 
 
+
+
     private static final Logger LOGGER = LogManager.getLogger(SolrServiceImpl.class);
    @Autowired
     SolrClient solrClient;

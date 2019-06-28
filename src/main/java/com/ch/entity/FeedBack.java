@@ -15,6 +15,16 @@ public class FeedBack {
 
     private Long clientId;
 
+    private String forMatTime;
+
+    public String getForMatTime() {
+        return forMatTime;
+    }
+
+    public void setForMatTime(String forMatTime) {
+        this.forMatTime = forMatTime;
+    }
+
     public Long getId() {
         return id;
     }
