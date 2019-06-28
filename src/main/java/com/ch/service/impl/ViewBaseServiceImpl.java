@@ -149,12 +149,13 @@ public class ViewBaseServiceImpl implements ViewBaseService {
 
     @Override
     public ResponseResult findCityByProvinceCode(String code) {
+        code = "420100";
         ResponseResult result = new ResponseResult();
         List<BsCity> bsCities = (List<BsCity>) redisTemplate.boundHashOps("cityList").get(code);
         if (null == bsCities) {
             BsCityExample bsCityExample = new BsCityExample();
             bsCityExample.setOrderByClause("sort");
-            bsCityExample.createCriteria().andProvinceCodeEqualTo("420000");
+            bsCityExample.createCriteria().andCityCodeEqualTo(code);
             bsCities = bsCityMapper.selectByExample(bsCityExample);
             redisTemplate.boundHashOps("cityList").put(code, bsCities);
             result.setData(bsCities);
