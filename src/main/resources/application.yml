@@ -18,6 +18,22 @@ oss:
 
 baidu:
   accessKeyId: 20190321000279610
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   accessKeySecret: 9CP6u0S76T1fnoui_UTn
 
 spring:
@@ -58,7 +74,7 @@ spring:
   data:
     solr:
       host: http://127.0.0.1:8088/solr
-#      host: http://192.168.31.248:8088/solr
+   #   host: http://192.168.31.248:8088/solr
 
 
 
