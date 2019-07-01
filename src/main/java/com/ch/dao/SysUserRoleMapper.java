@@ -37,6 +37,16 @@ public interface SysUserRoleMapper {
     @Update("update sys_user_role set role_id = #{roleId} where user_id = #{userId}")
     int updateByUserId(@Param("userId") Long userId, @Param("roleId") Integer roleId);
 
+
+    /**
+     * 根据用户ID修改角色ID
+     * @param userId
+     * @param
+     * @return
+     */
+    @Update("update sys_user_role set role_id = 12 where user_id = #{userId}")
+    int updateByUserId1(@Param("userId") Long userId);
+
     @Select("select * from sys_user_role t  where t.user_id = #{userId}")
     SysUserRole findByUserId(@Param("userId") Long userId);
 

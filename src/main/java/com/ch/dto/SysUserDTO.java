@@ -21,8 +21,15 @@ public class SysUserDTO {
 
     private Integer status;
 
+    private Integer cityId;
 
+    public Integer getCityId() {
+        return cityId;
+    }
 
+    public void setCityId(Integer cityId) {
+        this.cityId = cityId;
+    }
 
     public Long getUserId() {
         return userId;

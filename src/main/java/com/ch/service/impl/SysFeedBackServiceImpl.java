@@ -1,9 +1,11 @@
 package com.ch.service.impl;
 
+import com.ch.base.BeanUtils;
 import com.ch.base.ResponseResult;
 import com.ch.dao.FeedBackMapper;
 import com.ch.dto.SysBaseDTO;
 import com.ch.entity.FeedBack;
+import com.ch.entity.FeedBackExample;
 import com.ch.service.SysFeedBackService;
 import com.ch.util.DeteUtil;
 import com.github.pagehelper.PageHelper;
@@ -25,7 +27,21 @@ public class SysFeedBackServiceImpl implements SysFeedBackService {
     public ResponseResult list(SysBaseDTO sysBaseDTO) {
         ResponseResult result = new ResponseResult();
         PageHelper.startPage(sysBaseDTO.getPageNum(), sysBaseDTO.getPageSize());
-        List<FeedBack> feedBacks = feedBackMapper.selectByExample(null);
+        FeedBackExample example = new FeedBackExample();
+        FeedBackExample.Criteria criteria = example.createCriteria();
+        if (BeanUtils.isNotEmpty(sysBaseDTO.getContacts())){
+            criteria.andContactsLike("%"+sysBaseDTO.getContacts()+"%");
+        }
+        if (BeanUtils.isNotEmpty(sysBaseDTO.getTel())){
+            criteria.andTelEqualTo(sysBaseDTO.getTel());
+        }
+        if (BeanUtils.isNotEmpty(sysBaseDTO.getContacts()) & BeanUtils.isNotEmpty(sysBaseDTO.getTel())){
+           example = null;
+        }
+        List<FeedBack> feedBacks = feedBackMapper.selectByExample(example);
+
+
+
         for (FeedBack feedBack : feedBacks) {
             feedBack.setForMatTime(DeteUtil.forMat(feedBack.getCreateDate()));
         }

@@ -23,7 +23,7 @@ public class SysFeedBackServiceController {
 
     @PostMapping("list")
     @ApiOperation("意见反馈列表")
-    @RequiresPermissions(logical = Logical.OR, value = {"apply_list_see","apply_list"})
+    @RequiresPermissions(logical = Logical.OR, value = {"feedback_see","feedback"})
     public ResponseResult list(@RequestBody SysBaseDTO sysBaseDTO) {
         ResponseResult result = new ResponseResult();
         try {
@@ -41,7 +41,7 @@ public class SysFeedBackServiceController {
 
     @GetMapping("dele")
     @ApiOperation("删除意见反馈")
-    @RequiresPermissions(logical = Logical.OR, value = {"apply_list_see","apply_list"})
+    @RequiresPermissions(logical = Logical.OR, value = {"feedback_dele","feedback"})
     public ResponseResult dele(@RequestParam Long id) {
         ResponseResult result = new ResponseResult();
         try {

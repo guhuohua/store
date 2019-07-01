@@ -11,7 +11,30 @@ public class SysBaseDTO {
     private Integer pageSize;
     private Integer cityId;
 
+    private String contacts;
+
+    private String tel;
+
+
+
     private Long parentId;
+
+
+    public String getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(String contacts) {
+        this.contacts = contacts;
+    }
+
+    public String getTel() {
+        return tel;
+    }
+
+    public void setTel(String tel) {
+        this.tel = tel;
+    }
 
     public Long getParentId() {
         return parentId;

@@ -50,6 +50,22 @@ public interface SysUserMapper {
 
 
 
+
+    @SelectProvider(type = BtSysUserProvider.class, method = "getAgentList")
+    @Results({
+            @Result(column = "username", property = "userName", javaType = String.class),
+            @Result(column = "phone", property = "phone", javaType = String.class),
+            @Result(column = "role_desc", property = "roleName", javaType = String.class),
+            @Result(column = "account", property = "account", javaType = String.class),
+            @Result(column = "status", property = "status", javaType = Integer.class),
+            @Result(column = "update_time", property = "createDate", javaType = String.class),
+            @Result(column = "user_id", property = "userId", javaType = Long.class),
+            @Result(column = "role_id", property = "roleId", javaType = Integer.class),
+            @Result(column = "city_id", property = "cityId", javaType = Integer.class)
+
+    })
+    List<SysUserMangerDTO> btAgentList(@Param("userName") String userName, @Param("phone") String phone);
+
     /**
      * 后台重置密码
      * @param userId

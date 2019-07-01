@@ -194,9 +194,13 @@ public class SysUserServiceImpl implements SysUserService {
                 btSysUser.setUpdateTime(new Date());
                 btSysUser.setUsername(sysUserDTO.getUserName());
                 btSysUser.setStatus(sysUserDTO.getStatus());
+                if (BeanUtils.isNotEmpty(sysUserDTO.getCityId())){
+                    btSysUser.setCityId(sysUserDTO.getCityId());
+                }
+
                 sysUserMapper.insert(btSysUser);
                 SysUserRole userRole = new SysUserRole();
-                userRole.setRoleId(sysUserDTO.getRoleId());
+                userRole.setRoleId(12);
                 userRole.setUserId(userId);
                 sysUserRoleMapper.insert(userRole);
             } catch (Exception e) {
@@ -249,9 +253,12 @@ public class SysUserServiceImpl implements SysUserService {
             sysUser1.setUsername(sysUserDTO.getUserName());
             sysUser1.setUserId(sysUserDTO.getUserId());
             sysUser1.setStatus(sysUserDTO.getStatus());
+            if (BeanUtils.isNotEmpty(sysUserDTO.getCityId())){
+                sysUser1.setCityId(sysUserDTO.getCityId());
+            }
             try {
                 sysUserMapper.updateByPrimaryKey(sysUser1);
-                sysUserRoleMapper.updateByUserId(sysUserDTO.getUserId(), sysUserDTO.getRoleId());
+                sysUserRoleMapper.updateByUserId1(sysUserDTO.getUserId());
             } catch (Exception e) {
                 LOGGER.error("编辑人员失败" + e.getMessage(), e);
                 result.setCode(500);
@@ -271,6 +278,19 @@ public class SysUserServiceImpl implements SysUserService {
         PageInfo<SysUserMangerDTO> btSysRolePageInfo = new PageInfo<>(sysUserMangerDTOs);
         result.setData(btSysRolePageInfo);
         return result;
+    }
+
+    @Override
+    public ResponseResult agentList(UserParms userParms) {
+        ResponseResult result = new ResponseResult();
+
+        PageHelper.startPage(userParms.getPageNum(), userParms.getPageSize());
+        List<SysUserMangerDTO> sysUserMangerDTOs = sysUserMapper.btAgentList(userParms.getUserName(), userParms.getPhone());
+
+        PageInfo<SysUserMangerDTO> btSysRolePageInfo = new PageInfo<>(sysUserMangerDTOs);
+        result.setData(btSysRolePageInfo);
+        return result;
+
     }
 
     @Override

@@ -42,6 +42,16 @@ public interface SysUserService {
     ResponseResult userList(UserParms userParms);
 
 
+
+    /**
+     * 展示中介列表
+     *
+     * @param userParms
+     * @return
+     */
+    ResponseResult agentList(UserParms userParms);
+
+
     /**
      * 重置密码
      *

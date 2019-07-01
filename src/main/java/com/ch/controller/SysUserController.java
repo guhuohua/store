@@ -1,6 +1,7 @@
 package com.ch.controller;
 
 import com.ch.base.ResponseResult;
+import com.ch.dto.CityDTO;
 import com.ch.dto.SysUserDTO;
 import com.ch.dto.UserParms;
 import com.ch.model.PasswordParam;
@@ -16,6 +17,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 
 @RequestMapping(value = "/sys/user")
 @Slf4j
@@ -47,6 +50,23 @@ public class SysUserController {
     }
 
 
+
+    @PostMapping(value = "insertUpdateAgent")
+    @RequiresPermissions(logical = Logical.OR, value = {"sys_mediation_add","sys_mediation_edit","sys_mediation_in"})
+    @ApiOperation("新增编辑中介")
+    public ResponseResult insertUpdateAgent(HttpServletRequest req, HttpServletResponse res, @RequestBody SysUserDTO sysUserDTO) {
+        ResponseResult result = new ResponseResult();
+        try {
+            result = sysUserService.updateOrInsertUser(sysUserDTO);
+        } catch (Exception e) {
+            LOGGER.error("新增编辑中介失败" + e.getMessage(), e);
+            result.setCode(500);
+            result.setError(e.getMessage());
+            result.setError_description("服务异常，请稍后重试");
+        }
+        return result;
+    }
+
     @PostMapping(value = "userList")
     @RequiresPermissions(logical = Logical.OR, value = {"sys_person_mange_see","sys_person_mange"})
     @ApiOperation("展示人员列表")
@@ -64,6 +84,24 @@ public class SysUserController {
     }
 
 
+    @PostMapping(value = "agentList")
+    @RequiresPermissions(logical = Logical.OR, value = {"sys_mediation_see","sys_mediation_in"})
+    @ApiOperation("展示中介列表")
+    public ResponseResult agentList(HttpServletRequest req, HttpServletResponse res, @RequestBody UserParms userParms) {
+        ResponseResult result = new ResponseResult();
+        try {
+            result = sysUserService.agentList(userParms);
+        } catch (Exception e) {
+            LOGGER.error("展示中介列表失败" + e.getMessage(), e);
+            result.setCode(500);
+            result.setError(e.getMessage());
+            result.setError_description("服务异常，请稍后重试");
+        }
+        return result;
+    }
+
+
+
     @GetMapping(value = "resetPassword")
     @RequiresPermissions(logical = Logical.OR, value = {"sys_person_mange_reset","sys_person_mange"})
     @ApiOperation("重置密码")
@@ -76,6 +114,7 @@ public class SysUserController {
         LOGGER.error("重置密码失败" + e.getMessage(), e);
             result.setCode(500);
             result.setError(e.getMessage());
+
             result.setError_description("服务异常，请稍后重试");
         }
         return result;
@@ -151,4 +190,24 @@ public class SysUserController {
         return result;
     }
 
+
+    @GetMapping(value = "getCity")
+    @ApiOperation("获取城市")
+    public ResponseResult getCity() {
+        ResponseResult result = new ResponseResult();
+        try {
+            List list = new ArrayList();
+            CityDTO cityDTO = new CityDTO(169,"武汉");
+            list.add(cityDTO);
+            result.setData(list);
+            return  result;
+        }
+        catch (Exception e) {
+            LOGGER.error("获取城市失败" + e.getMessage(), e);
+            result.setCode(500);
+            result.setError(e.getMessage());
+            result.setError_description("服务异常，请稍后重试");
+        }
+        return result;
+    }
 }

@@ -17,11 +17,25 @@ public class SysUserMangerDTO {
 
     private Integer roleId;
 
+    private String cityName;
 
+    private Integer cityId;
 
+    public Integer getCityId() {
+        return cityId;
+    }
 
+    public void setCityId(Integer cityId) {
+        this.cityId = cityId;
+    }
 
+    public String getCityName() {
+        return cityName;
+    }
 
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
 
     public String getUserName() {
         return userName;
