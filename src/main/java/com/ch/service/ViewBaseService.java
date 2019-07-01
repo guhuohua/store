@@ -163,4 +163,14 @@ public interface ViewBaseService {
      * @return
      */
     ResponseResult baseIcon();
+
+
+    /**
+     * 专家在线
+     * @param businessId
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    ResponseResult expertOnline(Long businessId, Integer pageNum, Integer pageSize);
 }

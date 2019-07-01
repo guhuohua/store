@@ -487,4 +487,9 @@ public class ViewBaseServiceImpl implements ViewBaseService {
         result.setData(transferIcons);
         return result;
     }
+
+    @Override
+    public ResponseResult expertOnline(Long businessId, Integer pageNum, Integer pageSize) {
+        return null;
+    }
 }
