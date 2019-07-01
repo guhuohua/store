@@ -73,6 +73,9 @@ public class HttpRequestUtil {
         try {
             // 创建Http Post请求
             HttpPost httpPost = new HttpPost(url);
+            String base64 = "appKey:941b5e2749704dea9b66c743";
+            String encode = Base64Util.encode(base64.getBytes());
+            httpPost.setHeader("Authorization:", "Basic " + encode);
             // 创建参数列表
             if (param != null) {
                 List<NameValuePair> paramList = new ArrayList<>();
@@ -129,4 +132,5 @@ public class HttpRequestUtil {
 
         return resultString;
     }
+
 }

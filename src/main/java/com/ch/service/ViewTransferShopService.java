@@ -92,4 +92,13 @@ public interface ViewTransferShopService {
      * @return
      */
     ResponseResult deleteShop(Long id);
+
+
+    /**
+     * 修改店铺
+     * @param param
+     * @return
+     */
+    ResponseResult updateShop(ViewTransferShopParam param, Long userId);
+
 }

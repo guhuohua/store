@@ -51,6 +51,35 @@ public class ViewLookShopController {
         return result;
     }
 
+    @PostMapping("/updateShop")
+    @ApiOperation("修改选址")
+    public ResponseResult updateShop(HttpServletRequest req, @RequestBody ViewLookShopAddParam param) {
+        ResponseResult result = new ResponseResult();
+        String token = req.getHeader("Authorization");
+        if (BeanUtils.isEmpty(token)) {
+            result.setCode(999);
+            result.setError("token失效请重新登录");
+            result.setError_description("token失效请重新登录");
+            return result;
+        }
+        Long userId = TokenUtil.getUserId(token);
+        if (BeanUtils.isEmpty(userId)) {
+            result.setCode(999);
+            result.setError("token失效请重新登录");
+            result.setError_description("token失效请重新登录");
+            return result;
+        }
+        try {
+            result = viewLookShopService.updateShop(param, userId);
+        } catch (Exception e) {
+            log.error("修改选址失败" + e.getMessage(), e);
+            result.setCode(600);
+            result.setError(e.getMessage());
+            result.setError_description("修改选址失败");
+        }
+        return result;
+    }
+
     @GetMapping("/info")
     @ApiOperation("选址详情")
     public ResponseResult lookShopInfo(HttpServletRequest req, @RequestParam Long id) {

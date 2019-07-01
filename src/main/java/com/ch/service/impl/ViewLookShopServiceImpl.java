@@ -92,8 +92,6 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
         lookShop.setCityId(param.getCityId());
         lookShop.setClientId(userId);
         lookShop.setTel(param.getTel());
-        lookShop.setPropertyTypeId(param.getPropertyTypeId());
-        lookShop.setShopTypeId(param.getShopTypeId());
         lookShop.setSmallRent(param.getSmallRent());
         lookShop.setTopRent(param.getTopRent());
         lookShop.setSmallArea(param.getSmallArea());
@@ -101,6 +99,9 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
         lookShop.setTransferStatus(param.getTransferStatus());
         lookShop.setTitle(param.getTitle());
         lookShop.setCityId(param.getCityId());
+
+        lookShop.setPropertyTypeId(param.getPropertyTypeId());
+        lookShop.setShopTypeId(param.getShopTypeId());
         lookShop.setDecorateTypeId(param.getDecorateTypeId());
         lookShop.setRequirementDetails(param.getRequirementDetails());
         lookShop.setAccessoryRequirements(param.getAccessoryRequirements());
@@ -114,6 +115,8 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
         if (BeanUtils.isNotEmpty(param.getLoopLineId())) {
             lookShop.setLoopLineId(param.getLoopLineId().toString());
         }
+        lookShop.setShopRentTypeId(param.getShopRentTypeId());
+
         lookShop.setUpdateTime(new Date());
         lookShop.setCraeateTime(new Date());
         lookShop.setAreaId(param.getAreaId());
@@ -121,7 +124,7 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
         lookShop.setProvinceId(param.getProvinceId());
         lookShop.setAddress(param.getAddress());
         lookShop.setContacts(param.getContacts());
-        lookShop.setShopRentTypeId(param.getShopRentTypeId());
+
         lookShop.setStatus(0);
         lookShop.setMediumStatus(0);
         lookShop.setPublishedTime(new Date());
@@ -274,6 +277,35 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
             SolrDTO solrDTO = new SolrDTO();
             solrDTO.setLookShopId(id);
             solrService.lowerShelf(solrDTO);
+        }
+        return result;
+    }
+
+    @Override
+    public ResponseResult updateShop(ViewLookShopAddParam param, Long userId) {
+        ResponseResult result = new ResponseResult();
+        LookShopExample lookShopExample = new LookShopExample();
+        lookShopExample.createCriteria().andIdEqualTo(param.getId()).andClientIdEqualTo(userId);
+        List<LookShop> lookShops = lookShopMapper.selectByExample(lookShopExample);
+        if (lookShops.stream().findFirst().isPresent()) {
+            LookShop lookShop = lookShops.stream().findFirst().get();
+            lookShop.setPropertyTypeId(param.getPropertyTypeId());
+            lookShop.setShopTypeId(param.getShopTypeId());
+            lookShop.setDecorateTypeId(param.getDecorateTypeId());
+            lookShop.setRequirementDetails(param.getRequirementDetails());
+            lookShop.setAccessoryRequirements(param.getAccessoryRequirements());
+            lookShop.setGateWidth(param.getGateWidth());
+            lookShop.setShopRentTypeId(param.getShopRentTypeId());
+            lookShop.setServiceType(param.getServiceType());
+            lookShop.setMediumStatus(0);
+            lookShop.setShopReadme(param.getShopReadme());
+            lookShop.setFloor(param.getFloor());
+            lookShop.setOrientationId(param.getOrientationId());
+            if (BeanUtils.isNotEmpty(param.getLoopLineId())) {
+                lookShop.setLoopLineId(param.getLoopLineId().toString());
+            }
+            lookShop.setShopRentTypeId(param.getShopRentTypeId());
+            lookShopMapper.updateByPrimaryKey(lookShop);
         }
         return result;
     }

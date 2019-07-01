@@ -88,6 +88,9 @@ public class ViewBaseServiceImpl implements ViewBaseService {
     @Autowired
     RedisTemplate redisTemplate;
 
+    @Autowired
+    TransferIconMapper transferIconMapper;
+
     @Override
     public ResponseResult businessTypeList() {
         ResponseResult result = new ResponseResult();
@@ -473,5 +476,15 @@ public class ViewBaseServiceImpl implements ViewBaseService {
             solrDTO.setLookShopId(storeId);
         }
         solrService.addSolr(solrDTO);
+    }
+
+    @Override
+    public ResponseResult baseIcon() {
+        ResponseResult result = new ResponseResult();
+        TransferIconExample transferIconExample = new TransferIconExample();
+        transferIconExample.createCriteria().andStatusEqualTo("1");
+        List<TransferIcon> transferIcons = transferIconMapper.selectByExample(transferIconExample);
+        result.setData(transferIcons);
+        return result;
     }
 }

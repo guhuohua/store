@@ -1,6 +1,7 @@
 package com.ch.model;
 
 import com.ch.entity.TransferImage;
+import com.ch.entity.TransferShopBaseIcon;
 import lombok.Data;
 
 import javax.validation.constraints.Size;
@@ -101,4 +102,6 @@ public class ViewTransferShopParam {
     private String address;
 
     private String areaName;
+
+    private List<TransferShopBaseIcon> transferShopBaseIcons;
 }

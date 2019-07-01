@@ -156,4 +156,11 @@ public interface ViewBaseService {
      * @param storeId
      */
     void solrByStoreId(Long storeId);
+
+
+    /**
+     * 基础图标
+     * @return
+     */
+    ResponseResult baseIcon();
 }
