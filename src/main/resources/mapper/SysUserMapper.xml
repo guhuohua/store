@@ -17,6 +17,7 @@
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="video_introduction" property="videoIntroduction" jdbcType="VARCHAR" />
     <result column="area" property="area" jdbcType="VARCHAR" />
+    <result column="head_image" property="headImage" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -78,7 +79,7 @@
   </sql>
   <sql id="Base_Column_List" >
     user_id, username, password, phone, update_time, status, account, salt, good_business, 
-    service_count, success_case_id, city_id, create_time, video_introduction, area
+    service_count, success_case_id, city_id, create_time, video_introduction, area,head_image
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ch.entity.SysUserExample" >
     select
@@ -116,13 +117,15 @@
       phone, update_time, status, 
       account, salt, good_business, 
       service_count, success_case_id, city_id, 
-      create_time, video_introduction, area
+      create_time, video_introduction, area,head_image
       )
     values (#{userId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{phone,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, 
       #{account,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, #{goodBusiness,jdbcType=VARCHAR}, 
       #{serviceCount,jdbcType=INTEGER}, #{successCaseId,jdbcType=INTEGER}, #{cityId,jdbcType=INTEGER}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{videoIntroduction,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}
+      #{createTime,jdbcType=TIMESTAMP}, #{videoIntroduction,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR},
+      #{head_image,jdbcType=VARCHAR}
+
       )
   </insert>
   <insert id="insertSelective" parameterType="com.ch.entity.SysUser" >
@@ -365,7 +368,8 @@
       city_id = #{cityId,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       video_introduction = #{videoIntroduction,jdbcType=VARCHAR},
-      area = #{area,jdbcType=VARCHAR}
+      area = #{area,jdbcType=VARCHAR},
+      head_image = #{headImage,jdbcType=VARCHAR}
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
 </mapper>

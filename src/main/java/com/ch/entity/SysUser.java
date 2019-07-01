@@ -34,6 +34,17 @@ public class SysUser implements Serializable {
 
     private String area;
 
+    private String headImage;
+
+
+    public String getHeadImage() {
+        return headImage;
+    }
+
+    public void setHeadImage(String headImage) {
+        this.headImage = headImage;
+    }
+
     public Long getUserId() {
         return userId;
     }
