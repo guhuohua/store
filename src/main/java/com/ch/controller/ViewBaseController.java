@@ -400,15 +400,12 @@ public class ViewBaseController{
         String open_id = null;
         if (jsonObject != null) {
             // 获取参数返回的
-            session_key = jsonObject.get("session_key").toString();
-            // System.out.println(session_key);
-
-            open_id = jsonObject.get("openid").toString();
-            // System.out.println(open_id);
-           /* UserInfo userInfo = new UserInfo();
-           userInfo.setOpenId(open_id);
-           userInfo.setCreateTime(new Date());
-           userInfoMapper.insert(userInfo);*/
+            if (BeanUtils.isNotEmpty(jsonObject.get("session_key"))) {
+                session_key = jsonObject.get("session_key").toString();
+            }
+            if (BeanUtils.isNotEmpty(jsonObject.get("openid"))) {
+                open_id = jsonObject.get("openid").toString();
+            }
         }
         // 封装返回小程序
         Map<String, String> result = new HashMap<>();
@@ -435,5 +432,11 @@ public class ViewBaseController{
         viewBaseService.solrByStoreId(id);
         return result;
 
+    }
+
+    @GetMapping("baseIcon")
+    @ApiOperation("发布店铺时基础配置")
+    public ResponseResult baseIcon() {
+        return viewBaseService.baseIcon();
     }
 }

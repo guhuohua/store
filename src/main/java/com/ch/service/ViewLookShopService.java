@@ -51,5 +51,11 @@ public interface ViewLookShopService {
      */
     ResponseResult deleteShop(Long id);
 
-
+    /**
+     * 修改店铺
+     * @param param
+     * @param userId
+     * @return
+     */
+    ResponseResult updateShop(ViewLookShopAddParam param, Long userId);
 }

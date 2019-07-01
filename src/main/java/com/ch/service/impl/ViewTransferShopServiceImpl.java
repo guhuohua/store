@@ -94,6 +94,9 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
     @Autowired
     SolrService solrService;
 
+    @Autowired
+    TransferShopBaseIconMapper transferShopBaseIconMapper;
+
     @Override
     @Transactional
     public ResponseResult addTransferShop(ViewTransferShopParam param, Long userId) {
@@ -126,13 +129,28 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
         transferShop.setId(IdUtil.getId());
         transferShop.setClientId(userId);
         transferShop.setTel(param.getTel());
+        transferShop.setImage(param.getImage());
+        transferShop.setUpdateTime(new Date());
+        transferShop.setRecommendType(0);
+        transferShop.setAreaId(param.getAreaId());
+        transferShop.setStreetId(param.getStreetId());
+        transferShop.setProvinceId(param.getProvinceId());
+        transferShop.setAddress(param.getAddress());
+        transferShop.setContacts(param.getContacts());
+        transferShop.setStatus(0);
+        transferShop.setCreateTime(new Date());
+        transferShop.setCheckStatus(2);
+        transferShop.setPublishedTime(new Date());
+        transferShop.setFakeTel("15629013877");
+        transferShop.setShopSn((IdUtil.getId() + 1) + "");
+        transferShop.setTitle(param.getTitle());
+        transferShop.setCityId(param.getCityId());
+
         transferShop.setPropertyTypeId(param.getPropertyTypeId());
         transferShop.setShopTypeId(param.getShopTypeId());
         transferShop.setRent(param.getRent());
         transferShop.setArea(param.getArea());
         transferShop.setTransferStatus(param.getTransferStatus());
-        transferShop.setTitle(param.getTitle());
-        transferShop.setCityId(param.getCityId());
         transferShop.setDecorateTypeId(param.getDecorateTypeId());
         transferShop.setRequirementDetails(param.getRequirementDetails());
         transferShop.setAccessoryRequirements(param.getAccessoryRequirements());
@@ -146,22 +164,15 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
         transferShop.setOrientationId(param.getOrientationId());
         transferShop.setLoopLineId(param.getLoopLineId());
         transferShop.setSubwayLineId(param.getSubwayLineId());
-        transferShop.setImage(param.getImage());
-        transferShop.setUpdateTime(new Date());
-        transferShop.setAreaId(param.getAreaId());
-        transferShop.setStreetId(param.getStreetId());
-        transferShop.setProvinceId(param.getProvinceId());
-        transferShop.setAddress(param.getAddress());
-        transferShop.setContacts(param.getContacts());
-        transferShop.setRecommendType(0);
         transferShop.setShopRentTypeId(param.getShopRentTypeId());
-        transferShop.setStatus(0);
-        transferShop.setCreateTime(new Date());
-        transferShop.setCheckStatus(2);
-        transferShop.setPublishedTime(new Date());
-        transferShop.setFakeTel("15629013877");
-        transferShop.setShopSn((IdUtil.getId() + 1) + "");
         transferShopMapper.insert(transferShop);
+        if (BeanUtils.isNotEmpty(param.getTransferShopBaseIcons()) && param.getTransferShopBaseIcons().size() > 0) {
+            for (TransferShopBaseIcon transferShopBaseIcon:param.getTransferShopBaseIcons()) {
+                transferShopBaseIcon.setId(IdUtil.getId());
+                transferShopBaseIcon.setTransferShopId(transferShop.getId());
+                transferShopBaseIconMapper.insert(transferShopBaseIcon);
+            }
+        }
         List<TransferImage> transferImages = param.getTransferImages();
         for (TransferImage transferImage : transferImages) {
             transferImage.setId(IdUtil.getId());
@@ -487,6 +498,52 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
             SolrDTO solrDTO = new SolrDTO();
             solrDTO.setTransferShopId(id);
             solrService.lowerShelf(solrDTO);
+        }
+        return result;
+    }
+
+    @Override
+    public ResponseResult updateShop(ViewTransferShopParam param, Long userId) {
+        ResponseResult result = new ResponseResult();
+        TransferShopExample transferShopExample = new TransferShopExample();
+        transferShopExample.createCriteria().andIdEqualTo(param.getId()).andClientIdEqualTo(userId);
+        List<TransferShop> transferShops = transferShopMapper.selectByExample(transferShopExample);
+        if (transferShops.stream().findFirst().isPresent()) {
+            TransferShop transferShop = transferShops.stream().findFirst().get();
+            if (transferShop.getCheckStatus() == 0) {
+                result.setCode(600);
+                result.setError("请审核过后在完善店铺信息");
+                result.setError_description("请审核过后在完善店铺信息");
+                return result;
+            }
+            transferShop.setPropertyTypeId(param.getPropertyTypeId());
+            transferShop.setShopTypeId(param.getShopTypeId());
+            transferShop.setRent(param.getRent());
+            transferShop.setArea(param.getArea());
+            transferShop.setTransferStatus(param.getTransferStatus());
+            transferShop.setDecorateTypeId(param.getDecorateTypeId());
+            transferShop.setRequirementDetails(param.getRequirementDetails());
+            transferShop.setAccessoryRequirements(param.getAccessoryRequirements());
+            transferShop.setGateWidth(param.getGateWidth());
+            transferShop.setTransferFee(param.getTransferFee());
+            transferShop.setShopSn(IdUtil.getId() + "");
+            transferShop.setServiceType(param.getServiceType());
+            transferShop.setMediumStatus(0);
+            transferShop.setShopReadme(param.getShopReadme());
+            transferShop.setFloorNumber(param.getFloorNumber());
+            transferShop.setOrientationId(param.getOrientationId());
+            transferShop.setLoopLineId(param.getLoopLineId());
+            transferShop.setSubwayLineId(param.getSubwayLineId());
+            transferShop.setShopRentTypeId(param.getShopRentTypeId());
+            transferShopMapper.insert(transferShop);
+            if (BeanUtils.isNotEmpty(param.getTransferShopBaseIcons()) && param.getTransferShopBaseIcons().size() > 0) {
+                for (TransferShopBaseIcon transferShopBaseIcon:param.getTransferShopBaseIcons()) {
+                    transferShopBaseIcon.setId(IdUtil.getId());
+                    transferShopBaseIcon.setTransferShopId(transferShop.getId());
+                    transferShopBaseIconMapper.insert(transferShopBaseIcon);
+                }
+            }
+            transferShopMapper.updateByPrimaryKey(transferShop);
         }
         return result;
     }

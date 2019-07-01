@@ -53,6 +53,35 @@ public class ViewTransferShopController {
         return result;
     }
 
+    @PostMapping("/update")
+    @ApiOperation("修改转铺")
+    public ResponseResult updateShop(HttpServletRequest req, @RequestBody ViewTransferShopParam param) {
+        ResponseResult result = new ResponseResult();
+        String token = req.getHeader("Authorization");
+        if (BeanUtils.isEmpty(token)) {
+            result.setCode(999);
+            result.setError("token失效请重新登录");
+            result.setError_description("token失效请重新登录");
+            return result;
+        }
+        Long userId = TokenUtil.getUserId(token);
+        if (BeanUtils.isEmpty(userId)) {
+            result.setCode(999);
+            result.setError("token失效请重新登录");
+            result.setError_description("token失效请重新登录");
+            return result;
+        }
+        try {
+            result = viewTransferShopService.updateShop(param, userId);
+        } catch (Exception e) {
+            log.error("修改转铺失败" + e.getMessage(), e);
+            result.setCode(600);
+            result.setError(e.getMessage());
+            result.setError_description("修改转铺失败");
+        }
+        return result;
+    }
+
     @GetMapping("/list")
     @ApiOperation("转铺列表")
     public ResponseResult transferShopList(ViewTransferShopListParam param) {
