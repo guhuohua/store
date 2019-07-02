@@ -80,4 +80,18 @@ public interface SysUserService {
      */
     ResponseResult dele(Long userId);
 
+    /**
+     * 经营范围
+     * @return
+     */
+    ResponseResult findBusiness();
+
+
+    /**
+     * 根据id查询人员信息
+     * @param userId
+     * @return
+     */
+    ResponseResult findByUserId(Long userId);
+
 }

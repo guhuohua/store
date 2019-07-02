@@ -47,14 +47,20 @@ public class SysUserServiceImpl implements SysUserService {
     SysRolePermissionMapper sysRolePermissionMapper;
     @Autowired
     RedisTemplate redisTemplate;
+    @Autowired
+    BusinessTypeMapper businessTypeMapper;
+    @Autowired
+    SysUserBusinessMapper sysUserBusinessMapper;
+    @Autowired
+    BsCityMapper bsCityMapper;
 
 
     @Override
-    @Cacheable(value = "findById" , key = "'userId'+#userId")
+    @Cacheable(value = "findById", key = "'userId'+#userId")
     public UserDTO findById(Long userId) {
         UserDTO dto = (UserDTO) redisTemplate.boundHashOps("userDto").get(userId);
-        if (null == dto){
-             dto = new UserDTO();
+        if (null == dto) {
+            dto = new UserDTO();
             SysUser sysUser = sysUserMapper.selectByPrimaryKey(userId);
             if (sysUser != null) {
                 dto.setUserId(sysUser.getUserId());
@@ -86,12 +92,11 @@ public class SysUserServiceImpl implements SysUserService {
                 dto.setRoles(roles);
                 dto.setPermissions(permissions);
             }
-            redisTemplate.boundHashOps("userDto").put(userId,dto);
+            redisTemplate.boundHashOps("userDto").put(userId, dto);
             return dto;
-        }else {
+        } else {
             return dto;
         }
-
 
 
     }
@@ -194,8 +199,17 @@ public class SysUserServiceImpl implements SysUserService {
                 btSysUser.setUpdateTime(new Date());
                 btSysUser.setUsername(sysUserDTO.getUserName());
                 btSysUser.setStatus(sysUserDTO.getStatus());
-                if (BeanUtils.isNotEmpty(sysUserDTO.getCityId())){
+                btSysUser.setHeadImage(sysUserDTO.getHeadImage());
+                if (BeanUtils.isNotEmpty(sysUserDTO.getCityId())) {
                     btSysUser.setCityId(sysUserDTO.getCityId());
+                }
+                for (Long businessTypeId : sysUserDTO.getBusinessTypeId()) {
+                    SysUserBusiness sysUserBusiness = new SysUserBusiness();
+                    sysUserBusiness.setId(IdUtil.getId());
+                    sysUserBusiness.setSysUserId(userId);
+                    sysUserBusiness.setBusinessTypeId(businessTypeId);
+                    sysUserBusinessMapper.insert(sysUserBusiness);
+
                 }
 
                 sysUserMapper.insert(btSysUser);
@@ -253,7 +267,22 @@ public class SysUserServiceImpl implements SysUserService {
             sysUser1.setUsername(sysUserDTO.getUserName());
             sysUser1.setUserId(sysUserDTO.getUserId());
             sysUser1.setStatus(sysUserDTO.getStatus());
-            if (BeanUtils.isNotEmpty(sysUserDTO.getCityId())){
+            sysUser1.setHeadImage(sysUserDTO.getHeadImage());
+
+            SysUserBusinessExample example4 = new SysUserBusinessExample();
+            SysUserBusinessExample.Criteria criteria = example4.createCriteria();
+            criteria.andSysUserIdEqualTo(sysUser1.getUserId());
+            sysUserBusinessMapper.deleteByExample(example4);
+
+            for (Long businessTypeId : sysUserDTO.getBusinessTypeId()) {
+                SysUserBusiness sysUserBusiness = new SysUserBusiness();
+                sysUserBusiness.setId(IdUtil.getId());
+                sysUserBusiness.setSysUserId(sysUser1.getUserId());
+                sysUserBusiness.setBusinessTypeId(businessTypeId);
+                sysUserBusinessMapper.insert(sysUserBusiness);
+
+            }
+            if (BeanUtils.isNotEmpty(sysUserDTO.getCityId())) {
                 sysUser1.setCityId(sysUserDTO.getCityId());
             }
             try {
@@ -275,6 +304,7 @@ public class SysUserServiceImpl implements SysUserService {
         ResponseResult result = new ResponseResult();
         PageHelper.startPage(userParms.getPageNum(), userParms.getPageSize());
         List<SysUserMangerDTO> sysUserMangerDTOs = sysUserMapper.btUserList(userParms.getUserName(), userParms.getPhone());
+
         PageInfo<SysUserMangerDTO> btSysRolePageInfo = new PageInfo<>(sysUserMangerDTOs);
         result.setData(btSysRolePageInfo);
         return result;
@@ -356,6 +386,57 @@ public class SysUserServiceImpl implements SysUserService {
     public ResponseResult dele(Long userId) {
         ResponseResult result = new ResponseResult();
         sysUserMapper.deleteByPrimaryKey(userId);
+        return result;
+    }
+
+    @Override
+    public ResponseResult findBusiness() {
+        ResponseResult result = new ResponseResult();
+        BusinessTypeExample example = new BusinessTypeExample();
+        BusinessTypeExample.Criteria criteria = example.createCriteria();
+        criteria.andParentIdEqualTo(0L);
+        List<BusinessType> businessTypes = businessTypeMapper.selectByExample(example);
+        result.setData(businessTypes);
+        return result;
+    }
+
+    @Override
+    public ResponseResult findByUserId(Long userId) {
+        ResponseResult result = new ResponseResult();
+        SysUser sysUser = sysUserMapper.selectByPrimaryKey(userId);
+        List<Long> BusinessTypeId = new ArrayList<>();
+        SysUserBusinessExample example = new SysUserBusinessExample();
+        SysUserBusinessExample.Criteria criteria = example.createCriteria();
+        criteria.andSysUserIdEqualTo(userId);
+        List<SysUserBusiness> sysUserBusinesses = sysUserBusinessMapper.selectByExample(example);
+        for (SysUserBusiness sysUserBusiness : sysUserBusinesses) {
+            BusinessTypeId.add(sysUserBusiness.getBusinessTypeId());
+        }
+        BsCity bsCity = bsCityMapper.selectByPrimaryKey(sysUser.getCityId());
+        SysUserRoleExample example1 = new SysUserRoleExample();
+        SysUserRoleExample.Criteria criteria1 = example1.createCriteria();
+        criteria1.andUserIdEqualTo(sysUser.getUserId());
+        List<SysUserRole> sysUserRoles = sysUserRoleMapper.selectByExample(example1);
+        SysUserRole sysUserRole = null;
+        if (sysUserRoles.size() > 0) {
+            sysUserRole = sysUserRoles.get(0);
+        }
+        SysRole sysRole = sysRoleMapper.selectByPrimaryKey(sysUserRole.getRoleId());
+
+        SysUserMangerDTO sysUserDTO = new SysUserMangerDTO();
+        sysUserDTO.setUserId(sysUser.getUserId());
+        sysUserDTO.setUserName(sysUser.getUsername());
+        sysUserDTO.setPhone(sysUser.getPhone());
+        sysUserDTO.setAccount(sysUser.getAccount());
+        sysUserDTO.setStatus(sysUser.getStatus());
+        sysUserDTO.setCityId(sysUser.getCityId());
+        sysUserDTO.setCityName(bsCity.getCityName());
+        sysUserDTO.setHeadImage(sysUser.getHeadImage());
+        sysUserDTO.setBusinessTypeId(BusinessTypeId);
+        sysUserDTO.setRoleId(sysRole.getRoleId());
+        sysUserDTO.setRoleName(sysRole.getRoleName());
+
+        result.setData(sysUserDTO);
         return result;
     }
 

@@ -124,7 +124,7 @@
       #{account,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, #{goodBusiness,jdbcType=VARCHAR}, 
       #{serviceCount,jdbcType=INTEGER}, #{successCaseId,jdbcType=INTEGER}, #{cityId,jdbcType=INTEGER}, 
       #{createTime,jdbcType=TIMESTAMP}, #{videoIntroduction,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR},
-      #{head_image,jdbcType=VARCHAR}
+      #{headImage,jdbcType=VARCHAR}
 
       )
   </insert>

@@ -1,5 +1,7 @@
 package com.ch.dto;
 
+import java.util.List;
+
 public class SysUserMangerDTO {
     private String userName;
 
@@ -20,6 +22,26 @@ public class SysUserMangerDTO {
     private String cityName;
 
     private Integer cityId;
+
+    private String headImage;
+
+    private List<Long> businessTypeId;
+
+    public String getHeadImage() {
+        return headImage;
+    }
+
+    public void setHeadImage(String headImage) {
+        this.headImage = headImage;
+    }
+
+    public List<Long> getBusinessTypeId() {
+        return businessTypeId;
+    }
+
+    public void setBusinessTypeId(List<Long> businessTypeId) {
+        this.businessTypeId = businessTypeId;
+    }
 
     public Integer getCityId() {
         return cityId;

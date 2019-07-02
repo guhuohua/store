@@ -210,4 +210,38 @@ public class SysUserController {
         }
         return result;
     }
+
+
+    @GetMapping(value = "findBusiness")
+    @ApiOperation("获取一级经营范围")
+    public ResponseResult findBusiness() {
+        ResponseResult result = new ResponseResult();
+        try {
+             result = sysUserService.findBusiness();
+        }
+        catch (Exception e) {
+            LOGGER.error("获取一级经营范围失败" + e.getMessage(), e);
+            result.setCode(500);
+            result.setError(e.getMessage());
+            result.setError_description("服务异常，请稍后重试");
+        }
+        return result;
+    }
+
+
+    @GetMapping(value = "findByUserId")
+    @ApiOperation("获取人员详情")
+    public ResponseResult findByUserId(@RequestParam Long userId) {
+        ResponseResult result = new ResponseResult();
+        try {
+            result = sysUserService.findByUserId(userId);
+        }
+        catch (Exception e) {
+            LOGGER.error("获取人员详情失败" + e.getMessage(), e);
+            result.setCode(500);
+            result.setError(e.getMessage());
+            result.setError_description("服务异常，请稍后重试");
+        }
+        return result;
+    }
 }

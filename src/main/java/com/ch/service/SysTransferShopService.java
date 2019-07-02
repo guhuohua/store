@@ -28,4 +28,7 @@ public interface SysTransferShopService {
      */
     ResponseResult  transferShopInfo(Long storeId);
 
+
+    ResponseResult findAgent();
+
 }

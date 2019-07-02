@@ -103,6 +103,26 @@ public class TransferShop {
 
     private Long transferShopId;
 
+    private Integer depth;
+
+    private Integer high;
+
+    public Integer getDepth() {
+        return depth;
+    }
+
+    public void setDepth(Integer depth) {
+        this.depth = depth;
+    }
+
+    public Integer getHigh() {
+        return high;
+    }
+
+    public void setHigh(Integer high) {
+        this.high = high;
+    }
+
     public Long getTransferShopId() {
         return transferShopId;
     }

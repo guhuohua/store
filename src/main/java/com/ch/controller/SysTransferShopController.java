@@ -94,4 +94,19 @@ public class SysTransferShopController {
     }
 
 
+    @GetMapping ("findAgent")
+    @ApiOperation("展示所有中介")
+    public ResponseResult findAgent() {
+        ResponseResult result = new ResponseResult();
+        try {
+            result = sysTransferShopService.findAgent();
+        } catch (Exception e) {
+            log.error("展示所有中介" + e.getMessage(), e);
+            result.setCode(600);
+            result.setError(e.getMessage());
+            result.setError_description("展示所有中介");
+        }
+        return result;
+    }
+
 }

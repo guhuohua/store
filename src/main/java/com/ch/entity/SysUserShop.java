@@ -1,17 +1,17 @@
 package com.ch.entity;
 
 public class SysUserShop {
-    private Integer sysUserId;
+    private Long sysUserId;
 
     private String lookShopId;
 
     private String transferShopId;
 
-    public Integer getSysUserId() {
+    public Long getSysUserId() {
         return sysUserId;
     }
 
-    public void setSysUserId(Integer sysUserId) {
+    public void setSysUserId(Long sysUserId) {
         this.sysUserId = sysUserId;
     }
 

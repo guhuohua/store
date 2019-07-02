@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ch.dao.SysUserShopMapper" >
   <resultMap id="BaseResultMap" type="com.ch.entity.SysUserShop" >
-    <result column="sys_user_id" property="sysUserId" jdbcType="INTEGER" />
+    <result column="sys_user_id" property="sysUserId" jdbcType="BIGINT" />
     <result column="look_shop_id" property="lookShopId" jdbcType="VARCHAR" />
     <result column="transfer_shop_id" property="transferShopId" jdbcType="VARCHAR" />
   </resultMap>
@@ -91,7 +91,7 @@
   <insert id="insert" parameterType="com.ch.entity.SysUserShop" >
     insert into sys_user_shop (sys_user_id, look_shop_id, transfer_shop_id
       )
-    values (#{sysUserId,jdbcType=INTEGER}, #{lookShopId,jdbcType=VARCHAR}, #{transferShopId,jdbcType=VARCHAR}
+    values (#{sysUserId,jdbcType=BIGINT}, #{lookShopId,jdbcType=VARCHAR}, #{transferShopId,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.ch.entity.SysUserShop" >
@@ -144,7 +144,7 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update sys_user_shop
-    set sys_user_id = #{record.sysUserId,jdbcType=INTEGER},
+    set sys_user_id = #{record.sysUserId,jdbcType=BIGINT},
       look_shop_id = #{record.lookShopId,jdbcType=VARCHAR},
       transfer_shop_id = #{record.transferShopId,jdbcType=VARCHAR}
     <if test="_parameter != null" >
