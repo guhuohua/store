@@ -97,6 +97,9 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
     @Autowired
     TransferShopBaseIconMapper transferShopBaseIconMapper;
 
+    @Autowired
+    TransferIconMapper transferIconMapper;
+
     @Override
     @Transactional
     public ResponseResult addTransferShop(ViewTransferShopParam param, Long userId) {
@@ -390,6 +393,20 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
                 viewTransferShopDTO.setHeadImg(client.getHeader());
                 viewTransferShopDTO.setOpenId(client.getOpenId());
             }
+            List<ViewBaseIcon> viewBaseIcons = new ArrayList<>();
+            TransferShopBaseIconExample transferShopBaseIconExample = new TransferShopBaseIconExample();
+            transferShopBaseIconExample.createCriteria().andTransferShopIdEqualTo(transferShop.getId());
+            List<TransferShopBaseIcon> transferShopBaseIcons = transferShopBaseIconMapper.selectByExample(transferShopBaseIconExample);
+            for (TransferShopBaseIcon icon:transferShopBaseIcons) {
+                TransferIcon transferIcon = transferIconMapper.selectByPrimaryKey(icon.getBaseIconId());
+                ViewBaseIcon viewBaseIcon = new ViewBaseIcon();
+                if (BeanUtils.isNotEmpty(transferIcon)) {
+                    viewBaseIcon.setName(transferIcon.getName());
+                    viewBaseIcon.setIcon(transferIcon.getImageUrl());
+                    viewBaseIcons.add(viewBaseIcon);
+                }
+            }
+            viewTransferShopDTO.setViewBaseIcons(viewBaseIcons);
             viewTransferShopDTO.setTel(null);
             result.setData(viewTransferShopDTO);
         }
@@ -479,6 +496,15 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
         ResponseResult result = new ResponseResult();
         PageHelper.startPage(pageNum, pageSize);
         List<ViewDealDTO> viewDealDTOS = transferShopMapper.dealList();
+        result.setData(viewDealDTOS);
+        return result;
+    }
+
+    @Override
+    public ResponseResult intermediaryList(Long userId, Integer pageNum, Integer pageSize) {
+        ResponseResult result = new ResponseResult();
+        PageHelper.startPage(pageNum, pageSize);
+        List<ViewDealDTO> viewDealDTOS = transferShopMapper.intermediaryList(userId);
         result.setData(viewDealDTOS);
         return result;
     }

@@ -173,4 +173,11 @@ public interface ViewBaseService {
      * @return
      */
     ResponseResult expertOnline(Long businessId, Integer pageNum, Integer pageSize);
+
+    /**
+     * 专家详情
+     * @param id
+     * @return
+     */
+    ResponseResult expertInfo(Long id);
 }

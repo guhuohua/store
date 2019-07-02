@@ -353,6 +353,36 @@ public class ViewBaseController{
         return result;
     }
 
+    @GetMapping("/expertOnline")
+    @ApiOperation("专家在线")
+    public ResponseResult generateSignature(@RequestParam Integer start, @RequestParam Integer rows, Long businessId) {
+        ResponseResult result = new ResponseResult();
+        try {
+            result = viewBaseService.expertOnline(businessId, start, rows);
+        } catch (Exception e) {
+            log.error("获取专家在线列表失败" + e.getMessage(), e);
+            result.setCode(600);
+            result.setError(e.getMessage());
+            result.setError_description("获取专家在线列表失败");
+        }
+        return result;
+    }
+
+    @GetMapping("/expertInfo")
+    @ApiOperation("专家详情")
+    public ResponseResult generateSignature(Long id) {
+        ResponseResult result = new ResponseResult();
+        try {
+            result = viewBaseService.expertInfo(id);
+        } catch (Exception e) {
+            log.error("获取专家详情失败" + e.getMessage(), e);
+            result.setCode(600);
+            result.setError(e.getMessage());
+            result.setError_description("获取专家详情失败");
+        }
+        return result;
+    }
+
     @PostMapping("/feedBack")
     @ApiOperation("意见反馈")
     public ResponseResult myBrowseTransferShopList(HttpServletRequest req, @RequestBody ViewFeedBackParam param) {

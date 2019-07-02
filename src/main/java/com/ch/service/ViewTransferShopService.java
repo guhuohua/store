@@ -80,6 +80,14 @@ public interface ViewTransferShopService {
 
 
     /**
+     * 中介成功案例
+     * @param userId
+     * @return
+     */
+    ResponseResult intermediaryList(Long userId, Integer pageNum, Integer pageSize);
+
+
+    /**
      * 统计今日审核通过的店铺的数量
      * @return
      */

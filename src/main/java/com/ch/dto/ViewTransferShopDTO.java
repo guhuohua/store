@@ -103,4 +103,6 @@ public class ViewTransferShopDTO {
 
     private Integer collection;
 
+    private List<ViewBaseIcon> viewBaseIcons;
+
 }

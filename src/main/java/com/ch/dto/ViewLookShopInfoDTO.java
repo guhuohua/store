@@ -100,4 +100,6 @@ public class ViewLookShopInfoDTO {
     private Integer collection;
 
     private String openId;
+
+    private List<ViewBaseIcon> viewBaseIcons;
 }

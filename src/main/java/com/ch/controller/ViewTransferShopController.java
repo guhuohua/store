@@ -162,6 +162,21 @@ public class ViewTransferShopController {
         return result;
     }
 
+    @GetMapping("/intermediaryList")
+    @ApiOperation("中介成交案例")
+    public ResponseResult nearbyShop(@RequestParam Integer pageNum, @RequestParam Integer pageSize,@RequestParam Long id) {
+        ResponseResult result = new ResponseResult();
+        try {
+            result = viewTransferShopService.intermediaryList(id, pageNum, pageSize);
+        } catch (Exception e) {
+            log.error("获取中介成交案例列表失败" + e.getMessage(), e);
+            result.setCode(600);
+            result.setError(e.getMessage());
+            result.setError_description("获取中介成交案例列表失败");
+        }
+        return result;
+    }
+
     @GetMapping("/myBrowseTransferShopList")
     @ApiOperation("我的浏览转铺记录")
     public ResponseResult myBrowseTransferShopList(HttpServletRequest req) {
