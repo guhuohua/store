@@ -380,6 +380,12 @@ public class SuccessCaseExample {
             return (Criteria) this;
         }
 
+        public Criteria andSysUserIdEqualTo(Long value) {
+            addCriterion("sys_user =", value, "sysUser");
+            return (Criteria) this;
+        }
+
+
         public Criteria andSuccessTimeNotEqualTo(Date value) {
             addCriterion("success_time <>", value, "successTime");
             return (Criteria) this;

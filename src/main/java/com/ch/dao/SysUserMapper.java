@@ -2,7 +2,10 @@ package com.ch.dao;
 
 
 import com.ch.dao.provider.BtSysUserProvider;
+import com.ch.dao.provider.SysUserMapperProvider;
 import com.ch.dto.SysUserMangerDTO;
+import com.ch.dto.ViewExpertInfoDTO;
+import com.ch.dto.ViewExpertOnlineDTO;
 import com.ch.entity.SysUser;
 import com.ch.entity.SysUserExample;
 import com.ch.model.RolePermissionModel;
@@ -114,4 +117,13 @@ public interface SysUserMapper {
     })
     List<RolePermissionModel> findAllByRoleId(@Param("roleId") Integer roleId);
 
+
+    @SelectProvider(type = SysUserMapperProvider.class, method = "getUserList")
+    List<ViewExpertOnlineDTO> expertOnlineList(@Param("businessId") Long businessId, @Param("index") Integer index, @Param("size") Integer size);
+
+    @SelectProvider(type = SysUserMapperProvider.class, method = "getUserListCount")
+    int expertOnlineListCount();
+
+    @Select("select su.user_id as id, su.head_image, su.username as name, su.phone from sys_user su where su.user_id = #{id}")
+    ViewExpertInfoDTO info(@Param("id") Long id);
 }

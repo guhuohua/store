@@ -5,8 +5,7 @@ import com.ch.base.BeanUtils;
 import com.ch.base.MD5;
 import com.ch.base.ResponseResult;
 import com.ch.dao.*;
-import com.ch.dto.IMDTO;
-import com.ch.dto.SolrDTO;
+import com.ch.dto.*;
 import com.ch.entity.*;
 import com.ch.model.ViewBrowseParam;
 import com.ch.model.ViewFeedBackParam;
@@ -70,10 +69,13 @@ public class ViewBaseServiceImpl implements ViewBaseService {
 
     @Autowired
     ClientMapper clientMapper;
+
     @Autowired
     HouseCollectMapper houseCollectMapper;
+
     @Autowired
     BrowsingHistoryMapper browsingHistoryMapper;
+
     @Autowired
     LookShopMapper lookShopMapper;
 
@@ -85,11 +87,21 @@ public class ViewBaseServiceImpl implements ViewBaseService {
 
     @Autowired
     SolrService solrService;
+
     @Autowired
     RedisTemplate redisTemplate;
 
     @Autowired
     TransferIconMapper transferIconMapper;
+
+    @Autowired
+    SysUserMapper sysUserMapper;
+
+    @Autowired
+    SysUserBusinessMapper sysUserBusinessMapper;
+
+    @Autowired
+    SuccessCaseMapper successCaseMapper;
 
     @Override
     public ResponseResult businessTypeList() {
@@ -490,6 +502,61 @@ public class ViewBaseServiceImpl implements ViewBaseService {
 
     @Override
     public ResponseResult expertOnline(Long businessId, Integer pageNum, Integer pageSize) {
-        return null;
+        ResponseResult result = new ResponseResult();
+        pageNum -= 1;
+        ViewExpertOnline viewExpertOnline = new ViewExpertOnline();
+        List<ViewExpertOnlineDTO> viewExpertOnlineDTOS = sysUserMapper.expertOnlineList(businessId, pageNum * pageSize, pageSize);
+        int count = sysUserMapper.expertOnlineListCount();
+        viewExpertOnline.setTotal(count);
+        for (ViewExpertOnlineDTO dto:viewExpertOnlineDTOS) {
+            SysUserBusinessExample sysUserBusinessExample = new SysUserBusinessExample();
+            sysUserBusinessExample.createCriteria().andSysUserIdEqualTo(dto.getId());
+            StringBuffer sb = new StringBuffer();
+            List<SysUserBusiness> sysUserBusinesses = sysUserBusinessMapper.selectByExample(sysUserBusinessExample);
+            for (int i = 0; i < sysUserBusinesses.size(); i++) {
+                BusinessType businessType = businessTypeMapper.selectByPrimaryKey(sysUserBusinesses.get(i).getBusinessTypeId());
+                if (BeanUtils.isNotEmpty(businessType)) {
+                    sb.append(businessType.getBusinessType());
+                }
+                if (i != sysUserBusinesses.size() - 1) {
+                    sb.append(",");
+                }
+            }
+            dto.setBusiness(sb.toString());
+        }
+        viewExpertOnline.setData(viewExpertOnlineDTOS);
+        result.setData(viewExpertOnline);
+        return result;
+    }
+
+    @Override
+    public ResponseResult expertInfo(Long id) {
+        ResponseResult result = new ResponseResult();
+        ViewExpertInfoDTO viewExpertInfoDTO = new ViewExpertInfoDTO();
+        viewExpertInfoDTO = sysUserMapper.info(id);
+        viewExpertInfoDTO.setArea("武汉");
+        viewExpertInfoDTO.setStar(5);
+        SysUserBusinessExample sysUserBusinessExample = new SysUserBusinessExample();
+        sysUserBusinessExample.createCriteria().andSysUserIdEqualTo(id);
+        StringBuffer sb = new StringBuffer();
+        List<SysUserBusiness> sysUserBusinesses = sysUserBusinessMapper.selectByExample(sysUserBusinessExample);
+        for (int i = 0; i < sysUserBusinesses.size(); i++) {
+            BusinessType businessType = businessTypeMapper.selectByPrimaryKey(sysUserBusinesses.get(i).getBusinessTypeId());
+            if (BeanUtils.isNotEmpty(businessType)) {
+                sb.append(businessType.getBusinessType());
+            }
+            if (i != sysUserBusinesses.size() - 1) {
+                sb.append(",");
+            }
+        }
+        viewExpertInfoDTO.setBusiness(sb.toString());
+        SuccessCaseExample successCaseExample = new SuccessCaseExample();
+        successCaseExample.createCriteria().andSysUserIdEqualTo(id);
+        List<SuccessCase> successCases = successCaseMapper.selectByExample(successCaseExample);
+        if (BeanUtils.isNotEmpty(successCases)) {
+            viewExpertInfoDTO.setCount(successCases.size());
+        }
+        result.setData(viewExpertInfoDTO);
+        return result;
     }
 }

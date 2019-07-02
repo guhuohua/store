@@ -18,4 +18,8 @@ public class ViewDealDTO {
     private Long rent;
 
     private Date successTime;
+
+    private Long successDate;
+
+    private String image;
 }

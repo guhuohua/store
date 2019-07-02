@@ -3,10 +3,7 @@ package com.ch.service.impl;
 import com.ch.base.BeanUtils;
 import com.ch.base.ResponseResult;
 import com.ch.dao.*;
-import com.ch.dto.SolrDTO;
-import com.ch.dto.ViewBrowseLookShopDTO;
-import com.ch.dto.ViewLookShopInfoDTO;
-import com.ch.dto.ViewMyLookShopDTO;
+import com.ch.dto.*;
 import com.ch.entity.*;
 import com.ch.model.ViewLookShopAddParam;
 import com.ch.service.SolrService;
@@ -73,6 +70,12 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
 
     @Autowired
     HouseCollectMapper houseCollectMapper;
+
+    @Autowired
+    LookShopBaseIconMapper lookShopBaseIconMapper;
+
+    @Autowired
+    TransferIconMapper transferIconMapper;
 
     @Override
     @Transactional
@@ -210,6 +213,20 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
             viewLookShopInfoDTO.setHeadImg(client.getHeader());
             viewLookShopInfoDTO.setOpenId(client.getOpenId());
         }
+        List<ViewBaseIcon> viewBaseIcons = new ArrayList<>();
+        LookShopBaseIconExample lookShopBaseIconExample = new LookShopBaseIconExample();
+        lookShopBaseIconExample.createCriteria().andLookShopIdEqualTo(lookShop.getId());
+        List<LookShopBaseIcon> lookShopBaseIcons = lookShopBaseIconMapper.selectByExample(lookShopBaseIconExample);
+        for (LookShopBaseIcon lookShopBaseIcon:lookShopBaseIcons) {
+            TransferIcon transferIcon = transferIconMapper.selectByPrimaryKey(lookShopBaseIcon.getLookShopId());
+            if (BeanUtils.isNotEmpty(transferIcon)) {
+                ViewBaseIcon viewBaseIcon = new ViewBaseIcon();
+                viewBaseIcon.setIcon(transferIcon.getImageUrl());
+                viewBaseIcon.setName(transferIcon.getName());
+                viewBaseIcons.add(viewBaseIcon);
+            }
+        }
+        viewLookShopInfoDTO.setViewBaseIcons(viewBaseIcons);
         result.setData(viewLookShopInfoDTO);
         return result;
     }

@@ -2,9 +2,12 @@ package com.ch.dao;
 
 import com.ch.entity.SysUserBusiness;
 import com.ch.entity.SysUserBusinessExample;
-import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
+@Repository
 public interface SysUserBusinessMapper {
     long countByExample(SysUserBusinessExample example);
 

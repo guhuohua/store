@@ -82,6 +82,10 @@ public interface TransferShopMapper {
             " area, rent, success_time from transfer_shop ts where ts.status = 1")
     List<ViewDealDTO> dealList();
 
+    @Select("select id, title, CONCAT((select area_name from bs_area aa where aa.area_id = ts.area_id),'-', (select street_name from bs_street sa where sa.street_id = ts.street_id)) as address," +
+            " area, rent, unix_timestamp(success_time) as success_date, image from transfer_shop ts where ts.id in (select sc.transfer_shop_id from success_case sc where sc.sys_user = #{userId})")
+    List<ViewDealDTO> intermediaryList(@Param("userId") Long userId);
+
     @Select("select count(*) from transfer_shop where to_days(check_time) = to_days(now())")
     int countTodayShop();
 }
