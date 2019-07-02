@@ -97,6 +97,12 @@ public class SysTransferShopDTO {
 
     private String shopRentType;
 
+    private Integer depth;
+
+    private Integer high;
+
+
+
 
 
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="mapper.TransferShopMapper" >
-  <resultMap id="BaseResultMap" type="com.entity.TransferShop" >
+<mapper namespace="com.ch.dao.TransferShopMapper" >
+  <resultMap id="BaseResultMap" type="com.ch.entity.TransferShop" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="client_id" property="clientId" jdbcType="BIGINT" />
     <result column="tel" property="tel" jdbcType="VARCHAR" />
@@ -53,6 +53,7 @@
     <result column="other_four" property="otherFour" jdbcType="INTEGER" />
     <result column="depth" property="depth" jdbcType="INTEGER" />
     <result column="high" property="high" jdbcType="INTEGER" />
+
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -114,14 +115,14 @@
   </sql>
   <sql id="Base_Column_List" >
     id, client_id, tel, business_type_id, property_type_id, shop_type_id, rent, area, 
-    transfer_status, status, title, city_id, decorate_type_id, requirement_details, accessory_requirements, 
+    transfer_status, status, title, city_id, decorate_type_id, requirement_details, accessory_requirements,
     gate_width, transfer_fee, shop_sn, service_type, medium_status, shop_readme, floor_number, 
     orientation_id, loop_line_id, subway_line_id, update_time, lon, published_time, check_time, 
     success_time, free_period, transfer_icon_id, fake_tel, image, sort, area_id, street_id, 
     province_id, recommend_type, check_status, create_time, address, contacts, lat, reasons, 
-    other_one, other_two, shop_rent_type_id, other_four, depth, high
+    other_one, other_two, shop_rent_type_id, other_four,depth,high
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.entity.TransferShopExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ch.entity.TransferShopExample" >
     select
     <if test="distinct" >
       distinct
@@ -146,18 +147,18 @@
     delete from transfer_shop
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.entity.TransferShopExample" >
+  <delete id="deleteByExample" parameterType="com.ch.entity.TransferShopExample" >
     delete from transfer_shop
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.entity.TransferShop" >
+  <insert id="insert" parameterType="com.ch.entity.TransferShop" >
     insert into transfer_shop (id, client_id, tel, 
       business_type_id, property_type_id, shop_type_id, 
       rent, area, transfer_status, 
       status, title, city_id, 
-      decorate_type_id, requirement_details, accessory_requirements, 
+      decorate_type_id, requirement_details, accessory_requirements,
       gate_width, transfer_fee, shop_sn, 
       service_type, medium_status, shop_readme, 
       floor_number, orientation_id, loop_line_id, 
@@ -168,9 +169,8 @@
       street_id, province_id, recommend_type, 
       check_status, create_time, address, 
       contacts, lat, reasons, 
-      other_one, other_two, shop_rent_type_id, 
-      other_four, depth, high
-      )
+      other_one, other_two, shop_rent_type_id,
+      other_four,depth,high)
     values (#{id,jdbcType=BIGINT}, #{clientId,jdbcType=BIGINT}, #{tel,jdbcType=VARCHAR}, 
       #{businessTypeId,jdbcType=BIGINT}, #{propertyTypeId,jdbcType=BIGINT}, #{shopTypeId,jdbcType=BIGINT}, 
       #{rent,jdbcType=BIGINT}, #{area,jdbcType=INTEGER}, #{transferStatus,jdbcType=INTEGER}, 
@@ -186,11 +186,10 @@
       #{streetId,jdbcType=INTEGER}, #{provinceId,jdbcType=INTEGER}, #{recommendType,jdbcType=INTEGER}, 
       #{checkStatus,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{address,jdbcType=VARCHAR}, 
       #{contacts,jdbcType=VARCHAR}, #{lat,jdbcType=VARCHAR}, #{reasons,jdbcType=VARCHAR}, 
-      #{otherOne,jdbcType=VARCHAR}, #{otherTwo,jdbcType=VARCHAR}, #{shopRentTypeId,jdbcType=BIGINT}, 
-      #{otherFour,jdbcType=INTEGER}, #{depth,jdbcType=INTEGER}, #{high,jdbcType=INTEGER}
-      )
+      #{otherOne,jdbcType=VARCHAR}, #{otherTwo,jdbcType=VARCHAR}, #{shopRentTypeId,jdbcType=BIGINT},
+      #{otherFour,jdbcType=INTEGER},#{depth,jdbcType=INTEGER},#{high,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.entity.TransferShop" >
+  <insert id="insertSelective" parameterType="com.ch.entity.TransferShop" >
     insert into transfer_shop
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -236,7 +235,7 @@
         requirement_details,
       </if>
       <if test="accessoryRequirements != null" >
-        accessory_requirements,
+        "accessory _requirements",
       </if>
       <if test="gateWidth != null" >
         gate_width,
@@ -339,12 +338,6 @@
       </if>
       <if test="otherFour != null" >
         other_four,
-      </if>
-      <if test="depth != null" >
-        depth,
-      </if>
-      <if test="high != null" >
-        high,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -495,15 +488,9 @@
       <if test="otherFour != null" >
         #{otherFour,jdbcType=INTEGER},
       </if>
-      <if test="depth != null" >
-        #{depth,jdbcType=INTEGER},
-      </if>
-      <if test="high != null" >
-        #{high,jdbcType=INTEGER},
-      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.entity.TransferShopExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.ch.entity.TransferShopExample" resultType="java.lang.Integer" >
     select count(*) from transfer_shop
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -555,7 +542,7 @@
         requirement_details = #{record.requirementDetails,jdbcType=VARCHAR},
       </if>
       <if test="record.accessoryRequirements != null" >
-        accessory_requirements = #{record.accessoryRequirements,jdbcType=VARCHAR},
+        "accessory _requirements" = #{record.accessoryRequirements,jdbcType=VARCHAR},
       </if>
       <if test="record.gateWidth != null" >
         gate_width = #{record.gateWidth,jdbcType=BIGINT},
@@ -659,12 +646,6 @@
       <if test="record.otherFour != null" >
         other_four = #{record.otherFour,jdbcType=INTEGER},
       </if>
-      <if test="record.depth != null" >
-        depth = #{record.depth,jdbcType=INTEGER},
-      </if>
-      <if test="record.high != null" >
-        high = #{record.high,jdbcType=INTEGER},
-      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -720,14 +701,12 @@
       other_one = #{record.otherOne,jdbcType=VARCHAR},
       other_two = #{record.otherTwo,jdbcType=VARCHAR},
       shop_rent_type_id = #{record.shopRentTypeId,jdbcType=BIGINT},
-      other_four = #{record.otherFour,jdbcType=INTEGER},
-      depth = #{record.depth,jdbcType=INTEGER},
-      high = #{record.high,jdbcType=INTEGER}
+      other_four = #{record.otherFour,jdbcType=INTEGER}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.entity.TransferShop" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.ch.entity.TransferShop" >
     update transfer_shop
     <set >
       <if test="clientId != null" >
@@ -874,16 +853,10 @@
       <if test="otherFour != null" >
         other_four = #{otherFour,jdbcType=INTEGER},
       </if>
-      <if test="depth != null" >
-        depth = #{depth,jdbcType=INTEGER},
-      </if>
-      <if test="high != null" >
-        high = #{high,jdbcType=INTEGER},
-      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.entity.TransferShop" >
+  <update id="updateByPrimaryKey" parameterType="com.ch.entity.TransferShop" >
     update transfer_shop
     set client_id = #{clientId,jdbcType=BIGINT},
       tel = #{tel,jdbcType=VARCHAR},
@@ -933,8 +906,35 @@
       other_two = #{otherTwo,jdbcType=VARCHAR},
       shop_rent_type_id = #{shopRentTypeId,jdbcType=BIGINT},
       other_four = #{otherFour,jdbcType=INTEGER},
-      depth = #{depth,jdbcType=INTEGER},
-      high = #{high,jdbcType=INTEGER}
+       depth = #{depth,jdbcType=INTEGER},
+        high = #{high,jdbcType=INTEGER}
+
     where id = #{id,jdbcType=BIGINT}
   </update>
+
+
+  <select id="list1" resultType="com.ch.dto.SysTransferShopDTO" >
+    SELECT  t.id, t.tel,t.recommend_type,t.shop_sn as shopSn,t.accessory_requirements,t.address,t.area,t.rent,t.transfer_fee,t.`status` AS doneStatus,t.check_status ,t.contacts as username,p.property_type AS propertyType ,s.shop_type AS shopType ,d.decorate_type AS decorateType ,c.city_name as city FROM transfer_shop t
+    JOIN  property_type p on p.id=t.property_type_id
+    JOIN shop_type s on s.id = t.shop_type_id
+    JOIN decorate_type d on d.id = t.decorate_type_id
+    JOIN bs_city c on c.city_id = t.city_id
+    where 5 = 5
+    <if test='contacts != null and contacts != "" '>
+    and  t.contacts like  '%${contacts}%'
+    </if>
+    <if test='tel != null and tel != ""'>
+      and t.tel = #{tel,jdbcType=VARCHAR}
+    </if>
+    <if test="status != null">
+      and t.status =  #{status,jdbcType=INTEGER}
+    </if>
+    <if test="recommendType != null ">
+      and t.recommend_type =  #{recommendType}
+    </if>
+    <if test="checkStatus != null">
+      and t.check_status =  #{checkStatus}
+    </if>
+    order by create_time desc
+  </select>
 </mapper>

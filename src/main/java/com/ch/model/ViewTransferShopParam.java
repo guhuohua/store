@@ -104,4 +104,8 @@ public class ViewTransferShopParam {
     private String areaName;
 
     private List<TransferShopBaseIcon> transferShopBaseIcons;
+
+    private Integer depth;
+
+    private Integer high;
 }

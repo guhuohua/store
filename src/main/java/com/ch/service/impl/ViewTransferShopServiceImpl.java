@@ -102,7 +102,7 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
 
     @Override
     @Transactional
-    public ResponseResult addTransferShop(ViewTransferShopParam param, Long userId) {
+    public ResponseResult  addTransferShop(ViewTransferShopParam param, Long userId) {
         ResponseResult result = new ResponseResult();
         TransferShop transferShop = new TransferShop();
         StringBuffer sb = new StringBuffer();
@@ -168,6 +168,8 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
         transferShop.setLoopLineId(param.getLoopLineId());
         transferShop.setSubwayLineId(param.getSubwayLineId());
         transferShop.setShopRentTypeId(param.getShopRentTypeId());
+        transferShop.setHigh(param.getHigh());
+        transferShop.setDepth(param.getDepth());
         transferShopMapper.insert(transferShop);
         if (BeanUtils.isNotEmpty(param.getTransferShopBaseIcons()) && param.getTransferShopBaseIcons().size() > 0) {
             for (TransferShopBaseIcon transferShopBaseIcon:param.getTransferShopBaseIcons()) {
@@ -329,6 +331,8 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
             viewTransferShopDTO.setLongitude(transferShop.getLon());
             viewTransferShopDTO.setLatitude(transferShop.getLat());
             viewTransferShopDTO.setUsername(transferShop.getContacts());
+            viewTransferShopDTO.setHigh(transferShop.getHigh());
+            viewTransferShopDTO.setDepth(transferShop.getDepth());
             TransferImageExample transferImageExample = new TransferImageExample();
             transferImageExample.createCriteria().andTransferShopIdEqualTo(transferShop.getId().toString());
             List<TransferImage> transferImages = transferImageMapper.selectByExample(transferImageExample);
@@ -561,7 +565,9 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
             transferShop.setLoopLineId(param.getLoopLineId());
             transferShop.setSubwayLineId(param.getSubwayLineId());
             transferShop.setShopRentTypeId(param.getShopRentTypeId());
-            transferShopMapper.insert(transferShop);
+            transferShop.setDepth(param.getDepth());
+            transferShop.setHigh(param.getHigh());
+            transferShopMapper.updateByPrimaryKey(transferShop);
             if (BeanUtils.isNotEmpty(param.getTransferShopBaseIcons()) && param.getTransferShopBaseIcons().size() > 0) {
                 for (TransferShopBaseIcon transferShopBaseIcon:param.getTransferShopBaseIcons()) {
                     transferShopBaseIcon.setId(IdUtil.getId());

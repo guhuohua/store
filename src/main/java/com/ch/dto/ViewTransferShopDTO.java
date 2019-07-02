@@ -105,4 +105,8 @@ public class ViewTransferShopDTO {
 
     private List<ViewBaseIcon> viewBaseIcons;
 
+    private Integer depth;
+
+    private Integer high;
+
 }
