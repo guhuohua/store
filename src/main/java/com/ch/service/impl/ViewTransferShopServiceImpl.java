@@ -407,6 +407,7 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
                 if (BeanUtils.isNotEmpty(transferIcon)) {
                     viewBaseIcon.setName(transferIcon.getName());
                     viewBaseIcon.setIcon(transferIcon.getImageUrl());
+                    viewBaseIcon.setBaseIconId(transferIcon.getId());
                     viewBaseIcons.add(viewBaseIcon);
                 }
             }
@@ -652,6 +653,7 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
                 if (BeanUtils.isNotEmpty(transferIcon)) {
                     viewBaseIcon.setName(transferIcon.getName());
                     viewBaseIcon.setIcon(transferIcon.getImageUrl());
+                    viewBaseIcon.setBaseIconId(transferIcon.getId());
                     viewBaseIcons.add(viewBaseIcon);
                 }
             }
