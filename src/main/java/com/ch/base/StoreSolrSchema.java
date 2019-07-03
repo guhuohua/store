@@ -35,6 +35,9 @@ public class StoreSolrSchema {
     @Field
     private String storeAddress;
 
+    @Field
+    private String username;
+
     /**
      * 店铺区域
      */

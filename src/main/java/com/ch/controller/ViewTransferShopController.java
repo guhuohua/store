@@ -117,6 +117,26 @@ public class ViewTransferShopController {
         return result;
     }
 
+    @GetMapping("/updateShopInfo")
+    @ApiOperation("修改转铺详情")
+    public ResponseResult updateShopInfo(HttpServletRequest req, @RequestParam Long id) {
+        ResponseResult result = new ResponseResult();
+        String token = req.getHeader("Authorization");
+        Long userId = null;
+        if (BeanUtils.isNotEmpty(token)) {
+            userId = TokenUtil.getUserId(token);
+        }
+        try {
+            result = viewTransferShopService.updateShopInfo(userId, id);
+        } catch (Exception e) {
+            log.error("获取转铺详情失败" + e.getMessage(), e);
+            result.setCode(600);
+            result.setError(e.getMessage());
+            result.setError_description("获取转铺详情失败");
+        }
+        return result;
+    }
+
     @PostMapping("/fastTransferShop")
     @ApiOperation("急速转铺")
     public ResponseResult fastTransferShop(@RequestBody FastTransferShopParam param) {
@@ -279,9 +299,9 @@ public class ViewTransferShopController {
         return result;
     }
 
-    @PostMapping("/deleteShop")
+    @GetMapping("/deleteShop")
     @ApiOperation("删除我的转铺")
-    public ResponseResult deleteShop(@RequestBody Long id) {
+    public ResponseResult deleteShop(@RequestParam Long id) {
         ResponseResult result = new ResponseResult();
         try {
             result = viewTransferShopService.deleteShop(id);

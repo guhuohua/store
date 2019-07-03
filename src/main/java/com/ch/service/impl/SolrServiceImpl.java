@@ -29,43 +29,43 @@ import java.io.IOException;
 public class SolrServiceImpl implements SolrService {
 
 
-
-
     private static final Logger LOGGER = LogManager.getLogger(SolrServiceImpl.class);
-   @Autowired
+    @Autowired
     SolrClient solrClient;
-   @Autowired
+    @Autowired
     TransferShopMapper transferShopMapper;
-   @Autowired
-   LookShopMapper lookShopMapper;
-   @Autowired
+    @Autowired
+    LookShopMapper lookShopMapper;
+    @Autowired
     ModelMapper modelMapper;
-   @Autowired
+    @Autowired
     BsStreetMapper bsStreetMapper;
-   @Autowired
+    @Autowired
     BsAreaMapper bsAreaMapper;
-   @Autowired
-   ClientMapper clientMapper;
+    @Autowired
+    ClientMapper clientMapper;
 
-   @Autowired
-   SuccessCaseMapper successCaseMapper;
+    @Autowired
+    SuccessCaseMapper successCaseMapper;
+
+
     @Override
     @Async
     public void addSolr(SolrDTO solrDTO) {
         lowerShelf(solrDTO);
-        if (BeanUtils.isNotEmpty(solrDTO.getTransferShopId())){
+        if (BeanUtils.isNotEmpty(solrDTO.getTransferShopId())) {
             TransferShop transferShop = transferShopMapper.selectByPrimaryKey(solrDTO.getTransferShopId());
             if (transferShop.getCheckStatus() == 1) {
                 BsStreet bsStreet = bsStreetMapper.selectByPrimaryKey(transferShop.getStreetId());
                 BsArea bsArea = bsAreaMapper.selectByPrimaryKey(transferShop.getAreaId());
                 StoreSolrSchema storeSolrSchema = new StoreSolrSchema();
                 modelMapper.map(transferShop, storeSolrSchema);
-                storeSolrSchema.setId(IdUtil.getId()+"");
+                storeSolrSchema.setId(IdUtil.getId() + "");
                 storeSolrSchema.setTransferShopId(transferShop.getId());
                 storeSolrSchema.setStoreImg(transferShop.getImage());
                 storeSolrSchema.setStoreAddress(bsStreet.getStreetName());
                 storeSolrSchema.setPresentPrice(transferShop.getRent());
-                storeSolrSchema.setStoreArea( Long.valueOf(transferShop.getArea()));
+                storeSolrSchema.setStoreArea(Long.valueOf(transferShop.getArea()));
                 storeSolrSchema.setStoreCategory(transferShop.getRecommendType());
                 storeSolrSchema.setStoreType(0);
                 storeSolrSchema.setUserId(transferShop.getClientId());
@@ -73,10 +73,12 @@ public class SolrServiceImpl implements SolrService {
                 storeSolrSchema.setStoreName(transferShop.getTitle());
                 storeSolrSchema.setLatitude(transferShop.getLat());
                 storeSolrSchema.setLongitude(transferShop.getLon());
-                storeSolrSchema.setStoreAddress(bsArea.getAreaName()+"-"+bsStreet.getStreetName());
+                storeSolrSchema.setStoreAddress(bsArea.getAreaName() + "-" + bsStreet.getStreetName());
                 storeSolrSchema.setCreateTime(transferShop.getCreateTime().getTime());
+                Client client = clientMapper.selectByPrimaryKey(transferShop.getClientId());
+                storeSolrSchema.setUsername(client.getNickName());
                 try {
-                    System.out.println("准备同步solr:"+ JSON.toJSONString(storeSolrSchema));
+                    System.out.println("准备同步solr:" + JSON.toJSONString(storeSolrSchema));
                     solrClient.addBean(storeSolrSchema);
                     solrClient.commit();
                 } catch (IOException e) {
@@ -94,7 +96,7 @@ public class SolrServiceImpl implements SolrService {
             BsArea bsArea = bsAreaMapper.selectByPrimaryKey(lookShop.getAreaId());
             Client client = clientMapper.selectByPrimaryKey(lookShop.getClientId());
             StoreSolrSchema storeSolrSchema = new StoreSolrSchema();
-            storeSolrSchema.setId(IdUtil.getId()+"");
+            storeSolrSchema.setId(IdUtil.getId() + "");
             storeSolrSchema.setLookShopId(lookShop.getId());
             storeSolrSchema.setStoreName(lookShop.getTitle());
             storeSolrSchema.setStoreAddress(bsArea.getAreaName() + "-" + bsStreet.getStreetName());
@@ -112,9 +114,11 @@ public class SolrServiceImpl implements SolrService {
             storeSolrSchema.setCityId(lookShop.getCityId());
             storeSolrSchema.setAreaId(lookShop.getAreaId());
             storeSolrSchema.setStreetId(lookShop.getStreetId());
+            storeSolrSchema.setUserId(lookShop.getClientId());
             storeSolrSchema.setCreateTime(lookShop.getCraeateTime().getTime());
+            storeSolrSchema.setUsername(client.getNickName());
             try {
-                System.out.println("准备同步solr:"+ JSON.toJSONString(storeSolrSchema));
+                System.out.println("准备同步solr:" + JSON.toJSONString(storeSolrSchema));
                 solrClient.addBean(storeSolrSchema);
                 solrClient.commit();
             } catch (IOException e) {
@@ -129,14 +133,14 @@ public class SolrServiceImpl implements SolrService {
 
 
     @Async
-    public  void lowerShelf(SolrDTO solrDTO) {
+    public void lowerShelf(SolrDTO solrDTO) {
         try {
-           if (BeanUtils.isNotEmpty(solrDTO.getLookShopId())){
-               solrClient.deleteByQuery("lookShopId:" + solrDTO.getLookShopId());
-           }
-           if (BeanUtils.isNotEmpty(solrDTO.getTransferShopId())){
-               solrClient.deleteByQuery("transferShopId:" + solrDTO.getTransferShopId());
-           }
+            if (BeanUtils.isNotEmpty(solrDTO.getLookShopId())) {
+                solrClient.deleteByQuery("lookShopId:" + solrDTO.getLookShopId());
+            }
+            if (BeanUtils.isNotEmpty(solrDTO.getTransferShopId())) {
+                solrClient.deleteByQuery("transferShopId:" + solrDTO.getTransferShopId());
+            }
 
             solrClient.commit();
         } catch (Exception e) {

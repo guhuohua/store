@@ -109,4 +109,13 @@ public interface ViewTransferShopService {
      */
     ResponseResult updateShop(ViewTransferShopParam param, Long userId);
 
+
+    /**
+     * 修改前的反查
+     * @param userId
+     * @param storeId
+     * @return
+     */
+    ResponseResult updateShopInfo(Long userId, Long storeId);
+
 }

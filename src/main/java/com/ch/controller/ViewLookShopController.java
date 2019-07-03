@@ -189,12 +189,12 @@ public class ViewLookShopController {
 
     @GetMapping("/deleteShop")
     @ApiOperation("删除我的找铺")
-    public ResponseResult myLookShopList(HttpServletRequest req, @RequestBody Long id) {
+    public ResponseResult myLookShopList(HttpServletRequest req, @RequestParam Long id) {
         ResponseResult result = new ResponseResult();
         try {
             result = viewLookShopService.deleteShop(id);
         } catch (Exception e) {
-            log.error("删除我的找铺失败" + e.getMessage(), e);
+            log.error ("删除我的找铺失败" + e.getMessage(), e);
             result.setCode(600);
             result.setError(e.getMessage());
             result.setError_description("删除我的找铺失败");
