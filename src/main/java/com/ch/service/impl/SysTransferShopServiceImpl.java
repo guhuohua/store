@@ -22,7 +22,6 @@ import org.apache.solr.client.solrj.SolrClient;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -155,7 +154,7 @@ public class SysTransferShopServiceImpl implements SysTransferShopService {
     }
 
     @Override
-    @Transactional
+    
     public ResponseResult updateStatus(UpdateStatusDTO updateStatusDTO) {
         ResponseResult result = new ResponseResult();
         TransferShop transferShop = transferShopMapper.selectByPrimaryKey(updateStatusDTO.getStoreId());
@@ -173,6 +172,7 @@ public class SysTransferShopServiceImpl implements SysTransferShopService {
         SolrDTO solrDTO = new SolrDTO();
         solrDTO.setTransferShopId(updateStatusDTO.getStoreId());
         solrService.addSolr(solrDTO);
+
         if (BeanUtils.isNotEmpty(updateStatusDTO.getUserId())) {
             SysUserShop sysUserShop = new SysUserShop();
             sysUserShop.setSysUserId(updateStatusDTO.getUserId());
