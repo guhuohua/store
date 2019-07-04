@@ -550,16 +550,7 @@ public class ViewBaseServiceImpl implements ViewBaseService {
             }
         }
         viewExpertInfoDTO.setBusiness(sb.toString());
-        SuccessCaseExample successCaseExample = new SuccessCaseExample();
-        successCaseExample.createCriteria().andSysUserIdEqualTo(id);
-        List<SuccessCase> successCases = successCaseMapper.selectByExample(successCaseExample);
-        if (BeanUtils.isNotEmpty(successCases)) {
-            viewExpertInfoDTO.setCount(successCases.size());
-        } else {
-            viewExpertInfoDTO.setCount(0
 
-            );
-        }
         result.setData(viewExpertInfoDTO);
         return result;
     }

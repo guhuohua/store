@@ -124,6 +124,6 @@ public interface SysUserMapper {
     @SelectProvider(type = SysUserMapperProvider.class, method = "getUserListCount")
     int expertOnlineListCount();
 
-    @Select("select su.user_id as id, su.head_image, su.username as name, su.phone from sys_user su where su.user_id = #{id}")
+    @Select("select su.user_id as id, su.head_image, su.username as name, su.phone ,su.serviceCount as count from sys_user su where su.user_id = #{id}")
     ViewExpertInfoDTO info(@Param("id") Long id);
 }

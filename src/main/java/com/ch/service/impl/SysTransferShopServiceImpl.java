@@ -154,7 +154,7 @@ public class SysTransferShopServiceImpl implements SysTransferShopService {
     }
 
     @Override
-    
+
     public ResponseResult updateStatus(UpdateStatusDTO updateStatusDTO) {
         ResponseResult result = new ResponseResult();
         TransferShop transferShop = transferShopMapper.selectByPrimaryKey(updateStatusDTO.getStoreId());
@@ -178,6 +178,9 @@ public class SysTransferShopServiceImpl implements SysTransferShopService {
             sysUserShop.setSysUserId(updateStatusDTO.getUserId());
             sysUserShop.setTransferShopId(transferShop.getId().toString());
             sysUserShopMapper.insert(sysUserShop);
+            SysUser sysUser = sysUserMapper.selectByPrimaryKey(updateStatusDTO.getUserId());
+            sysUser.setServiceCount(sysUser.getServiceCount() + 1);
+
         }
 
         return result;

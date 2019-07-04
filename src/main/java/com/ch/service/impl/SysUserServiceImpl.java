@@ -200,6 +200,7 @@ public class SysUserServiceImpl implements SysUserService {
                 btSysUser.setUsername(sysUserDTO.getUserName());
                 btSysUser.setStatus(sysUserDTO.getStatus());
                 btSysUser.setHeadImage(sysUserDTO.getHeadImage());
+                btSysUser.setServiceCount(0);
                 if (BeanUtils.isNotEmpty(sysUserDTO.getCityId())) {
                     btSysUser.setCityId(sysUserDTO.getCityId());
                 }
