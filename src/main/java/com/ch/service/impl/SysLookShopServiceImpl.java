@@ -72,11 +72,10 @@ public class SysLookShopServiceImpl implements SysLookShopService {
     ShopRentTypeMapper shopRentTypeMapper;
 
 
-
     @Override
     public ResponseResult showLookShopList(ShowShopDto showShopDto) {
         ResponseResult result = new ResponseResult();
-       // List<ViewLookShopInfoDTO> viewLookShopInfoDTOs = new ArrayList<>();
+        // List<ViewLookShopInfoDTO> viewLookShopInfoDTOs = new ArrayList<>();
         PageHelper.startPage(showShopDto.getPageNum(), showShopDto.getPageSize());
        /* if (BeanUtils.isNotEmpty(showShopDto.getUsername())){
              viewLookShopInfoDTOs = lookShopMapper.list(showShopDto.getUsername(),showShopDto.getTel(),showShopDto.getDoneStatus());
@@ -110,7 +109,7 @@ public class SysLookShopServiceImpl implements SysLookShopService {
             ViewLookShopInfoDTO data =(ViewLookShopInfoDTO) result1.getData();
             viewLookShopInfoDTOs.add(data);
         }*/
-        List<ViewLookShopInfoDTO> viewLookShopInfoDTOs = lookShopMapper.list(showShopDto.getUsername(),showShopDto.getTel(),showShopDto.getDoneStatus());
+        List<ViewLookShopInfoDTO> viewLookShopInfoDTOs = lookShopMapper.list(showShopDto.getUsername(), showShopDto.getTel(), showShopDto.getDoneStatus());
         PageInfo<ViewLookShopInfoDTO> page = new PageInfo<>(viewLookShopInfoDTOs);
         result.setData(page);
         return result;
@@ -130,11 +129,11 @@ public class SysLookShopServiceImpl implements SysLookShopService {
         List<LookShopBusiness> lookShopBusinesses = lookShopBusinessMapper.selectByExample(lookShopBusinessExample);
         List<String> lookShopBusName = new ArrayList<>();
         StringBuilder type = new StringBuilder();
-        for (LookShopBusiness lookShopBusiness:lookShopBusinesses) {
+        for (LookShopBusiness lookShopBusiness : lookShopBusinesses) {
             BusinessType businessType = businessTypeMapper.selectByPrimaryKey(lookShopBusiness.getBusinessTypeId());
             if (BeanUtils.isNotEmpty(businessType)) {
                 lookShopBusName.add(businessType.getBusinessType());
-                type.append(businessType.getBusinessType()+",");
+                type.append(businessType.getBusinessType() + ",");
             }
         }
         viewLookShopInfoDTO.setBusinessType(type.toString());
@@ -163,27 +162,35 @@ public class SysLookShopServiceImpl implements SysLookShopService {
         if (BeanUtils.isNotEmpty(bsProvince)) {
             viewLookShopInfoDTO.setProvince(bsProvince.getProvinceName());
         }
-        DecorateType decorateType = decorateTypeMapper.selectByPrimaryKey(lookShop.getDecorateTypeId());
-        if (BeanUtils.isNotEmpty(decorateType)) {
+
+        if (BeanUtils.isNotEmpty(lookShop.getDecorateTypeId())){
+            DecorateType decorateType = decorateTypeMapper.selectByPrimaryKey(lookShop.getDecorateTypeId());
             viewLookShopInfoDTO.setDecorateType(decorateType.getDecorateType());
         }
-        ShopRentType shopRentType = shopRentTypeMapper.selectByPrimaryKey(lookShop.getShopRentTypeId());
-        if (BeanUtils.isNotEmpty(shopRentType)){
+
+
+        if (BeanUtils.isNotEmpty(lookShop.getShopRentTypeId())) {
+            ShopRentType shopRentType = shopRentTypeMapper.selectByPrimaryKey(lookShop.getShopRentTypeId());
             viewLookShopInfoDTO.setShopRentType(shopRentType.getShopRentType());
         }
-        Orientation orientation = orientationMapper.selectByPrimaryKey(lookShop.getOrientationId());
-        if (BeanUtils.isNotEmpty(orientation)){
+
+
+        if (BeanUtils.isNotEmpty(lookShop.getOrientationId())) {
+            Orientation orientation = orientationMapper.selectByPrimaryKey(lookShop.getOrientationId());
             viewLookShopInfoDTO.setOrientation(orientation.getOrientationDesc());
         }
 
-        SubwayLine subwayLine = subwayLineMapper.selectByPrimaryKey(Long.valueOf(lookShop.getSubwayLineId()));
-        if (BeanUtils.isNotEmpty(subwayLine)){
+
+        if (BeanUtils.isNotEmpty(lookShop.getSubwayLineId())) {
+            SubwayLine subwayLine = subwayLineMapper.selectByPrimaryKey(Long.valueOf(lookShop.getSubwayLineId()));
             viewLookShopInfoDTO.setSubwayLine(subwayLine.getSubwayLineDesc());
         }
-        LoopLine loopLine = loopLineMapper.selectByPrimaryKey(Long.valueOf(lookShop.getLoopLineId()));
-        if (BeanUtils.isNotEmpty(loopLine)){
+
+        if (BeanUtils.isNotEmpty(lookShop.getLoopLineId())) {
+            LoopLine loopLine = loopLineMapper.selectByPrimaryKey(Long.valueOf(lookShop.getLoopLineId()));
             viewLookShopInfoDTO.setLoopLine(loopLine.getLoopLineDesc());
         }
+
 
         result.setData(viewLookShopInfoDTO);
         return result;

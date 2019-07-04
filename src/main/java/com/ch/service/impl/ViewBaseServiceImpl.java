@@ -508,7 +508,7 @@ public class ViewBaseServiceImpl implements ViewBaseService {
         List<ViewExpertOnlineDTO> viewExpertOnlineDTOS = sysUserMapper.expertOnlineList(businessId, pageNum * pageSize, pageSize);
         int count = sysUserMapper.expertOnlineListCount();
         viewExpertOnline.setTotal(count);
-        for (ViewExpertOnlineDTO dto:viewExpertOnlineDTOS) {
+        for (ViewExpertOnlineDTO dto : viewExpertOnlineDTOS) {
             SysUserBusinessExample sysUserBusinessExample = new SysUserBusinessExample();
             sysUserBusinessExample.createCriteria().andSysUserIdEqualTo(dto.getId());
             StringBuffer sb = new StringBuffer();
@@ -550,12 +550,7 @@ public class ViewBaseServiceImpl implements ViewBaseService {
             }
         }
         viewExpertInfoDTO.setBusiness(sb.toString());
-        SuccessCaseExample successCaseExample = new SuccessCaseExample();
-        successCaseExample.createCriteria().andSysUserIdEqualTo(id);
-        List<SuccessCase> successCases = successCaseMapper.selectByExample(successCaseExample);
-        if (BeanUtils.isNotEmpty(successCases)) {
-            viewExpertInfoDTO.setCount(successCases.size());
-        }
+
         result.setData(viewExpertInfoDTO);
         return result;
     }
