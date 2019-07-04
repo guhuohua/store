@@ -76,7 +76,9 @@ public class SolrServiceImpl implements SolrService {
                 storeSolrSchema.setStoreAddress(bsArea.getAreaName() + "-" + bsStreet.getStreetName());
                 storeSolrSchema.setCreateTime(transferShop.getCreateTime().getTime());
                 Client client = clientMapper.selectByPrimaryKey(transferShop.getClientId());
-                storeSolrSchema.setUsername(client.getNickName());
+                if (BeanUtils.isNotEmpty(client)) {
+                    storeSolrSchema.setUsername(client.getNickName());
+                }
                 try {
                     System.out.println("准备同步solr:" + JSON.toJSONString(storeSolrSchema));
                     solrClient.addBean(storeSolrSchema);
@@ -88,7 +90,6 @@ public class SolrServiceImpl implements SolrService {
                     e.printStackTrace();
                 }
             }
-
         }
         if (BeanUtils.isNotEmpty(solrDTO.getLookShopId())) {
             LookShop lookShop = lookShopMapper.selectByPrimaryKey(solrDTO.getLookShopId());
@@ -105,7 +106,9 @@ public class SolrServiceImpl implements SolrService {
             storeSolrSchema.setMinStoreArea(lookShop.getSmallArea());
             storeSolrSchema.setMaxStoreArea(lookShop.getTopArea());
             storeSolrSchema.setStoreType(1);
-            storeSolrSchema.setStoreImg(client.getHeader());
+            if (BeanUtils.isNotEmpty(client)) {
+                storeSolrSchema.setStoreImg(client.getHeader());
+            }
             storeSolrSchema.setStoreStatus(lookShop.getStatus());
             storeSolrSchema.setLongitude(lookShop.getLongitude());
             storeSolrSchema.setLatitude(lookShop.getLatitude());
@@ -116,7 +119,9 @@ public class SolrServiceImpl implements SolrService {
             storeSolrSchema.setStreetId(lookShop.getStreetId());
             storeSolrSchema.setUserId(lookShop.getClientId());
             storeSolrSchema.setCreateTime(lookShop.getCraeateTime().getTime());
-            storeSolrSchema.setUsername(client.getNickName());
+            if (BeanUtils.isNotEmpty(client)) {
+                storeSolrSchema.setUsername(client.getNickName());
+            }
             try {
                 System.out.println("准备同步solr:" + JSON.toJSONString(storeSolrSchema));
                 solrClient.addBean(storeSolrSchema);
