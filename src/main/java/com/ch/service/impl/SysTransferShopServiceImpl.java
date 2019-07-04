@@ -180,7 +180,7 @@ public class SysTransferShopServiceImpl implements SysTransferShopService {
             sysUserShopMapper.insert(sysUserShop);
             SysUser sysUser = sysUserMapper.selectByPrimaryKey(updateStatusDTO.getUserId());
             sysUser.setServiceCount(sysUser.getServiceCount() + 1);
-
+            sysUserMapper.updateByPrimaryKey(sysUser);
         }
 
         return result;
