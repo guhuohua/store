@@ -153,6 +153,7 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
         LookShop lookShop = lookShopMapper.selectByPrimaryKey(id);
         viewLookShopInfoDTO.setUsername(lookShop.getContacts());
         modelMapper.map(lookShop, viewLookShopInfoDTO);
+        viewLookShopInfoDTO.setCreateTime(lookShop.getCraeateTime());
         viewLookShopInfoDTO.setUsername(lookShop.getContacts());
         if (BeanUtils.isNotEmpty(userId)) {
             HouseCollectExample houseCollectExample = new HouseCollectExample();
