@@ -21,7 +21,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class ViewLookShopServiceImpl implements ViewLookShopService {
+public class ViewLookShopServiceImpl extends Thread implements ViewLookShopService {
 
     @Autowired
     LookShopMapper lookShopMapper;
@@ -85,8 +85,8 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
         List<String> coordinate = GetLatAndLngByBaidu.getCoordinate(param.getAddress());
         if (BeanUtils.isEmpty(coordinate)) {
             result.setCode(600);
-            result.setError("获取不到该地址的经纬度");
-            result.setError_description("获取不到该地址的经纬度");
+            result.setError("请输入正确的地址");
+            result.setError_description("请输入正确的地址");
             return result;
         }
         lookShop.setLongitude(coordinate.get(0));
@@ -143,6 +143,11 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
         solrDTO.setLookShopId(lookShop.getId());
         solrService.addSolr(solrDTO);
         result.setData(lookShop.getId());
+        try {
+            Thread.sleep(3000);
+        } catch (Exception e) {
+
+        }
         return result;
     }
 
@@ -153,7 +158,7 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
         LookShop lookShop = lookShopMapper.selectByPrimaryKey(id);
         viewLookShopInfoDTO.setUsername(lookShop.getContacts());
         modelMapper.map(lookShop, viewLookShopInfoDTO);
-        viewLookShopInfoDTO.setCreateTime(lookShop.getCraeateTime());
+        viewLookShopInfoDTO.setCreateTime(lookShop.getCraeateTime().getTime());
         viewLookShopInfoDTO.setUsername(lookShop.getContacts());
         if (BeanUtils.isNotEmpty(userId)) {
             HouseCollectExample houseCollectExample = new HouseCollectExample();

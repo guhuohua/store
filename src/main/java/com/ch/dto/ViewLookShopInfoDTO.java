@@ -57,7 +57,7 @@ public class ViewLookShopInfoDTO {
 
     private Integer sort;
 
-    private Date createTime;
+    private Long createTime;
 
     private String otherTel;
 

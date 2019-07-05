@@ -29,7 +29,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class ViewTransferShopServiceImpl implements ViewTransferShopService {
+public class ViewTransferShopServiceImpl extends Thread implements ViewTransferShopService {
 
     @Autowired
     TransferShopMapper transferShopMapper;
@@ -123,8 +123,8 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
         List<String> coordinate = GetLatAndLngByBaidu.getCoordinate(sb.toString());
         if (BeanUtils.isEmpty(coordinate.get(0)) && BeanUtils.isEmpty(coordinate.get(1))) {
             result.setCode(600);
-            result.setError("获取不到该地址的经纬度");
-            result.setError_description("获取不到该地址的经纬度");
+            result.setError("请输入正确的地址");
+            result.setError_description("请输入正确的地址");
             return result;
         }
         transferShop.setLon(coordinate.get(0));
@@ -132,7 +132,7 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
         transferShop.setId(IdUtil.getId());
         transferShop.setClientId(userId);
         transferShop.setTel(param.getTel());
-        transferShop.setImage(param.getImage());
+        transferShop.setImage(param.getTransferImages().get(0).getImageUrl());
         transferShop.setUpdateTime(new Date());
         transferShop.setRecommendType(0);
         transferShop.setAreaId(param.getAreaId());
@@ -192,6 +192,12 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
             transferShopBusinessMapper.insert(transferShopBusiness);
         }
         result.setData(transferShop.getId());
+        try {
+            Thread.sleep(3000);
+        } catch (Exception e) {
+
+        }
+
         return result;
     }
 
@@ -203,7 +209,7 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
         StringBuilder params = new StringBuilder("storeType:" + param.getStoreType());
         if (BeanUtils.isNotEmpty(param.getStoreName())) {
             if (params != null) {
-                params.append(" AND (storeName:* " + param.getStoreName() + "*)");
+                params.append(" AND (storeName:*" + param.getStoreName() + "*)");
             } else {
                 params = new StringBuilder();
                 params.append("storeName:*" + param.getStoreName() + "*");
@@ -567,9 +573,11 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
             transferShop.setDepth(param.getDepth());
             transferShop.setHigh(param.getHigh());
             transferShopMapper.updateByPrimaryKey(transferShop);
+            long id = IdUtil.getId();
             if (BeanUtils.isNotEmpty(param.getTransferShopBaseIcons()) && param.getTransferShopBaseIcons().size() > 0) {
                 for (TransferShopBaseIcon transferShopBaseIcon:param.getTransferShopBaseIcons()) {
-                    transferShopBaseIcon.setId(IdUtil.getId());
+                    id ++;
+                    transferShopBaseIcon.setId(id);
                     transferShopBaseIcon.setTransferShopId(transferShop.getId());
                     transferShopBaseIconMapper.insert(transferShopBaseIcon);
                 }
