@@ -152,6 +152,8 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
         transferShop.setShopRentTypeId(param.getShopRentTypeId());
         transferShop.setHigh(param.getHigh());
         transferShop.setDepth(param.getDepth());
+      /* int i = 1/0;
+        System.out.println(i);*/
         transferShopMapper.insert(transferShop);
         if (BeanUtils.isNotEmpty(param.getTransferShopBaseIcons()) && param.getTransferShopBaseIcons().size() > 0) {
             for (TransferShopBaseIcon transferShopBaseIcon:param.getTransferShopBaseIcons()) {
