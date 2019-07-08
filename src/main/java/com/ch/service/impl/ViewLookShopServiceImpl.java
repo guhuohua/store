@@ -21,7 +21,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class ViewLookShopServiceImpl extends Thread implements ViewLookShopService {
+public class ViewLookShopServiceImpl implements ViewLookShopService {
 
     @Autowired
     LookShopMapper lookShopMapper;
@@ -143,11 +143,6 @@ public class ViewLookShopServiceImpl extends Thread implements ViewLookShopServi
         solrDTO.setLookShopId(lookShop.getId());
         solrService.addSolr(solrDTO);
         result.setData(lookShop.getId());
-        try {
-            Thread.sleep(3000);
-        } catch (Exception e) {
-
-        }
         return result;
     }
 

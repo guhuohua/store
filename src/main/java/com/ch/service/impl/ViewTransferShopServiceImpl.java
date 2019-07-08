@@ -29,7 +29,7 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public class ViewTransferShopServiceImpl extends Thread implements ViewTransferShopService {
+public class ViewTransferShopServiceImpl implements ViewTransferShopService {
 
     @Autowired
     TransferShopMapper transferShopMapper;
@@ -192,12 +192,6 @@ public class ViewTransferShopServiceImpl extends Thread implements ViewTransferS
             transferShopBusinessMapper.insert(transferShopBusiness);
         }
         result.setData(transferShop.getId());
-        try {
-            Thread.sleep(3000);
-        } catch (Exception e) {
-
-        }
-
         return result;
     }
 
@@ -540,6 +534,7 @@ public class ViewTransferShopServiceImpl extends Thread implements ViewTransferS
     }
 
     @Override
+    @Transactional
     public ResponseResult updateShop(ViewTransferShopParam param, Long userId) {
         ResponseResult result = new ResponseResult();
         TransferShopExample transferShopExample = new TransferShopExample();
@@ -573,6 +568,9 @@ public class ViewTransferShopServiceImpl extends Thread implements ViewTransferS
             transferShop.setDepth(param.getDepth());
             transferShop.setHigh(param.getHigh());
             transferShopMapper.updateByPrimaryKey(transferShop);
+            TransferShopBaseIconExample transferShopBaseIconExample = new TransferShopBaseIconExample();
+            transferShopBaseIconExample.createCriteria().andTransferShopIdEqualTo(transferShop.getId());
+            transferShopBaseIconMapper.deleteByExample(transferShopBaseIconExample);
             long id = IdUtil.getId();
             if (BeanUtils.isNotEmpty(param.getTransferShopBaseIcons()) && param.getTransferShopBaseIcons().size() > 0) {
                 for (TransferShopBaseIcon transferShopBaseIcon:param.getTransferShopBaseIcons()) {
