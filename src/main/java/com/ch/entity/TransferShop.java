@@ -107,6 +107,16 @@ public class TransferShop {
 
     private Integer high;
 
+    private Long time;
+
+    public Long getTime() {
+        return time;
+    }
+
+    public void setTime(Long time) {
+        this.time = time;
+    }
+
     public Integer getDepth() {
         return depth;
     }

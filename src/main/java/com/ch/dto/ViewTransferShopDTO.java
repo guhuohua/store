@@ -109,4 +109,6 @@ public class ViewTransferShopDTO {
 
     private Integer high;
 
+    private Long time;
+
 }

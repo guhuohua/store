@@ -21,4 +21,6 @@ public class ViewNearbyShopDTO {
 
     private String lat;
 
+    private Long time;
+
 }

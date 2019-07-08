@@ -118,4 +118,10 @@ public interface ViewTransferShopService {
      */
     ResponseResult updateShopInfo(Long userId, Long storeId);
 
+    /**
+     * 修改店铺的经纬度
+     * @param id
+     */
+    void updateShopLon(Long id);
+
 }
