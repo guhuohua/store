@@ -101,6 +101,10 @@ public class SysTransferShopDTO {
 
     private Integer high;
 
+    private Long sysUserId;
+
+
+
 
 
 

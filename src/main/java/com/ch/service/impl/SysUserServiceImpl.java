@@ -270,20 +270,26 @@ public class SysUserServiceImpl implements SysUserService {
             sysUser1.setStatus(sysUserDTO.getStatus());
             sysUser1.setHeadImage(sysUserDTO.getHeadImage());
 
-            SysUserBusinessExample example4 = new SysUserBusinessExample();
-            SysUserBusinessExample.Criteria criteria = example4.createCriteria();
-            criteria.andSysUserIdEqualTo(sysUser1.getUserId());
-            sysUserBusinessMapper.deleteByExample(example4);
 
-            for (Long businessTypeId : sysUserDTO.getBusinessTypeId()) {
-                SysUserBusiness sysUserBusiness = new SysUserBusiness();
-                sysUserBusiness.setId(IdUtil.getId());
-                sysUserBusiness.setSysUserId(sysUser1.getUserId());
-                sysUserBusiness.setBusinessTypeId(businessTypeId);
-                sysUserBusinessMapper.insert(sysUserBusiness);
+            if (BeanUtils.isNotEmpty(sysUserDTO.getBusinessTypeId())){
+                SysUserBusinessExample example4 = new SysUserBusinessExample();
+                SysUserBusinessExample.Criteria criteria = example4.createCriteria();
+                criteria.andSysUserIdEqualTo(sysUser1.getUserId());
+                sysUserBusinessMapper.deleteByExample(example4);
 
+                for (Long businessTypeId : sysUserDTO.getBusinessTypeId()) {
+                    SysUserBusiness sysUserBusiness = new SysUserBusiness();
+                    sysUserBusiness.setId(IdUtil.getId());
+                    sysUserBusiness.setSysUserId(sysUser1.getUserId());
+                    sysUserBusiness.setBusinessTypeId(businessTypeId);
+                    sysUserBusinessMapper.insert(sysUserBusiness);
+
+                }
             }
-            if (BeanUtils.isNotEmpty(sysUserDTO.getCityId())) {
+
+
+
+           if (BeanUtils.isNotEmpty(sysUserDTO.getCityId())) {
                 sysUser1.setCityId(sysUserDTO.getCityId());
             }
             try {

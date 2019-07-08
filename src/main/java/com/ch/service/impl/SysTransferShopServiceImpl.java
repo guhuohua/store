@@ -168,6 +168,12 @@ public class SysTransferShopServiceImpl implements SysTransferShopService {
             transferShop.setReasons(updateStatusDTO.getReasons());
         }
         transferShop.setCheckStatus(updateStatusDTO.getStatus());
+        if (BeanUtils.isNotEmpty(updateStatusDTO.getLatitude())) {
+            transferShop.setLat(updateStatusDTO.getLatitude());
+        }
+        if (BeanUtils.isNotEmpty(updateStatusDTO.getLongitude())) {
+            transferShop.setLon(updateStatusDTO.getLongitude());
+        }
         transferShopMapper.updateByPrimaryKey(transferShop);
         SolrDTO solrDTO = new SolrDTO();
         solrDTO.setTransferShopId(updateStatusDTO.getStoreId());
@@ -205,6 +211,20 @@ public class SysTransferShopServiceImpl implements SysTransferShopService {
         SysTransferShopDTO sysTransferShopDTO = new SysTransferShopDTO();
         modelMapper.map(transferShop, sysTransferShopDTO);
         sysTransferShopDTO.setUsername(transferShop.getContacts());
+        sysTransferShopDTO.setLatitude(transferShop.getLat());
+        sysTransferShopDTO.setLongitude(transferShop.getLon());
+        SysUserShopExample example1 = new SysUserShopExample();
+        SysUserShopExample.Criteria criteria = example1.createCriteria();
+        criteria.andTransferShopIdEqualTo(storeId.toString());
+        List<SysUserShop> sysUserShops = sysUserShopMapper.selectByExample(example1);
+        SysUserShop sysUserShop = null;
+        if (sysUserShops.size() > 0) {
+            sysUserShop = sysUserShops.get(0);
+            sysTransferShopDTO.setSysUserId(sysUserShop.getSysUserId());
+
+       }
+
+
         TransferImageExample transferImageExample = new TransferImageExample();
         transferImageExample.createCriteria().andTransferShopIdEqualTo(transferShop.getId().toString());
         List<TransferImage> transferImages = transferImageMapper.selectByExample(transferImageExample);
