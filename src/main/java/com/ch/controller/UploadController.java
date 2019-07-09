@@ -30,10 +30,7 @@ public class UploadController {
         response.setHeader("Access-Control-Allow-Origin", "*");
         ResponseResult result = new ResponseResult();
         try {
-            long startTime=System.currentTimeMillis();
             result =  uploadService.uploadFile(file);
-            long endTime=System.currentTimeMillis();
-            System.out.println("程序运行时间： "+(endTime - startTime)+"ms");
             result.setCode(410);
         } catch (Exception e) {
             e.printStackTrace();

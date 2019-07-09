@@ -154,4 +154,16 @@ public class SolrServiceImpl implements SolrService {
             e.printStackTrace();
         }
     }
+
+    @Override
+    @Async
+    public void deleteAll() {
+        try {
+            solrClient.deleteByQuery("*:*");
+
+            solrClient.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

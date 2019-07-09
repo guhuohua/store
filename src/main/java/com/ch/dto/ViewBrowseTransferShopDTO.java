@@ -19,4 +19,6 @@ public class ViewBrowseTransferShopDTO {
 
     private Long id;
 
+    private String contacts;
+
 }

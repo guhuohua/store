@@ -52,10 +52,10 @@ public interface TransferShopMapper {
     List<SysTransferShopDTO> list(@Param("name") String name, @Param("tel") String tel, @Param("status") Integer status, @Param("type") Integer type, @Param("checkStatus") Integer checkStatus);
 
     @Select("select ts.image, ts.title,CONCAT((select area_name from bs_area aa where aa.area_id = ts.area_id),'-', (select street_name from bs_street sa where sa.street_id = ts.street_id)) as address," +
-            "       ts.area, ts.rent, unix_timestamp(bs.create_date) as create_date, ts.id from browsing_history bs  join transfer_shop ts on bs.transfer_shop_id = ts.id  where bs.client_id  = #{userId} order by bs.create_date desc")
+            "       ts.area, ts.rent, unix_timestamp(bs.create_date) as create_date, ts.id, ts.contacts from browsing_history bs  join transfer_shop ts on bs.transfer_shop_id = ts.id  where bs.client_id  = #{userId} order by bs.create_date desc")
     List<ViewBrowseTransferShopDTO> myList(@Param("userId") Long userId);
 
-    @Select(" select (SELECT header from client where id = #{userId}) as image , t.title ," +
+    @Select(" select image , t.title ," +
             " CONCAT((select area_name from bs_area aa where aa.area_id = t.area_id),'-', " +
             " (select street_name from bs_street sa where sa.street_id = t.street_id)) as address," +
             "    t.rent, t.area, unix_timestamp(b.create_date) as create_date, t.id " +

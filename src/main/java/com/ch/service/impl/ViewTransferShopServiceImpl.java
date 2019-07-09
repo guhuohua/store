@@ -11,7 +11,7 @@ import com.ch.model.ViewTransferShopListParam;
 import com.ch.model.ViewTransferShopParam;
 import com.ch.service.SolrService;
 import com.ch.service.ViewTransferShopService;
-import com.ch.util.GetLatAndLngByBaidu;
+import com.ch.util.GaoDeUtil;
 import com.ch.util.IdUtil;
 import com.github.pagehelper.PageHelper;
 import org.apache.solr.client.solrj.SolrClient;
@@ -681,9 +681,9 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
             sb.append(bsArea.getAreaName());
         }
         sb.append(transferShop.getAddress());
-        List<String> coordinate = GetLatAndLngByBaidu.getCoordinate(sb.toString());
-        transferShop.setLon(coordinate.get(0));
-        transferShop.setLat(coordinate.get(1));
+        List<String> lon = GaoDeUtil.getLon(sb.toString());
+        transferShop.setLon(lon.get(0));
+        transferShop.setLat(lon.get(1));
         transferShopMapper.updateByPrimaryKey(transferShop);
     }
 }

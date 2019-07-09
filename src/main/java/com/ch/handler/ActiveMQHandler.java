@@ -30,6 +30,7 @@ public class ActiveMQHandler {
             MessageProducer producer = session.createProducer(destination);
             producer.setDeliveryMode(DeliveryMode.PERSISTENT);
             TextMessage message = session.createTextMessage(id.toString());
+            message.setJMSRedelivered(true);
             //发送
             producer.send(message);
             session.commit();

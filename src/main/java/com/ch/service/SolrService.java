@@ -11,4 +11,6 @@ public interface SolrService {
 
       void lowerShelf(SolrDTO solrDTO);
 
+      void deleteAll();
+
 }
