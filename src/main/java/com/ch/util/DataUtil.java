@@ -1,5 +1,4 @@
-/*
-package com.ch.ch;
+package com.ch.util;
 
 import com.ch.dao.LookShopMapper;
 import com.ch.dao.SysUserMapper;
@@ -7,21 +6,13 @@ import com.ch.dao.TransferShopMapper;
 import com.ch.dao.WangMapper;
 import com.ch.entity.TransferShop;
 import com.ch.entity.Wang;
-import com.ch.util.IdUtil;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-public class ChApplicationTests {
-
+public class DataUtil {
     @Autowired
     TransferShopMapper transferShopMapper;
     @Autowired
@@ -32,9 +23,7 @@ public class ChApplicationTests {
     SysUserMapper sysUserMapper;
 
 
-
-    @Test
-    public void testUploadImage(){
+    public void testUploadImage() {
         List<Wang> wangs = wangMapper.selectByExample(null);
         for (Wang wang : wangs) {
             TransferShop transferShop = new TransferShop();
@@ -43,39 +32,27 @@ public class ChApplicationTests {
             String rent = wang.getRent();
             String area = wang.getArea();
             String floor = wang.getFloor();
-            String regEx="[^0-9]";
+            String regEx = "[^0-9]";
 
             Pattern p = Pattern.compile(regEx);
             Matcher m = p.matcher(rent);
             Matcher m1 = p.matcher(area);
-            transferShop.setRent( Long.valueOf(m.replaceAll("")));
-            transferShop.setArea( Integer.valueOf(m1.replaceAll("")));
-            transferShop.setFloorNumber(Integer.valueOf(floor.substring(0,1)));
+            transferShop.setRent(Long.valueOf(m.replaceAll("")));
+            transferShop.setArea(Integer.valueOf(m1.replaceAll("")));
+            transferShop.setFloorNumber(Integer.valueOf(floor.substring(0, 1)));
             transferShop.setAddress(wang.getAddress());
-            transferShop.setContacts(wang.getName().substring(0,wang.getName().length()-2));
+            transferShop.setContacts(wang.getName().substring(0, wang.getName().length() - 2));
             transferShop.setTel(wang.getTel());
             String category = wang.getCategory();
             String[] split = category.split("、");
             Matcher m3 = p.matcher(split[0]);
             Matcher m4 = p.matcher(split[1]);
             Matcher m5 = p.matcher(split[2]);
-            transferShop.setGateWidth( Long.valueOf(m3.replaceAll("")));
+            transferShop.setGateWidth(Long.valueOf(m3.replaceAll("")));
             transferShop.setDepth(Integer.valueOf(m4.replaceAll("")));
             transferShop.setHigh(Integer.valueOf(m5.replaceAll("")));
 
         }
 
-
     }
-
-    @Test
-    public void deleDataBase(){
-        transferShopMapper.deleteByExample(null);
-        lookShopMapper.deleteByExample(null);
-        sysUserMapper.deleteByExample(null);
-
-    }
-
-
 }
-*/
