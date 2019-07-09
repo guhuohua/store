@@ -52,18 +52,21 @@ public interface TransferShopMapper {
     List<SysTransferShopDTO> list(@Param("name") String name, @Param("tel") String tel, @Param("status") Integer status, @Param("type") Integer type, @Param("checkStatus") Integer checkStatus);
 
     @Select("select ts.image, ts.title,CONCAT((select area_name from bs_area aa where aa.area_id = ts.area_id),'-', (select street_name from bs_street sa where sa.street_id = ts.street_id)) as address," +
-            "       ts.area, ts.rent, unix_timestamp(bs.create_date) as create_date, ts.id from browsing_history bs  join transfer_shop ts on bs.transfer_shop_id = ts.id  where bs.client_id  = #{userId} order by bs.create_date desc")
+            "       ts.area, ts.rent, unix_timestamp(bs.create_date) as create_date, ts.id, ts.contacts from browsing_history bs  join transfer_shop ts on bs.transfer_shop_id = ts.id  where bs.client_id  = #{userId} order by bs.create_date desc")
     List<ViewBrowseTransferShopDTO> myList(@Param("userId") Long userId);
 
-    @Select(" select   c.header as  image, t.title ,CONCAT((select area_name from bs_area aa where aa.area_id = t.area_id),'-', (select street_name from bs_street sa where sa.street_id = t.street_id)) as address," +
-            "        t.rent, t.area, unix_timestamp(b.create_date) as create_date, t.id" +
-            " from  house_collect  b   join transfer_shop  t on  b.transfer_shop_id=t.id   join client  c   on  c.id=t.client_id where b.client_id = #{userId} order by b.create_date desc")
+    @Select(" select image , t.title ," +
+            " CONCAT((select area_name from bs_area aa where aa.area_id = t.area_id),'-', " +
+            " (select street_name from bs_street sa where sa.street_id = t.street_id)) as address," +
+            "    t.rent, t.area, unix_timestamp(b.create_date) as create_date, t.id " +
+            "   from  house_collect  b left  join transfer_shop  t on  b.transfer_shop_id=t.id   " +
+            " where b.client_id = #{userId} order by b.create_date desc")
     List<ViewBrowseTransferShopDTO> myHouseCollectList(@Param("userId") Long userId);
 
 
     @Select("SELECT" +
             "  id,title, image, CONCAT((select area_name from bs_area aa where aa.area_id = ts.area_id),'-', (select street_name from bs_street sa where sa.street_id = ts.street_id)) as address," +
-            "     area,rent,lon,lat,(" +
+            "     area,rent,lon,lat,unix_timestamp(create_time) as time,(" +
             "    6371 * acos (" +
             "      cos ( radians(#{lat}) )" +
             "      * cos( radians( lat ) )" +

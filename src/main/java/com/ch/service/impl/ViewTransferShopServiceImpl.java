@@ -5,12 +5,13 @@ import com.ch.base.ResponseResult;
 import com.ch.dao.*;
 import com.ch.dto.*;
 import com.ch.entity.*;
+import com.ch.handler.ActiveMQHandler;
 import com.ch.model.FastTransferShopParam;
 import com.ch.model.ViewTransferShopListParam;
 import com.ch.model.ViewTransferShopParam;
 import com.ch.service.SolrService;
 import com.ch.service.ViewTransferShopService;
-import com.ch.util.GetLatAndLngByBaidu;
+import com.ch.util.GaoDeUtil;
 import com.ch.util.IdUtil;
 import com.github.pagehelper.PageHelper;
 import org.apache.solr.client.solrj.SolrClient;
@@ -26,6 +27,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -100,35 +102,16 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
     @Autowired
     TransferIconMapper transferIconMapper;
 
+    @Autowired
+    ActiveMQHandler activeMQHandler;
+
     @Override
     @Transactional
     public ResponseResult  addTransferShop(ViewTransferShopParam param, Long userId) {
         ResponseResult result = new ResponseResult();
+        long startTime=System.currentTimeMillis();
+        System.out.println("开始执行方法：" + startTime);
         TransferShop transferShop = new TransferShop();
-        StringBuffer sb = new StringBuffer();
-        BsProvince bsProvince = bsProvinceMapper.selectByPrimaryKey(param.getProvinceId());
-        if (BeanUtils.isNotEmpty(bsProvince)) {
-            sb.append(bsProvince.getProvinceName());
-        }
-        BsCity bsCity = bsCityMapper.selectByPrimaryKey(param.getCityId());
-        if (BeanUtils.isNotEmpty(bsCity)) {
-            sb.append(bsCity.getCityName());
-        }
-        BsArea bsArea = bsAreaMapper.selectByPrimaryKey(param.getAreaId());
-        if (BeanUtils.isNotEmpty(bsArea)) {
-            sb.append(bsArea.getAreaName());
-        }
-        sb.append(param.getAddress());
-
-        List<String> coordinate = GetLatAndLngByBaidu.getCoordinate(sb.toString());
-        if (BeanUtils.isEmpty(coordinate.get(0)) && BeanUtils.isEmpty(coordinate.get(1))) {
-            result.setCode(600);
-            result.setError("请输入正确的地址");
-            result.setError_description("请输入正确的地址");
-            return result;
-        }
-        transferShop.setLon(coordinate.get(0));
-        transferShop.setLat(coordinate.get(1));
         transferShop.setId(IdUtil.getId());
         transferShop.setClientId(userId);
         transferShop.setTel(param.getTel());
@@ -148,7 +131,6 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
         transferShop.setShopSn((IdUtil.getId() + 1) + "");
         transferShop.setTitle(param.getTitle());
         transferShop.setCityId(param.getCityId());
-
         transferShop.setPropertyTypeId(param.getPropertyTypeId());
         transferShop.setShopTypeId(param.getShopTypeId());
         transferShop.setRent(param.getRent());
@@ -194,6 +176,9 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
             transferShopBusinessMapper.insert(transferShopBusiness);
         }
         result.setData(transferShop.getId());
+        long endTime=System.currentTimeMillis();
+        System.out.println("方法结束：" + endTime + "总共耗时" + (startTime-endTime) + "ms");
+        activeMQHandler.updateStoreLon("updateStoreLon", transferShop.getId());
         return result;
     }
 
@@ -330,6 +315,7 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
                     viewTransferShopDTO.setCollection(1);
                 }
             }
+            viewTransferShopDTO.setTime(transferShop.getCreateTime().getTime());
             viewTransferShopDTO.setLongitude(transferShop.getLon());
             viewTransferShopDTO.setLatitude(transferShop.getLat());
             viewTransferShopDTO.setUsername(transferShop.getContacts());
@@ -486,6 +472,12 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
     public ResponseResult myHouseCollectTransferShopList(Long userId) {
         ResponseResult result = new ResponseResult();
         List<ViewBrowseTransferShopDTO> viewBrowseTransferShopDTOS = transferShopMapper.myHouseCollectList(userId);
+        Iterator<ViewBrowseTransferShopDTO> iterator = viewBrowseTransferShopDTOS.iterator();
+        while (iterator.hasNext()) {
+            if (BeanUtils.isEmpty(iterator.next().getTitle())) {
+                iterator.remove();
+            }
+        }
         result.setData(viewBrowseTransferShopDTOS);
         return result;
     }
@@ -670,5 +662,28 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
             result.setData(viewTransferShopDTO);
         }
         return result;
+    }
+
+    @Override
+    public void updateShopLon(Long id) {
+        StringBuffer sb = new StringBuffer();
+        TransferShop transferShop = transferShopMapper.selectByPrimaryKey(id);
+        BsProvince bsProvince = bsProvinceMapper.selectByPrimaryKey(transferShop.getProvinceId());
+        if (BeanUtils.isNotEmpty(bsProvince)) {
+            sb.append(bsProvince.getProvinceName());
+        }
+        BsCity bsCity = bsCityMapper.selectByPrimaryKey(transferShop.getCityId());
+        if (BeanUtils.isNotEmpty(bsCity)) {
+            sb.append(bsCity.getCityName());
+        }
+        BsArea bsArea = bsAreaMapper.selectByPrimaryKey(transferShop.getAreaId());
+        if (BeanUtils.isNotEmpty(bsArea)) {
+            sb.append(bsArea.getAreaName());
+        }
+        sb.append(transferShop.getAddress());
+        List<String> lon = GaoDeUtil.getLon(sb.toString());
+        transferShop.setLon(lon.get(0));
+        transferShop.setLat(lon.get(1));
+        transferShopMapper.updateByPrimaryKey(transferShop);
     }
 }

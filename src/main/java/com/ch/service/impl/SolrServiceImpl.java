@@ -70,6 +70,7 @@ public class SolrServiceImpl implements SolrService {
                 storeSolrSchema.setStoreType(0);
                 storeSolrSchema.setUserId(transferShop.getClientId());
                 storeSolrSchema.setStoreStatus(transferShop.getStatus());
+                storeSolrSchema.setContacts(transferShop.getContacts());
                 storeSolrSchema.setStoreName(transferShop.getTitle());
                 storeSolrSchema.setLatitude(transferShop.getLat());
                 storeSolrSchema.setLongitude(transferShop.getLon());
@@ -106,6 +107,7 @@ public class SolrServiceImpl implements SolrService {
             storeSolrSchema.setMinStoreArea(lookShop.getSmallArea());
             storeSolrSchema.setMaxStoreArea(lookShop.getTopArea());
             storeSolrSchema.setStoreType(1);
+            storeSolrSchema.setContacts(lookShop.getContacts());
             if (BeanUtils.isNotEmpty(client)) {
                 storeSolrSchema.setStoreImg(client.getHeader());
             }
@@ -146,6 +148,18 @@ public class SolrServiceImpl implements SolrService {
             if (BeanUtils.isNotEmpty(solrDTO.getTransferShopId())) {
                 solrClient.deleteByQuery("transferShopId:" + solrDTO.getTransferShopId());
             }
+
+            solrClient.commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    @Async
+    public void deleteAll() {
+        try {
+            solrClient.deleteByQuery("*:*");
 
             solrClient.commit();
         } catch (Exception e) {

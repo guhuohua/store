@@ -458,6 +458,7 @@ public class ViewBaseServiceImpl implements ViewBaseService {
 
     @Override
     public void solr() {
+        solrService.deleteAll();
         TransferShopExample transferShopExample = new TransferShopExample();
         transferShopExample.createCriteria().andCheckStatusEqualTo(1).andStatusNotEqualTo(1);
         List<TransferShop> transferShops = transferShopMapper.selectByExample(transferShopExample);

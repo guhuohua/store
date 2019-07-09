@@ -8,7 +8,7 @@ import com.ch.entity.*;
 import com.ch.model.ViewLookShopAddParam;
 import com.ch.service.SolrService;
 import com.ch.service.ViewLookShopService;
-import com.ch.util.GetLatAndLngByBaidu;
+import com.ch.util.GaoDeUtil;
 import com.ch.util.IdUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,7 +82,21 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
     public ResponseResult addLookShop(ViewLookShopAddParam param, Long userId) {
         ResponseResult result = new ResponseResult();
         LookShop lookShop = new LookShop();
-        List<String> coordinate = GetLatAndLngByBaidu.getCoordinate(param.getAddress());
+        StringBuffer sb = new StringBuffer();
+        BsProvince bsProvince = bsProvinceMapper.selectByPrimaryKey(param.getProvinceId());
+        if (BeanUtils.isNotEmpty(bsProvince)) {
+            sb.append(bsProvince.getProvinceName());
+        }
+        BsCity bsCity = bsCityMapper.selectByPrimaryKey(param.getCityId());
+        if (BeanUtils.isNotEmpty(bsCity)) {
+            sb.append(bsCity.getCityName());
+        }
+        BsArea bsArea = bsAreaMapper.selectByPrimaryKey(param.getAreaId());
+        if (BeanUtils.isNotEmpty(bsArea)) {
+            sb.append(bsArea.getAreaName());
+        }
+        sb.append(param.getAddress());
+        List<String> coordinate = GaoDeUtil.getLon(sb.toString());
         if (BeanUtils.isEmpty(coordinate)) {
             result.setCode(600);
             result.setError("请输入正确的地址");

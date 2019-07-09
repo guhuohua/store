@@ -22,4 +22,6 @@ public class ViewBrowseLookShopDTO {
     private Long createDate;
 
     private Long id;
+
+    private String contacts;
 }
