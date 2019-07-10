@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -16,7 +17,7 @@ public class GaoDeUtil {
 
     public static List<String> getLon(String address) {
         try {
-            String url = "http://restapi.amap.com/v3/geocode/geo?address="+address+"&output=JSON&key=433e5fbab4d1349c0ca01e14306504d9";
+            String url = "http://restapi.amap.com/v3/geocode/geo?address="+ URLEncoder.encode(address, "utf-8")+"&output=JSON&key=433e5fbab4d1349c0ca01e14306504d9";
             URL myURL = null;
             URLConnection httpsConn = null;
             try {
@@ -35,6 +36,7 @@ public class GaoDeUtil {
                 while((line= br.readLine())!=null){
                     data+=line;
                 }
+                System.out.println(data);
                 Matcher matcher = pattern.matcher(data);
                 if (matcher.find() && matcher.groupCount() == 2) {
                     double[] gps = new double[2];

@@ -11,5 +11,8 @@ public class ViewWXLoginParam {
 
     private Integer gender;
 
+    private String code;
+
     private String openId;
+
 }

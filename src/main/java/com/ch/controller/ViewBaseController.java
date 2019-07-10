@@ -327,7 +327,27 @@ public class ViewBaseController{
     @ApiOperation("微信授权登录")
     public ResponseResult wxLogin(@RequestBody ViewWXLoginParam param) {
         ResponseResult result = new ResponseResult();
+        Map<String, String> params = new HashMap<>();
+        params.put("appid", "wx87a05c912d2af641");
+        params.put("secret", "e89e8ccebb5aec7096b629ebcd40dda2");
+        params.put("js_code", param.getCode());
+        params.put("grant_type", "authorization_code");
+        // 发送请求
+        String wxResult = HttpRequestUtil.doGet("https://api.weixin.qq.com/sns/jscode2session", params);
+        JSONObject jsonObject = JSONObject.parseObject(wxResult);
+        String session_key = null;
+        String open_id = null;
+        if (jsonObject != null) {
+            // 获取参数返回的
+            if (BeanUtils.isNotEmpty(jsonObject.get("session_key"))) {
+                session_key = jsonObject.get("session_key").toString();
+            }
+            if (BeanUtils.isNotEmpty(jsonObject.get("openid"))) {
+                open_id = jsonObject.get("openid").toString();
+            }
+        }
         try {
+            param.setOpenId(open_id);
             result = viewBaseService.wxLogin(param);
         } catch (Exception e) {
             log.error("微信授权登录失败" + e.getMessage(), e);
@@ -412,40 +432,6 @@ public class ViewBaseController{
         return result;
     }
 
-
-    @GetMapping("getOpenId")
-    @ApiOperation("获取OpenId")
-    public ResponseResult getOpenId(String code, String appId) {
-        // 配置请求参数
-        Map<String, String> param = new HashMap<>();
-        param.put("appid", appId);
-        param.put("secret", "e89e8ccebb5aec7096b629ebcd40dda2");
-        param.put("js_code", code);
-        param.put("grant_type", "authorization_code");
-        // 发送请求
-        String wxResult = HttpRequestUtil.doGet("https://api.weixin.qq.com/sns/jscode2session", param);
-        JSONObject jsonObject = JSONObject.parseObject(wxResult);
-        //System.out.println(jsonObject);
-        String session_key = null;
-        String open_id = null;
-        if (jsonObject != null) {
-            // 获取参数返回的
-            if (BeanUtils.isNotEmpty(jsonObject.get("session_key"))) {
-                session_key = jsonObject.get("session_key").toString();
-            }
-            if (BeanUtils.isNotEmpty(jsonObject.get("openid"))) {
-                open_id = jsonObject.get("openid").toString();
-            }
-        }
-        // 封装返回小程序
-        Map<String, String> result = new HashMap<>();
-        result.put("session_key", session_key);
-        result.put("open_id", open_id);
-        ResponseResult result1 = new ResponseResult();
-        result1.setData(result);
-        return result1;
-
-    }
 
     @GetMapping("test")
     @ApiOperation("test")

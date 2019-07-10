@@ -77,6 +77,12 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
     @Autowired
     TransferIconMapper transferIconMapper;
 
+    @Autowired
+    OrientationMapper orientationMapper;
+
+    @Autowired
+    SubwayLineMapper subwayLineMapper;
+
     @Override
     @Transactional
     public ResponseResult addLookShop(ViewLookShopAddParam param, Long userId) {
@@ -141,7 +147,7 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
         lookShop.setProvinceId(param.getProvinceId());
         lookShop.setAddress(param.getAddress());
         lookShop.setContacts(param.getContacts());
-
+        lookShop.setSubwayLineId(param.getSubwayLineId().toString());
         lookShop.setStatus(0);
         lookShop.setMediumStatus(0);
         lookShop.setPublishedTime(new Date());
@@ -177,8 +183,14 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
                 viewLookShopInfoDTO.setCollection(1);
             }
         }
-
-
+        if (BeanUtils.isNotEmpty(lookShop.getSubwayLineId())) {
+            SubwayLine subwayLine = subwayLineMapper.selectByPrimaryKey(Long.valueOf(lookShop.getSubwayLineId()));
+            viewLookShopInfoDTO.setSubwayLine(subwayLine.getSubwayLineDesc());
+        }
+        if (BeanUtils.isNotEmpty(lookShop.getOrientationId())) {
+            Orientation orientation = orientationMapper.selectByPrimaryKey(lookShop.getOrientationId());
+            viewLookShopInfoDTO.setOrientation(orientation.getOrientationDesc());
+        }
         LookShopBusinessExample lookShopBusinessExample = new LookShopBusinessExample();
         lookShopBusinessExample.createCriteria().andLookShopIdEqualTo(id);
         List<LookShopBusiness> lookShopBusinesses = lookShopBusinessMapper.selectByExample(lookShopBusinessExample);
@@ -332,6 +344,7 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
             lookShop.setMediumStatus(0);
             lookShop.setShopReadme(param.getShopReadme());
             lookShop.setFloor(param.getFloor());
+            lookShop.setSubwayLineId(param.getSubwayLineId().toString());
             lookShop.setOrientationId(param.getOrientationId());
             if (BeanUtils.isNotEmpty(param.getLoopLineId())) {
                 lookShop.setLoopLineId(param.getLoopLineId().toString());
