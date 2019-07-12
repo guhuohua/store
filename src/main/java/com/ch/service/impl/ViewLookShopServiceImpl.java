@@ -83,6 +83,9 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
     @Autowired
     SubwayLineMapper subwayLineMapper;
 
+    @Autowired
+    LoopLineMapper loopLineMapper;
+
     @Override
     @Transactional
     public ResponseResult addLookShop(ViewLookShopAddParam param, Long userId) {
@@ -147,7 +150,9 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
         lookShop.setProvinceId(param.getProvinceId());
         lookShop.setAddress(param.getAddress());
         lookShop.setContacts(param.getContacts());
-        lookShop.setSubwayLineId(param.getSubwayLineId().toString());
+        if (BeanUtils.isNotEmpty(param.getSubwayLineId())) {
+            lookShop.setSubwayLineId(param.getSubwayLineId().toString());
+        }
         lookShop.setStatus(0);
         lookShop.setMediumStatus(0);
         lookShop.setPublishedTime(new Date());
@@ -202,6 +207,10 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
             }
         }
         viewLookShopInfoDTO.setBusinessTypes(lookShopBusName);
+        if (BeanUtils.isNotEmpty(lookShop.getLoopLineId())) {
+            LoopLine loopLine = loopLineMapper.selectByPrimaryKey(Long.valueOf(lookShop.getLoopLineId()));
+            viewLookShopInfoDTO.setLoopLine(loopLine.getLoopLineDesc());
+        }
         PropertyType propertyType = propertyTypeMapper.selectByPrimaryKey(lookShop.getPropertyTypeId());
         if (BeanUtils.isNotEmpty(propertyType)) {
             viewLookShopInfoDTO.setPropertyType(propertyType.getPropertyType());

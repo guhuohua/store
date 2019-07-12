@@ -74,4 +74,10 @@ public class TokenUtil {
             return null;
         }
     }
+
+
+    public static void main(String[] args) {
+        Long userId = TokenUtil.getUserId("eyJhbGciOiJIUzI1NiIsIlR5cGUiOiJKd3QiLCJ0eXAiOiJKV1QifQ.eyJleHAiOjE1NjM2NDI0MTMsInVzZXJJZCI6MTU2MjIzNTA3NTkxNDgxfQ.9AhV00m-RoxfgxaVQxWWVC6MgQX5KYUgQ4XyAwIo0us");
+        System.out.println(userId);
+    }
 }

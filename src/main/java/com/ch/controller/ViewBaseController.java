@@ -348,6 +348,7 @@ public class ViewBaseController{
         }
         try {
             param.setOpenId(open_id);
+            System.out.println(param.getNickName() + "openid:" + open_id);
             result = viewBaseService.wxLogin(param);
         } catch (Exception e) {
             log.error("微信授权登录失败" + e.getMessage(), e);

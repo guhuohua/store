@@ -15,4 +15,14 @@ public interface UploadService {
     UploadName upload(MultipartFile file);
 
     ResponseResult uploadFile(MultipartFile file);
+
+    /**
+     * 上传excel
+     * @param file
+     * @return
+     */
+    ResponseResult uploadExcel(MultipartFile file);
+
+
+    ResponseResult uploadAddress(String address);
 }
