@@ -195,7 +195,7 @@ public class UploadServiceImpl implements UploadService {
                         return result;
                     }
                     if (BeanUtils.isNotEmpty(str[5])) {
-                        transferShop.setRent(Long.valueOf(str[4]));
+                        transferShop.setRent(Long.valueOf(str[5]));
                     } else {
                         result.setCode(600);
                         result.setError("租金不能为空");
