@@ -222,12 +222,12 @@ public class UploadServiceImpl implements UploadService {
                         streetExample.createCriteria().andShortNameEqualTo(str[7]);
                         List<BsStreet> bsStreets = streetMapper.selectByExample(streetExample);
                         if (bsStreets.stream().findFirst().isPresent()) {
-                            transferShop.setAreaId(bsStreets.stream().findFirst().get().getStreetId());
+                            transferShop.setStreetId(bsStreets.stream().findFirst().get().getStreetId());
                         }
                     } else {
                         result.setCode(600);
-                        result.setError("区不能为空");
-                        result.setError_description("区不能为空");
+                        result.setError("街道不能为空");
+                        result.setError_description("街道不能为空");
                         return result;
                     }
                     if (BeanUtils.isNotEmpty(str[8])) {
