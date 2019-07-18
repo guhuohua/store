@@ -5,7 +5,9 @@ import com.ch.base.ResponseResult;
 import com.ch.base.UploadName;
 import com.ch.config.UploadImgProperties;
 import com.ch.dao.*;
+import com.ch.dto.SolrDTO;
 import com.ch.entity.*;
+import com.ch.service.SolrService;
 import com.ch.service.UploadService;
 import com.ch.service.ViewTransferShopService;
 import com.ch.util.ExcelHelper;
@@ -91,6 +93,9 @@ public class UploadServiceImpl implements UploadService {
 
     @Autowired
     BusinessTypeMapper businessTypeMapper;
+
+    @Autowired
+    SolrService solrService;
 
     @Override
     public ResponseResult uploadFile(MultipartFile file) {
@@ -222,7 +227,7 @@ public class UploadServiceImpl implements UploadService {
                         streetExample.createCriteria().andShortNameEqualTo(str[7]);
                         List<BsStreet> bsStreets = streetMapper.selectByExample(streetExample);
                         if (bsStreets.stream().findFirst().isPresent()) {
-                            transferShop.setAreaId(bsStreets.stream().findFirst().get().getStreetId());
+                            transferShop.setStreetId(bsStreets.stream().findFirst().get().getStreetId());
                         }
                     } else {
                         result.setCode(600);
@@ -397,6 +402,10 @@ public class UploadServiceImpl implements UploadService {
                         transferShopBaseIconMapper.insert(transferShopBaseIcon);
                     }
                     updateShopLon(transferShop.getId());
+                    SolrDTO solrDTO = new SolrDTO();
+                    solrDTO.setTransferShopId(transferShop.getId());
+                    solrService.addSolr(solrDTO);
+
                 }
             } catch (IOException e) {
                 log.error("上传excel失败", e.getMessage());

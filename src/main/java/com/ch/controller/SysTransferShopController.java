@@ -17,6 +17,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RequestMapping(value = "/sys/transferShop")
 @Slf4j
 @Api(value = "后台转铺列表")
@@ -64,10 +66,12 @@ public class SysTransferShopController {
 
     @PostMapping ("updateStatus")
     @ApiOperation("审核状态")
-    public ResponseResult updateStatus(@RequestBody UpdateStatusDTO updateStatusDTO) {
+    public ResponseResult updateStatus(@RequestBody List<UpdateStatusDTO> updateStatusDTOS) {
         ResponseResult result = new ResponseResult();
         try {
-            result = sysTransferShopService.updateStatus(updateStatusDTO);
+            for (UpdateStatusDTO updateStatusDTO : updateStatusDTOS) {
+                sysTransferShopService.updateStatus(updateStatusDTO);
+            }
         } catch (Exception e) {
             log.error("审核状态失败" + e.getMessage(), e);
             result.setCode(600);

@@ -157,37 +157,40 @@ public class SysTransferShopServiceImpl implements SysTransferShopService {
 
     public ResponseResult updateStatus(UpdateStatusDTO updateStatusDTO) {
         ResponseResult result = new ResponseResult();
-        TransferShop transferShop = transferShopMapper.selectByPrimaryKey(updateStatusDTO.getStoreId());
-        if (updateStatusDTO.getStatus() == 1) {
-            transferShop.setCheckTime(new Date());
+
+            TransferShop transferShop = transferShopMapper.selectByPrimaryKey(updateStatusDTO.getStoreId());
+            if (updateStatusDTO.getStatus() == 1) {
+                transferShop.setCheckTime(new Date());
 
 
-        }
-        if (updateStatusDTO.getStatus() == 0) {
-            transferShop.setCheckTime(new Date());
-            transferShop.setReasons(updateStatusDTO.getReasons());
-        }
-        transferShop.setCheckStatus(updateStatusDTO.getStatus());
-        if (BeanUtils.isNotEmpty(updateStatusDTO.getLatitude())) {
-            transferShop.setLat(updateStatusDTO.getLatitude());
-        }
-        if (BeanUtils.isNotEmpty(updateStatusDTO.getLongitude())) {
-            transferShop.setLon(updateStatusDTO.getLongitude());
-        }
-        transferShopMapper.updateByPrimaryKey(transferShop);
-        SolrDTO solrDTO = new SolrDTO();
-        solrDTO.setTransferShopId(updateStatusDTO.getStoreId());
-        solrService.addSolr(solrDTO);
+            }
+            if (updateStatusDTO.getStatus() == 0) {
+                transferShop.setCheckTime(new Date());
+                transferShop.setReasons(updateStatusDTO.getReasons());
+            }
+            transferShop.setCheckStatus(updateStatusDTO.getStatus());
+            if (BeanUtils.isNotEmpty(updateStatusDTO.getLatitude())) {
+                transferShop.setLat(updateStatusDTO.getLatitude());
+            }
+            if (BeanUtils.isNotEmpty(updateStatusDTO.getLongitude())) {
+                transferShop.setLon(updateStatusDTO.getLongitude());
+            }
+            transferShopMapper.updateByPrimaryKey(transferShop);
+            SolrDTO solrDTO = new SolrDTO();
+            solrDTO.setTransferShopId(updateStatusDTO.getStoreId());
+            solrService.addSolr(solrDTO);
 
-        if (BeanUtils.isNotEmpty(updateStatusDTO.getUserId())) {
-            SysUserShop sysUserShop = new SysUserShop();
-            sysUserShop.setSysUserId(updateStatusDTO.getUserId());
-            sysUserShop.setTransferShopId(transferShop.getId().toString());
-            sysUserShopMapper.insert(sysUserShop);
-            SysUser sysUser = sysUserMapper.selectByPrimaryKey(updateStatusDTO.getUserId());
-            sysUser.setServiceCount(sysUser.getServiceCount() + 1);
-            sysUserMapper.updateByPrimaryKey(sysUser);
-        }
+            if (BeanUtils.isNotEmpty(updateStatusDTO.getUserId())) {
+                SysUserShop sysUserShop = new SysUserShop();
+                sysUserShop.setSysUserId(updateStatusDTO.getUserId());
+                sysUserShop.setTransferShopId(transferShop.getId().toString());
+                sysUserShopMapper.insert(sysUserShop);
+                SysUser sysUser = sysUserMapper.selectByPrimaryKey(updateStatusDTO.getUserId());
+                sysUser.setServiceCount(sysUser.getServiceCount() + 1);
+                sysUserMapper.updateByPrimaryKey(sysUser);
+            }
+
+
 
         return result;
     }
