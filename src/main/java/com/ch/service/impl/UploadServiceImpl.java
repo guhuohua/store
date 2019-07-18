@@ -32,6 +32,7 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 @Service
 @Slf4j
@@ -121,6 +122,7 @@ public class UploadServiceImpl implements UploadService {
     @Transactional
     public ResponseResult uploadExcel(MultipartFile file) {
         ResponseResult result = new ResponseResult();
+        long startTime=System.currentTimeMillis();
         String fileSuffix = FilenameUtils.getExtension(file.getOriginalFilename());
         if (fileSuffix.toLowerCase().equals("xls") || fileSuffix.toLowerCase().equals("xlsx")) {
             try {
@@ -209,7 +211,7 @@ public class UploadServiceImpl implements UploadService {
                     }
                     if (BeanUtils.isNotEmpty(str[6])) {
                         BsAreaExample bsAreaExample = new BsAreaExample();
-                        bsAreaExample.createCriteria().andAreaNameEqualTo(str[6]);
+                        bsAreaExample.createCriteria().andAreaNameLike("%" + str[6] + "%");
                         List<BsArea> bsAreas = bsAreaMapper.selectByExample(bsAreaExample);
                         if (bsAreas.stream().findFirst().isPresent()) {
                             transferShop.setAreaId(bsAreas.stream().findFirst().get().getAreaId());
@@ -224,7 +226,7 @@ public class UploadServiceImpl implements UploadService {
                     }
                     if (BeanUtils.isNotEmpty(str[7])) {
                         BsStreetExample streetExample = new BsStreetExample();
-                        streetExample.createCriteria().andShortNameEqualTo(str[7]);
+                        streetExample.createCriteria().andStreetNameLike("%" + str[7] + "%");
                         List<BsStreet> bsStreets = streetMapper.selectByExample(streetExample);
                         if (bsStreets.stream().findFirst().isPresent()) {
                             transferShop.setStreetId(bsStreets.stream().findFirst().get().getStreetId());
@@ -262,7 +264,7 @@ public class UploadServiceImpl implements UploadService {
                     }
                     transferShop.setRecommendType(0);
                     transferShop.setStatus(0);
-                    transferShop.setCheckStatus(2);
+                    transferShop.setCheckStatus(1);
                     transferShop.setCreateTime(new Date());
                     transferShop.setUpdateTime(new Date());
                     transferShop.setShopSn((IdUtil.getId() + 1) + "");
@@ -381,7 +383,10 @@ public class UploadServiceImpl implements UploadService {
                         String[] split = str[22].split("\\/");
                         for (int j = 0; j < split.length; j++) {
                             TransferShopBaseIcon transferShopBaseIcon = new TransferShopBaseIcon();
-                            transferShopBaseIcon.setId(IdUtil.getId());
+                            Random random = new Random();
+                            int num = random.nextInt(999999);
+                            long id = IdUtil.getId() + num;
+                            transferShopBaseIcon.setId(id);
                             transferShopBaseIcon.setTransferShopId(transferShop.getId());
                             transferShopBaseIcon.setBaseIconId(Long.valueOf(split[j]));
                             transferShopBaseIcons.add(transferShopBaseIcon);
@@ -411,6 +416,8 @@ public class UploadServiceImpl implements UploadService {
                 log.error("上传excel失败", e.getMessage());
             }
         }
+        long endTime=System.currentTimeMillis(); //获取结束时间
+        System.out.println("程序运行时间： "+(endTime-startTime)+"ms");
         return result;
     }
 

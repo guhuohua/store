@@ -2,7 +2,6 @@ package com.ch.service;
 
 import com.ch.base.ResponseResult;
 import com.ch.base.UploadName;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.web.multipart.MultipartFile;
 
 public interface UploadService {
@@ -22,7 +21,6 @@ public interface UploadService {
      * @param file
      * @return
      */
-    @Async
     ResponseResult uploadExcel(MultipartFile file);
 
 
