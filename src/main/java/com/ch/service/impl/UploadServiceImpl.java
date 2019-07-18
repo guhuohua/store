@@ -231,8 +231,8 @@ public class UploadServiceImpl implements UploadService {
                         }
                     } else {
                         result.setCode(600);
-                        result.setError("区不能为空");
-                        result.setError_description("区不能为空");
+                        result.setError("街道不能为空");
+                        result.setError_description("街道不能为空");
                         return result;
                     }
                     if (BeanUtils.isNotEmpty(str[8])) {
