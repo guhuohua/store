@@ -96,4 +96,8 @@ public class ViewLookShopAddParam {
 
     private String areaName;
 
+    private Integer startFloor;
+
+    private Integer endFloor;
+
 }

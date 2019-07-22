@@ -53,7 +53,12 @@
     <result column="other_four" property="otherFour" jdbcType="INTEGER" />
     <result column="depth" property="depth" jdbcType="INTEGER" />
     <result column="high" property="high" jdbcType="INTEGER" />
-
+    <result column="start_floor" property="startFloor" jdbcType="INTEGER" />
+    <result column="end_floor" property="endFloor" jdbcType="INTEGER" />
+    <result column="deposit" property="deposit" jdbcType="INTEGER" />
+    <result column="pay_month" property="payMonth" jdbcType="INTEGER" />
+    <result column="business_status" property="businessStatus" jdbcType="VARCHAR" />
+    <result column="lease_term" property="leaseTerm" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -120,7 +125,8 @@
     orientation_id, loop_line_id, subway_line_id, update_time, lon, published_time, check_time, 
     success_time, free_period, transfer_icon_id, fake_tel, image, sort, area_id, street_id, 
     province_id, recommend_type, check_status, create_time, address, contacts, lat, reasons, 
-    other_one, other_two, shop_rent_type_id, other_four,depth,high
+    other_one, other_two, shop_rent_type_id, other_four,depth,high, start_floor, end_floor, deposit, pay_month,
+    business_status, lease_term
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ch.entity.TransferShopExample" >
     select
@@ -170,7 +176,8 @@
       check_status, create_time, address, 
       contacts, lat, reasons, 
       other_one, other_two, shop_rent_type_id,
-      other_four,depth,high)
+      other_four,depth,high, start_floor, end_floor, deposit, pay_month,
+      business_status, lease_term)
     values (#{id,jdbcType=BIGINT}, #{clientId,jdbcType=BIGINT}, #{tel,jdbcType=VARCHAR}, 
       #{businessTypeId,jdbcType=BIGINT}, #{propertyTypeId,jdbcType=BIGINT}, #{shopTypeId,jdbcType=BIGINT}, 
       #{rent,jdbcType=BIGINT}, #{area,jdbcType=INTEGER}, #{transferStatus,jdbcType=INTEGER}, 
@@ -187,7 +194,9 @@
       #{checkStatus,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{address,jdbcType=VARCHAR}, 
       #{contacts,jdbcType=VARCHAR}, #{lat,jdbcType=VARCHAR}, #{reasons,jdbcType=VARCHAR}, 
       #{otherOne,jdbcType=VARCHAR}, #{otherTwo,jdbcType=VARCHAR}, #{shopRentTypeId,jdbcType=BIGINT},
-      #{otherFour,jdbcType=INTEGER},#{depth,jdbcType=INTEGER},#{high,jdbcType=INTEGER})
+      #{otherFour,jdbcType=INTEGER},#{depth,jdbcType=INTEGER},#{high,jdbcType=INTEGER},#{startFloor,jdbcType=INTEGER}
+      ,#{endFloor,jdbcType=INTEGER},#{deposit,jdbcType=INTEGER},#{payMonth,jdbcType=INTEGER},#{businessStatus,jdbcType=VARCHAR}
+      ,#{leaseTerm,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.ch.entity.TransferShop" >
     insert into transfer_shop
@@ -907,8 +916,13 @@
       shop_rent_type_id = #{shopRentTypeId,jdbcType=BIGINT},
       other_four = #{otherFour,jdbcType=INTEGER},
        depth = #{depth,jdbcType=INTEGER},
-        high = #{high,jdbcType=INTEGER}
-
+        high = #{high,jdbcType=INTEGER},
+        start_floor = #{startFloor,jdbcType=INTEGER},
+end_floor = #{endFloor,jdbcType=INTEGER},
+deposit = #{deposit,jdbcType=INTEGER},
+pay_month = #{payMonth,jdbcType=INTEGER},
+business_status = #{businessStatus,jdbcType=VARCHAR},
+lease_term = #{leaseTerm,jdbcType=INTEGER}
     where id = #{id,jdbcType=BIGINT}
   </update>
 

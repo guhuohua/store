@@ -14,6 +14,7 @@ import com.ch.service.ViewTransferShopService;
 import com.ch.util.GaoDeUtil;
 import com.ch.util.IdUtil;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import org.apache.solr.client.solrj.SolrClient;
 import org.apache.solr.client.solrj.SolrQuery;
 import org.apache.solr.client.solrj.SolrServerException;
@@ -152,6 +153,14 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
         transferShop.setShopRentTypeId(param.getShopRentTypeId());
         transferShop.setHigh(param.getHigh());
         transferShop.setDepth(param.getDepth());
+
+        transferShop.setStartFloor(param.getStartFloor());
+        transferShop.setEndFloor(param.getEndFloor());
+        transferShop.setDeposit(param.getDeposit());
+        transferShop.setPayMonth(param.getPayMonth());
+        transferShop.setBusinessStatus(param.getBusinessStatus());
+        transferShop.setLeaseTerm(param.getLeaseTerm());
+
       /* int i = 1/0;
         System.out.println(i);*/
         transferShopMapper.insert(transferShop);
@@ -185,15 +194,75 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
     @Override
     public ResponseResult transferShopList(ViewTransferShopListParam param) {
         ResponseResult result = new ResponseResult();
+        if (BeanUtils.isNotEmpty(param.getAreaId())) {
+            if (4096 == param.getAreaId()) {
+                param.setAreaId(null);
+                param.setCityId(169);
+            }
+        }
+        if (BeanUtils.isNotEmpty(param.getStreetId())) {
+            if (BeanUtils.isNotEmpty(param.getStreetId()) && 65536 == param.getStreetId()) {
+                param.setStreetId(null);
+                param.setAreaId(1511);
+            }
+            if (BeanUtils.isNotEmpty(param.getStreetId()) && 65537 == param.getStreetId()) {
+                param.setStreetId(null);
+                param.setAreaId(1512);
+            }
+            if (BeanUtils.isNotEmpty(param.getStreetId()) && 65538 == param.getStreetId()) {
+                param.setStreetId(null);
+                param.setAreaId(1513);
+            }
+            if (BeanUtils.isNotEmpty(param.getStreetId()) && 65539 == param.getStreetId()) {
+                param.setStreetId(null);
+                param.setAreaId(1514);
+            }
+            if (BeanUtils.isNotEmpty(param.getStreetId()) && 65540 == param.getStreetId()) {
+                param.setStreetId(null);
+                param.setAreaId(1515);
+            }
+            if (BeanUtils.isNotEmpty(param.getStreetId()) && 65541 == param.getStreetId()) {
+                param.setStreetId(null);
+                param.setAreaId(1516);
+            }
+            if (BeanUtils.isNotEmpty(param.getStreetId()) && 65542 == param.getStreetId()) {
+                param.setStreetId(null);
+                param.setAreaId(1517);
+            }
+            if (BeanUtils.isNotEmpty(param.getStreetId()) && 65543 == param.getStreetId()) {
+                param.setStreetId(null);
+                param.setAreaId(1518);
+            }
+            if (BeanUtils.isNotEmpty(param.getStreetId()) && 65544 == param.getStreetId()) {
+                param.setStreetId(null);
+                param.setAreaId(1519);
+            }
+            if (BeanUtils.isNotEmpty(param.getStreetId()) && 65545 == param.getStreetId()) {
+                param.setStreetId(null);
+                param.setAreaId(1520);
+            }
+            if (BeanUtils.isNotEmpty(param.getStreetId()) && 65546 == param.getStreetId()) {
+                param.setStreetId(null);
+                param.setAreaId(1521);
+            }
+            if (BeanUtils.isNotEmpty(param.getStreetId()) && 65547 == param.getStreetId()) {
+                param.setStreetId(null);
+                param.setAreaId(1522);
+            }
+            if (BeanUtils.isNotEmpty(param.getStreetId()) && 65548 == param.getStreetId()) {
+                param.setStreetId(null);
+                param.setAreaId(1523);
+            }
+        }
         int start = (param.getStart() - 1) * param.getRows();
         SolrQuery solrQuery = new SolrQuery();
         StringBuilder params = new StringBuilder("storeType:" + param.getStoreType());
         if (BeanUtils.isNotEmpty(param.getStoreName())) {
             if (params != null) {
-                params.append(" AND (storeName:*" + param.getStoreName() + "*)");
+                params.append(" AND (storeKeyWords:*" + param.getStoreName() + "*)");
             } else {
                 params = new StringBuilder();
-                params.append("storeName:*" + param.getStoreName() + "*");
+                params.append("storeKeyWords:*" + param.getStoreName() + "*");
             }
         }
         if (BeanUtils.isNotEmpty(param.getStoreCategory())) {
@@ -483,10 +552,12 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
     }
 
     @Override
-    public ResponseResult nearbyShop(String lon, String lat) {
+    public ResponseResult nearbyShop(String lon, String lat, Integer pageNum, Integer pageSize) {
         ResponseResult result = new ResponseResult();
+        PageHelper.startPage(pageNum, pageSize);
         List<ViewNearbyShopDTO> viewNearbyShopDTOS = transferShopMapper.nearbyShop(lon, lat);
-        result.setData(viewNearbyShopDTOS);
+        PageInfo<ViewNearbyShopDTO> pageInfo = new PageInfo<>(viewNearbyShopDTOS);
+        result.setData(pageInfo);
         return result;
     }
 
@@ -542,6 +613,12 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
                 result.setError_description("请审核过后在完善店铺信息");
                 return result;
             }
+            transferShop.setStartFloor(param.getStartFloor());
+            transferShop.setEndFloor(param.getEndFloor());
+            transferShop.setDeposit(param.getDeposit());
+            transferShop.setPayMonth(param.getPayMonth());
+            transferShop.setBusinessStatus(param.getBusinessStatus());
+            transferShop.setLeaseTerm(param.getLeaseTerm());
             transferShop.setPropertyTypeId(param.getPropertyTypeId());
             transferShop.setShopTypeId(param.getShopTypeId());
             transferShop.setTransferStatus(param.getTransferStatus());

@@ -8,7 +8,6 @@ import com.ch.entity.*;
 import com.ch.model.ViewLookShopAddParam;
 import com.ch.service.SolrService;
 import com.ch.service.ViewLookShopService;
-import com.ch.util.GaoDeUtil;
 import com.ch.util.IdUtil;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,29 +90,29 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
     public ResponseResult addLookShop(ViewLookShopAddParam param, Long userId) {
         ResponseResult result = new ResponseResult();
         LookShop lookShop = new LookShop();
-        StringBuffer sb = new StringBuffer();
-        BsProvince bsProvince = bsProvinceMapper.selectByPrimaryKey(param.getProvinceId());
-        if (BeanUtils.isNotEmpty(bsProvince)) {
-            sb.append(bsProvince.getProvinceName());
-        }
-        BsCity bsCity = bsCityMapper.selectByPrimaryKey(param.getCityId());
-        if (BeanUtils.isNotEmpty(bsCity)) {
-            sb.append(bsCity.getCityName());
-        }
-        BsArea bsArea = bsAreaMapper.selectByPrimaryKey(param.getAreaId());
-        if (BeanUtils.isNotEmpty(bsArea)) {
-            sb.append(bsArea.getAreaName());
-        }
-        sb.append(param.getAddress());
-        List<String> coordinate = GaoDeUtil.getLon(sb.toString());
-        if (BeanUtils.isEmpty(coordinate)) {
-            result.setCode(600);
-            result.setError("请输入正确的地址");
-            result.setError_description("请输入正确的地址");
-            return result;
-        }
-        lookShop.setLongitude(coordinate.get(0));
-        lookShop.setLatitude(coordinate.get(1));
+//        StringBuffer sb = new StringBuffer();
+//        BsProvince bsProvince = bsProvinceMapper.selectByPrimaryKey(param.getProvinceId());
+//        if (BeanUtils.isNotEmpty(bsProvince)) {
+//            sb.append(bsProvince.getProvinceName());
+//        }
+//        BsCity bsCity = bsCityMapper.selectByPrimaryKey(param.getCityId());
+//        if (BeanUtils.isNotEmpty(bsCity)) {
+//            sb.append(bsCity.getCityName());
+//        }
+//        BsArea bsArea = bsAreaMapper.selectByPrimaryKey(param.getAreaId());
+//        if (BeanUtils.isNotEmpty(bsArea)) {
+//            sb.append(bsArea.getAreaName());
+//        }
+//        sb.append(param.getAddress());
+//        List<String> coordinate = GaoDeUtil.getLon(sb.toString());
+//        if (BeanUtils.isEmpty(coordinate)) {
+//            result.setCode(600);
+//            result.setError("请输入正确的地址");
+//            result.setError_description("请输入正确的地址");
+//            return result;
+//        }
+//        lookShop.setLongitude(coordinate.get(0));
+//        lookShop.setLatitude(coordinate.get(1));
         lookShop.setId(IdUtil.getId());
         lookShop.setCityId(param.getCityId());
         lookShop.setClientId(userId);
@@ -125,6 +124,8 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
         lookShop.setTransferStatus(param.getTransferStatus());
         lookShop.setTitle(param.getTitle());
         lookShop.setCityId(param.getCityId());
+        lookShop.setStartFloor(param.getStartFloor());
+        lookShop.setEndFloor(param.getEndFloor());
 
         lookShop.setPropertyTypeId(param.getPropertyTypeId());
         lookShop.setShopTypeId(param.getShopTypeId());
@@ -148,7 +149,7 @@ public class ViewLookShopServiceImpl implements ViewLookShopService {
         lookShop.setAreaId(param.getAreaId());
         lookShop.setStreetId(param.getStreetId());
         lookShop.setProvinceId(param.getProvinceId());
-        lookShop.setAddress(param.getAddress());
+//        lookShop.setAddress(param.getAddress());
         lookShop.setContacts(param.getContacts());
         if (BeanUtils.isNotEmpty(param.getSubwayLineId())) {
             lookShop.setSubwayLineId(param.getSubwayLineId().toString());

@@ -24,6 +24,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.List;
 
 @Service
 public class SolrServiceImpl implements SolrService {
@@ -48,6 +49,12 @@ public class SolrServiceImpl implements SolrService {
     @Autowired
     SuccessCaseMapper successCaseMapper;
 
+    @Autowired
+    BusinessTypeMapper businessTypeMapper;
+
+    @Autowired
+    TransferShopBusinessMapper transferShopBusinessMapper;
+
 
     @Override
     @Async
@@ -56,8 +63,27 @@ public class SolrServiceImpl implements SolrService {
         if (BeanUtils.isNotEmpty(solrDTO.getTransferShopId())) {
             TransferShop transferShop = transferShopMapper.selectByPrimaryKey(solrDTO.getTransferShopId());
             if (transferShop.getCheckStatus() == 1) {
+                StringBuilder sb = new StringBuilder();
+                TransferShopBusinessExample businessExample = new TransferShopBusinessExample();
+                businessExample.createCriteria().andTransferShopIdEqualTo(transferShop.getId());
+                List<TransferShopBusiness> transferShopBusinesses = transferShopBusinessMapper.selectByExample(businessExample);
+                for (TransferShopBusiness transferShopBusiness:transferShopBusinesses) {
+                    BusinessType businessType = businessTypeMapper.selectByPrimaryKey(transferShopBusiness.getBusinessTypeId());
+                    if (BeanUtils.isNotEmpty(businessType)) {
+                        sb.append(businessType.getBusinessType());
+                    }
+                }
+                StringBuilder address = new StringBuilder();
+                sb.append(transferShop.getTitle());
                 BsStreet bsStreet = bsStreetMapper.selectByPrimaryKey(transferShop.getStreetId());
                 BsArea bsArea = bsAreaMapper.selectByPrimaryKey(transferShop.getAreaId());
+                if (BeanUtils.isNotEmpty(bsArea)) {
+                    address.append(bsArea.getAreaName() + "-");
+                }
+                if (BeanUtils.isNotEmpty(bsStreet)) {
+                    address.append(bsStreet.getStreetName());
+                }
+                sb.append(address);
                 StoreSolrSchema storeSolrSchema = new StoreSolrSchema();
                 modelMapper.map(transferShop, storeSolrSchema);
                 storeSolrSchema.setId(IdUtil.getId() + "");
@@ -74,12 +100,10 @@ public class SolrServiceImpl implements SolrService {
                 storeSolrSchema.setStoreName(transferShop.getTitle());
                 storeSolrSchema.setLatitude(transferShop.getLat());
                 storeSolrSchema.setLongitude(transferShop.getLon());
-                if (BeanUtils.isNotEmpty(bsArea) && BeanUtils.isNotEmpty(bsStreet)){
-                    storeSolrSchema.setStoreAddress(bsArea.getAreaName() + "-" + bsStreet.getStreetName());
-                }
-
+                storeSolrSchema.setStoreAddress(address.toString());
                 storeSolrSchema.setCreateTime(transferShop.getCreateTime().getTime());
                 Client client = clientMapper.selectByPrimaryKey(transferShop.getClientId());
+                storeSolrSchema.setStoreKeyWords(sb.toString());
                 if (BeanUtils.isNotEmpty(client)) {
                     storeSolrSchema.setUsername(client.getNickName());
                 }
@@ -96,15 +120,22 @@ public class SolrServiceImpl implements SolrService {
             }
         }
         if (BeanUtils.isNotEmpty(solrDTO.getLookShopId())) {
+            StringBuilder address = new StringBuilder();
             LookShop lookShop = lookShopMapper.selectByPrimaryKey(solrDTO.getLookShopId());
             BsStreet bsStreet = bsStreetMapper.selectByPrimaryKey(lookShop.getStreetId());
             BsArea bsArea = bsAreaMapper.selectByPrimaryKey(lookShop.getAreaId());
+            if (BeanUtils.isNotEmpty(bsArea)) {
+                address.append(bsArea.getAreaName() + "-");
+            }
+            if (BeanUtils.isNotEmpty(bsStreet)) {
+                address.append(bsStreet.getStreetName());
+            }
             Client client = clientMapper.selectByPrimaryKey(lookShop.getClientId());
             StoreSolrSchema storeSolrSchema = new StoreSolrSchema();
             storeSolrSchema.setId(IdUtil.getId() + "");
             storeSolrSchema.setLookShopId(lookShop.getId());
             storeSolrSchema.setStoreName(lookShop.getTitle());
-            storeSolrSchema.setStoreAddress(bsArea.getAreaName() + "-" + bsStreet.getStreetName());
+            storeSolrSchema.setStoreAddress(address.toString());
             storeSolrSchema.setPresentPrice(lookShop.getTopRent());
             storeSolrSchema.setOriginalPrice(lookShop.getSmallRent());
             storeSolrSchema.setMinStoreArea(lookShop.getSmallArea());

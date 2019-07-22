@@ -50,6 +50,8 @@
     <result column="other_three" property="otherThree" jdbcType="BIGINT" />
     <result column="other_four" property="otherFour" jdbcType="INTEGER" />
     <result column="shop_rent_type_id" property="shopRentTypeId" jdbcType="BIGINT" />
+    <result column="start_floor" property="startFloor" jdbcType="INTEGER" />
+    <result column="end_floor" property="endFloor" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -116,7 +118,7 @@
     service_type, latitude, medium_status, sort, craeate_time, other_tel, shop_readme, 
     floor, orientation_id, loop_line_id, subway_line_id, success_fee, update_time, published_time, 
     success_time, check_time, recommend_type, street_id, province_id, address, contacts, 
-    longitude, reasons, other_one, other_two, shop_rent_type_id, other_four
+    longitude, reasons, other_one, other_two, shop_rent_type_id, other_four,start_floor, end_floor
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ch.entity.LookShopExample" >
     select
@@ -165,7 +167,7 @@
       recommend_type, street_id, province_id, 
       address, contacts, longitude, 
       reasons, other_one, other_two, 
-      shop_rent_type_id, other_four)
+      shop_rent_type_id, other_four, start_floor, end_floor)
     values (#{id,jdbcType=BIGINT}, #{clientId,jdbcType=INTEGER}, #{tel,jdbcType=VARCHAR}, 
       #{businessTypeId,jdbcType=BIGINT}, #{propertyTypeId,jdbcType=BIGINT}, #{shopTypeId,jdbcType=BIGINT}, 
       #{rentRangeId,jdbcType=BIGINT}, #{smallRent,jdbcType=BIGINT}, #{topRent,jdbcType=BIGINT}, 
@@ -181,7 +183,7 @@
       #{recommendType,jdbcType=INTEGER}, #{streetId,jdbcType=INTEGER}, #{provinceId,jdbcType=INTEGER}, 
       #{address,jdbcType=VARCHAR}, #{contacts,jdbcType=VARCHAR}, #{longitude,jdbcType=VARCHAR}, 
       #{reasons,jdbcType=VARCHAR}, #{otherOne,jdbcType=VARCHAR}, #{otherTwo,jdbcType=VARCHAR}, 
-      #{shopRentTypeId,jdbcType=BIGINT}, #{otherFour,jdbcType=INTEGER})
+      #{shopRentTypeId,jdbcType=BIGINT}, #{otherFour,jdbcType=INTEGER}, #{startFloor,jdbcType=INTEGER}, #{endFloor,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.ch.entity.LookShop" >
     insert into look_shop
@@ -871,7 +873,9 @@
       other_one = #{otherOne,jdbcType=VARCHAR},
       other_two = #{otherTwo,jdbcType=VARCHAR},
       shop_rent_type_id = #{shopRentTypeId,jdbcType=BIGINT},
-      other_four = #{otherFour,jdbcType=INTEGER}
+      other_four = #{otherFour,jdbcType=INTEGER},
+      start_floor = #{startFloor,jdbcType=INTEGER},
+      end_floor = #{endFloor,jdbcType=INTEGER}
     where id = #{id,jdbcType=BIGINT}
   </update>
 

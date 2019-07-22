@@ -101,6 +101,9 @@ public class StoreSolrSchema {
     @Field
     private String contacts;
 
+    @Field
+    private String storeKeyWords;
+
     private Long loopLineId;
 
     private Long subwayLineId;

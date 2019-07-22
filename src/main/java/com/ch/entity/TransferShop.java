@@ -109,6 +109,66 @@ public class TransferShop {
 
     private Long time;
 
+    private Integer startFloor;
+
+    private Integer endFloor;
+
+    private Integer deposit;
+
+    private Integer payMonth;
+
+    private String businessStatus;
+
+    private Integer leaseTerm;
+
+    public Integer getStartFloor() {
+        return startFloor;
+    }
+
+    public void setStartFloor(Integer startFloor) {
+        this.startFloor = startFloor;
+    }
+
+    public Integer getEndFloor() {
+        return endFloor;
+    }
+
+    public void setEndFloor(Integer endFloor) {
+        this.endFloor = endFloor;
+    }
+
+    public Integer getDeposit() {
+        return deposit;
+    }
+
+    public void setDeposit(Integer deposit) {
+        this.deposit = deposit;
+    }
+
+    public Integer getPayMonth() {
+        return payMonth;
+    }
+
+    public void setPayMonth(Integer payMonth) {
+        this.payMonth = payMonth;
+    }
+
+    public String getBusinessStatus() {
+        return businessStatus;
+    }
+
+    public void setBusinessStatus(String businessStatus) {
+        this.businessStatus = businessStatus;
+    }
+
+    public Integer getLeaseTerm() {
+        return leaseTerm;
+    }
+
+    public void setLeaseTerm(Integer leaseTerm) {
+        this.leaseTerm = leaseTerm;
+    }
+
     public Long getTime() {
         return time;
     }
