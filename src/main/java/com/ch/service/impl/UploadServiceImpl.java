@@ -32,7 +32,6 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 @Service
 @Slf4j
@@ -123,17 +122,30 @@ public class UploadServiceImpl implements UploadService {
     public ResponseResult uploadExcel(MultipartFile file) {
         ResponseResult result = new ResponseResult();
         long startTime=System.currentTimeMillis();
+        long id = IdUtil.getId();
+        long date = 1552954299000l;
+        int k = 0;
+        int p = 0;
         String fileSuffix = FilenameUtils.getExtension(file.getOriginalFilename());
         if (fileSuffix.toLowerCase().equals("xls") || fileSuffix.toLowerCase().equals("xlsx")) {
             try {
                 List<String> list = ExcelHelper.exportListFromExcel(file.getInputStream(), fileSuffix, 0);
                 for (int i = 1; i < list.size(); i++) {
+                    id++;
+                    k++;
+                    p++;
+                    System.out.println(i);
+                    if (k % 20 == 0) {
+                        date+= 86400000l;
+                        System.out.println("时间戳为:" + date);
+                    }
                     String[] str = list.get(i).split("\\|", -1);
                     TransferShop transferShop = new TransferShop();
                     List<TransferImage> transferImages = new ArrayList<>();
                     List<TransferShopBusiness> transferShopBusinesses = new ArrayList<>();
                     List<TransferShopBaseIcon> transferShopBaseIcons = new ArrayList<>();
-                    transferShop.setId(IdUtil.getId());
+                    transferShop.setId(id);
+                    transferShop.setClientId(156232750378280l);
                     if (BeanUtils.isNotEmpty(str[1])) {
                         transferShop.setTitle(str[1]);
                     } else {
@@ -265,8 +277,8 @@ public class UploadServiceImpl implements UploadService {
                     transferShop.setRecommendType(0);
                     transferShop.setStatus(0);
                     transferShop.setCheckStatus(1);
-                    transferShop.setCreateTime(new Date());
-                    transferShop.setUpdateTime(new Date());
+                    transferShop.setCreateTime(new Date(date));
+                    transferShop.setUpdateTime(new Date(date));
                     transferShop.setShopSn((IdUtil.getId() + 1) + "");
                     transferShop.setMediumStatus(0);
                     if (BeanUtils.isNotEmpty(str[11])) {
@@ -291,7 +303,7 @@ public class UploadServiceImpl implements UploadService {
                             transferShop.setShopTypeId(shopTypes.stream().findFirst().get().getId());
                         } else {
                             ShopType shopType = new ShopType();
-                            shopType.setId(IdUtil.getId());
+                            shopType.setId(id);
                             shopType.setShopType(str[12]);
                             shopTypeMapper.insert(shopType);
                             transferShop.setShopTypeId(shopType.getId());
@@ -305,7 +317,7 @@ public class UploadServiceImpl implements UploadService {
                             transferShop.setPropertyTypeId(propertyTypes.get(0).getId());
                         } else {
                             PropertyType propertyType = new PropertyType();
-                            propertyType.setId(IdUtil.getId());
+                            propertyType.setId(id);
                             propertyType.setPropertyType(str[13]);
                             propertyTypeMapper.insert(propertyType);
                             transferShop.setPropertyTypeId(propertyType.getId());
@@ -319,7 +331,7 @@ public class UploadServiceImpl implements UploadService {
                             transferShop.setDecorateTypeId(decorateTypes.get(0).getId());
                         } else {
                             DecorateType decorateType = new DecorateType();
-                            decorateType.setId(IdUtil.getId());
+                            decorateType.setId(id);
                             decorateType.setDecorateType(str[14]);
                             decorateTypeMapper.insert(decorateType);
                             transferShop.setDecorateTypeId(decorateType.getId());
@@ -336,7 +348,7 @@ public class UploadServiceImpl implements UploadService {
                             transferShop.setOrientationId(orientations.get(0).getId());
                         } else {
                             Orientation orientation = new Orientation();
-                            orientation.setId(IdUtil.getId());
+                            orientation.setId(id);
                             orientation.setOrientationDesc(str[16]);
                             orientationMapper.insert(orientation);
                             transferShop.setOrientationId(orientation.getId());
@@ -359,7 +371,7 @@ public class UploadServiceImpl implements UploadService {
                             transferShop.setLoopLineId(loopLines.get(0).getId());
                         } else {
                             LoopLine loopLine = new LoopLine();
-                            loopLine.setId(IdUtil.getId());
+                            loopLine.setId(id);
                             loopLine.setLoopLineDesc(str[20]);
                             loopLineMapper.insert(loopLine);
                             transferShop.setLoopLineId(loopLine.getId());
@@ -373,7 +385,7 @@ public class UploadServiceImpl implements UploadService {
                             transferShop.setSubwayLineId(subwayLines.get(0).getId());
                         } else {
                             SubwayLine subwayLine = new SubwayLine();
-                            subwayLine.setId(IdUtil.getId());
+                            subwayLine.setId(id);
                             subwayLine.setSubwayLineDesc(str[21]);
                             subwayLineMapper.insert(subwayLine);
                             transferShop.setSubwayLineId(subwayLine.getId());
@@ -382,11 +394,9 @@ public class UploadServiceImpl implements UploadService {
                     if (BeanUtils.isNotEmpty(str[22])) {
                         String[] split = str[22].split("\\/");
                         for (int j = 0; j < split.length; j++) {
+                            id++;
                             TransferShopBaseIcon transferShopBaseIcon = new TransferShopBaseIcon();
-                            Random random = new Random();
-                            int num = random.nextInt(999999);
-                            long id = IdUtil.getId() + num;
-                            transferShopBaseIcon.setId(id);
+                            transferShopBaseIcon.setId(id++);
                             transferShopBaseIcon.setTransferShopId(transferShop.getId());
                             transferShopBaseIcon.setBaseIconId(Long.valueOf(split[j]));
                             transferShopBaseIcons.add(transferShopBaseIcon);
@@ -396,7 +406,9 @@ public class UploadServiceImpl implements UploadService {
                         transferShop.setTransferStatus(1);
                         transferShop.setTransferFee(Long.valueOf(str[23]));
                     }
+
                     transferShopMapper.insert(transferShop);
+
                     for (TransferImage transferImage:transferImages) {
                         transferImageMapper.insert(transferImage);
                     }
@@ -482,8 +494,10 @@ public class UploadServiceImpl implements UploadService {
         }
         sb.append(transferShop.getAddress());
         List<String> lon = GaoDeUtil.getLon(sb.toString());
-        transferShop.setLon(lon.get(0));
-        transferShop.setLat(lon.get(1));
+        if (lon.size()>1){
+            transferShop.setLon(lon.get(0));
+            transferShop.setLat(lon.get(1));
+        }
         transferShopMapper.updateByPrimaryKey(transferShop);
     }
 }

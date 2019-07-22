@@ -74,7 +74,10 @@ public class SolrServiceImpl implements SolrService {
                 storeSolrSchema.setStoreName(transferShop.getTitle());
                 storeSolrSchema.setLatitude(transferShop.getLat());
                 storeSolrSchema.setLongitude(transferShop.getLon());
-                storeSolrSchema.setStoreAddress(bsArea.getAreaName() + "-" + bsStreet.getStreetName());
+                if (BeanUtils.isNotEmpty(bsArea) && BeanUtils.isNotEmpty(bsStreet)){
+                    storeSolrSchema.setStoreAddress(bsArea.getAreaName() + "-" + bsStreet.getStreetName());
+                }
+
                 storeSolrSchema.setCreateTime(transferShop.getCreateTime().getTime());
                 Client client = clientMapper.selectByPrimaryKey(transferShop.getClientId());
                 if (BeanUtils.isNotEmpty(client)) {
