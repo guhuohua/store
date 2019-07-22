@@ -101,6 +101,26 @@ public class LookShop {
 
     private Long shopRentTypeId;
 
+    private Integer startFloor;
+
+    private Integer endFloor;
+
+    public Integer getStartFloor() {
+        return startFloor;
+    }
+
+    public void setStartFloor(Integer startFloor) {
+        this.startFloor = startFloor;
+    }
+
+    public Integer getEndFloor() {
+        return endFloor;
+    }
+
+    public void setEndFloor(Integer endFloor) {
+        this.endFloor = endFloor;
+    }
+
     public Long getShopRentTypeId() {
         return shopRentTypeId;
     }

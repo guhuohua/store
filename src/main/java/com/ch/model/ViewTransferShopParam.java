@@ -108,4 +108,16 @@ public class ViewTransferShopParam {
     private Integer depth;
 
     private Integer high;
+
+    private Integer startFloor;
+
+    private Integer endFloor;
+
+    private Integer deposit;
+
+    private Integer payMonth;
+
+    private String businessStatus;
+
+    private Integer leaseTerm;
 }

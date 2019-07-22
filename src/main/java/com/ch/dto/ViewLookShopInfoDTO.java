@@ -101,5 +101,9 @@ public class ViewLookShopInfoDTO {
 
     private String openId;
 
+    private Integer startFloor;
+
+    private Integer endFloor;
+
     private List<ViewBaseIcon> viewBaseIcons;
 }

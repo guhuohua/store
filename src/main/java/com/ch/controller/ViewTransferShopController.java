@@ -154,10 +154,10 @@ public class ViewTransferShopController {
 
     @GetMapping("/nearbyShop")
     @ApiOperation("附近的转铺")
-    public ResponseResult nearbyShop(@RequestParam String lon, @RequestParam String lat) {
+    public ResponseResult nearbyShop(@RequestParam String lon, @RequestParam String lat, @RequestParam Integer pageNum, @RequestParam Integer pageSize) {
         ResponseResult result = new ResponseResult();
         try {
-            result = viewTransferShopService.nearbyShop(lon, lat);
+            result = viewTransferShopService.nearbyShop(lon, lat, pageNum, pageSize);
         } catch (Exception e) {
             log.error("获取附近的店铺失败" + e.getMessage(), e);
             result.setCode(600);

@@ -67,7 +67,7 @@ public interface ViewTransferShopService {
      * @param lat
      * @return
      */
-    ResponseResult nearbyShop(String lon, String lat);
+    ResponseResult nearbyShop(String lon, String lat, Integer pageNum, Integer pageSize);
 
 
     /**
