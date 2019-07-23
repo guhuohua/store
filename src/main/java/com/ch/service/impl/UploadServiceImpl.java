@@ -97,6 +97,12 @@ public class UploadServiceImpl implements UploadService {
     @Autowired
     SolrService solrService;
 
+    @Autowired
+    LookShopMapper lookShopMapper;
+
+    @Autowired
+    LookShopBusinessMapper lookShopBusinessMapper;
+
     @Override
     public ResponseResult uploadFile(MultipartFile file) {
         ResponseResult result = new ResponseResult();
@@ -499,5 +505,161 @@ public class UploadServiceImpl implements UploadService {
             transferShop.setLat(lon.get(1));
         }
         transferShopMapper.updateByPrimaryKey(transferShop);
+    }
+
+
+    @Override
+    public ResponseResult uploadLookShop(MultipartFile file) {
+        ResponseResult result = new ResponseResult();
+        long id = IdUtil.getId();
+        String fileSuffix = FilenameUtils.getExtension(file.getOriginalFilename());
+        if (fileSuffix.toLowerCase().equals("xls") || fileSuffix.toLowerCase().equals("xlsx")) {
+            try {
+                List<String> list = ExcelHelper.exportListFromExcel(file.getInputStream(), fileSuffix, 0);
+                for (int i = 1; i < list.size(); i++) {
+                    String[] str = list.get(i).split("\\|", -1);
+                    LookShop lookShop = new LookShop();
+                    List<LookShopBusiness> lookShopBusinessList = new ArrayList<>();
+                    lookShop.setId(id++);
+                    if (BeanUtils.isNotEmpty(str[1])) {
+                        lookShop.setTitle(str[1]);
+                    } else {
+                        result.setCode(600);
+                        result.setError("找铺标题不能为空");
+                        result.setError_description("找铺标题不能为空");
+                        return result;
+                    }
+                    if (BeanUtils.isNotEmpty(str[2])) {
+                        lookShop.setContacts(str[2]);
+                    } else {
+                        result.setCode(600);
+                        result.setError("找铺姓名不能为空");
+                        result.setError_description("找铺姓名不能为空");
+                        return result;
+                    }
+                    if (BeanUtils.isNotEmpty(str[3])) {
+                        BsAreaExample bsAreaExample = new BsAreaExample();
+                        bsAreaExample.createCriteria().andAreaNameLike("%" + str[3] + "%");
+                        List<BsArea> bsAreas = bsAreaMapper.selectByExample(bsAreaExample);
+                        if (bsAreas.stream().findFirst().isPresent()) {
+                            lookShop.setAreaId(bsAreas.stream().findFirst().get().getAreaId());
+                            lookShop.setProvinceId(17);
+                            lookShop.setCityId(169);
+                        }
+                    } else {
+                        result.setCode(600);
+                        result.setError("找铺期望区域不能为空");
+                        result.setError_description("找铺期望区域不能为空");
+                        return result;
+                    }
+                    if (BeanUtils.isNotEmpty(str[4])) {
+                        BsStreetExample streetExample = new BsStreetExample();
+                        streetExample.createCriteria().andStreetNameLike("%" + str[4] + "%");
+                        List<BsStreet> bsStreets = streetMapper.selectByExample(streetExample);
+                        if (bsStreets.stream().findFirst().isPresent()) {
+                            lookShop.setStreetId(bsStreets.stream().findFirst().get().getStreetId());
+                        }
+                    } else {
+                        result.setCode(600);
+                        result.setError("街道不能为空");
+                        result.setError_description("街道不能为空");
+                        return result;
+                    }
+                    if (BeanUtils.isNotEmpty(str[5])) {
+                        lookShop.setTopRent(Long.valueOf(str[5]));
+                    } else {
+                        result.setCode(600);
+                        result.setError("最大租金不能为空");
+                        result.setError_description("最大租金不能为空");
+                        return result;
+                    }
+                    if (BeanUtils.isNotEmpty(str[6])) {
+                        lookShop.setSmallRent(Long.valueOf(str[6]));
+                    } else {
+                        result.setCode(600);
+                        result.setError("最小租金不能为空");
+                        result.setError_description("最小租金不能为空");
+                        return result;
+                    }
+                    if (BeanUtils.isNotEmpty(str[7])) {
+                        lookShop.setTopArea(Long.valueOf(str[7]));
+                    } else {
+                        result.setCode(600);
+                        result.setError("最大面积不能为空");
+                        result.setError_description("最大面积不能为空");
+                        return result;
+                    }
+                    if (BeanUtils.isNotEmpty(str[8])) {
+                        lookShop.setSmallArea(Long.valueOf(str[8]));
+                    } else {
+                        result.setCode(600);
+                        result.setError("最小面积不能为空");
+                        result.setError_description("最小面积不能为空");
+                        return result;
+                    }
+                    if (BeanUtils.isNotEmpty(str[9])) {
+                        lookShop.setTel(str[9]);
+                    } else {
+                        result.setCode(600);
+                        result.setError("联系电话不能为空");
+                        result.setError_description("联系电话不能为空");
+                        return result;
+                    }
+                    if (BeanUtils.isNotEmpty(str[10])) {
+                        String[] split = str[10].split("\\/");
+                        for (String name:split) {
+                            BusinessTypeExample businessTypeExample = new BusinessTypeExample();
+                            businessTypeExample.createCriteria().andBusinessTypeEqualTo(name);
+                            List<BusinessType> businessTypes = businessTypeMapper.selectByExample(businessTypeExample);
+                            if (BeanUtils.isNotEmpty(businessTypes)) {
+                                LookShopBusiness lookShopBusiness = new LookShopBusiness();
+                                lookShopBusiness.setId(id++);
+                                lookShopBusiness.setBusinessTypeId(businessTypes.get(0).getId());
+                                lookShopBusiness.setLookShopId(lookShop.getId());
+                                lookShopBusinessList.add(lookShopBusiness);
+                            } else {
+                                BusinessType businessType = new BusinessType();
+                                businessType.setId(IdUtil.getId());
+                                businessType.setBusinessType(name);
+                                businessType.setParentId(1000L);
+                                businessTypeMapper.insert(businessType);
+                                LookShopBusiness lookShopBusiness = new LookShopBusiness();
+                                lookShopBusiness.setId(id++);
+                                lookShopBusiness.setBusinessTypeId(businessType.getId());
+                                lookShopBusiness.setLookShopId(lookShop.getId());
+                                lookShopBusinessList.add(lookShopBusiness);
+                            }
+                        }
+                    } else {
+                        result.setCode(600);
+                        result.setError("计划经营不能为空");
+                        result.setError_description("计划经营不能为空");
+                        return result;
+                    }
+                    if (BeanUtils.isNotEmpty(str[11])) {
+                        lookShop.setStartFloor(Integer.valueOf(str[11]));
+                    }
+                    if (BeanUtils.isNotEmpty(str[12])) {
+                        lookShop.setEndFloor(Integer.valueOf(str[12]));
+                    }
+                    if (BeanUtils.isNotEmpty(str[13])) {
+                        lookShop.setFloor((str[13]));
+                    }
+                    if (BeanUtils.isNotEmpty(str[14])) {
+                        lookShop.setRequirementDetails((str[14]));
+                    }
+                    lookShopMapper.insert(lookShop);
+                    for (LookShopBusiness lookShopBusiness:lookShopBusinessList) {
+                        lookShopBusinessMapper.insert(lookShopBusiness);
+                    }
+                    SolrDTO solrDTO = new SolrDTO();
+                    solrDTO.setLookShopId(lookShop.getId());
+                    solrService.addSolr(solrDTO);
+                }
+            } catch (IOException e) {
+                log.error("上传excel异常", e);
+            }
+        }
+        return result;
     }
 }

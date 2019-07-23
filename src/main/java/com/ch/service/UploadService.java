@@ -25,4 +25,12 @@ public interface UploadService {
 
 
     ResponseResult uploadAddress(String address);
+
+
+    /**
+     * 上传找铺
+     * @param file
+     * @return
+     */
+    ResponseResult uploadLookShop(MultipartFile file);
 }
