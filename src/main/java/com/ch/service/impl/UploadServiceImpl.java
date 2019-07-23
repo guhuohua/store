@@ -302,21 +302,10 @@ public class UploadServiceImpl implements UploadService {
                         }
                     }
                     if (BeanUtils.isNotEmpty(str[12])) {
-                        ShopTypeExample shopTypeExample = new ShopTypeExample();
-                        shopTypeExample.createCriteria().andShopTypeEqualTo(str[12]);
-                        List<ShopType> shopTypes = shopTypeMapper.selectByExample(shopTypeExample);
-                        if (shopTypes.stream().findFirst().isPresent()) {
-                            transferShop.setShopTypeId(shopTypes.stream().findFirst().get().getId());
-                        } else {
-                            ShopType shopType = new ShopType();
-                            shopType.setId(id);
-                            shopType.setShopType(str[12]);
-                            shopTypeMapper.insert(shopType);
-                            transferShop.setShopTypeId(shopType.getId());
-                        }
+                        transferShop.setStartFloor(Integer.parseInt(str[12]));
                     }
                     if (BeanUtils.isNotEmpty(str[13])) {
-                        PropertyTypeExample propertyTypeExample = new PropertyTypeExample();
+                        /*PropertyTypeExample propertyTypeExample = new PropertyTypeExample();
                         propertyTypeExample.createCriteria().andPropertyTypeEqualTo(str[13]);
                         List<PropertyType> propertyTypes = propertyTypeMapper.selectByExample(propertyTypeExample);
                         if (propertyTypes.stream().findFirst().isPresent()) {
@@ -327,7 +316,8 @@ public class UploadServiceImpl implements UploadService {
                             propertyType.setPropertyType(str[13]);
                             propertyTypeMapper.insert(propertyType);
                             transferShop.setPropertyTypeId(propertyType.getId());
-                        }
+                        }*/
+                        transferShop.setEndFloor(Integer.parseInt(str[13]));
                     }
                     if (BeanUtils.isNotEmpty(str[14])) {
                         DecorateTypeExample decorateTypeExample = new DecorateTypeExample();
@@ -347,7 +337,7 @@ public class UploadServiceImpl implements UploadService {
                         transferShop.setGateWidth(Long.valueOf(str[15]));
                     }
                     if (BeanUtils.isNotEmpty(str[16])) {
-                        OrientationExample orientationExample = new OrientationExample();
+                       /* OrientationExample orientationExample = new OrientationExample();
                         orientationExample.createCriteria().andOrientationDescEqualTo(str[16]);
                         List<Orientation> orientations = orientationMapper.selectByExample(orientationExample);
                         if (BeanUtils.isNotEmpty(orientations)) {
@@ -357,48 +347,19 @@ public class UploadServiceImpl implements UploadService {
                             orientation.setId(id);
                             orientation.setOrientationDesc(str[16]);
                             orientationMapper.insert(orientation);
-                            transferShop.setOrientationId(orientation.getId());
-                        }
+                            transferShop.setOrientationId(orientatiflon.getId());
+                        }*/
+                        transferShop.setFloorNumber(Integer.valueOf(str[16]));
+
                     }
                     if (BeanUtils.isNotEmpty(str[17])) {
-                        transferShop.setFloorNumber(Integer.valueOf(str[17]));
+                        transferShop.setHigh(Integer.valueOf(str[17]));
                     }
                     if (BeanUtils.isNotEmpty(str[18])) {
-                        transferShop.setHigh(Integer.valueOf(str[18]));
+                        transferShop.setDepth(Integer.valueOf(str[18]));
                     }
                     if (BeanUtils.isNotEmpty(str[19])) {
-                        transferShop.setDepth(Integer.valueOf(str[19]));
-                    }
-                    if (BeanUtils.isNotEmpty(str[20])) {
-                        LoopLineExample loopLineExample = new LoopLineExample();
-                        loopLineExample.createCriteria().andLoopLineDescEqualTo(str[20]);
-                        List<LoopLine> loopLines = loopLineMapper.selectByExample(loopLineExample);
-                        if (BeanUtils.isNotEmpty(loopLines)) {
-                            transferShop.setLoopLineId(loopLines.get(0).getId());
-                        } else {
-                            LoopLine loopLine = new LoopLine();
-                            loopLine.setId(id);
-                            loopLine.setLoopLineDesc(str[20]);
-                            loopLineMapper.insert(loopLine);
-                            transferShop.setLoopLineId(loopLine.getId());
-                        }
-                    }
-                    if (BeanUtils.isNotEmpty(str[21])) {
-                        SubwayLineExample subwayLineExample = new SubwayLineExample();
-                        subwayLineExample.createCriteria().andSubwayLineDescEqualTo(str[21]);
-                        List<SubwayLine> subwayLines = subwayLineMapper.selectByExample(subwayLineExample);
-                        if (BeanUtils.isNotEmpty(subwayLines)) {
-                            transferShop.setSubwayLineId(subwayLines.get(0).getId());
-                        } else {
-                            SubwayLine subwayLine = new SubwayLine();
-                            subwayLine.setId(id);
-                            subwayLine.setSubwayLineDesc(str[21]);
-                            subwayLineMapper.insert(subwayLine);
-                            transferShop.setSubwayLineId(subwayLine.getId());
-                        }
-                    }
-                    if (BeanUtils.isNotEmpty(str[22])) {
-                        String[] split = str[22].split("\\/");
+                        String[] split = str[19].split("\\/");
                         for (int j = 0; j < split.length; j++) {
                             id++;
                             TransferShopBaseIcon transferShopBaseIcon = new TransferShopBaseIcon();
@@ -408,10 +369,10 @@ public class UploadServiceImpl implements UploadService {
                             transferShopBaseIcons.add(transferShopBaseIcon);
                         }
                     }
-                    if (BeanUtils.isNotEmpty(str[23])) {
-                        transferShop.setTransferStatus(1);
-                        transferShop.setTransferFee(Long.valueOf(str[23]));
+                    if (BeanUtils.isNotEmpty(str[20])) {
+                        transferShop.setTransferFee(Long.parseLong(str[20]));
                     }
+
 
                     transferShopMapper.insert(transferShop);
 
