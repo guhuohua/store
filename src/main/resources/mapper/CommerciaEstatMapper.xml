@@ -433,7 +433,7 @@
   </update>
   <select id="findCategory" resultType="string"  >
     select
-   floor
+   category
     from commercia_estat
 
   </select>
