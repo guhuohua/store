@@ -66,6 +66,23 @@ public class UploadController {
         return result;
     }
 
+    @PostMapping(value = "uploadLookShop")
+    @CrossOrigin
+    public ResponseResult uploadLookShop(HttpServletResponse response, MultipartFile file) {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        ResponseResult result = new ResponseResult();
+        try {
+            result =  uploadService.uploadLookShop(file);
+            result.setCode(410);
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.setCode(500);
+            result.setError(e.getMessage());
+            result.setError_description("excel导入失败");
+        }
+        return result;
+    }
+
     @PostMapping(value = "uploadImage")
     @CrossOrigin
     public ResponseResult uploadImage(HttpServletRequest request, HttpServletResponse response, List<MultipartFile> file) {
