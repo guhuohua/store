@@ -121,6 +121,71 @@ public class TransferShop {
 
     private Integer leaseTerm;
 
+    @Override
+    public String toString() {
+        return "TransferShop{" +
+                "id=" + id +
+                ", clientId=" + clientId +
+                ", tel='" + tel + '\'' +
+                ", businessTypeId=" + businessTypeId +
+                ", propertyTypeId=" + propertyTypeId +
+                ", shopTypeId=" + shopTypeId +
+                ", rent=" + rent +
+                ", area=" + area +
+                ", transferStatus=" + transferStatus +
+                ", status=" + status +
+                ", title='" + title + '\'' +
+                ", cityId=" + cityId +
+                ", decorateTypeId=" + decorateTypeId +
+                ", requirementDetails='" + requirementDetails + '\'' +
+                ", accessoryRequirements='" + accessoryRequirements + '\'' +
+                ", gateWidth=" + gateWidth +
+                ", transferFee=" + transferFee +
+                ", shopSn='" + shopSn + '\'' +
+                ", serviceType=" + serviceType +
+                ", mediumStatus=" + mediumStatus +
+                ", shopReadme='" + shopReadme + '\'' +
+                ", floorNumber=" + floorNumber +
+                ", orientationId=" + orientationId +
+                ", loopLineId=" + loopLineId +
+                ", subwayLineId=" + subwayLineId +
+                ", updateTime=" + updateTime +
+                ", lon='" + lon + '\'' +
+                ", publishedTime=" + publishedTime +
+                ", checkTime=" + checkTime +
+                ", successTime=" + successTime +
+                ", freePeriod=" + freePeriod +
+                ", transferIconId=" + transferIconId +
+                ", fakeTel='" + fakeTel + '\'' +
+                ", image='" + image + '\'' +
+                ", sort=" + sort +
+                ", areaId=" + areaId +
+                ", streetId=" + streetId +
+                ", provinceId=" + provinceId +
+                ", recommendType=" + recommendType +
+                ", checkStatus=" + checkStatus +
+                ", createTime=" + createTime +
+                ", address='" + address + '\'' +
+                ", contacts='" + contacts + '\'' +
+                ", lat='" + lat + '\'' +
+                ", reasons='" + reasons + '\'' +
+                ", otherOne='" + otherOne + '\'' +
+                ", otherTwo='" + otherTwo + '\'' +
+                ", shopRentTypeId=" + shopRentTypeId +
+                ", otherFour=" + otherFour +
+                ", transferShopId=" + transferShopId +
+                ", depth=" + depth +
+                ", high=" + high +
+                ", time=" + time +
+                ", startFloor=" + startFloor +
+                ", endFloor=" + endFloor +
+                ", deposit=" + deposit +
+                ", payMonth=" + payMonth +
+                ", businessStatus='" + businessStatus + '\'' +
+                ", leaseTerm=" + leaseTerm +
+                '}';
+    }
+
     public Integer getStartFloor() {
         return startFloor;
     }

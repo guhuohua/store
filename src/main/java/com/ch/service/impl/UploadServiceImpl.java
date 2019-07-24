@@ -143,7 +143,7 @@ public class UploadServiceImpl implements UploadService {
                     System.out.println(i);
                     if (k % 20 == 0) {
                         date+= 86400000l;
-                        System.out.println("时间戳为:" + date);
+                       // System.out.println("时间戳为:" + date);
                     }
                     String[] str = list.get(i).split("\\|", -1);
                     TransferShop transferShop = new TransferShop();
@@ -283,6 +283,7 @@ public class UploadServiceImpl implements UploadService {
                     transferShop.setRecommendType(0);
                     transferShop.setStatus(0);
                     transferShop.setCheckStatus(1);
+
                     transferShop.setCreateTime(new Date(date));
                     transferShop.setUpdateTime(new Date(date));
                     transferShop.setShopSn((IdUtil.getId() + 1) + "");
@@ -375,6 +376,7 @@ public class UploadServiceImpl implements UploadService {
 
 
                     transferShopMapper.insert(transferShop);
+                    System.out.println(transferShop);
 
                     for (TransferImage transferImage:transferImages) {
                         transferImageMapper.insert(transferImage);
@@ -470,18 +472,32 @@ public class UploadServiceImpl implements UploadService {
 
 
     @Override
+    @Transactional
     public ResponseResult uploadLookShop(MultipartFile file) {
         ResponseResult result = new ResponseResult();
         long id = IdUtil.getId();
+        long date = 1552954299000l;
+        int k = 0;
+        int p = 0;
         String fileSuffix = FilenameUtils.getExtension(file.getOriginalFilename());
         if (fileSuffix.toLowerCase().equals("xls") || fileSuffix.toLowerCase().equals("xlsx")) {
             try {
                 List<String> list = ExcelHelper.exportListFromExcel(file.getInputStream(), fileSuffix, 0);
                 for (int i = 1; i < list.size(); i++) {
+
+                    k++;
+                    p++;
+                   // System.out.println(i);
+                    if (k % 20 == 0) {
+                        date+= 86400000l;
+                        // System.out.println("时间戳为:" + date);
+                    }
                     String[] str = list.get(i).split("\\|", -1);
                     LookShop lookShop = new LookShop();
                     List<LookShopBusiness> lookShopBusinessList = new ArrayList<>();
                     lookShop.setId(id++);
+                    lookShop.setCraeateTime(new Date(date));
+
                     if (BeanUtils.isNotEmpty(str[1])) {
                         lookShop.setTitle(str[1]);
                     } else {
@@ -498,7 +514,11 @@ public class UploadServiceImpl implements UploadService {
                         result.setError_description("找铺姓名不能为空");
                         return result;
                     }
-                    if (BeanUtils.isNotEmpty(str[3])) {
+
+                    lookShop.setProvinceId(17);
+                    lookShop.setCityId(169);
+                    lookShop.setAreaId(4096);
+                   /* if (BeanUtils.isNotEmpty(str[3])) {
                         BsAreaExample bsAreaExample = new BsAreaExample();
                         bsAreaExample.createCriteria().andAreaNameLike("%" + str[3] + "%");
                         List<BsArea> bsAreas = bsAreaMapper.selectByExample(bsAreaExample);
@@ -506,13 +526,15 @@ public class UploadServiceImpl implements UploadService {
                             lookShop.setAreaId(bsAreas.stream().findFirst().get().getAreaId());
                             lookShop.setProvinceId(17);
                             lookShop.setCityId(169);
+                            lookShop.setAreaId(4096
+                            );
                         }
                     } else {
                         result.setCode(600);
                         result.setError("找铺期望区域不能为空");
                         result.setError_description("找铺期望区域不能为空");
                         return result;
-                    }
+                    }*/
                     if (BeanUtils.isNotEmpty(str[4])) {
                         BsStreetExample streetExample = new BsStreetExample();
                         streetExample.createCriteria().andStreetNameLike("%" + str[4] + "%");
@@ -570,7 +592,7 @@ public class UploadServiceImpl implements UploadService {
                         String[] split = str[10].split("\\/");
                         for (String name:split) {
                             BusinessTypeExample businessTypeExample = new BusinessTypeExample();
-                            businessTypeExample.createCriteria().andBusinessTypeEqualTo(name);
+                            businessTypeExample.createCriteria().andBusinessTypeLike("%"+name+"%");
                             List<BusinessType> businessTypes = businessTypeMapper.selectByExample(businessTypeExample);
                             if (BeanUtils.isNotEmpty(businessTypes)) {
                                 LookShopBusiness lookShopBusiness = new LookShopBusiness();
