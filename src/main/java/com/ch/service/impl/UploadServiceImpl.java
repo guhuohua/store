@@ -129,7 +129,7 @@ public class UploadServiceImpl implements UploadService {
         ResponseResult result = new ResponseResult();
         long startTime=System.currentTimeMillis();
         long id = IdUtil.getId();
-        long date = 1552954299000l;
+        long date = 1561360888000l;
         int k = 0;
         int p = 0;
         String fileSuffix = FilenameUtils.getExtension(file.getOriginalFilename());
@@ -151,7 +151,7 @@ public class UploadServiceImpl implements UploadService {
                     List<TransferShopBusiness> transferShopBusinesses = new ArrayList<>();
                     List<TransferShopBaseIcon> transferShopBaseIcons = new ArrayList<>();
                     transferShop.setId(id);
-                    transferShop.setClientId(156232750378280l);
+                    transferShop.setClientId(234352265583616l);
                     if (BeanUtils.isNotEmpty(str[1])) {
                         transferShop.setTitle(str[1]);
                     } else {
@@ -476,7 +476,7 @@ public class UploadServiceImpl implements UploadService {
     public ResponseResult uploadLookShop(MultipartFile file) {
         ResponseResult result = new ResponseResult();
         long id = IdUtil.getId();
-        long date = 1552954299000l;
+        long date = 1561360888000l;
         int k = 0;
         int p = 0;
         String fileSuffix = FilenameUtils.getExtension(file.getOriginalFilename());
@@ -514,7 +514,7 @@ public class UploadServiceImpl implements UploadService {
                         result.setError_description("找铺姓名不能为空");
                         return result;
                     }
-
+                    lookShop.setClientId(234352265583616l);
                     lookShop.setProvinceId(17);
                     lookShop.setCityId(169);
                     lookShop.setAreaId(4096);
