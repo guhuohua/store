@@ -619,7 +619,6 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
             transferShop.setShopTypeId(param.getShopTypeId());
             transferShop.setDecorateTypeId(param.getDecorateTypeId());
             transferShop.setFloorNumber(param.getFloorNumber());
-            transferShop.setShopReadme(param.getShopReadme());
             transferShopMapper.updateByPrimaryKey(transferShop);
             TransferShopBaseIconExample transferShopBaseIconExample = new TransferShopBaseIconExample();
             transferShopBaseIconExample.createCriteria().andTransferShopIdEqualTo(transferShop.getId());
