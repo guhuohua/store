@@ -129,7 +129,7 @@ public class UploadServiceImpl implements UploadService {
         ResponseResult result = new ResponseResult();
         long startTime=System.currentTimeMillis();
         long id = IdUtil.getId();
-        long date = 1561360888000l;
+        long date = 1563188233000l;
         int k = 0;
         int p = 0;
         String fileSuffix = FilenameUtils.getExtension(file.getOriginalFilename());
@@ -476,7 +476,7 @@ public class UploadServiceImpl implements UploadService {
     public ResponseResult uploadLookShop(MultipartFile file) {
         ResponseResult result = new ResponseResult();
         long id = IdUtil.getId();
-        long date = 1561360888000l;
+        long date = 1563188233000l;
         int k = 0;
         int p = 0;
         String fileSuffix = FilenameUtils.getExtension(file.getOriginalFilename());
@@ -517,27 +517,35 @@ public class UploadServiceImpl implements UploadService {
                     lookShop.setClientId(234352265583616l);
                     lookShop.setProvinceId(17);
                     lookShop.setCityId(169);
-                    lookShop.setAreaId(4096);
-                   /* if (BeanUtils.isNotEmpty(str[3])) {
+                    //lookShop.setAreaId(4096);
+                    //lookShop.setStreetId(65536);
+                    if (BeanUtils.isNotEmpty(str[4])) {
                         BsAreaExample bsAreaExample = new BsAreaExample();
-                        bsAreaExample.createCriteria().andAreaNameLike("%" + str[3] + "%");
+                        bsAreaExample.createCriteria().andAreaNameLike("%" + str[4] + "%");
                         List<BsArea> bsAreas = bsAreaMapper.selectByExample(bsAreaExample);
                         if (bsAreas.stream().findFirst().isPresent()) {
-                            lookShop.setAreaId(bsAreas.stream().findFirst().get().getAreaId());
-                            lookShop.setProvinceId(17);
-                            lookShop.setCityId(169);
-                            lookShop.setAreaId(4096
-                            );
+                            Integer areaId = bsAreas.stream().findFirst().get().getAreaId();
+                            String areaCode = bsAreas.stream().findFirst().get().getAreaCode();
+                            lookShop.setAreaId(areaId);
+                            BsStreetExample streetExample = new BsStreetExample();
+                            BsStreetExample.Criteria criteria = streetExample.createCriteria();
+                            criteria.andAreaCodeEqualTo(areaCode);
+                            criteria.andStreetNameEqualTo("不限");
+                            List<BsStreet> bsStreets = streetMapper.selectByExample(streetExample);
+                            if (bsStreets.stream().findFirst().isPresent()) {
+                                Integer streetId = bsStreets.stream().findFirst().get().getStreetId();
+                                lookShop.setStreetId(streetId);
+                            }
                         }
                     } else {
                         result.setCode(600);
                         result.setError("找铺期望区域不能为空");
                         result.setError_description("找铺期望区域不能为空");
                         return result;
-                    }*/
-                    if (BeanUtils.isNotEmpty(str[4])) {
+                    }
+                    /*if (BeanUtils.isNotEmpty(str[3])) {
                         BsStreetExample streetExample = new BsStreetExample();
-                        streetExample.createCriteria().andStreetNameLike("%" + str[4] + "%");
+                        streetExample.createCriteria().andStreetNameLike("%" + str[3] + "%");
                         List<BsStreet> bsStreets = streetMapper.selectByExample(streetExample);
                         if (bsStreets.stream().findFirst().isPresent()) {
                             lookShop.setStreetId(bsStreets.stream().findFirst().get().getStreetId());
@@ -547,7 +555,7 @@ public class UploadServiceImpl implements UploadService {
                         result.setError("街道不能为空");
                         result.setError_description("街道不能为空");
                         return result;
-                    }
+                    }*/
                     if (BeanUtils.isNotEmpty(str[5])) {
                         lookShop.setTopRent(Long.valueOf(str[5]));
                     } else {
