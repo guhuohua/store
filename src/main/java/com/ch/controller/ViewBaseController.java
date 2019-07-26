@@ -328,8 +328,9 @@ public class ViewBaseController{
     public ResponseResult wxLogin(@RequestBody ViewWXLoginParam param) {
         ResponseResult result = new ResponseResult();
         Map<String, String> params = new HashMap<>();
-        params.put("appid", "wx87a05c912d2af641");
-        params.put("secret", "e89e8ccebb5aec7096b629ebcd40dda2");
+        params.put("appid", "wx0eafb660948eeca2");
+//        params.put("secret", "e89e8ccebb5aec7096b629ebcd40dda2");//兴享铺
+        params.put("secret", "cbcc27e80c1df0d6d98c7e745c8e3142");//有好铺
         params.put("js_code", param.getCode());
         params.put("grant_type", "authorization_code");
         // 发送请求
