@@ -469,7 +469,6 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
                 }
             }
             viewTransferShopDTO.setViewBaseIcons(viewBaseIcons);
-            viewTransferShopDTO.setTel(null);
             result.setData(viewTransferShopDTO);
         }
         return result;
