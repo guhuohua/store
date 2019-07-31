@@ -1,5 +1,6 @@
 package com.ch.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import com.ch.base.BeanUtils;
 import com.ch.base.ResponseResult;
@@ -336,6 +337,7 @@ public class ViewBaseController{
         // 发送请求
         String wxResult = HttpRequestUtil.doGet("https://api.weixin.qq.com/sns/jscode2session", params);
         JSONObject jsonObject = JSONObject.parseObject(wxResult);
+        log.info("请求微信接口返回值：" + JSON.toJSONString(jsonObject));
         String session_key = null;
         String open_id = null;
         if (jsonObject != null) {
