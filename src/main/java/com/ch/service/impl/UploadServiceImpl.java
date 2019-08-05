@@ -129,7 +129,7 @@ public class UploadServiceImpl implements UploadService {
         ResponseResult result = new ResponseResult();
         long startTime=System.currentTimeMillis();
         long id = IdUtil.getId();
-        long date = 1563188233000l;
+        long date = new Date().getTime();
         int k = 0;
         int p = 0;
         String fileSuffix = FilenameUtils.getExtension(file.getOriginalFilename());
@@ -273,7 +273,7 @@ public class UploadServiceImpl implements UploadService {
                     }
                     if (BeanUtils.isNotEmpty(str[10])) {
                         transferShop.setTel(str[10]);
-                        transferShop.setFakeTel("15629013877");
+                        transferShop.setFakeTel(str[24]);
                     } else {
                         result.setCode(600);
                         result.setError("联系人手机号不能为空");
@@ -476,7 +476,7 @@ public class UploadServiceImpl implements UploadService {
     public ResponseResult uploadLookShop(MultipartFile file) {
         ResponseResult result = new ResponseResult();
         long id = IdUtil.getId();
-        long date = 1563188233000l;
+        long date = new Date().getTime();
         int k = 0;
         int p = 0;
         String fileSuffix = FilenameUtils.getExtension(file.getOriginalFilename());
