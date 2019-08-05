@@ -273,7 +273,7 @@ public class UploadServiceImpl implements UploadService {
                     }
                     if (BeanUtils.isNotEmpty(str[10])) {
                         transferShop.setTel(str[10]);
-                        transferShop.setFakeTel("15629013877");
+                        transferShop.setFakeTel(str[24]);
                     } else {
                         result.setCode(600);
                         result.setError("联系人手机号不能为空");
