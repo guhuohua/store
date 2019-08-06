@@ -4,6 +4,7 @@ import com.ch.base.ResponseResult;
 import com.ch.model.ViewBrowseParam;
 import com.ch.model.ViewFeedBackParam;
 import com.ch.model.ViewWXLoginParam;
+import com.ch.model.WxTelParam;
 
 public interface ViewBaseService {
 
@@ -180,4 +181,18 @@ public interface ViewBaseService {
      * @return
      */
     ResponseResult expertInfo(Long id);
+
+    /**
+     * 解密微信手机号
+     * @param param
+     * @return
+     */
+    ResponseResult wxTel(WxTelParam param, Long userId);
+
+    /**
+     * 检查该用户是否绑定手机号
+     * @param userId
+     * @return
+     */
+    ResponseResult checkWxTel(Long userId);
 }

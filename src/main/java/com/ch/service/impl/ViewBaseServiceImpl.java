@@ -10,8 +10,10 @@ import com.ch.entity.*;
 import com.ch.model.ViewBrowseParam;
 import com.ch.model.ViewFeedBackParam;
 import com.ch.model.ViewWXLoginParam;
+import com.ch.model.WxTelParam;
 import com.ch.service.SolrService;
 import com.ch.service.ViewBaseService;
+import com.ch.util.AESUtils;
 import com.ch.util.IdUtil;
 import com.ch.util.TokenUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -291,7 +293,6 @@ public class ViewBaseServiceImpl implements ViewBaseService {
         List<Client> clients = clientMapper.selectByExample(clientExample);
         if (clients.size() > 0) {
             Client client = clients.stream().findFirst().get();
-            result.setData(TokenUtil.sign(client.getId()));
             if (BeanUtils.isNotEmpty(param.getNickName())) {
                 client.setNickName(param.getNickName());
             }
@@ -302,7 +303,9 @@ public class ViewBaseServiceImpl implements ViewBaseService {
                 client.setGender(param.getGender());
             }
             client.setQuitTime(new Date());
+            client.setSessionKey(param.getSessionKey());
             clientMapper.updateByPrimaryKey(client);
+            result.setData(TokenUtil.sign(client.getId()));
         } else {
             Client client = new Client();
             client.setId(IdUtil.getId());
@@ -317,6 +320,7 @@ public class ViewBaseServiceImpl implements ViewBaseService {
             client.setSearchAreaCount(0);
             client.setBrowseCount(0);
             clientMapper.insert(client);
+            client.setSessionKey(param.getSessionKey());
             result.setData(TokenUtil.sign(client.getId()));
         }
         return result;
@@ -553,6 +557,43 @@ public class ViewBaseServiceImpl implements ViewBaseService {
         viewExpertInfoDTO.setBusiness(sb.toString());
 
         result.setData(viewExpertInfoDTO);
+        return result;
+    }
+
+    @Override
+    public ResponseResult wxTel(WxTelParam param, Long userId) {
+        ResponseResult result = new ResponseResult();
+        try {
+            Client client = clientMapper.selectByPrimaryKey(userId);
+            if (BeanUtils.isEmpty(client.getTel())) {
+                String decrypt = AESUtils.decrypt(param.getEncryptedData(), client.getSessionKey(), param.getIv(), "UTF-8");
+                if (BeanUtils.isNotEmpty(decrypt)) {
+                    client.setTel(decrypt);
+                    clientMapper.updateByPrimaryKey(client);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.setCode(600);
+            result.setError_description("获取手机号失败，请稍后重试");
+            result.setError(e.getMessage());
+            return result;
+        }
+        return result;
+    }
+
+    @Override
+    public ResponseResult checkWxTel(Long userId) {
+        ResponseResult result = new ResponseResult();
+        CheckWxtTelDTO checkWxtTelDTO = new CheckWxtTelDTO();
+        Client client = clientMapper.selectByPrimaryKey(userId);
+        if (BeanUtils.isNotEmpty(client.getTel())) {
+            checkWxtTelDTO.setTelStatus(1);
+        } else {
+            checkWxtTelDTO.setTelStatus(0);
+            checkWxtTelDTO.setSessionKey(client.getSessionKey());
+        }
+        result.setData(checkWxtTelDTO);
         return result;
     }
 }

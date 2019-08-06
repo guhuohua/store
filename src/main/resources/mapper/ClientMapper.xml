@@ -15,6 +15,7 @@
     <result column="total_fee" property="totalFee" jdbcType="BIGINT" />
     <result column="gender" property="gender" jdbcType="INTEGER" />
     <result column="open_id" property="openId" jdbcType="VARCHAR" />
+    <result column="session_key" property="sessionKey" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -76,7 +77,7 @@
   </sql>
   <sql id="Base_Column_List" >
     id, header, nick_name, tel, success_count, transfer_count, search_area_count, quit_time, 
-    collect_count, browse_count, total_fee,gender,open_id
+    collect_count, browse_count, total_fee,gender,open_id, session_key
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ch.entity.ClientExample" >
     select
@@ -113,11 +114,11 @@
     insert into client (id, header, nick_name, 
       tel, success_count, transfer_count, 
       search_area_count, quit_time, collect_count, 
-      browse_count, total_fee,gender,open_id)
+      browse_count, total_fee,gender,open_id, session_key)
     values (#{id,jdbcType=BIGINT}, #{header,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, 
       #{tel,jdbcType=VARCHAR}, #{successCount,jdbcType=INTEGER}, #{transferCount,jdbcType=INTEGER}, 
       #{searchAreaCount,jdbcType=INTEGER}, #{quitTime,jdbcType=TIMESTAMP}, #{collectCount,jdbcType=INTEGER}, 
-      #{browseCount,jdbcType=INTEGER}, #{totalFee,jdbcType=BIGINT}, #{gender,jdbcType=INTEGER}, #{openId,jdbcType=VARCHAR})
+      #{browseCount,jdbcType=INTEGER}, #{totalFee,jdbcType=BIGINT}, #{gender,jdbcType=INTEGER}, #{openId,jdbcType=VARCHAR}, #{sessionKey,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.ch.entity.Client" >
     insert into client
@@ -307,7 +308,8 @@
       browse_count = #{browseCount,jdbcType=INTEGER},
       total_fee = #{totalFee,jdbcType=BIGINT},
       gender = #{gender,jdbcType=INTEGER},
-      open_id = #{openId,jdbcType=VARCHAR}
+      open_id = #{openId,jdbcType=VARCHAR},
+       session_key = #{sessionKey,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

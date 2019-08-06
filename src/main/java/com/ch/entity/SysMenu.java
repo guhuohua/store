@@ -3,7 +3,7 @@ package com.ch.entity;
 import java.io.Serializable;
 import java.util.List;
 
-public class SysMenu   implements Serializable {
+public class SysMenu implements Serializable {
     private Integer id;
 
     private Integer parentId;

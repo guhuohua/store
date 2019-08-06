@@ -15,4 +15,6 @@ public class ViewWXLoginParam {
 
     private String openId;
 
+    private String sessionKey;
+
 }

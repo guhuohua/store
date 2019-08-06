@@ -29,6 +29,16 @@ public class Client {
 
     private String openId;
 
+    private String sessionKey;
+
+    public String getSessionKey() {
+        return sessionKey;
+    }
+
+    public void setSessionKey(String sessionKey) {
+        this.sessionKey = sessionKey;
+    }
+
     public String getOpenId() {
         return openId;
     }

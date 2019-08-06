@@ -7,6 +7,7 @@ import com.ch.base.ResponseResult;
 import com.ch.model.ViewBrowseParam;
 import com.ch.model.ViewFeedBackParam;
 import com.ch.model.ViewWXLoginParam;
+import com.ch.model.WxTelParam;
 import com.ch.service.ViewBaseService;
 import com.ch.service.ViewIconService;
 import com.ch.util.HttpRequestUtil;
@@ -350,6 +351,7 @@ public class ViewBaseController{
             }
         }
         try {
+            param.setSessionKey(session_key);
             param.setOpenId(open_id);
             System.out.println(param.getNickName() + "openid:" + open_id);
             result = viewBaseService.wxLogin(param);
@@ -436,6 +438,65 @@ public class ViewBaseController{
         return result;
     }
 
+    @PostMapping("/wxTel")
+    @ApiOperation("获取微信手机号")
+    public ResponseResult wxTel(HttpServletRequest req, @RequestBody WxTelParam param) {
+        ResponseResult result = new ResponseResult();
+        String token = req.getHeader("Authorization");
+        if (BeanUtils.isEmpty(token)) {
+            result.setCode(999);
+            result.setError("token失效请重新登录");
+            result.setError_description("token失效请重新登录");
+            return result;
+        }
+        Long userId = TokenUtil.getUserId(token);
+        if (BeanUtils.isEmpty(userId)) {
+            result.setCode(999);
+            result.setError("token失效请重新登录");
+            result.setError_description("token失效请重新登录");
+            return result;
+        }
+        try {
+            result = viewBaseService.wxTel(param, userId);
+        } catch (Exception e) {
+            log.error("获取微信手机号失败" + e.getMessage(), e);
+            result.setCode(600);
+            result.setError(e.getMessage());
+            result.setError_description("获取微信手机号失败");
+        }
+        return result;
+    }
+
+
+    @PostMapping("/checkWxTel")
+    @ApiOperation("检查微信手机号")
+    public ResponseResult checkWxTel(HttpServletRequest req) {
+        ResponseResult result = new ResponseResult();
+        String token = req.getHeader("Authorization");
+        if (BeanUtils.isEmpty(token)) {
+            result.setCode(999);
+            result.setError("token失效请重新登录");
+            result.setError_description("token失效请重新登录");
+            return result;
+        }
+        Long userId = TokenUtil.getUserId(token);
+        if (BeanUtils.isEmpty(userId)) {
+            result.setCode(999);
+            result.setError("token失效请重新登录");
+            result.setError_description("token失效请重新登录");
+            return result;
+        }
+        try {
+            result = viewBaseService.checkWxTel(userId);
+        } catch (Exception e) {
+            log.error("检查微信手机号失败" + e.getMessage(), e);
+            result.setCode(600);
+            result.setError(e.getMessage());
+            result.setError_description("检查微信手机号失败");
+        }
+        return result;
+    }
+
 
     @GetMapping("test")
     @ApiOperation("test")
@@ -443,7 +504,6 @@ public class ViewBaseController{
         ResponseResult result = new ResponseResult();
         viewBaseService.solr();
         return result;
-
     }
     @GetMapping("solrByStoreId")
     @ApiOperation("solrByStoreId")
