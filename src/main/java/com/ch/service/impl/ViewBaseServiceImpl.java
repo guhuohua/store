@@ -1,6 +1,7 @@
 package com.ch.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.ch.base.BeanUtils;
 import com.ch.base.MD5;
 import com.ch.base.ResponseResult;
@@ -567,8 +568,9 @@ public class ViewBaseServiceImpl implements ViewBaseService {
             Client client = clientMapper.selectByPrimaryKey(userId);
             if (BeanUtils.isEmpty(client.getTel())) {
                 String decrypt = AESUtils.decrypt(param.getEncryptedData(), client.getSessionKey(), param.getIv(), "UTF-8");
+                JSONObject jsonObject = JSON.parseObject(decrypt);
                 if (BeanUtils.isNotEmpty(decrypt)) {
-                    client.setTel(decrypt);
+                    client.setTel(jsonObject.getString("phoneNumber"));
                     clientMapper.updateByPrimaryKey(client);
                 }
             }

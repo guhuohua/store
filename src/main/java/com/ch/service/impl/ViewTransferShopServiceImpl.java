@@ -321,21 +321,36 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
                 params.append("userId:" + param.getClientId());
             }
         }
-        solrQuery.addSort("createTime", SolrQuery.ORDER.desc);
         if ("TIME".equals(param.getSort())) {
             solrQuery.addSort("createTime", SolrQuery.ORDER.asc);
         }
         if ("MAXPRICE".equals(param.getSort())) {
-            solrQuery.addSort("originalPrice", SolrQuery.ORDER.desc);
+            if (0 == param.getStoreType()) {
+                solrQuery.addSort("presentPrice", SolrQuery.ORDER.desc);
+            } else {
+                solrQuery.addSort("originalPrice", SolrQuery.ORDER.desc);
+            }
         }
         if ("MINPRICE".equals(param.getSort())) {
-            solrQuery.addSort("originalPrice", SolrQuery.ORDER.asc);
+            if (0 == param.getStoreType()) {
+                solrQuery.addSort("presentPrice", SolrQuery.ORDER.asc);
+            } else {
+                solrQuery.addSort("originalPrice", SolrQuery.ORDER.asc);
+            }
         }
         if ("MAXAREA".equals(param.getSort())) {
-            solrQuery.addSort("storeArea", SolrQuery.ORDER.desc);
+            if (0 == param.getStoreType()) {
+                solrQuery.addSort("storeArea", SolrQuery.ORDER.desc);
+            } else {
+                solrQuery.addSort("minStoreArea", SolrQuery.ORDER.desc);
+            }
         }
         if ("MINAREA".equals(param.getSort())) {
-            solrQuery.addSort("storeArea", SolrQuery.ORDER.asc);
+            if (0 == param.getStoreType()) {
+                solrQuery.addSort("storeArea", SolrQuery.ORDER.asc);
+            } else {
+                solrQuery.addSort("minStoreArea", SolrQuery.ORDER.asc);
+            }
         }
         if (null != param.getMaxArea() && null != param.getMinArea()) {
             if (0 == param.getStoreType()) {
@@ -353,6 +368,7 @@ public class ViewTransferShopServiceImpl implements ViewTransferShopService {
 
         }
         if (params != null) {
+            solrQuery.addSort("createTime", SolrQuery.ORDER.desc);
             solrQuery.setQuery(params.toString());
         }
         solrQuery.setStart(start);

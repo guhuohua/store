@@ -1,7 +1,6 @@
 package com;
 
 import org.mybatis.spring.annotation.MapperScan;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
@@ -22,9 +21,9 @@ public class ChApplication {
 	public MultipartConfigElement multipartConfigElement() {
 		MultipartConfigFactory factory = new MultipartConfigFactory();
 		//单个文件最大
-		factory.setMaxFileSize("10MB"); //KB,MB
+		factory.setMaxFileSize("1024MB"); //KB,MB
 		/// 设置总上传数据总大小
-		factory.setMaxRequestSize("10MB");
+		factory.setMaxRequestSize("1024MB");
 		return factory.createMultipartConfig();
 	}
 }
