@@ -12,12 +12,13 @@ import java.util.Map;
 
 public class TokenUtil {
 
-    private static final long EXPIRE_TIME = 15 * 60 * 1000 * 1000;
+    private static final long EXPIRE_TIME = 10 * 1000;
     private static final String TOKEN_SECRET = "qazwsxedcrfvtgbyhnujmiklop";
 
 
     /**
      * 生成签名，15分钟过期
+     *
      * @param **username**
      * @param **password**
      * @return
@@ -46,30 +47,32 @@ public class TokenUtil {
 
     /**
      * 检验token是否正确
+     *
      * @param **token**
      * @return
      */
-    public static boolean verify(String token){
+    public static boolean verify(String token) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(TOKEN_SECRET);
             JWTVerifier verifier = JWT.require(algorithm).build();
             DecodedJWT jwt = verifier.verify(token);
             return true;
-        } catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
     }
 
     /**
      * 从token中获取username信息
+     *
      * @param **token**
      * @return
      */
-    public static Long getUserId(String token){
+    public static Long getUserId(String token) {
         try {
             DecodedJWT jwt = JWT.decode(token);
             return jwt.getClaim("userId").asLong();
-        } catch (JWTDecodeException e){
+        } catch (JWTDecodeException e) {
             e.printStackTrace();
             return null;
         }
