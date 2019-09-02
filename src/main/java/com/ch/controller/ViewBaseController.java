@@ -26,7 +26,7 @@ import java.util.Map;
 @RequestMapping(value = "/view/base")
 @Slf4j
 @Api(value = "小程序基础接口")
-public class ViewBaseController{
+public class ViewBaseController {
 
     @Autowired
     ViewIconService viewIconService;
@@ -174,22 +174,18 @@ public class ViewBaseController{
     @ApiOperation("保存我的收藏")
     public ResponseResult saveCollection(HttpServletRequest req, @RequestBody ViewBrowseParam param) {
         ResponseResult result = new ResponseResult();
-        String token = req.getHeader("Authorization");
-        if (BeanUtils.isEmpty(token)) {
-            result.setCode(999);
-            result.setError("token失效请重新登录");
-            result.setError_description("token失效请重新登录");
-            return result;
-        }
-        Long userId = TokenUtil.getUserId(token);
-        if (BeanUtils.isEmpty(userId)) {
-            result.setCode(999);
-            result.setError("token失效请重新登录");
-            result.setError_description("token失效请重新登录");
-            return result;
-        }
         try {
-            result = viewBaseService.saveCollection(userId, param);
+            String token = req.getHeader("Authorization");
+            boolean verify = TokenUtil.verify(token);
+            if (verify) {
+                Long userId = TokenUtil.getUserId(token);
+                result = viewBaseService.saveCollection(userId, param);
+            } else {
+                result.setCode(999);
+                result.setError("token已过期");
+                result.setError_description("请重新登录");
+                return result;
+            }
         } catch (Exception e) {
             log.error("收藏失败，请稍后重试" + e.getMessage(), e);
             result.setCode(600);
@@ -203,22 +199,19 @@ public class ViewBaseController{
     @ApiOperation("取消我的收藏")
     public ResponseResult deleteCollection(HttpServletRequest req, @RequestBody ViewBrowseParam param) {
         ResponseResult result = new ResponseResult();
-        String token = req.getHeader("Authorization");
-        if (BeanUtils.isEmpty(token)) {
-            result.setCode(999);
-            result.setError("token失效请重新登录");
-            result.setError_description("token失效请重新登录");
-            return result;
-        }
-        Long userId = TokenUtil.getUserId(token);
-        if (BeanUtils.isEmpty(userId)) {
-            result.setCode(999);
-            result.setError("token失效请重新登录");
-            result.setError_description("token失效请重新登录");
-            return result;
-        }
+
         try {
-            result = viewBaseService.deleteCollection(userId, param);
+            String token = req.getHeader("Authorization");
+            boolean verify = TokenUtil.verify(token);
+            if (verify) {
+                Long userId = TokenUtil.getUserId(token);
+                result = viewBaseService.deleteCollection(userId, param);
+            } else {
+                result.setCode(999);
+                result.setError("token已过期");
+                result.setError_description("请重新登录");
+                return result;
+            }
         } catch (Exception e) {
             log.error("取消我的收藏失败" + e.getMessage(), e);
             result.setCode(600);
@@ -247,7 +240,6 @@ public class ViewBaseController{
             viewBaseService.deleteBrowse(userId, param);
         }
     }
-
 
 
     @GetMapping("/orientation")
@@ -413,22 +405,21 @@ public class ViewBaseController{
     @ApiOperation("意见反馈")
     public ResponseResult myBrowseTransferShopList(HttpServletRequest req, @RequestBody ViewFeedBackParam param) {
         ResponseResult result = new ResponseResult();
-        String token = req.getHeader("Authorization");
-        if (BeanUtils.isEmpty(token)) {
-            result.setCode(999);
-            result.setError("token失效请重新登录");
-            result.setError_description("token失效请重新登录");
-            return result;
-        }
-        Long userId = TokenUtil.getUserId(token);
-        if (BeanUtils.isEmpty(userId)) {
-            result.setCode(999);
-            result.setError("token失效请重新登录");
-            result.setError_description("token失效请重新登录");
-            return result;
-        }
+
         try {
-            result = viewBaseService.feedBack(userId, param);
+
+            String token = req.getHeader("Authorization");
+            boolean verify = TokenUtil.verify(token);
+            if (verify) {
+                Long userId = TokenUtil.getUserId(token);
+                result = viewBaseService.feedBack(userId, param);
+            } else {
+                result.setCode(999);
+                result.setError("token已过期");
+                result.setError_description("请重新登录");
+                return result;
+            }
+
         } catch (Exception e) {
             log.error("提交意见反馈失败" + e.getMessage(), e);
             result.setCode(600);
@@ -442,22 +433,21 @@ public class ViewBaseController{
     @ApiOperation("获取微信手机号")
     public ResponseResult wxTel(HttpServletRequest req, @RequestBody WxTelParam param) {
         ResponseResult result = new ResponseResult();
-        String token = req.getHeader("Authorization");
-        if (BeanUtils.isEmpty(token)) {
-            result.setCode(999);
-            result.setError("token失效请重新登录");
-            result.setError_description("token失效请重新登录");
-            return result;
-        }
-        Long userId = TokenUtil.getUserId(token);
-        if (BeanUtils.isEmpty(userId)) {
-            result.setCode(999);
-            result.setError("token失效请重新登录");
-            result.setError_description("token失效请重新登录");
-            return result;
-        }
+
         try {
-            result = viewBaseService.wxTel(param, userId);
+            String token = req.getHeader("Authorization");
+            boolean verify = TokenUtil.verify(token);
+            if (verify) {
+                Long userId = TokenUtil.getUserId(token);
+                result = viewBaseService.wxTel(param, userId);
+            } else {
+                result.setCode(999);
+                result.setError("token已过期");
+                result.setError_description("请重新登录");
+                return result;
+            }
+
+
         } catch (Exception e) {
             log.error("获取微信手机号失败" + e.getMessage(), e);
             result.setCode(600);
@@ -472,22 +462,18 @@ public class ViewBaseController{
     @ApiOperation("检查微信手机号")
     public ResponseResult checkWxTel(HttpServletRequest req) {
         ResponseResult result = new ResponseResult();
-        String token = req.getHeader("Authorization");
-        if (BeanUtils.isEmpty(token)) {
-            result.setCode(999);
-            result.setError("token失效请重新登录");
-            result.setError_description("token失效请重新登录");
-            return result;
-        }
-        Long userId = TokenUtil.getUserId(token);
-        if (BeanUtils.isEmpty(userId)) {
-            result.setCode(999);
-            result.setError("token失效请重新登录");
-            result.setError_description("token失效请重新登录");
-            return result;
-        }
         try {
-            result = viewBaseService.checkWxTel(userId);
+            String token = req.getHeader("Authorization");
+            boolean verify = TokenUtil.verify(token);
+            if (verify) {
+                Long userId = TokenUtil.getUserId(token);
+                result = viewBaseService.checkWxTel(userId);
+            } else {
+                result.setCode(999);
+                result.setError("token已过期");
+                result.setError_description("请重新登录");
+                return result;
+            }
         } catch (Exception e) {
             log.error("检查微信手机号失败" + e.getMessage(), e);
             result.setCode(600);
@@ -505,6 +491,7 @@ public class ViewBaseController{
         viewBaseService.solr();
         return result;
     }
+
     @GetMapping("solrByStoreId")
     @ApiOperation("solrByStoreId")
     public ResponseResult test(Long id) {

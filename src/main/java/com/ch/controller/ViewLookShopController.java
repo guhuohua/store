@@ -1,6 +1,5 @@
 package com.ch.controller;
 
-import com.ch.base.BeanUtils;
 import com.ch.base.ResponseResult;
 import com.ch.model.ViewLookShopAddParam;
 import com.ch.service.ViewLookShopService;
@@ -26,22 +25,18 @@ public class ViewLookShopController {
     @ApiOperation("新增选址")
     public ResponseResult addLookShop(HttpServletRequest req, @RequestBody ViewLookShopAddParam param) {
         ResponseResult result = new ResponseResult();
-        String token = req.getHeader("Authorization");
-        if (BeanUtils.isEmpty(token)) {
-            result.setCode(999);
-            result.setError("token失效请重新登录");
-            result.setError_description("token失效请重新登录");
-            return result;
-        }
-        Long userId = TokenUtil.getUserId(token);
-        if (BeanUtils.isEmpty(userId)) {
-            result.setCode(999);
-            result.setError("token失效请重新登录");
-            result.setError_description("token失效请重新登录");
-            return result;
-        }
         try {
-            result = viewLookShopService.addLookShop(param, userId);
+            String token = req.getHeader("Authorization");
+            boolean verify = TokenUtil.verify(token);
+            if (verify) {
+                Long userId = TokenUtil.getUserId(token);
+                result = viewLookShopService.addLookShop(param, userId);
+            } else {
+                result.setCode(999);
+                result.setError("token已过期");
+                result.setError_description("请重新登录");
+                return result;
+            }
         } catch (Exception e) {
             log.error("新增选址失败" + e.getMessage(), e);
             result.setCode(600);
@@ -55,22 +50,18 @@ public class ViewLookShopController {
     @ApiOperation("修改选址")
     public ResponseResult updateShop(HttpServletRequest req, @RequestBody ViewLookShopAddParam param) {
         ResponseResult result = new ResponseResult();
-        String token = req.getHeader("Authorization");
-        if (BeanUtils.isEmpty(token)) {
-            result.setCode(999);
-            result.setError("token失效请重新登录");
-            result.setError_description("token失效请重新登录");
-            return result;
-        }
-        Long userId = TokenUtil.getUserId(token);
-        if (BeanUtils.isEmpty(userId)) {
-            result.setCode(999);
-            result.setError("token失效请重新登录");
-            result.setError_description("token失效请重新登录");
-            return result;
-        }
         try {
-            result = viewLookShopService.updateShop(param, userId);
+            String token = req.getHeader("Authorization");
+            boolean verify = TokenUtil.verify(token);
+            if (verify) {
+                Long userId = TokenUtil.getUserId(token);
+                result = viewLookShopService.updateShop(param, userId);
+                result.setCode(999);
+                result.setError("token已过期");
+                result.setError_description("请重新登录");
+                return result;
+            }
+
         } catch (Exception e) {
             log.error("修改选址失败" + e.getMessage(), e);
             result.setCode(600);
@@ -86,11 +77,15 @@ public class ViewLookShopController {
         ResponseResult result = new ResponseResult();
         try {
             String token = req.getHeader("Authorization");
-            Long userId = null;
-            if (BeanUtils.isNotEmpty(token)) {
-                userId = TokenUtil.getUserId(token);
+            boolean verify = TokenUtil.verify(token);
+            if (verify) {
+                Long userId = TokenUtil.getUserId(token);
+                result = viewLookShopService.lookShopInfo(userId, id);
+                result.setCode(999);
+                result.setError("token已过期");
+                result.setError_description("请重新登录");
+                return result;
             }
-            result = viewLookShopService.lookShopInfo(userId, id);
         } catch (Exception e) {
             log.error("获取选址详情失败" + e.getMessage(), e);
             result.setCode(600);
@@ -104,22 +99,17 @@ public class ViewLookShopController {
     @ApiOperation("我的浏览找铺列表")
     public ResponseResult myBrowesLookShopList(HttpServletRequest req) {
         ResponseResult result = new ResponseResult();
-        String token = req.getHeader("Authorization");
-        if (BeanUtils.isEmpty(token)) {
-            result.setCode(999);
-            result.setError("token失效请重新登录");
-            result.setError_description("token失效请重新登录");
-            return result;
-        }
-        Long userId = TokenUtil.getUserId(token);
-        if (BeanUtils.isEmpty(userId)) {
-            result.setCode(999);
-            result.setError("token失效请重新登录");
-            result.setError_description("token失效请重新登录");
-            return result;
-        }
         try {
-            result = viewLookShopService.myBrowesLookShopList(userId);
+            String token = req.getHeader("Authorization");
+            boolean verify = TokenUtil.verify(token);
+            if (verify) {
+                Long userId = TokenUtil.getUserId(token);
+                result = viewLookShopService.myBrowesLookShopList(userId);
+                result.setCode(999);
+                result.setError("token已过期");
+                result.setError_description("请重新登录");
+                return result;
+            }
         } catch (Exception e) {
             log.error("获取我的浏览找铺列表失败" + e.getMessage(), e);
             result.setCode(600);
@@ -133,22 +123,17 @@ public class ViewLookShopController {
     @ApiOperation("我的收藏找铺列表")
     public ResponseResult myHouseLookShopList(HttpServletRequest req) {
         ResponseResult result = new ResponseResult();
-        String token = req.getHeader("Authorization");
-        if (BeanUtils.isEmpty(token)) {
-            result.setCode(999);
-            result.setError("token失效请重新登录");
-            result.setError_description("token失效请重新登录");
-            return result;
-        }
-        Long userId = TokenUtil.getUserId(token);
-        if (BeanUtils.isEmpty(userId)) {
-            result.setCode(999);
-            result.setError("token失效请重新登录");
-            result.setError_description("token失效请重新登录");
-            return result;
-        }
         try {
-            result = viewLookShopService.myHouseLookShopList(userId);
+            String token = req.getHeader("Authorization");
+            boolean verify = TokenUtil.verify(token);
+            if (verify) {
+                Long userId = TokenUtil.getUserId(token);
+                result = viewLookShopService.myHouseLookShopList(userId);
+                result.setCode(999);
+                result.setError("token已过期");
+                result.setError_description("请重新登录");
+                return result;
+            }
         } catch (Exception e) {
             log.error("获取我的收藏找铺列表" + e.getMessage(), e);
             result.setCode(600);
@@ -162,22 +147,17 @@ public class ViewLookShopController {
     @ApiOperation("我的找铺列表")
     public ResponseResult myLookShopList(HttpServletRequest req) {
         ResponseResult result = new ResponseResult();
-        String token = req.getHeader("Authorization");
-        if (BeanUtils.isEmpty(token)) {
-            result.setCode(999);
-            result.setError("token失效请重新登录");
-            result.setError_description("token失效请重新登录");
-            return result;
-        }
-        Long userId = TokenUtil.getUserId(token);
-        if (BeanUtils.isEmpty(userId)) {
-            result.setCode(999);
-            result.setError("token失效请重新登录");
-            result.setError_description("token失效请重新登录");
-            return result;
-        }
         try {
-            result = viewLookShopService.myLookShopList(userId);
+            String token = req.getHeader("Authorization");
+            boolean verify = TokenUtil.verify(token);
+            if (verify) {
+                Long userId = TokenUtil.getUserId(token);
+                result = viewLookShopService.myLookShopList(userId);
+                result.setCode(999);
+                result.setError("token已过期");
+                result.setError_description("请重新登录");
+                return result;
+            }
         } catch (Exception e) {
             log.error("获取我的找铺列表失败" + e.getMessage(), e);
             result.setCode(600);
