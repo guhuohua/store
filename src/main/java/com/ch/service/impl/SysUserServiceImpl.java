@@ -204,15 +204,16 @@ public class SysUserServiceImpl implements SysUserService {
                 if (BeanUtils.isNotEmpty(sysUserDTO.getCityId())) {
                     btSysUser.setCityId(sysUserDTO.getCityId());
                 }
-                for (Long businessTypeId : sysUserDTO.getBusinessTypeId()) {
-                    SysUserBusiness sysUserBusiness = new SysUserBusiness();
-                    sysUserBusiness.setId(IdUtil.getId());
-                    sysUserBusiness.setSysUserId(userId);
-                    sysUserBusiness.setBusinessTypeId(businessTypeId);
-                    sysUserBusinessMapper.insert(sysUserBusiness);
+               if (null != sysUserDTO.getBusinessTypeId()){
+                   for (Long businessTypeId : sysUserDTO.getBusinessTypeId()) {
+                       SysUserBusiness sysUserBusiness = new SysUserBusiness();
+                       sysUserBusiness.setId(IdUtil.getId());
+                       sysUserBusiness.setSysUserId(userId);
+                       sysUserBusiness.setBusinessTypeId(businessTypeId);
+                       sysUserBusinessMapper.insert(sysUserBusiness);
 
-                }
-
+                   }
+               }
                 sysUserMapper.insert(btSysUser);
                 SysUserRole userRole = new SysUserRole();
                 userRole.setRoleId(12);
