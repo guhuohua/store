@@ -2,16 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c7c5efcf-4e37-4408-b0be-13d133efabad" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/tmp_026810c184db8d5773f7fdc5060a0d00.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tmp_1a78e3780f3bb8f02732dcfb59192046.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tmp_4b8bd66c8cfc7fd90bb47af666fe0b38.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tmp_4c638217c650723a16ea113618e83ea6bd5b60bf1e492a6a.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tmp_66afad618017c783ebbf6d2b9abf169e.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tmp_68a86b26d466ba227e0e45e127725015.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tmp_9d155671868007486fdd3f615603800c.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tmp_ffc5031328c7649ebc7de8ab1cb949fd.jpg" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ch/dao/LookShopMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ch/dao/LookShopMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ch/controller/ViewLookShopController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ch/controller/ViewLookShopController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ch/controller/ViewTransferShopController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ch/controller/ViewTransferShopController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ch/filter/JWTFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ch/filter/JWTFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ch/util/TokenUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ch/util/TokenUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -120,6 +115,11 @@
           <option name="filesToSend" value="" />
         </RestClientRequest>
       </list>
+    </option>
+  </component>
+  <component name="RunAnythingCache">
+    <option name="myCommands">
+      <command value="mvn clean package" />
     </option>
   </component>
   <component name="RunDashboard">
@@ -329,7 +329,10 @@
       <workItem from="1565338029307" duration="4232000" />
       <workItem from="1565428001021" duration="52000" />
       <workItem from="1565592285585" duration="6337000" />
-      <workItem from="1565667360839" duration="255000" />
+      <workItem from="1565667360839" duration="1966000" />
+      <workItem from="1566442199744" duration="42000" />
+      <workItem from="1566547275380" duration="558000" />
+      <workItem from="1567406378855" duration="6310000" />
     </task>
     <servers />
   </component>

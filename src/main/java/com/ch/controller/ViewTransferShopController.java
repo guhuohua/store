@@ -34,9 +34,6 @@ public class ViewTransferShopController {
             if (verify) {
                 Long userId = TokenUtil.getUserId(token);
                 result = viewTransferShopService.addTransferShop(param, userId);
-                result.setCode(999);
-                result.setError("token已过期");
-                result.setError_description("请重新登录");
                 return result;
             }
         } catch (Exception e) {
@@ -58,9 +55,6 @@ public class ViewTransferShopController {
             if (verify) {
                 Long userId = TokenUtil.getUserId(token);
                 result = viewTransferShopService.updateShop(param, userId);
-                result.setCode(999);
-                result.setError("token已过期");
-                result.setError_description("请重新登录");
                 return result;
             }
 
@@ -98,6 +92,8 @@ public class ViewTransferShopController {
             if (verify) {
                 Long userId = TokenUtil.getUserId(token);
                 result = viewTransferShopService.transferShopInfo(userId, id);
+                return result;
+            } else {
                 result.setCode(999);
                 result.setError("token已过期");
                 result.setError_description("请重新登录");
@@ -122,9 +118,6 @@ public class ViewTransferShopController {
             if (verify) {
                 Long userId = TokenUtil.getUserId(token);
                 result = viewTransferShopService.updateShopInfo(userId, id);
-                result.setCode(999);
-                result.setError("token已过期");
-                result.setError_description("请重新登录");
                 return result;
             }
 
@@ -207,9 +200,6 @@ public class ViewTransferShopController {
             if (verify) {
                 Long userId = TokenUtil.getUserId(token);
                 result = viewTransferShopService.myBrowseTransferShopList(userId);
-                result.setCode(999);
-                result.setError("token已过期");
-                result.setError_description("请重新登录");
                 return result;
             }
         } catch (Exception e) {
@@ -233,9 +223,6 @@ public class ViewTransferShopController {
             if (verify) {
                 Long userId = TokenUtil.getUserId(token);
                 result = viewTransferShopService.myHouseCollectTransferShopList(userId);
-                result.setCode(999);
-                result.setError("token已过期");
-                result.setError_description("请重新登录");
                 return result;
             }
 
@@ -260,9 +247,6 @@ public class ViewTransferShopController {
             if (verify) {
                 Long userId = TokenUtil.getUserId(token);
                 result = viewTransferShopService.myTransferShopList(userId);
-                result.setCode(999);
-                result.setError("token已过期");
-                result.setError_description("请重新登录");
                 return result;
             }
 

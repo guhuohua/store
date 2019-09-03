@@ -1,5 +1,6 @@
 package com.ch.controller;
 
+import com.ch.base.BeanUtils;
 import com.ch.base.ResponseResult;
 import com.ch.model.ViewLookShopAddParam;
 import com.ch.service.ViewLookShopService;
@@ -56,9 +57,6 @@ public class ViewLookShopController {
             if (verify) {
                 Long userId = TokenUtil.getUserId(token);
                 result = viewLookShopService.updateShop(param, userId);
-                result.setCode(999);
-                result.setError("token已过期");
-                result.setError_description("请重新登录");
                 return result;
             }
 
@@ -81,9 +79,6 @@ public class ViewLookShopController {
             if (verify) {
                 Long userId = TokenUtil.getUserId(token);
                 result = viewLookShopService.lookShopInfo(userId, id);
-                result.setCode(999);
-                result.setError("token已过期");
-                result.setError_description("请重新登录");
                 return result;
             }
         } catch (Exception e) {
@@ -101,13 +96,16 @@ public class ViewLookShopController {
         ResponseResult result = new ResponseResult();
         try {
             String token = req.getHeader("Authorization");
+            if (BeanUtils.isEmpty(token)) {
+                result.setCode(999);
+                result.setError("token已过期");
+                result.setError_description("请重新登录");
+                return result;
+            }
             boolean verify = TokenUtil.verify(token);
             if (verify) {
                 Long userId = TokenUtil.getUserId(token);
                 result = viewLookShopService.myBrowesLookShopList(userId);
-                result.setCode(999);
-                result.setError("token已过期");
-                result.setError_description("请重新登录");
                 return result;
             }
         } catch (Exception e) {
@@ -129,9 +127,6 @@ public class ViewLookShopController {
             if (verify) {
                 Long userId = TokenUtil.getUserId(token);
                 result = viewLookShopService.myHouseLookShopList(userId);
-                result.setCode(999);
-                result.setError("token已过期");
-                result.setError_description("请重新登录");
                 return result;
             }
         } catch (Exception e) {
@@ -153,9 +148,6 @@ public class ViewLookShopController {
             if (verify) {
                 Long userId = TokenUtil.getUserId(token);
                 result = viewLookShopService.myLookShopList(userId);
-                result.setCode(999);
-                result.setError("token已过期");
-                result.setError_description("请重新登录");
                 return result;
             }
         } catch (Exception e) {
