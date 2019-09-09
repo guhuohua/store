@@ -11,8 +11,10 @@ import com.ch.base.ResponseResult;
 import com.ch.dao.*;
 import com.ch.dto.ShowShopDto;
 
+import com.ch.dto.SolrDTO;
 import com.ch.dto.ViewLookShopInfoDTO;
 import com.ch.entity.*;
+import com.ch.service.SolrService;
 import com.ch.service.SysLookShopService;
 import com.ch.service.ViewLookShopService;
 import com.github.pagehelper.PageHelper;
@@ -61,6 +63,8 @@ public class SysLookShopServiceImpl implements SysLookShopService {
     DecorateTypeMapper decorateTypeMapper;
     @Autowired
     ViewLookShopService viewLookShopService;
+    @Autowired
+    SolrService solrService;
 
 
     @Override
@@ -137,6 +141,16 @@ public class SysLookShopServiceImpl implements SysLookShopService {
             viewLookShopInfoDTO.setDecorateType(decorateType.getDecorateType());
         }
         result.setData(viewLookShopInfoDTO);
+        return result;
+    }
+
+    @Override
+    public ResponseResult deleLookShop(Long stroeId) {
+        ResponseResult result = new ResponseResult();
+        lookShopMapper.deleteByPrimaryKey(stroeId);
+        SolrDTO solrDTO = new SolrDTO();
+        solrDTO.setLookShopId(stroeId);
+        solrService.addSolr(solrDTO);
         return result;
     }
 

@@ -94,4 +94,22 @@ public class SysTransferShopController {
     }
 
 
+
+    @GetMapping("dele")
+    @ApiOperation("删除转铺")
+    public ResponseResult dele(@RequestParam Long storeId) {
+        ResponseResult result = new ResponseResult();
+        try {
+            result = sysTransferShopService.deleTransferShop(storeId);
+        } catch (Exception e) {
+            log.error("删除转铺失败" + e.getMessage(), e);
+            result.setCode(600);
+            result.setError(e.getMessage());
+            result.setError_description("删除转铺失败");
+        }
+        return result;
+    }
+
+
+
 }

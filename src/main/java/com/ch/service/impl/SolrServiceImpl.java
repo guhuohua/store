@@ -117,6 +117,7 @@ public class SolrServiceImpl implements SolrService {
 
 
     @Async
+    @Override
     public  void lowerShelf(SolrDTO solrDTO) {
         try {
            if (BeanUtils.isNotEmpty(solrDTO.getLookShopId())){

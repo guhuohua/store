@@ -13,17 +13,14 @@ import com.ch.dto.ShowShopDto;
 import com.ch.dto.SolrDTO;
 import com.ch.dto.SysTransferShopDTO;
 import com.ch.dto.UpdateStatusDTO;
-
 import com.ch.entity.*;
 import com.ch.service.SolrService;
 import com.ch.service.SysTransferShopService;
-import com.ch.service.ViewTransferShopService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.apache.solr.client.solrj.SolrClient;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -209,6 +206,16 @@ public class SysTransferShopServiceImpl implements SysTransferShopService {
             sysTransferShopDTO.setProvince(bsProvince.getProvinceName());
         }
         result.setData(sysTransferShopDTO);
+        return result;
+    }
+
+    @Override
+    public ResponseResult deleTransferShop(Long storeId) {
+        ResponseResult result = new ResponseResult();
+        transferShopMapper.deleteByPrimaryKey(storeId);
+        SolrDTO solrDTO = new SolrDTO();
+        solrDTO.setTransferShopId(storeId);
+        solrService.lowerShelf(solrDTO);
         return result;
     }
 
