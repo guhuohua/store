@@ -1,0 +1,441 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ch.dao.CommerciaEstatMapper" >
+  <resultMap id="BaseResultMap" type="com.ch.entity.CommerciaEstat" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="rent" property="rent" jdbcType="VARCHAR" />
+    <result column="unit_rent" property="unitRent" jdbcType="VARCHAR" />
+    <result column="area" property="area" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="floor" property="floor" jdbcType="VARCHAR" />
+    <result column="category" property="category" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="payment_method" property="paymentMethod" jdbcType="VARCHAR" />
+    <result column="management_industry" property="managementIndustry" jdbcType="VARCHAR" />
+    <result column="passenger" property="passenger" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="company" property="company" jdbcType="VARCHAR" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="tenancy_term" property="tenancyTerm" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+    <result column="image" property="image" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, title, rent, unit_rent, area, type, floor, category, status, payment_method, 
+    management_industry, passenger, address, name, company, tel, tenancy_term, create_time, 
+    image
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ch.entity.CommerciaEstatExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from commercia_estat
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from commercia_estat
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from commercia_estat
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ch.entity.CommerciaEstatExample" >
+    delete from commercia_estat
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ch.entity.CommerciaEstat" >
+    insert into commercia_estat (id, title, rent, 
+      unit_rent, area, type, 
+      floor, category, status, 
+      payment_method, management_industry, passenger, 
+      address, name, company, 
+      tel, tenancy_term, create_time, 
+      image)
+    values (#{id,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{rent,jdbcType=VARCHAR}, 
+      #{unitRent,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{floor,jdbcType=VARCHAR}, #{category,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{paymentMethod,jdbcType=VARCHAR}, #{managementIndustry,jdbcType=VARCHAR}, #{passenger,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR}, 
+      #{tel,jdbcType=VARCHAR}, #{tenancyTerm,jdbcType=VARCHAR}, #{createTime,jdbcType=VARCHAR}, 
+      #{image,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ch.entity.CommerciaEstat" >
+    insert into commercia_estat
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="rent != null" >
+        rent,
+      </if>
+      <if test="unitRent != null" >
+        unit_rent,
+      </if>
+      <if test="area != null" >
+        area,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="floor != null" >
+        floor,
+      </if>
+      <if test="category != null" >
+        category,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="paymentMethod != null" >
+        payment_method,
+      </if>
+      <if test="managementIndustry != null" >
+        management_industry,
+      </if>
+      <if test="passenger != null" >
+        passenger,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="company != null" >
+        company,
+      </if>
+      <if test="tel != null" >
+        tel,
+      </if>
+      <if test="tenancyTerm != null" >
+        tenancy_term,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="image != null" >
+        image,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="rent != null" >
+        #{rent,jdbcType=VARCHAR},
+      </if>
+      <if test="unitRent != null" >
+        #{unitRent,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="floor != null" >
+        #{floor,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentMethod != null" >
+        #{paymentMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="managementIndustry != null" >
+        #{managementIndustry,jdbcType=VARCHAR},
+      </if>
+      <if test="passenger != null" >
+        #{passenger,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null" >
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="tenancyTerm != null" >
+        #{tenancyTerm,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null" >
+        #{image,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ch.entity.CommerciaEstatExample" resultType="java.lang.Integer" >
+    select count(*) from commercia_estat
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update commercia_estat
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rent != null" >
+        rent = #{record.rent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.unitRent != null" >
+        unit_rent = #{record.unitRent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.area != null" >
+        area = #{record.area,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.floor != null" >
+        floor = #{record.floor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.category != null" >
+        category = #{record.category,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=VARCHAR},
+      </if>
+      <if test="record.paymentMethod != null" >
+        payment_method = #{record.paymentMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="record.managementIndustry != null" >
+        management_industry = #{record.managementIndustry,jdbcType=VARCHAR},
+      </if>
+      <if test="record.passenger != null" >
+        passenger = #{record.passenger,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null" >
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.company != null" >
+        company = #{record.company,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tel != null" >
+        tel = #{record.tel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tenancyTerm != null" >
+        tenancy_term = #{record.tenancyTerm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createTime != null" >
+        create_time = #{record.createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.image != null" >
+        image = #{record.image,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update commercia_estat
+    set id = #{record.id,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      rent = #{record.rent,jdbcType=VARCHAR},
+      unit_rent = #{record.unitRent,jdbcType=VARCHAR},
+      area = #{record.area,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=VARCHAR},
+      floor = #{record.floor,jdbcType=VARCHAR},
+      category = #{record.category,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=VARCHAR},
+      payment_method = #{record.paymentMethod,jdbcType=VARCHAR},
+      management_industry = #{record.managementIndustry,jdbcType=VARCHAR},
+      passenger = #{record.passenger,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      company = #{record.company,jdbcType=VARCHAR},
+      tel = #{record.tel,jdbcType=VARCHAR},
+      tenancy_term = #{record.tenancyTerm,jdbcType=VARCHAR},
+      create_time = #{record.createTime,jdbcType=VARCHAR},
+      image = #{record.image,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ch.entity.CommerciaEstat" >
+    update commercia_estat
+    <set >
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="rent != null" >
+        rent = #{rent,jdbcType=VARCHAR},
+      </if>
+      <if test="unitRent != null" >
+        unit_rent = #{unitRent,jdbcType=VARCHAR},
+      </if>
+      <if test="area != null" >
+        area = #{area,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="floor != null" >
+        floor = #{floor,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        category = #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentMethod != null" >
+        payment_method = #{paymentMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="managementIndustry != null" >
+        management_industry = #{managementIndustry,jdbcType=VARCHAR},
+      </if>
+      <if test="passenger != null" >
+        passenger = #{passenger,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null" >
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="tenancyTerm != null" >
+        tenancy_term = #{tenancyTerm,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null" >
+        image = #{image,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ch.entity.CommerciaEstat" >
+    update commercia_estat
+    set title = #{title,jdbcType=VARCHAR},
+      rent = #{rent,jdbcType=VARCHAR},
+      unit_rent = #{unitRent,jdbcType=VARCHAR},
+      area = #{area,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      floor = #{floor,jdbcType=VARCHAR},
+      category = #{category,jdbcType=VARCHAR},
+      status = #{status,jdbcType=VARCHAR},
+      payment_method = #{paymentMethod,jdbcType=VARCHAR},
+      management_industry = #{managementIndustry,jdbcType=VARCHAR},
+      passenger = #{passenger,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      tenancy_term = #{tenancyTerm,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=VARCHAR},
+      image = #{image,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="findCategory" resultType="string"  >
+    select
+   category
+    from commercia_estat
+
+  </select>
+
+</mapper>

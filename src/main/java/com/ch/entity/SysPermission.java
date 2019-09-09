@@ -1,8 +1,9 @@
 package com.ch.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class SysPermission {
+public class SysPermission implements Serializable {
     private Integer permissionId;
 
     private String name;

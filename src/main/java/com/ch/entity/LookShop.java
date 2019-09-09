@@ -5,7 +5,7 @@ import java.util.Date;
 public class LookShop {
     private Long id;
 
-    private Integer clientId;
+    private Long clientId;
 
     private String tel;
 
@@ -101,6 +101,26 @@ public class LookShop {
 
     private Long shopRentTypeId;
 
+    private Integer startFloor;
+
+    private Integer endFloor;
+
+    public Integer getStartFloor() {
+        return startFloor;
+    }
+
+    public void setStartFloor(Integer startFloor) {
+        this.startFloor = startFloor;
+    }
+
+    public Integer getEndFloor() {
+        return endFloor;
+    }
+
+    public void setEndFloor(Integer endFloor) {
+        this.endFloor = endFloor;
+    }
+
     public Long getShopRentTypeId() {
         return shopRentTypeId;
     }
@@ -125,11 +145,11 @@ public class LookShop {
         this.id = id;
     }
 
-    public Integer getClientId() {
+    public Long getClientId() {
         return clientId;
     }
 
-    public void setClientId(Integer clientId) {
+    public void setClientId(Long clientId) {
         this.clientId = clientId;
     }
 

@@ -6,8 +6,10 @@
 
 package com.ch.dto;
 
+import java.util.List;
+
 public class SysUserDTO {
-    private Integer userId;
+    private Long userId;
 
     private Integer roleId;
 
@@ -21,11 +23,41 @@ public class SysUserDTO {
 
     private Integer status;
 
-    public Integer getUserId() {
+    private Integer cityId;
+
+    private String headImage;
+
+    private List<Long> businessTypeId;
+
+    public String getHeadImage() {
+        return headImage;
+    }
+
+    public void setHeadImage(String headImage) {
+        this.headImage = headImage;
+    }
+
+    public List<Long> getBusinessTypeId() {
+        return businessTypeId;
+    }
+
+    public void setBusinessTypeId(List<Long> businessTypeId) {
+        this.businessTypeId = businessTypeId;
+    }
+
+    public Integer getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(Integer cityId) {
+        this.cityId = cityId;
+    }
+
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

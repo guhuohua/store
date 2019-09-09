@@ -1,6 +1,6 @@
 package com.ch.model;
 
-import lombok.Data;
+        import lombok.Data;
 
 @Data
 public class ViewWXLoginParam {
@@ -11,5 +11,10 @@ public class ViewWXLoginParam {
 
     private Integer gender;
 
+    private String code;
+
     private String openId;
+
+    private String sessionKey;
+
 }

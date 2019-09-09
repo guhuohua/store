@@ -10,22 +10,25 @@ public class ShowShopDto {
 
 
     private Integer pageNum;
+
     private Integer pageSize;
 
-    private String contacts;
+    private String username;
 
     private String tel;
 
-    private Integer status;
+    private Integer doneStatus;
+
+    private Integer checkStatus;
 
     private Integer recommendType;
 
-    public String getContacts() {
-        return contacts;
+    public String getUsername() {
+        return username;
     }
 
-    public void setContacts(String contacts) {
-        this.contacts = contacts;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getTel() {
@@ -36,12 +39,20 @@ public class ShowShopDto {
         this.tel = tel;
     }
 
-    public Integer getStatus() {
-        return status;
+    public Integer getDoneStatus() {
+        return doneStatus;
     }
 
-    public void setStatus(Integer status) {
-        this.status = status;
+    public void setDoneStatus(Integer doneStatus) {
+        this.doneStatus = doneStatus;
+    }
+
+    public Integer getCheckStatus() {
+        return checkStatus;
+    }
+
+    public void setCheckStatus(Integer checkStatus) {
+        this.checkStatus = checkStatus;
     }
 
     public Integer getRecommendType() {

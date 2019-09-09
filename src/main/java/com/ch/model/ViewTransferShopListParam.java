@@ -36,4 +36,7 @@ public class ViewTransferShopListParam {
     private Integer storeStatus;
 
     private Long clientId;
+
+    private Integer streetId;
+
 }

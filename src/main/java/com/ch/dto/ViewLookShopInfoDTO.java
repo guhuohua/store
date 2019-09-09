@@ -57,7 +57,7 @@ public class ViewLookShopInfoDTO {
 
     private Integer sort;
 
-    private Date craeateTime;
+    private Long createTime;
 
     private String otherTel;
 
@@ -92,4 +92,18 @@ public class ViewLookShopInfoDTO {
     private Integer doneStatus;
 
     private Integer checkStatus;
+
+    private String shopRentType;
+
+    private String headImg;
+
+    private Integer collection;
+
+    private String openId;
+
+    private Integer startFloor;
+
+    private Integer endFloor;
+
+    private List<ViewBaseIcon> viewBaseIcons;
 }

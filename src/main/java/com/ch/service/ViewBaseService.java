@@ -1,7 +1,10 @@
 package com.ch.service;
 
 import com.ch.base.ResponseResult;
+import com.ch.model.ViewBrowseParam;
+import com.ch.model.ViewFeedBackParam;
 import com.ch.model.ViewWXLoginParam;
+import com.ch.model.WxTelParam;
 
 public interface ViewBaseService {
 
@@ -96,4 +99,100 @@ public interface ViewBaseService {
      * @return
      */
     ResponseResult wxLogin(ViewWXLoginParam param);
+
+    /**
+     * 保存用户浏览记录
+     * @param userId
+     */
+    void saveBrowse(Long userId, ViewBrowseParam param);
+
+    /**
+     * 删除用户浏览记录
+     * @param userId
+     * @param param
+     */
+    void deleteBrowse(Long userId, ViewBrowseParam param);
+
+
+    /**
+     * 用户收藏
+     * @param userId
+     * @param param
+     * @return
+     */
+    ResponseResult saveCollection(Long userId, ViewBrowseParam param);
+
+    /**
+     * 取消用户收藏
+     * @param userId
+     * @param param
+     * @return
+     */
+    ResponseResult deleteCollection(Long userId, ViewBrowseParam param);
+
+
+    /**
+     * 意见反馈
+     * @param userId
+     * @param param
+     * @return
+     */
+    ResponseResult feedBack(Long userId, ViewFeedBackParam param);
+
+
+    /**
+     * 生成极光签名
+     * @return
+     */
+    ResponseResult generateSignature();
+
+
+    /**
+     * 重新同步所有solr
+     */
+    void solr();
+
+    /**
+     * 根据店铺ID同步solr
+     * @param storeId
+     */
+    void solrByStoreId(Long storeId);
+
+
+    /**
+     * 基础图标
+     * @return
+     */
+    ResponseResult baseIcon();
+
+
+    /**
+     * 专家在线
+     * @param businessId
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    ResponseResult expertOnline(Long businessId, Integer pageNum, Integer pageSize);
+
+    /**
+     * 专家详情
+     * @param id
+     * @return
+     */
+    ResponseResult expertInfo(Long id);
+
+    /**
+     * 解密微信手机号
+     * @param param
+     * @return
+     */
+    ResponseResult wxTel(WxTelParam param, Long userId);
+
+    /**
+     * 检查该用户是否绑定手机号
+     * @param userId
+     * @return
+     */
+    ResponseResult checkWxTel(Long userId);
 }

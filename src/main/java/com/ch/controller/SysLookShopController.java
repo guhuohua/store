@@ -13,6 +13,8 @@ import com.ch.service.ViewLookShopService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.authz.annotation.Logical;
+import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +31,7 @@ public class SysLookShopController {
     ViewLookShopService viewLookShopService;
     @PostMapping ("showLookShopList")
     @ApiOperation("展示后台找铺列表")
+    @RequiresPermissions(logical = Logical.OR, value = {"look_shop_manage_list","look_shop_manage_see_list"})
     public ResponseResult showLookShopList(@RequestBody ShowShopDto pageInfo) {
         ResponseResult result = new ResponseResult();
         try {

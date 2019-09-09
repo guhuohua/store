@@ -83,8 +83,6 @@ public class ViewTransferShopDTO {
 
     private Date createTime;
 
-    private Long deposit;
-
     private List<TransferImage> transferImageList;
 
     private Integer doneStatus;
@@ -95,8 +93,32 @@ public class ViewTransferShopDTO {
 
     private String reasons;
 
+    private String openId;
 
+    private String shopRentType;
 
+    private String headImg;
 
+    private Integer collection;
+
+    private List<ViewBaseIcon> viewBaseIcons;
+
+    private Integer depth;
+
+    private Integer high;
+
+    private Long time;
+
+    private Integer startFloor;
+
+    private Integer endFloor;
+
+    private Integer deposit;
+
+    private Integer payMonth;
+
+    private String businessStatus;
+
+    private Integer leaseTerm;
 
 }

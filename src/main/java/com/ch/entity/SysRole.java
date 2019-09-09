@@ -1,8 +1,9 @@
 package com.ch.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class SysRole {
+public class SysRole implements Serializable {
     private Integer roleId;
 
     private String roleName;
@@ -16,6 +17,16 @@ public class SysRole {
     private String delFlag;
 
     private Integer parentId;
+
+    private String forMatTime;
+
+    public String getForMatTime() {
+        return forMatTime;
+    }
+
+    public void setForMatTime(String forMatTime) {
+        this.forMatTime = forMatTime;
+    }
 
     public Integer getRoleId() {
         return roleId;

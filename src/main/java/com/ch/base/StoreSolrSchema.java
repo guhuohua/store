@@ -35,6 +35,9 @@ public class StoreSolrSchema {
     @Field
     private String storeAddress;
 
+    @Field
+    private String username;
+
     /**
      * 店铺区域
      */
@@ -88,6 +91,18 @@ public class StoreSolrSchema {
 
     @Field
     private Long userId;
+
+    @Field
+    private String storeAttribute;
+
+    @Field
+    private Long dealDate;
+
+    @Field
+    private String contacts;
+
+    @Field
+    private String storeKeyWords;
 
     private Long loopLineId;
 

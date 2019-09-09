@@ -67,7 +67,9 @@ public class SysTransferShopController {
     public ResponseResult updateStatus(@RequestBody UpdateStatusDTO updateStatusDTO) {
         ResponseResult result = new ResponseResult();
         try {
-            result = sysTransferShopService.updateStatus(updateStatusDTO);
+
+                sysTransferShopService.updateStatus(updateStatusDTO);
+
         } catch (Exception e) {
             log.error("审核状态失败" + e.getMessage(), e);
             result.setCode(600);
@@ -94,22 +96,19 @@ public class SysTransferShopController {
     }
 
 
-
-    @GetMapping("dele")
-    @ApiOperation("删除转铺")
-    public ResponseResult dele(@RequestParam Long storeId) {
+    @GetMapping ("findAgent")
+    @ApiOperation("展示所有中介")
+    public ResponseResult findAgent() {
         ResponseResult result = new ResponseResult();
         try {
-            result = sysTransferShopService.deleTransferShop(storeId);
+            result = sysTransferShopService.findAgent();
         } catch (Exception e) {
-            log.error("删除转铺失败" + e.getMessage(), e);
+            log.error("展示所有中介" + e.getMessage(), e);
             result.setCode(600);
             result.setError(e.getMessage());
-            result.setError_description("删除转铺失败");
+            result.setError_description("展示所有中介");
         }
         return result;
     }
-
-
 
 }

@@ -1,48 +1,84 @@
+//
 //package com.ch.ch;
 //
-//import com.ch.model.UserDTO;
-//import com.ch.service.BtSysUserService;
-//import com.ch.service.BtViewMenuService;
-//import com.ch.util.OSSUtil;
-//import org.apache.http.entity.ContentType;
+//import com.alibaba.fastjson.JSON;
+//import com.ch.base.ResponseResult;
+//import com.ch.dao.*;
+//import com.ch.service.UploadService;
 //import org.junit.Test;
 //import org.junit.runner.RunWith;
 //import org.springframework.beans.factory.annotation.Autowired;
 //import org.springframework.boot.test.context.SpringBootTest;
-//import org.springframework.mock.web.MockMultipartFile;
 //import org.springframework.test.context.junit4.SpringRunner;
-//import org.springframework.web.multipart.MultipartFile;
 //
-//import java.io.File;
-//import java.io.FileInputStream;
-//import java.io.IOException;
+//import java.util.List;
 //
 //@RunWith(SpringRunner.class)
 //@SpringBootTest
 //public class ChApplicationTests {
 //
 //    @Autowired
-//    OSSUtil ossUtil;
+//    TransferShopMapper transferShopMapper;
+//    @Autowired
+//    WangMapper wangMapper;
+//    @Autowired
+//    LookShopMapper lookShopMapper;
+//    @Autowired
+//    SysUserMapper sysUserMapper;
 //
 //    @Autowired
-//    BtSysUserService btSysUserService;
-//
+//    UploadService uploadService;
 //    @Autowired
-//    BtViewMenuService btViewMenuService;
+//    CommerciaEstatMapper commerciaEstatMapper;
+//
+//
 //
 //    @Test
 //    public void testUploadImage(){
-//        File file = new File("/Users/changhan/Downloads/640.gif");
-//        try {
-//            MultipartFile mulFile = new MockMultipartFile("640.gif", "640.gif", ContentType.APPLICATION_OCTET_STREAM.toString(), new FileInputStream(file));
-//            String upload = ossUtil.upload(mulFile);
-//            String originalFilename = mulFile.getOriginalFilename();
-//            System.out.println(upload);
-//            System.out.println(originalFilename);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+//        ResponseResult result = uploadService.uploadAddress("/Users/changhan/Downloads/937626DDEC847DB3040A2E7D069F222A.jpg");
+//        System.out.println(JSON.toJSON(result));
+//
 //    }
 //
 //
+//
+//    @Test
+//    public void testUploadImag1e(){
+//        for (int i = 0; i <1200 ; i++) {
+//            int random=(int)(Math.random()*10+1);
+//            System.out.println(random);
+//        }
+//
+//
+//    }
+//
+//
+//    @Test
+//    public void testUploadImage2(){
+//        //ResponseResult result = uploadService.uploadAddress("/Users/changhan/Downloads/937626DDEC847DB3040A2E7D069F222A.jpg");
+//        //System.out.println(JSON.toJSON(result));
+//        List<String> category = commerciaEstatMapper.findCategory();
+//        for (String s : category) {
+//            if (s.length()>4){
+//                String[] split = s.split("、");
+//                String s1 = split[1];
+//                String trim = s1.trim();
+//                //System.out.println(trim);
+//                String substring = trim.substring(2, trim.length() - 1);
+//                double v = Float.parseFloat(substring);
+//
+//                int floor =(int) Math.floor(v);
+//                System.out.println(floor);
+//
+//
+//            }else {
+//                System.out.println(0);
+//            }
+//        }
+//
+//
+//
+//    }
 //}
+
+

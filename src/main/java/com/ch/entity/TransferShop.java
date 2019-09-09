@@ -103,6 +103,161 @@ public class TransferShop {
 
     private Long transferShopId;
 
+    private Integer depth;
+
+    private Integer high;
+
+    private Long time;
+
+    private Integer startFloor;
+
+    private Integer endFloor;
+
+    private Integer deposit;
+
+    private Integer payMonth;
+
+    private String businessStatus;
+
+    private Integer leaseTerm;
+
+    @Override
+    public String toString() {
+        return "TransferShop{" +
+                "id=" + id +
+                ", clientId=" + clientId +
+                ", tel='" + tel + '\'' +
+                ", businessTypeId=" + businessTypeId +
+                ", propertyTypeId=" + propertyTypeId +
+                ", shopTypeId=" + shopTypeId +
+                ", rent=" + rent +
+                ", area=" + area +
+                ", transferStatus=" + transferStatus +
+                ", status=" + status +
+                ", title='" + title + '\'' +
+                ", cityId=" + cityId +
+                ", decorateTypeId=" + decorateTypeId +
+                ", requirementDetails='" + requirementDetails + '\'' +
+                ", accessoryRequirements='" + accessoryRequirements + '\'' +
+                ", gateWidth=" + gateWidth +
+                ", transferFee=" + transferFee +
+                ", shopSn='" + shopSn + '\'' +
+                ", serviceType=" + serviceType +
+                ", mediumStatus=" + mediumStatus +
+                ", shopReadme='" + shopReadme + '\'' +
+                ", floorNumber=" + floorNumber +
+                ", orientationId=" + orientationId +
+                ", loopLineId=" + loopLineId +
+                ", subwayLineId=" + subwayLineId +
+                ", updateTime=" + updateTime +
+                ", lon='" + lon + '\'' +
+                ", publishedTime=" + publishedTime +
+                ", checkTime=" + checkTime +
+                ", successTime=" + successTime +
+                ", freePeriod=" + freePeriod +
+                ", transferIconId=" + transferIconId +
+                ", fakeTel='" + fakeTel + '\'' +
+                ", image='" + image + '\'' +
+                ", sort=" + sort +
+                ", areaId=" + areaId +
+                ", streetId=" + streetId +
+                ", provinceId=" + provinceId +
+                ", recommendType=" + recommendType +
+                ", checkStatus=" + checkStatus +
+                ", createTime=" + createTime +
+                ", address='" + address + '\'' +
+                ", contacts='" + contacts + '\'' +
+                ", lat='" + lat + '\'' +
+                ", reasons='" + reasons + '\'' +
+                ", otherOne='" + otherOne + '\'' +
+                ", otherTwo='" + otherTwo + '\'' +
+                ", shopRentTypeId=" + shopRentTypeId +
+                ", otherFour=" + otherFour +
+                ", transferShopId=" + transferShopId +
+                ", depth=" + depth +
+                ", high=" + high +
+                ", time=" + time +
+                ", startFloor=" + startFloor +
+                ", endFloor=" + endFloor +
+                ", deposit=" + deposit +
+                ", payMonth=" + payMonth +
+                ", businessStatus='" + businessStatus + '\'' +
+                ", leaseTerm=" + leaseTerm +
+                '}';
+    }
+
+    public Integer getStartFloor() {
+        return startFloor;
+    }
+
+    public void setStartFloor(Integer startFloor) {
+        this.startFloor = startFloor;
+    }
+
+    public Integer getEndFloor() {
+        return endFloor;
+    }
+
+    public void setEndFloor(Integer endFloor) {
+        this.endFloor = endFloor;
+    }
+
+    public Integer getDeposit() {
+        return deposit;
+    }
+
+    public void setDeposit(Integer deposit) {
+        this.deposit = deposit;
+    }
+
+    public Integer getPayMonth() {
+        return payMonth;
+    }
+
+    public void setPayMonth(Integer payMonth) {
+        this.payMonth = payMonth;
+    }
+
+    public String getBusinessStatus() {
+        return businessStatus;
+    }
+
+    public void setBusinessStatus(String businessStatus) {
+        this.businessStatus = businessStatus;
+    }
+
+    public Integer getLeaseTerm() {
+        return leaseTerm;
+    }
+
+    public void setLeaseTerm(Integer leaseTerm) {
+        this.leaseTerm = leaseTerm;
+    }
+
+    public Long getTime() {
+        return time;
+    }
+
+    public void setTime(Long time) {
+        this.time = time;
+    }
+
+    public Integer getDepth() {
+        return depth;
+    }
+
+    public void setDepth(Integer depth) {
+        this.depth = depth;
+    }
+
+    public Integer getHigh() {
+        return high;
+    }
+
+    public void setHigh(Integer high) {
+        this.high = high;
+    }
+
     public Long getTransferShopId() {
         return transferShopId;
     }

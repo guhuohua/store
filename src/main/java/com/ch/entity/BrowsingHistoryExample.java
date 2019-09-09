@@ -119,6 +119,11 @@ public class BrowsingHistoryExample {
             return (Criteria) this;
         }
 
+        public Criteria andClientIdEqualTo(Long value) {
+            addCriterion("client_id =", value, "clientId");
+            return (Criteria) this;
+        }
+
         public Criteria andIdNotEqualTo(Long value) {
             addCriterion("id <>", value, "id");
             return (Criteria) this;

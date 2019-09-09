@@ -1,5 +1,7 @@
 package com.ch.entity;
 
+import java.util.Date;
+
 public class BrowsingHistory {
     private Long id;
 
@@ -10,6 +12,26 @@ public class BrowsingHistory {
     private Long sysUserId;
 
     private Long successCaseId;
+
+    private Long clientId;
+
+    private Date createDate;
+
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+    }
+
+    public Long getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(Long clientId) {
+        this.clientId = clientId;
+    }
 
     public Long getId() {
         return id;

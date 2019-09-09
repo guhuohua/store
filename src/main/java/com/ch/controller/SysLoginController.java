@@ -34,7 +34,7 @@ public class SysLoginController {
        ResponseResult result = new ResponseResult();
        try {
            result = sysUserService.login(dto);
-           Integer userId =(Integer) result.getData();
+           Long userId =(Long) result.getData();
 
            String token = TokenUtil.sign(userId);
                System.out.println(token);
@@ -49,13 +49,12 @@ public class SysLoginController {
     }
 
     @GetMapping(value = "info")
-
     @ApiOperation("获取用户详情")
     public ResponseResult getUserInfo(HttpServletRequest req, HttpServletResponse res) {
         String token = req.getHeader("Authorization");
-        Integer userId = TokenUtil.getUserId(token);
-        System.out.println("后台token"+token);
-        System.out.println("后台userId"+userId);
+        Long userId = TokenUtil.getUserId(token);
+      /*  System.out.println("后台token"+token);
+        System.out.println("后台userId"+userId);*/
         ResponseResult result = new ResponseResult();
         try {
             UserDTO userDto = sysUserService.findById(userId);

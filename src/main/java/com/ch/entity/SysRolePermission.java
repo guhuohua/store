@@ -1,6 +1,8 @@
 package com.ch.entity;
 
-public class SysRolePermission {
+import java.io.Serializable;
+
+public class SysRolePermission implements Serializable {
     private Integer roleId;
 
     private Integer permissionId;

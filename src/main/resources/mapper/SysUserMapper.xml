@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.ch.dao.SysUserMapper" >
   <resultMap id="BaseResultMap" type="com.ch.entity.SysUser" >
-    <id column="user_id" property="userId" jdbcType="INTEGER" />
+    <id column="user_id" property="userId" jdbcType="BIGINT" />
     <result column="username" property="username" jdbcType="VARCHAR" />
     <result column="password" property="password" jdbcType="VARCHAR" />
     <result column="phone" property="phone" jdbcType="VARCHAR" />
@@ -17,6 +17,7 @@
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="video_introduction" property="videoIntroduction" jdbcType="VARCHAR" />
     <result column="area" property="area" jdbcType="VARCHAR" />
+    <result column="head_image" property="headImage" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -78,7 +79,7 @@
   </sql>
   <sql id="Base_Column_List" >
     user_id, username, password, phone, update_time, status, account, salt, good_business, 
-    service_count, success_case_id, city_id, create_time, video_introduction, area
+    service_count, success_case_id, city_id, create_time, video_introduction, area,head_image
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ch.entity.SysUserExample" >
     select
@@ -95,15 +96,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
     from sys_user
-    where user_id = #{userId,jdbcType=INTEGER}
+    where user_id = #{userId,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from sys_user
-    where user_id = #{userId,jdbcType=INTEGER}
+    where user_id = #{userId,jdbcType=BIGINT}
   </delete>
   <delete id="deleteByExample" parameterType="com.ch.entity.SysUserExample" >
     delete from sys_user
@@ -116,13 +117,15 @@
       phone, update_time, status, 
       account, salt, good_business, 
       service_count, success_case_id, city_id, 
-      create_time, video_introduction, area
+      create_time, video_introduction, area,head_image
       )
     values (#{userId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{phone,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER}, 
       #{account,jdbcType=VARCHAR}, #{salt,jdbcType=VARCHAR}, #{goodBusiness,jdbcType=VARCHAR}, 
       #{serviceCount,jdbcType=INTEGER}, #{successCaseId,jdbcType=INTEGER}, #{cityId,jdbcType=INTEGER}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{videoIntroduction,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR}
+      #{createTime,jdbcType=TIMESTAMP}, #{videoIntroduction,jdbcType=VARCHAR}, #{area,jdbcType=VARCHAR},
+      #{headImage,jdbcType=VARCHAR}
+
       )
   </insert>
   <insert id="insertSelective" parameterType="com.ch.entity.SysUser" >
@@ -365,7 +368,8 @@
       city_id = #{cityId,jdbcType=INTEGER},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       video_introduction = #{videoIntroduction,jdbcType=VARCHAR},
-      area = #{area,jdbcType=VARCHAR}
+      area = #{area,jdbcType=VARCHAR},
+      head_image = #{headImage,jdbcType=VARCHAR}
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
 </mapper>

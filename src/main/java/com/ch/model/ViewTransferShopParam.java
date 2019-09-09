@@ -1,8 +1,10 @@
 package com.ch.model;
 
 import com.ch.entity.TransferImage;
+import com.ch.entity.TransferShopBaseIcon;
 import lombok.Data;
 
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
 
@@ -21,8 +23,11 @@ public class ViewTransferShopParam {
 
     private Long shopTypeId;
 
+    @Size(max=999999999, min=1, message = "请输入正确的租金")
     private Long rent;
 
+
+    @Size(max=99999, min=1, message = "请输入正确的面积")
     private Integer area;
 
     private Integer transferStatus;
@@ -37,6 +42,7 @@ public class ViewTransferShopParam {
 
     private String accessoryRequirements;
 
+    @Size(max=100, min=1, message = "请输入正确的门宽")
     private Long gateWidth;
 
     private Long transferFee;
@@ -96,4 +102,22 @@ public class ViewTransferShopParam {
     private String address;
 
     private String areaName;
+
+    private List<TransferShopBaseIcon> transferShopBaseIcons;
+
+    private Integer depth;
+
+    private Integer high;
+
+    private Integer startFloor;
+
+    private Integer endFloor;
+
+    private Integer deposit;
+
+    private Integer payMonth;
+
+    private String businessStatus;
+
+    private Integer leaseTerm;
 }

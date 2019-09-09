@@ -19,6 +19,16 @@ public class SuccessCase {
 
     private Integer transferDegree;
 
+    private Long sysUser;
+
+    public Long getSysUser() {
+        return sysUser;
+    }
+
+    public void setSysUser(Long sysUser) {
+        this.sysUser = sysUser;
+    }
+
     public Long getId() {
         return id;
     }

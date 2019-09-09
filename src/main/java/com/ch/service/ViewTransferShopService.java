@@ -12,7 +12,7 @@ public interface ViewTransferShopService {
      * @param param
      * @return
      */
-    ResponseResult addTransferShop(ViewTransferShopParam param, Integer userId);
+    ResponseResult addTransferShop(ViewTransferShopParam param, Long userId);
 
 
     /**
@@ -27,7 +27,7 @@ public interface ViewTransferShopService {
      * @param storeId
      * @return
      */
-    ResponseResult transferShopInfo(Long storeId);
+    ResponseResult transferShopInfo(Long userId, Long storeId);
 
 
     /**
@@ -44,5 +44,84 @@ public interface ViewTransferShopService {
      * @return
      */
     ResponseResult myTransferShopList(Long id);
+
+
+    /**
+     * 我的浏览转铺列表
+     * @param id
+     * @return
+     */
+    ResponseResult myBrowseTransferShopList(Long id);
+
+    /**
+     * 我的收藏转铺列表
+     * @param userId
+     * @return
+     */
+    ResponseResult myHouseCollectTransferShopList(Long userId);
+
+
+    /**
+     * 附近的找铺
+     * @param lon
+     * @param lat
+     * @return
+     */
+    ResponseResult nearbyShop(String lon, String lat, Integer pageNum, Integer pageSize);
+
+
+    /**
+     * 成交案例
+     * @param pageNum
+     * @param pageSize
+     * @return
+     */
+    ResponseResult dealTransferShopList(Integer pageNum, Integer pageSize);
+
+
+    /**
+     * 中介成功案例
+     * @param userId
+     * @return
+     */
+    ResponseResult intermediaryList(Long userId, Integer pageNum, Integer pageSize);
+
+
+    /**
+     * 统计今日审核通过的店铺的数量
+     * @return
+     */
+    ResponseResult countTodayShop();
+
+
+    /**
+     * 根据ID进行删除
+     * @param id
+     * @return
+     */
+    ResponseResult deleteShop(Long id);
+
+
+    /**
+     * 修改店铺
+     * @param param
+     * @return
+     */
+    ResponseResult updateShop(ViewTransferShopParam param, Long userId);
+
+
+    /**
+     * 修改前的反查
+     * @param userId
+     * @param storeId
+     * @return
+     */
+    ResponseResult updateShopInfo(Long userId, Long storeId);
+
+    /**
+     * 修改店铺的经纬度
+     * @param id
+     */
+    void updateShopLon(Long id);
 
 }

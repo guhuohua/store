@@ -1,9 +1,10 @@
 package com.ch.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class SysUser {
-    private Integer userId;
+public class SysUser implements Serializable {
+    private Long userId;
 
     private String username;
 
@@ -33,11 +34,22 @@ public class SysUser {
 
     private String area;
 
-    public Integer getUserId() {
+    private String headImage;
+
+
+    public String getHeadImage() {
+        return headImage;
+    }
+
+    public void setHeadImage(String headImage) {
+        this.headImage = headImage;
+    }
+
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

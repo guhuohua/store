@@ -66,17 +66,45 @@ public class SysLookShopServiceImpl implements SysLookShopService {
     @Autowired
     SolrService solrService;
 
+    @Autowired
+    OrientationMapper orientationMapper;
+    @Autowired
+    LoopLineMapper loopLineMapper;
+    @Autowired
+    SubwayLineMapper subwayLineMapper;
+    @Autowired
+    ShopRentTypeMapper shopRentTypeMapper;
+
 
     @Override
     public ResponseResult showLookShopList(ShowShopDto showShopDto) {
         ResponseResult result = new ResponseResult();
-        List<ViewLookShopInfoDTO> viewLookShopInfoDTOs = new ArrayList<>();
+        // List<ViewLookShopInfoDTO> viewLookShopInfoDTOs = new ArrayList<>();
         PageHelper.startPage(showShopDto.getPageNum(), showShopDto.getPageSize());
-        if (BeanUtils.isNotEmpty(showShopDto.getContacts()) || BeanUtils.isNotEmpty(showShopDto.getTel()) || BeanUtils.isNotEmpty(showShopDto.getStatus())){
-             viewLookShopInfoDTOs = lookShopMapper.list(showShopDto.getContacts(),showShopDto.getTel(),showShopDto.getStatus());
-        }else {
-           viewLookShopInfoDTOs = lookShopMapper.findAll();
+       /* if (BeanUtils.isNotEmpty(showShopDto.getUsername())){
+             viewLookShopInfoDTOs = lookShopMapper.list(showShopDto.getUsername(),showShopDto.getTel(),showShopDto.getDoneStatus());
+            PageInfo<ViewLookShopInfoDTO> page = new PageInfo<>(viewLookShopInfoDTOs);
+            result.setData(page);
+            return result;
         }
+       if (BeanUtils.isNotEmpty(showShopDto.getTel())){
+           viewLookShopInfoDTOs = lookShopMapper.list(showShopDto.getUsername(),showShopDto.getTel(),showShopDto.getDoneStatus());
+           PageInfo<ViewLookShopInfoDTO> page = new PageInfo<>(viewLookShopInfoDTOs);
+           result.setData(page);
+           return result;
+       }
+       if (null != showShopDto.getDoneStatus()){
+           viewLookShopInfoDTOs = lookShopMapper.list(showShopDto.getUsername(),showShopDto.getTel(),showShopDto.getDoneStatus());
+           PageInfo<ViewLookShopInfoDTO> page = new PageInfo<>(viewLookShopInfoDTOs);
+           result.setData(page);
+           return result;
+       }
+        else {
+           viewLookShopInfoDTOs = lookShopMapper.findAll();
+            PageInfo<ViewLookShopInfoDTO> page = new PageInfo<>(viewLookShopInfoDTOs);
+            result.setData(page);
+            return result;
+        }*/
 
 
         /* List<ViewLookShopInfoDTO> viewLookShopInfoDTOs = new ArrayList<>();
@@ -85,9 +113,11 @@ public class SysLookShopServiceImpl implements SysLookShopService {
             ViewLookShopInfoDTO data =(ViewLookShopInfoDTO) result1.getData();
             viewLookShopInfoDTOs.add(data);
         }*/
+        List<ViewLookShopInfoDTO> viewLookShopInfoDTOs = lookShopMapper.list(showShopDto.getUsername(), showShopDto.getTel(), showShopDto.getDoneStatus());
         PageInfo<ViewLookShopInfoDTO> page = new PageInfo<>(viewLookShopInfoDTOs);
         result.setData(page);
         return result;
+
     }
 
     @Override
@@ -103,11 +133,11 @@ public class SysLookShopServiceImpl implements SysLookShopService {
         List<LookShopBusiness> lookShopBusinesses = lookShopBusinessMapper.selectByExample(lookShopBusinessExample);
         List<String> lookShopBusName = new ArrayList<>();
         StringBuilder type = new StringBuilder();
-        for (LookShopBusiness lookShopBusiness:lookShopBusinesses) {
+        for (LookShopBusiness lookShopBusiness : lookShopBusinesses) {
             BusinessType businessType = businessTypeMapper.selectByPrimaryKey(lookShopBusiness.getBusinessTypeId());
             if (BeanUtils.isNotEmpty(businessType)) {
                 lookShopBusName.add(businessType.getBusinessType());
-                type.append(businessType.getBusinessType()+",");
+                type.append(businessType.getBusinessType() + ",");
             }
         }
         viewLookShopInfoDTO.setBusinessType(type.toString());
@@ -136,10 +166,36 @@ public class SysLookShopServiceImpl implements SysLookShopService {
         if (BeanUtils.isNotEmpty(bsProvince)) {
             viewLookShopInfoDTO.setProvince(bsProvince.getProvinceName());
         }
-        DecorateType decorateType = decorateTypeMapper.selectByPrimaryKey(lookShop.getDecorateTypeId());
-        if (BeanUtils.isNotEmpty(decorateType)) {
+
+        if (BeanUtils.isNotEmpty(lookShop.getDecorateTypeId())){
+            DecorateType decorateType = decorateTypeMapper.selectByPrimaryKey(lookShop.getDecorateTypeId());
             viewLookShopInfoDTO.setDecorateType(decorateType.getDecorateType());
         }
+
+
+        if (BeanUtils.isNotEmpty(lookShop.getShopRentTypeId())) {
+            ShopRentType shopRentType = shopRentTypeMapper.selectByPrimaryKey(lookShop.getShopRentTypeId());
+            viewLookShopInfoDTO.setShopRentType(shopRentType.getShopRentType());
+        }
+
+
+        if (BeanUtils.isNotEmpty(lookShop.getOrientationId())) {
+            Orientation orientation = orientationMapper.selectByPrimaryKey(lookShop.getOrientationId());
+            viewLookShopInfoDTO.setOrientation(orientation.getOrientationDesc());
+        }
+
+
+        if (BeanUtils.isNotEmpty(lookShop.getSubwayLineId())) {
+            SubwayLine subwayLine = subwayLineMapper.selectByPrimaryKey(Long.valueOf(lookShop.getSubwayLineId()));
+            viewLookShopInfoDTO.setSubwayLine(subwayLine.getSubwayLineDesc());
+        }
+
+        if (BeanUtils.isNotEmpty(lookShop.getLoopLineId())) {
+            LoopLine loopLine = loopLineMapper.selectByPrimaryKey(Long.valueOf(lookShop.getLoopLineId()));
+            viewLookShopInfoDTO.setLoopLine(loopLine.getLoopLineDesc());
+        }
+
+
         result.setData(viewLookShopInfoDTO);
         return result;
     }

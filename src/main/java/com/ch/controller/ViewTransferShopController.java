@@ -5,11 +5,14 @@ import com.ch.model.FastTransferShopParam;
 import com.ch.model.ViewTransferShopListParam;
 import com.ch.model.ViewTransferShopParam;
 import com.ch.service.ViewTransferShopService;
+import com.ch.util.TokenUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 @RestController
 @RequestMapping(value = "/view/transferShop")
@@ -22,15 +25,44 @@ public class ViewTransferShopController {
 
     @PostMapping("/add")
     @ApiOperation("新增转铺")
-    public ResponseResult addTransferShop(@RequestBody ViewTransferShopParam param) {
+    public ResponseResult addTransferShop(HttpServletRequest req, @RequestBody ViewTransferShopParam param) {
         ResponseResult result = new ResponseResult();
+
         try {
-            result = viewTransferShopService.addTransferShop(param, 123);
+            String token = req.getHeader("Authorization");
+            boolean verify = TokenUtil.verify(token);
+            if (verify) {
+                Long userId = TokenUtil.getUserId(token);
+                result = viewTransferShopService.addTransferShop(param, userId);
+                return result;
+            }
         } catch (Exception e) {
             log.error("新增转铺失败" + e.getMessage(), e);
             result.setCode(600);
             result.setError(e.getMessage());
             result.setError_description("新增转铺失败");
+        }
+        return result;
+    }
+
+    @PostMapping("/update")
+    @ApiOperation("修改转铺")
+    public ResponseResult updateShop(HttpServletRequest req, @RequestBody ViewTransferShopParam param) {
+        ResponseResult result = new ResponseResult();
+        try {
+            String token = req.getHeader("Authorization");
+            boolean verify = TokenUtil.verify(token);
+            if (verify) {
+                Long userId = TokenUtil.getUserId(token);
+                result = viewTransferShopService.updateShop(param, userId);
+                return result;
+            }
+
+        } catch (Exception e) {
+            log.error("修改转铺失败" + e.getMessage(), e);
+            result.setCode(600);
+            result.setError(e.getMessage());
+            result.setError_description("修改转铺失败");
         }
         return result;
     }
@@ -52,10 +84,43 @@ public class ViewTransferShopController {
 
     @GetMapping("/info")
     @ApiOperation("转铺详情")
-    public ResponseResult transferShopInfo(@RequestParam Long id) {
+    public ResponseResult transferShopInfo(HttpServletRequest req, @RequestParam Long id) {
         ResponseResult result = new ResponseResult();
         try {
-            result = viewTransferShopService.transferShopInfo(id);
+            String token = req.getHeader("Authorization");
+            boolean verify = TokenUtil.verify(token);
+            if (verify) {
+                Long userId = TokenUtil.getUserId(token);
+                result = viewTransferShopService.transferShopInfo(userId, id);
+                return result;
+            } else {
+                result.setCode(999);
+                result.setError("token已过期");
+                result.setError_description("请重新登录");
+                return result;
+            }
+        } catch (Exception e) {
+            log.error("获取转铺详情失败" + e.getMessage(), e);
+            result.setCode(600);
+            result.setError(e.getMessage());
+            result.setError_description("获取转铺详情失败");
+        }
+        return result;
+    }
+
+    @GetMapping("/updateShopInfo")
+    @ApiOperation("修改转铺详情")
+    public ResponseResult updateShopInfo(HttpServletRequest req, @RequestParam Long id) {
+        ResponseResult result = new ResponseResult();
+        try {
+            String token = req.getHeader("Authorization");
+            boolean verify = TokenUtil.verify(token);
+            if (verify) {
+                Long userId = TokenUtil.getUserId(token);
+                result = viewTransferShopService.updateShopInfo(userId, id);
+                return result;
+            }
+
         } catch (Exception e) {
             log.error("获取转铺详情失败" + e.getMessage(), e);
             result.setCode(600);
@@ -80,17 +145,147 @@ public class ViewTransferShopController {
         return result;
     }
 
-    @GetMapping("/myTransferShopList")
-    @ApiOperation("我的转铺列表")
-    public ResponseResult fastTransferShop(@RequestParam Long id) {
+    @GetMapping("/nearbyShop")
+    @ApiOperation("附近的转铺")
+    public ResponseResult nearbyShop(@RequestParam String lon, @RequestParam String lat, @RequestParam Integer pageNum, @RequestParam Integer pageSize) {
         ResponseResult result = new ResponseResult();
         try {
-            result = viewTransferShopService.myTransferShopList(id);
+            result = viewTransferShopService.nearbyShop(lon, lat, pageNum, pageSize);
+        } catch (Exception e) {
+            log.error("获取附近的店铺失败" + e.getMessage(), e);
+            result.setCode(600);
+            result.setError(e.getMessage());
+            result.setError_description("获取附近的店铺失败");
+        }
+        return result;
+    }
+
+    @GetMapping("/dealTransferShopList")
+    @ApiOperation("成交案例")
+    public ResponseResult nearbyShop(@RequestParam Integer pageNum, @RequestParam Integer pageSize) {
+        ResponseResult result = new ResponseResult();
+        try {
+            result = viewTransferShopService.dealTransferShopList(pageNum, pageSize);
+        } catch (Exception e) {
+            log.error("获取成交案例失败" + e.getMessage(), e);
+            result.setCode(600);
+            result.setError(e.getMessage());
+            result.setError_description("获取成交案例失败");
+        }
+        return result;
+    }
+
+    @GetMapping("/intermediaryList")
+    @ApiOperation("中介成交案例")
+    public ResponseResult nearbyShop(@RequestParam Integer pageNum, @RequestParam Integer pageSize, @RequestParam Long id) {
+        ResponseResult result = new ResponseResult();
+        try {
+            result = viewTransferShopService.intermediaryList(id, pageNum, pageSize);
+        } catch (Exception e) {
+            log.error("获取中介成交案例列表失败" + e.getMessage(), e);
+            result.setCode(600);
+            result.setError(e.getMessage());
+            result.setError_description("获取中介成交案例列表失败");
+        }
+        return result;
+    }
+
+    @GetMapping("/myBrowseTransferShopList")
+    @ApiOperation("我的浏览转铺记录")
+    public ResponseResult myBrowseTransferShopList(HttpServletRequest req) {
+        ResponseResult result = new ResponseResult();
+        try {
+            String token = req.getHeader("Authorization");
+            boolean verify = TokenUtil.verify(token);
+            if (verify) {
+                Long userId = TokenUtil.getUserId(token);
+                result = viewTransferShopService.myBrowseTransferShopList(userId);
+                return result;
+            }
+        } catch (Exception e) {
+            log.error("获取我的浏览转铺记录失败" + e.getMessage(), e);
+            result.setCode(600);
+            result.setError(e.getMessage());
+            result.setError_description("获取我的浏览转铺记录失败");
+        }
+        return result;
+    }
+
+    @GetMapping("/myHouseCollectTransferShopList")
+    @ApiOperation("我的收藏转铺记录")
+    public ResponseResult myHouseCollectTransferShopList(HttpServletRequest req) {
+        ResponseResult result = new ResponseResult();
+
+        try {
+
+            String token = req.getHeader("Authorization");
+            boolean verify = TokenUtil.verify(token);
+            if (verify) {
+                Long userId = TokenUtil.getUserId(token);
+                result = viewTransferShopService.myHouseCollectTransferShopList(userId);
+                return result;
+            }
+
+        } catch (Exception e) {
+            log.error("获取我的收藏转铺记录" + e.getMessage(), e);
+            result.setCode(600);
+            result.setError(e.getMessage());
+            result.setError_description("获取我的收藏转铺记录");
+        }
+        return result;
+    }
+
+    @GetMapping("/myTransferShopList")
+    @ApiOperation("我的转铺列表")
+    public ResponseResult fastTransferShop(HttpServletRequest req) {
+        ResponseResult result = new ResponseResult();
+
+        try {
+
+            String token = req.getHeader("Authorization");
+            boolean verify = TokenUtil.verify(token);
+            if (verify) {
+                Long userId = TokenUtil.getUserId(token);
+                result = viewTransferShopService.myTransferShopList(userId);
+                return result;
+            }
+
+
         } catch (Exception e) {
             log.error("获取我的转铺列表失败" + e.getMessage(), e);
             result.setCode(600);
             result.setError(e.getMessage());
             result.setError_description("获取我的转铺列表失败");
+        }
+        return result;
+    }
+
+    @GetMapping("/countTodayShop")
+    @ApiOperation("今日新增")
+    public ResponseResult countTodayShop() {
+        ResponseResult result = new ResponseResult();
+        try {
+            result = viewTransferShopService.countTodayShop();
+        } catch (Exception e) {
+            log.error("获取今日新增失败" + e.getMessage(), e);
+            result.setCode(600);
+            result.setError(e.getMessage());
+            result.setError_description("获取今日新增失败");
+        }
+        return result;
+    }
+
+    @GetMapping("/deleteShop")
+    @ApiOperation("删除我的转铺")
+    public ResponseResult deleteShop(@RequestParam Long id) {
+        ResponseResult result = new ResponseResult();
+        try {
+            result = viewTransferShopService.deleteShop(id);
+        } catch (Exception e) {
+            log.error("删除我的转铺失败" + e.getMessage(), e);
+            result.setCode(600);
+            result.setError(e.getMessage());
+            result.setError_description("删除我的转铺失败");
         }
         return result;
     }

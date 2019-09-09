@@ -1,13 +1,13 @@
 package com.ch.dao;
 
 
-import java.util.List;
-
 import com.ch.entity.LoopLine;
 import com.ch.entity.LoopLineExample;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public interface LoopLineMapper {
@@ -34,6 +34,6 @@ public interface LoopLineMapper {
     int updateByPrimaryKey(LoopLine record);
 
 
-    @Select("select * from loop_line t where t.city = #{cityId} ")
+    @Select("select * from loop_line t where t.city_id = #{cityId} ")
     List<LoopLine> findByCityId(@Param("cityId") Integer cityId);
 }

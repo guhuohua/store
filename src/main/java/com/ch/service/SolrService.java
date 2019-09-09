@@ -9,7 +9,8 @@ public interface SolrService {
 
     void addSolr(SolrDTO solrDTO);
 
+      void lowerShelf(SolrDTO solrDTO);
 
-     void lowerShelf(SolrDTO solrDTO);
+      void deleteAll();
 
 }

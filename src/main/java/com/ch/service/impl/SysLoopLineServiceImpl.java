@@ -10,7 +10,6 @@ import com.ch.base.BeanUtils;
 import com.ch.base.ResponseResult;
 import com.ch.dao.LoopLineMapper;
 import com.ch.dto.SysBaseDTO;
-import com.ch.dto.SysTransferShopDTO;
 import com.ch.entity.LoopLine;
 import com.ch.service.SysLoopLineService;
 import com.ch.util.IdUtil;
@@ -31,6 +30,7 @@ public class SysLoopLineServiceImpl implements SysLoopLineService {
     public ResponseResult addLoopLine(LoopLine loopLine) {
         ResponseResult result = new ResponseResult();
         loopLine.setId(IdUtil.getId());
+        loopLineMapper.insert(loopLine);
         return result;
     }
 
@@ -62,4 +62,6 @@ public class SysLoopLineServiceImpl implements SysLoopLineService {
         result.setData(page);
         return result;
     }
+
+
 }

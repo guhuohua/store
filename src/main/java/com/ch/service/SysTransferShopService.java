@@ -28,11 +28,7 @@ public interface SysTransferShopService {
      */
     ResponseResult  transferShopInfo(Long storeId);
 
-    /**
-     * 删除店铺
-     */
 
-
-    ResponseResult deleTransferShop(Long storeId);
+    ResponseResult findAgent();
 
 }

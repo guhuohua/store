@@ -82,20 +82,65 @@ public class SysTransferShopServiceImpl implements SysTransferShopService {
     TransferShopBusinessMapper transferShopBusinessMapper;
     @Autowired
     SolrService solrService;
-
+    @Autowired
+    ShopRentTypeMapper shopRentTypeMapper;
+    @Autowired
+    SysRoleMapper sysRoleMapper;
+    @Autowired
+    SysUserRoleMapper sysUserRoleMapper;
+    @Autowired
+    SysUserMapper sysUserMapper;
+    @Autowired
+    SysUserShopMapper sysUserShopMapper;
 
 
     @Override
 
     public ResponseResult showTransferShopList(ShowShopDto showShopDto) {
         ResponseResult result = new ResponseResult();
-        List<SysTransferShopDTO> transferShops = new ArrayList<>();
+        //List<SysTransferShopDTO> transferShops = new ArrayList<>();
         PageHelper.startPage(showShopDto.getPageNum(), showShopDto.getPageSize());
-      if (BeanUtils.isNotEmpty(showShopDto.getContacts()) || BeanUtils.isNotEmpty(showShopDto.getTel()) || BeanUtils.isNotEmpty(showShopDto.getStatus()) || BeanUtils.isNotEmpty(showShopDto.getRecommendType()) ){
-          List<SysTransferShopDTO> list = transferShopMapper.list(showShopDto.getContacts(), showShopDto.getTel(), showShopDto.getStatus(), showShopDto.getRecommendType());
-      }else {
-         transferShops = transferShopMapper.findAll();
-      }
+        List<SysTransferShopDTO> list = transferShopMapper.list(showShopDto.getUsername(), showShopDto.getTel(), showShopDto.getDoneStatus(), showShopDto.getRecommendType(), showShopDto.getCheckStatus());
+        PageInfo<SysTransferShopDTO> page = new PageInfo<>(list);
+        result.setData(page);
+        return result;
+        //if (BeanUtils.isNotEmpty(showShopDto.getUsername())){
+        //     transferShops = transferShopMapper.list(showShopDto.getUsername(), showShopDto.getTel(), showShopDto.getDoneStatus(), showShopDto.getRecommendType(),showShopDto.getCheckStatus());
+        //    PageInfo<SysTransferShopDTO> page = new PageInfo<>(transferShops);
+        //    result.setData(page);
+        //    return result;
+        //}
+        //if (BeanUtils.isNotEmpty(showShopDto.getTel())){
+        //    transferShops = transferShopMapper.list(showShopDto.getUsername(), showShopDto.getTel(), showShopDto.getDoneStatus(), showShopDto.getRecommendType(),showShopDto.getCheckStatus());
+        //    PageInfo<SysTransferShopDTO> page = new PageInfo<>(transferShops);
+        //    result.setData(page);
+        //    return result;
+        //}
+        //if (null != showShopDto.getDoneStatus()){
+        //    transferShops = transferShopMapper.list(showShopDto.getUsername(), showShopDto.getTel(), showShopDto.getDoneStatus(), showShopDto.getRecommendType(),showShopDto.getCheckStatus());
+        //    PageInfo<SysTransferShopDTO> page = new PageInfo<>(transferShops);
+        //    result.setData(page);
+        //    return result;
+        //}
+        //  if (null != showShopDto.getRecommendType()){
+        //      transferShops = transferShopMapper.list(showShopDto.getUsername(), showShopDto.getTel(), showShopDto.getDoneStatus(), showShopDto.getRecommendType(),showShopDto.getCheckStatus());
+        //      PageInfo<SysTransferShopDTO> page = new PageInfo<>(transferShops);
+        //      result.setData(page);
+        //      return result;
+        //  }
+        //
+        //if (null != showShopDto.getCheckStatus()){
+        //    transferShops = transferShopMapper.list(showShopDto.getUsername(), showShopDto.getTel(), showShopDto.getDoneStatus(), showShopDto.getRecommendType(),showShopDto.getCheckStatus());
+        //    PageInfo<SysTransferShopDTO> page = new PageInfo<>(transferShops);
+        //    result.setData(page);
+        //    return result;
+        //}
+        //else {
+        //   transferShops = transferShopMapper.findAll();
+        //    PageInfo<SysTransferShopDTO> page = new PageInfo<>(transferShops);
+        //    result.setData(page);
+        //    return result;
+        //}
 
 
        /* List<SysTransferShopDTO> sysTransferShopDTOS = new ArrayList<>();
@@ -105,28 +150,48 @@ public class SysTransferShopServiceImpl implements SysTransferShopService {
             sysTransferShopDTOS.add(data);
         }*/
 
-        PageInfo<SysTransferShopDTO> page = new PageInfo<>(transferShops);
-        result.setData(page);
-        return result;
+
     }
 
     @Override
-    public ResponseResult updateStatus(UpdateStatusDTO updateStatusDTO){
+
+    public ResponseResult updateStatus(UpdateStatusDTO updateStatusDTO) {
         ResponseResult result = new ResponseResult();
-        TransferShop transferShop = transferShopMapper.selectByPrimaryKey(updateStatusDTO.getStoreId());
-        if (updateStatusDTO.getStatus() == 1){
-            transferShop.setCheckTime(new Date());
+
+            TransferShop transferShop = transferShopMapper.selectByPrimaryKey(updateStatusDTO.getStoreId());
+            if (updateStatusDTO.getStatus() == 1) {
+                transferShop.setCheckTime(new Date());
+
+
+            }
+            if (updateStatusDTO.getStatus() == 0) {
+                transferShop.setCheckTime(new Date());
+                transferShop.setReasons(updateStatusDTO.getReasons());
+            }
+            transferShop.setCheckStatus(updateStatusDTO.getStatus());
+            if (BeanUtils.isNotEmpty(updateStatusDTO.getLatitude())) {
+                transferShop.setLat(updateStatusDTO.getLatitude());
+            }
+            if (BeanUtils.isNotEmpty(updateStatusDTO.getLongitude())) {
+                transferShop.setLon(updateStatusDTO.getLongitude());
+            }
+            transferShopMapper.updateByPrimaryKey(transferShop);
             SolrDTO solrDTO = new SolrDTO();
             solrDTO.setTransferShopId(updateStatusDTO.getStoreId());
             solrService.addSolr(solrDTO);
 
-        }
-        if (updateStatusDTO.getStatus() == 0){
-            transferShop.setCheckTime(new Date());
-            transferShop.setReasons(updateStatusDTO.getReasons());
-        }
-        transferShop.setCheckStatus(updateStatusDTO.getStatus());
-        transferShopMapper.updateByPrimaryKey(transferShop);
+            if (BeanUtils.isNotEmpty(updateStatusDTO.getUserId())) {
+                SysUserShop sysUserShop = new SysUserShop();
+                sysUserShop.setSysUserId(updateStatusDTO.getUserId());
+                sysUserShop.setTransferShopId(transferShop.getId().toString());
+                sysUserShopMapper.insert(sysUserShop);
+                SysUser sysUser = sysUserMapper.selectByPrimaryKey(updateStatusDTO.getUserId());
+                sysUser.setServiceCount(sysUser.getServiceCount() + 1);
+                sysUserMapper.updateByPrimaryKey(sysUser);
+            }
+
+
+
         return result;
     }
 
@@ -149,6 +214,20 @@ public class SysTransferShopServiceImpl implements SysTransferShopService {
         SysTransferShopDTO sysTransferShopDTO = new SysTransferShopDTO();
         modelMapper.map(transferShop, sysTransferShopDTO);
         sysTransferShopDTO.setUsername(transferShop.getContacts());
+        sysTransferShopDTO.setLatitude(transferShop.getLat());
+        sysTransferShopDTO.setLongitude(transferShop.getLon());
+        SysUserShopExample example1 = new SysUserShopExample();
+        SysUserShopExample.Criteria criteria = example1.createCriteria();
+        criteria.andTransferShopIdEqualTo(storeId.toString());
+        List<SysUserShop> sysUserShops = sysUserShopMapper.selectByExample(example1);
+        SysUserShop sysUserShop = null;
+        if (sysUserShops.size() > 0) {
+            sysUserShop = sysUserShops.get(0);
+            sysTransferShopDTO.setSysUserId(sysUserShop.getSysUserId());
+
+       }
+
+
         TransferImageExample transferImageExample = new TransferImageExample();
         transferImageExample.createCriteria().andTransferShopIdEqualTo(transferShop.getId().toString());
         List<TransferImage> transferImages = transferImageMapper.selectByExample(transferImageExample);
@@ -157,11 +236,11 @@ public class SysTransferShopServiceImpl implements SysTransferShopService {
         example.createCriteria().andTransferShopIdEqualTo(storeId);
         List<TransferShopBusiness> transferShopBusinesses = transferShopBusinessMapper.selectByExample(example);
         StringBuilder type = new StringBuilder();
-        for (TransferShopBusiness transferShopBusiness:transferShopBusinesses) {
+        for (TransferShopBusiness transferShopBusiness : transferShopBusinesses) {
             BusinessType businessType = businessTypeMapper.selectByPrimaryKey(transferShopBusiness.getBusinessTypeId());
             if (BeanUtils.isNotEmpty(businessType)) {
                 //type.add(businessType.getBusinessType());
-                type.append(businessType.getBusinessType()+",");
+                type.append(businessType.getBusinessType() + ",");
             }
         }
         sysTransferShopDTO.setBusinessTypes(type.toString());
@@ -173,6 +252,11 @@ public class SysTransferShopServiceImpl implements SysTransferShopService {
         if (BeanUtils.isNotEmpty(shopType)) {
             sysTransferShopDTO.setShopType(shopType.getShopType());
         }
+        ShopRentType shopRentType = shopRentTypeMapper.selectByPrimaryKey(transferShop.getShopRentTypeId());
+        if (BeanUtils.isNotEmpty(shopRentType)) {
+            sysTransferShopDTO.setShopRentType(shopRentType.getShopRentType());
+        }
+
         DecorateType decorateType = decorateTypeMapper.selectByPrimaryKey(transferShop.getDecorateTypeId());
         if (BeanUtils.isNotEmpty(decorateType)) {
             sysTransferShopDTO.setDecorateType(decorateType.getDecorateType());
@@ -210,12 +294,32 @@ public class SysTransferShopServiceImpl implements SysTransferShopService {
     }
 
     @Override
-    public ResponseResult deleTransferShop(Long storeId) {
+    public ResponseResult findAgent() {
         ResponseResult result = new ResponseResult();
-        transferShopMapper.deleteByPrimaryKey(storeId);
-        SolrDTO solrDTO = new SolrDTO();
-        solrDTO.setTransferShopId(storeId);
-        solrService.lowerShelf(solrDTO);
+        SysRoleExample example = new SysRoleExample();
+        SysRoleExample.Criteria criteria = example.createCriteria();
+        criteria.andRoleNameEqualTo("中介");
+        List<SysRole> sysRoles = sysRoleMapper.selectByExample(example);
+        SysRole sysRole = null;
+        if (sysRoles.size() > 0) {
+            sysRole = sysRoles.get(0);
+
+        }
+
+        SysUserRoleExample example1 = new SysUserRoleExample();
+        SysUserRoleExample.Criteria criteria1 = example1.createCriteria();
+        criteria1.andRoleIdEqualTo(sysRole.getRoleId());
+        List<SysUserRole> sysUserRoles = sysUserRoleMapper.selectByExample(example1);
+        List<SysUser> sysUsers = new ArrayList<>();
+        for (SysUserRole sysUserRole : sysUserRoles) {
+            SysUser sysUser = sysUserMapper.selectByPrimaryKey(sysUserRole.getUserId());
+            if (BeanUtils.isNotEmpty(sysUser)) {
+                sysUsers.add(sysUser);
+            }
+
+        }
+        result.setData(sysUsers);
+
         return result;
     }
 

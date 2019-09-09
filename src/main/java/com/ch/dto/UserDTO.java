@@ -6,10 +6,14 @@
 
 package com.ch.dto;
 
+import com.ch.entity.SysRolePermission;
+
+import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
-public class UserDTO {
-    private Integer userId;
+public class UserDTO  implements Serializable {
+    private Long userId;
     private String username;
     private String password;
 
@@ -17,11 +21,21 @@ public class UserDTO {
 
     private Set<String> permissions;
 
-    public Integer getUserId() {
+    private List<SysRolePermission> sysRolePermissions;
+
+    public List<SysRolePermission> getSysRolePermissions() {
+        return sysRolePermissions;
+    }
+
+    public void setSysRolePermissions(List<SysRolePermission> sysRolePermissions) {
+        this.sysRolePermissions = sysRolePermissions;
+    }
+
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

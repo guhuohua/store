@@ -1,9 +1,9 @@
 package com.ch.entity;
 
-import java.awt.*;
+import java.io.Serializable;
 import java.util.List;
 
-public class SysMenu {
+public class SysMenu implements Serializable {
     private Integer id;
 
     private Integer parentId;

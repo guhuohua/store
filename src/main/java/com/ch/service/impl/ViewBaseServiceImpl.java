@@ -1,22 +1,34 @@
 package com.ch.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.ch.base.BeanUtils;
+import com.ch.base.MD5;
 import com.ch.base.ResponseResult;
 import com.ch.dao.*;
+import com.ch.dto.*;
 import com.ch.entity.*;
+import com.ch.model.ViewBrowseParam;
+import com.ch.model.ViewFeedBackParam;
 import com.ch.model.ViewWXLoginParam;
+import com.ch.model.WxTelParam;
+import com.ch.service.SolrService;
 import com.ch.service.ViewBaseService;
+import com.ch.util.AESUtils;
 import com.ch.util.IdUtil;
 import com.ch.util.TokenUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.annotation.QueryAnnotation;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 @Service
+@Slf4j
 public class ViewBaseServiceImpl implements ViewBaseService {
 
     @Autowired
@@ -60,6 +72,39 @@ public class ViewBaseServiceImpl implements ViewBaseService {
 
     @Autowired
     ClientMapper clientMapper;
+
+    @Autowired
+    HouseCollectMapper houseCollectMapper;
+
+    @Autowired
+    BrowsingHistoryMapper browsingHistoryMapper;
+
+    @Autowired
+    LookShopMapper lookShopMapper;
+
+    @Autowired
+    TransferShopMapper transferShopMapper;
+
+    @Autowired
+    FeedBackMapper feedBackMapper;
+
+    @Autowired
+    SolrService solrService;
+
+    @Autowired
+    RedisTemplate redisTemplate;
+
+    @Autowired
+    TransferIconMapper transferIconMapper;
+
+    @Autowired
+    SysUserMapper sysUserMapper;
+
+    @Autowired
+    SysUserBusinessMapper sysUserBusinessMapper;
+
+    @Autowired
+    SuccessCaseMapper successCaseMapper;
 
     @Override
     public ResponseResult businessTypeList() {
@@ -106,43 +151,72 @@ public class ViewBaseServiceImpl implements ViewBaseService {
     @Override
     public ResponseResult provinceList() {
         ResponseResult result = new ResponseResult();
-        BsProvinceExample bsProvinceExample = new BsProvinceExample();
-        bsProvinceExample.setOrderByClause("sort");
-        List<BsProvince> bsProvinces = bsProvinceMapper.selectByExample(bsProvinceExample);
-        result.setData(bsProvinces);
+        List<BsProvince> bsProvinces = (List<BsProvince>) redisTemplate.boundHashOps("provinceList").get("province");
+        if (null == bsProvinces) {
+            BsProvinceExample bsProvinceExample = new BsProvinceExample();
+            bsProvinceExample.setOrderByClause("sort");
+            bsProvinceExample.createCriteria().andProvinceIdEqualTo(17);
+            bsProvinces = bsProvinceMapper.selectByExample(bsProvinceExample);
+            redisTemplate.boundHashOps("provinceList").put("province", bsProvinces);
+            result.setData(bsProvinces);
+        } else {
+            result.setData(bsProvinces);
+        }
         return result;
     }
 
     @Override
     public ResponseResult findCityByProvinceCode(String code) {
+        code = "420100";
         ResponseResult result = new ResponseResult();
-        BsCityExample bsCityExample = new BsCityExample();
-        bsCityExample.setOrderByClause("sort");
-        bsCityExample.createCriteria().andProvinceCodeEqualTo(code);
-        List<BsCity> bsCities = bsCityMapper.selectByExample(bsCityExample);
-        result.setData(bsCities);
+        List<BsCity> bsCities = (List<BsCity>) redisTemplate.boundHashOps("cityList").get(code);
+        if (null == bsCities) {
+            BsCityExample bsCityExample = new BsCityExample();
+            bsCityExample.setOrderByClause("sort");
+            bsCityExample.createCriteria().andCityCodeEqualTo(code);
+            bsCities = bsCityMapper.selectByExample(bsCityExample);
+            redisTemplate.boundHashOps("cityList").put(code, bsCities);
+            result.setData(bsCities);
+        } else {
+            result.setData(bsCities);
+        }
+
         return result;
     }
 
     @Override
     public ResponseResult findAreaByCityCode(String code) {
         ResponseResult result = new ResponseResult();
-        BsAreaExample bsAreaExample = new BsAreaExample();
-        bsAreaExample.setOrderByClause("sort");
-        bsAreaExample.createCriteria().andCityCodeEqualTo(code);
-        List<BsArea> bsAreas = bsAreaMapper.selectByExample(bsAreaExample);
-        result.setData(bsAreas);
+        List<BsArea> bsAreas = (List<BsArea>) redisTemplate.boundHashOps("areaList").get(code);
+        if (null == bsAreas) {
+            BsAreaExample bsAreaExample = new BsAreaExample();
+            bsAreaExample.setOrderByClause("sort");
+            bsAreaExample.createCriteria().andCityCodeEqualTo(code);
+            bsAreas = bsAreaMapper.selectByExample(bsAreaExample);
+            redisTemplate.boundHashOps("areaList").put(code, bsAreas);
+            result.setData(bsAreas);
+        } else {
+            result.setData(bsAreas);
+        }
+
         return result;
     }
 
     @Override
     public ResponseResult findStweetByAreaCode(String code) {
         ResponseResult result = new ResponseResult();
-        BsStreetExample bsStreetExample = new BsStreetExample();
-        bsStreetExample.setOrderByClause("sort");
-        bsStreetExample.createCriteria().andAreaCodeEqualTo(code);
-        List<BsStreet> bsStreets = bsStreetMapper.selectByExample(bsStreetExample);
-        result.setData(bsStreets);
+        List<BsStreet> bsStreets = (List<BsStreet>) redisTemplate.boundHashOps("stweetList").get(code);
+        if (null == bsStreets) {
+            BsStreetExample bsStreetExample = new BsStreetExample();
+            bsStreetExample.setOrderByClause("sort");
+            bsStreetExample.createCriteria().andAreaCodeEqualTo(code);
+            bsStreets = bsStreetMapper.selectByExample(bsStreetExample);
+            redisTemplate.boundHashOps("stweetList").put(code, bsStreets);
+            result.setData(bsStreets);
+        } else {
+            result.setData(bsStreets);
+        }
+
         return result;
     }
 
@@ -220,9 +294,19 @@ public class ViewBaseServiceImpl implements ViewBaseService {
         List<Client> clients = clientMapper.selectByExample(clientExample);
         if (clients.size() > 0) {
             Client client = clients.stream().findFirst().get();
-            result.setData(TokenUtil.sign(client.getId().intValue()));
+            if (BeanUtils.isNotEmpty(param.getNickName())) {
+                client.setNickName(param.getNickName());
+            }
+            if (BeanUtils.isNotEmpty(param.getHeader())) {
+                client.setHeader(param.getHeader());
+            }
+            if (BeanUtils.isNotEmpty(param.getGender())) {
+                client.setGender(param.getGender());
+            }
             client.setQuitTime(new Date());
+            client.setSessionKey(param.getSessionKey());
             clientMapper.updateByPrimaryKey(client);
+            result.setData(TokenUtil.sign(client.getId()));
         } else {
             Client client = new Client();
             client.setId(IdUtil.getId());
@@ -237,8 +321,281 @@ public class ViewBaseServiceImpl implements ViewBaseService {
             client.setSearchAreaCount(0);
             client.setBrowseCount(0);
             clientMapper.insert(client);
-            result.setData(TokenUtil.sign(client.getId().intValue()));
+            client.setSessionKey(param.getSessionKey());
+            result.setData(TokenUtil.sign(client.getId()));
         }
+        return result;
+    }
+
+
+    @Override
+    @Transactional
+    public void saveBrowse(Long userId, ViewBrowseParam param) {
+        log.info("进入保存浏览记录" + JSON.toJSONString(param));
+        if (null != param.getLookShopId()) {
+            LookShopExample lookShopExample = new LookShopExample();
+            lookShopExample.createCriteria().andIdEqualTo(param.getLookShopId()).andClientIdEqualTo(userId);
+            List<LookShop> lookShops = lookShopMapper.selectByExample(lookShopExample);
+            if (lookShops.size() > 0) {
+                log.info("自己的发布找铺，不予保存");
+                return;
+            }
+        }
+        if (null != param.getTransferShopId()) {
+            TransferShopExample transferShopExample = new TransferShopExample();
+            transferShopExample.createCriteria().andIdEqualTo(param.getTransferShopId()).andClientIdEqualTo(userId);
+            List<TransferShop> transferShops = transferShopMapper.selectByExample(transferShopExample);
+            if (transferShops.size() > 0) {
+                log.info("自己的发布转铺，不予保存");
+                return;
+            }
+        }
+        int i = browsingHistoryMapper.seleteExits(userId, param.getLookShopId(), param.getTransferShopId());
+        List<BrowsingHistory> browsingHistories = browsingHistoryMapper.selectByclientId(userId);
+        if (browsingHistories.size() > 50) {
+            for (int j = 49; j < browsingHistories.size(); j++) {
+                browsingHistoryMapper.deleteByPrimaryKey(browsingHistories.get(j).getId());
+            }
+        }
+        if (i == 0) {
+            BrowsingHistory history = new BrowsingHistory();
+            history.setId(IdUtil.getId());
+            history.setClientId(userId);
+            history.setCreateDate(new Date());
+            if (BeanUtils.isNotEmpty(param.getLookShopId())) {
+                history.setLookShopId(param.getLookShopId());
+            }
+            if (BeanUtils.isNotEmpty(param.getTransferShopId())) {
+                history.setTransferShopId(param.getTransferShopId());
+            }
+            if (BeanUtils.isNotEmpty(param.getSysUserId())) {
+                history.setSysUserId(param.getSysUserId());
+            }
+            if (BeanUtils.isNotEmpty(param.getSuccessCaseId())) {
+                history.setSuccessCaseId(param.getSuccessCaseId());
+            }
+            browsingHistoryMapper.insert(history);
+            log.info("保存成功，" + history.getId());
+        }
+    }
+
+    @Override
+    public void deleteBrowse(Long userId, ViewBrowseParam param) {
+        BrowsingHistoryExample browsingHistoryExample = new BrowsingHistoryExample();
+        BrowsingHistoryExample.Criteria criteria = browsingHistoryExample.createCriteria();
+        criteria.andClientIdEqualTo(userId);
+        if (BeanUtils.isNotEmpty(param.getLookShopId())) {
+            criteria.andLookShopIdEqualTo(param.getLookShopId());
+        }
+        if (BeanUtils.isNotEmpty(param.getTransferShopId())) {
+            criteria.andTransferShopIdEqualTo(param.getTransferShopId());
+        }
+        if (BeanUtils.isNotEmpty(param.getSysUserId())) {
+            criteria.andSysUserIdEqualTo(param.getSysUserId());
+        }
+        if (BeanUtils.isNotEmpty(param.getSuccessCaseId())) {
+            criteria.andSuccessCaseIdEqualTo(param.getSuccessCaseId());
+        }
+        browsingHistoryMapper.deleteByExample(browsingHistoryExample);
+    }
+
+
+    @Override
+    public ResponseResult saveCollection(Long userId, ViewBrowseParam param) {
+        ResponseResult result = new ResponseResult();
+        HouseCollect houseCollect = new HouseCollect();
+        houseCollect.setId(IdUtil.getId());
+        houseCollect.setCreateDate(new Date());
+        houseCollect.setClientId(userId);
+        if (BeanUtils.isNotEmpty(param.getTransferShopId())) {
+            houseCollect.setTransferShopId(param.getTransferShopId());
+        }
+        if (BeanUtils.isNotEmpty(param.getLookShopId())) {
+            houseCollect.setLookShopId(param.getLookShopId());
+        }
+        houseCollectMapper.insert(houseCollect);
+        return result;
+    }
+
+    @Override
+    public ResponseResult deleteCollection(Long userId, ViewBrowseParam param) {
+        ResponseResult result = new ResponseResult();
+        HouseCollectExample example = new HouseCollectExample();
+        HouseCollectExample.Criteria criteria = example.createCriteria();
+        criteria.andClientIdEqualTo(userId);
+        if (BeanUtils.isNotEmpty(param.getLookShopId())) {
+            criteria.andLookShopIdEqualTo(param.getLookShopId());
+        }
+        if (BeanUtils.isNotEmpty(param.getTransferShopId())) {
+            criteria.andTransferShopIdEqualTo(param.getTransferShopId());
+        }
+        houseCollectMapper.deleteByExample(example);
+        return result;
+    }
+
+    @Override
+    public ResponseResult feedBack(Long userId, ViewFeedBackParam param) {
+        ResponseResult result = new ResponseResult();
+        FeedBack feedBack = new FeedBack();
+        feedBack.setId(IdUtil.getId());
+        feedBack.setClientId(userId);
+        feedBack.setContacts(param.getContacts());
+        feedBack.setTel(param.getTel());
+        feedBack.setDetail(param.getDetail());
+        feedBack.setCreateDate(new Date());
+        feedBackMapper.insert(feedBack);
+        return result;
+    }
+
+    @Override
+    public ResponseResult generateSignature() {
+        ResponseResult result = new ResponseResult();
+        long time = new Date().getTime();
+        String s = "appkey=c15e97a8225d5572f2a8aa47&timestamp=" + time + "&random_str=qwertyuiopasdfghjklzxcvbnm_3541w&key=941b5e2749704dea9b66c743";
+        String s1 = MD5.getInstance().getMD5(s);
+        IMDTO imdto = new IMDTO();
+        imdto.setTime(time);
+        imdto.setSign(s1);
+        result.setData(imdto);
+        return result;
+    }
+
+
+    @Override
+    public void solr() {
+        solrService.deleteAll();
+        TransferShopExample transferShopExample = new TransferShopExample();
+        transferShopExample.createCriteria().andCheckStatusEqualTo(1).andStatusNotEqualTo(1);
+        List<TransferShop> transferShops = transferShopMapper.selectByExample(transferShopExample);
+        for (TransferShop transferShop : transferShops) {
+            SolrDTO solrDTO = new SolrDTO();
+            solrDTO.setTransferShopId(transferShop.getId());
+            solrService.addSolr(solrDTO);
+        }
+
+        LookShopExample lookShopExample = new LookShopExample();
+        lookShopExample.createCriteria().andStatusNotEqualTo(1);
+        List<LookShop> lookShops = lookShopMapper.selectByExample(lookShopExample);
+        for (LookShop lookShop : lookShops) {
+            SolrDTO solrDTO = new SolrDTO();
+            solrDTO.setLookShopId(lookShop.getId());
+            solrService.addSolr(solrDTO);
+        }
+    }
+
+
+    @Override
+    public void solrByStoreId(Long storeId) {
+        TransferShop transferShop = transferShopMapper.selectByPrimaryKey(storeId);
+        SolrDTO solrDTO = new SolrDTO();
+        if (BeanUtils.isNotEmpty(transferShop)) {
+            solrDTO.setTransferShopId(storeId);
+        } else {
+            solrDTO.setLookShopId(storeId);
+        }
+        solrService.addSolr(solrDTO);
+    }
+
+    @Override
+    public ResponseResult baseIcon() {
+        ResponseResult result = new ResponseResult();
+        TransferIconExample transferIconExample = new TransferIconExample();
+        transferIconExample.createCriteria().andStatusEqualTo("1");
+        List<TransferIcon> transferIcons = transferIconMapper.selectByExample(transferIconExample);
+        result.setData(transferIcons);
+        return result;
+    }
+
+    @Override
+    public ResponseResult expertOnline(Long businessId, Integer pageNum, Integer pageSize) {
+        ResponseResult result = new ResponseResult();
+        pageNum -= 1;
+        ViewExpertOnline viewExpertOnline = new ViewExpertOnline();
+        List<ViewExpertOnlineDTO> viewExpertOnlineDTOS = sysUserMapper.expertOnlineList(businessId, pageNum * pageSize, pageSize);
+        int count = sysUserMapper.expertOnlineListCount();
+        viewExpertOnline.setTotal(count);
+        for (ViewExpertOnlineDTO dto : viewExpertOnlineDTOS) {
+            SysUserBusinessExample sysUserBusinessExample = new SysUserBusinessExample();
+            sysUserBusinessExample.createCriteria().andSysUserIdEqualTo(dto.getId());
+            StringBuffer sb = new StringBuffer();
+            List<SysUserBusiness> sysUserBusinesses = sysUserBusinessMapper.selectByExample(sysUserBusinessExample);
+            for (int i = 0; i < sysUserBusinesses.size(); i++) {
+                BusinessType businessType = businessTypeMapper.selectByPrimaryKey(sysUserBusinesses.get(i).getBusinessTypeId());
+                if (BeanUtils.isNotEmpty(businessType)) {
+                    sb.append(businessType.getBusinessType());
+                }
+                if (i != sysUserBusinesses.size() - 1) {
+                    sb.append(",");
+                }
+            }
+            dto.setBusiness(sb.toString());
+        }
+        viewExpertOnline.setData(viewExpertOnlineDTOS);
+        result.setData(viewExpertOnline);
+        return result;
+    }
+
+    @Override
+    public ResponseResult expertInfo(Long id) {
+        ResponseResult result = new ResponseResult();
+        ViewExpertInfoDTO viewExpertInfoDTO = new ViewExpertInfoDTO();
+        viewExpertInfoDTO = sysUserMapper.info(id);
+        viewExpertInfoDTO.setArea("武汉");
+        viewExpertInfoDTO.setStar(5);
+        SysUserBusinessExample sysUserBusinessExample = new SysUserBusinessExample();
+        sysUserBusinessExample.createCriteria().andSysUserIdEqualTo(id);
+        StringBuffer sb = new StringBuffer();
+        List<SysUserBusiness> sysUserBusinesses = sysUserBusinessMapper.selectByExample(sysUserBusinessExample);
+        for (int i = 0; i < sysUserBusinesses.size(); i++) {
+            BusinessType businessType = businessTypeMapper.selectByPrimaryKey(sysUserBusinesses.get(i).getBusinessTypeId());
+            if (BeanUtils.isNotEmpty(businessType)) {
+                sb.append(businessType.getBusinessType());
+            }
+            if (i != sysUserBusinesses.size() - 1) {
+                sb.append(",");
+            }
+        }
+        viewExpertInfoDTO.setBusiness(sb.toString());
+
+        result.setData(viewExpertInfoDTO);
+        return result;
+    }
+
+    @Override
+    public ResponseResult wxTel(WxTelParam param, Long userId) {
+        ResponseResult result = new ResponseResult();
+        try {
+            Client client = clientMapper.selectByPrimaryKey(userId);
+            if (BeanUtils.isEmpty(client.getTel())) {
+                String decrypt = AESUtils.decrypt(param.getEncryptedData(), client.getSessionKey(), param.getIv(), "UTF-8");
+                JSONObject jsonObject = JSON.parseObject(decrypt);
+                if (BeanUtils.isNotEmpty(decrypt)) {
+                    client.setTel(jsonObject.getString("phoneNumber"));
+                    clientMapper.updateByPrimaryKey(client);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            result.setCode(600);
+            result.setError_description("获取手机号失败，请稍后重试");
+            result.setError(e.getMessage());
+            return result;
+        }
+        return result;
+    }
+
+    @Override
+    public ResponseResult checkWxTel(Long userId) {
+        ResponseResult result = new ResponseResult();
+        CheckWxtTelDTO checkWxtTelDTO = new CheckWxtTelDTO();
+        Client client = clientMapper.selectByPrimaryKey(userId);
+        if (BeanUtils.isNotEmpty(client.getTel())) {
+            checkWxtTelDTO.setTelStatus(1);
+        } else {
+            checkWxtTelDTO.setTelStatus(0);
+            checkWxtTelDTO.setSessionKey(client.getSessionKey());
+        }
+        result.setData(checkWxtTelDTO);
         return result;
     }
 }

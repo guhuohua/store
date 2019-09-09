@@ -1,252 +1,255 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.ch.dao.SuccessCaseMapper" >
-  <resultMap id="BaseResultMap" type="com.ch.entity.SuccessCase" >
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="look_shop_id" property="lookShopId" jdbcType="VARCHAR" />
-    <result column="transfer_shop_id" property="transferShopId" jdbcType="VARCHAR" />
-    <result column="look_degree" property="lookDegree" jdbcType="INTEGER" />
-    <result column="success_time" property="successTime" jdbcType="TIMESTAMP" />
-    <result column="introduction" property="introduction" jdbcType="VARCHAR" />
-    <result column="browse_number" property="browseNumber" jdbcType="BIGINT" />
-    <result column="transfer_degree" property="transferDegree" jdbcType="INTEGER" />
-  </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+<mapper namespace="com.ch.dao.SuccessCaseMapper">
+    <resultMap id="BaseResultMap" type="com.ch.entity.SuccessCase">
+        <id column="id" property="id" jdbcType="BIGINT"/>
+        <result column="look_shop_id" property="lookShopId" jdbcType="VARCHAR"/>
+        <result column="transfer_shop_id" property="transferShopId" jdbcType="VARCHAR"/>
+        <result column="look_degree" property="lookDegree" jdbcType="INTEGER"/>
+        <result column="success_time" property="successTime" jdbcType="TIMESTAMP"/>
+        <result column="introduction" property="introduction" jdbcType="VARCHAR"/>
+        <result column="browse_number" property="browseNumber" jdbcType="BIGINT"/>
+        <result column="transfer_degree" property="transferDegree" jdbcType="INTEGER"/>
+        <result column="sys_user" property="sysUser" jdbcType="BIGINT"/>
+    </resultMap>
+    <sql id="Example_Where_Clause">
+        <where>
+            <foreach collection="oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
+        </where>
+    </sql>
+    <sql id="Update_By_Example_Where_Clause">
+        <where>
+            <foreach collection="example.oredCriteria" item="criteria" separator="or">
+                <if test="criteria.valid">
+                    <trim prefix="(" suffix=")" prefixOverrides="and">
+                        <foreach collection="criteria.criteria" item="criterion">
+                            <choose>
+                                <when test="criterion.noValue">
+                                    and ${criterion.condition}
+                                </when>
+                                <when test="criterion.singleValue">
+                                    and ${criterion.condition} #{criterion.value}
+                                </when>
+                                <when test="criterion.betweenValue">
+                                    and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                                </when>
+                                <when test="criterion.listValue">
+                                    and ${criterion.condition}
+                                    <foreach collection="criterion.value" item="listItem" open="(" close=")"
+                                             separator=",">
+                                        #{listItem}
+                                    </foreach>
+                                </when>
+                            </choose>
+                        </foreach>
+                    </trim>
+                </if>
             </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List" >
+        </where>
+    </sql>
+    <sql id="Base_Column_List">
     id, look_shop_id, transfer_shop_id, look_degree, success_time, introduction, browse_number, 
-    transfer_degree
+    transfer_degree,sys_user
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ch.entity.SuccessCaseExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    'true' as QUERYID,
-    <include refid="Base_Column_List" />
-    from success_case
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
-    select 
-    <include refid="Base_Column_List" />
-    from success_case
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ch.entity.SuccessCaseExample">
+        select
+        <if test="distinct">
+            distinct
+        </if>
+        'true' as QUERYID,
+        <include refid="Base_Column_List"/>
+        from success_case
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+        <if test="orderByClause != null">
+            order by ${orderByClause}
+        </if>
+    </select>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long">
+        select
+        <include refid="Base_Column_List"/>
+        from success_case
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from success_case
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.ch.entity.SuccessCaseExample" >
-    delete from success_case
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.ch.entity.SuccessCase" >
+    <delete id="deleteByExample" parameterType="com.ch.entity.SuccessCaseExample">
+        delete from success_case
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </delete>
+    <insert id="insert" parameterType="com.ch.entity.SuccessCase">
     insert into success_case (id, look_shop_id, transfer_shop_id, 
       look_degree, success_time, introduction, 
-      browse_number, transfer_degree)
+      browse_number, transfer_degree,sys_user)
     values (#{id,jdbcType=BIGINT}, #{lookShopId,jdbcType=VARCHAR}, #{transferShopId,jdbcType=VARCHAR}, 
       #{lookDegree,jdbcType=INTEGER}, #{successTime,jdbcType=TIMESTAMP}, #{introduction,jdbcType=VARCHAR}, 
-      #{browseNumber,jdbcType=BIGINT}, #{transferDegree,jdbcType=INTEGER})
+      #{browseNumber,jdbcType=BIGINT}, #{transferDegree,jdbcType=INTEGER}, #{sysUser,jdbcType=BIGINT})
   </insert>
-  <insert id="insertSelective" parameterType="com.ch.entity.SuccessCase" >
-    insert into success_case
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="lookShopId != null" >
-        look_shop_id,
-      </if>
-      <if test="transferShopId != null" >
-        transfer_shop_id,
-      </if>
-      <if test="lookDegree != null" >
-        look_degree,
-      </if>
-      <if test="successTime != null" >
-        success_time,
-      </if>
-      <if test="introduction != null" >
-        introduction,
-      </if>
-      <if test="browseNumber != null" >
-        browse_number,
-      </if>
-      <if test="transferDegree != null" >
-        transfer_degree,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=BIGINT},
-      </if>
-      <if test="lookShopId != null" >
-        #{lookShopId,jdbcType=VARCHAR},
-      </if>
-      <if test="transferShopId != null" >
-        #{transferShopId,jdbcType=VARCHAR},
-      </if>
-      <if test="lookDegree != null" >
-        #{lookDegree,jdbcType=INTEGER},
-      </if>
-      <if test="successTime != null" >
-        #{successTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="introduction != null" >
-        #{introduction,jdbcType=VARCHAR},
-      </if>
-      <if test="browseNumber != null" >
-        #{browseNumber,jdbcType=BIGINT},
-      </if>
-      <if test="transferDegree != null" >
-        #{transferDegree,jdbcType=INTEGER},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.ch.entity.SuccessCaseExample" resultType="java.lang.Integer" >
-    select count(*) from success_case
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map" >
-    update success_case
-    <set >
-      <if test="record.id != null" >
-        id = #{record.id,jdbcType=BIGINT},
-      </if>
-      <if test="record.lookShopId != null" >
+    <insert id="insertSelective" parameterType="com.ch.entity.SuccessCase">
+        insert into success_case
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="lookShopId != null">
+                look_shop_id,
+            </if>
+            <if test="transferShopId != null">
+                transfer_shop_id,
+            </if>
+            <if test="lookDegree != null">
+                look_degree,
+            </if>
+            <if test="successTime != null">
+                success_time,
+            </if>
+            <if test="introduction != null">
+                introduction,
+            </if>
+            <if test="browseNumber != null">
+                browse_number,
+            </if>
+            <if test="transferDegree != null">
+                transfer_degree,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=BIGINT},
+            </if>
+            <if test="lookShopId != null">
+                #{lookShopId,jdbcType=VARCHAR},
+            </if>
+            <if test="transferShopId != null">
+                #{transferShopId,jdbcType=VARCHAR},
+            </if>
+            <if test="lookDegree != null">
+                #{lookDegree,jdbcType=INTEGER},
+            </if>
+            <if test="successTime != null">
+                #{successTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="introduction != null">
+                #{introduction,jdbcType=VARCHAR},
+            </if>
+            <if test="browseNumber != null">
+                #{browseNumber,jdbcType=BIGINT},
+            </if>
+            <if test="transferDegree != null">
+                #{transferDegree,jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+    <select id="countByExample" parameterType="com.ch.entity.SuccessCaseExample" resultType="java.lang.Integer">
+        select count(*) from success_case
+        <if test="_parameter != null">
+            <include refid="Example_Where_Clause"/>
+        </if>
+    </select>
+    <update id="updateByExampleSelective" parameterType="map">
+        update success_case
+        <set>
+            <if test="record.id != null">
+                id = #{record.id,jdbcType=BIGINT},
+            </if>
+            <if test="record.lookShopId != null">
+                look_shop_id = #{record.lookShopId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.transferShopId != null">
+                transfer_shop_id = #{record.transferShopId,jdbcType=VARCHAR},
+            </if>
+            <if test="record.lookDegree != null">
+                look_degree = #{record.lookDegree,jdbcType=INTEGER},
+            </if>
+            <if test="record.successTime != null">
+                success_time = #{record.successTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="record.introduction != null">
+                introduction = #{record.introduction,jdbcType=VARCHAR},
+            </if>
+            <if test="record.browseNumber != null">
+                browse_number = #{record.browseNumber,jdbcType=BIGINT},
+            </if>
+            <if test="record.transferDegree != null">
+                transfer_degree = #{record.transferDegree,jdbcType=INTEGER},
+            </if>
+        </set>
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByExample" parameterType="map">
+        update success_case
+        set id = #{record.id,jdbcType=BIGINT},
         look_shop_id = #{record.lookShopId,jdbcType=VARCHAR},
-      </if>
-      <if test="record.transferShopId != null" >
         transfer_shop_id = #{record.transferShopId,jdbcType=VARCHAR},
-      </if>
-      <if test="record.lookDegree != null" >
         look_degree = #{record.lookDegree,jdbcType=INTEGER},
-      </if>
-      <if test="record.successTime != null" >
         success_time = #{record.successTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.introduction != null" >
         introduction = #{record.introduction,jdbcType=VARCHAR},
-      </if>
-      <if test="record.browseNumber != null" >
         browse_number = #{record.browseNumber,jdbcType=BIGINT},
-      </if>
-      <if test="record.transferDegree != null" >
-        transfer_degree = #{record.transferDegree,jdbcType=INTEGER},
-      </if>
-    </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map" >
-    update success_case
-    set id = #{record.id,jdbcType=BIGINT},
-      look_shop_id = #{record.lookShopId,jdbcType=VARCHAR},
-      transfer_shop_id = #{record.transferShopId,jdbcType=VARCHAR},
-      look_degree = #{record.lookDegree,jdbcType=INTEGER},
-      success_time = #{record.successTime,jdbcType=TIMESTAMP},
-      introduction = #{record.introduction,jdbcType=VARCHAR},
-      browse_number = #{record.browseNumber,jdbcType=BIGINT},
-      transfer_degree = #{record.transferDegree,jdbcType=INTEGER}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.ch.entity.SuccessCase" >
-    update success_case
-    <set >
-      <if test="lookShopId != null" >
-        look_shop_id = #{lookShopId,jdbcType=VARCHAR},
-      </if>
-      <if test="transferShopId != null" >
-        transfer_shop_id = #{transferShopId,jdbcType=VARCHAR},
-      </if>
-      <if test="lookDegree != null" >
-        look_degree = #{lookDegree,jdbcType=INTEGER},
-      </if>
-      <if test="successTime != null" >
-        success_time = #{successTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="introduction != null" >
-        introduction = #{introduction,jdbcType=VARCHAR},
-      </if>
-      <if test="browseNumber != null" >
-        browse_number = #{browseNumber,jdbcType=BIGINT},
-      </if>
-      <if test="transferDegree != null" >
-        transfer_degree = #{transferDegree,jdbcType=INTEGER},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.ch.entity.SuccessCase" >
+        transfer_degree = #{record.transferDegree,jdbcType=INTEGER}
+        <if test="_parameter != null">
+            <include refid="Update_By_Example_Where_Clause"/>
+        </if>
+    </update>
+    <update id="updateByPrimaryKeySelective" parameterType="com.ch.entity.SuccessCase">
+        update success_case
+        <set>
+            <if test="lookShopId != null">
+                look_shop_id = #{lookShopId,jdbcType=VARCHAR},
+            </if>
+            <if test="transferShopId != null">
+                transfer_shop_id = #{transferShopId,jdbcType=VARCHAR},
+            </if>
+            <if test="lookDegree != null">
+                look_degree = #{lookDegree,jdbcType=INTEGER},
+            </if>
+            <if test="successTime != null">
+                success_time = #{successTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="introduction != null">
+                introduction = #{introduction,jdbcType=VARCHAR},
+            </if>
+            <if test="browseNumber != null">
+                browse_number = #{browseNumber,jdbcType=BIGINT},
+            </if>
+            <if test="transferDegree != null">
+                transfer_degree = #{transferDegree,jdbcType=INTEGER},
+            </if>
+        </set>
+        where id = #{id,jdbcType=BIGINT}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.ch.entity.SuccessCase">
     update success_case
     set look_shop_id = #{lookShopId,jdbcType=VARCHAR},
       transfer_shop_id = #{transferShopId,jdbcType=VARCHAR},
@@ -254,7 +257,31 @@
       success_time = #{successTime,jdbcType=TIMESTAMP},
       introduction = #{introduction,jdbcType=VARCHAR},
       browse_number = #{browseNumber,jdbcType=BIGINT},
-      transfer_degree = #{transferDegree,jdbcType=INTEGER}
+      transfer_degree = #{transferDegree,jdbcType=INTEGER},
+      sys_user = #{sysUser,jdbcType=BIGINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
+    <select id="list" resultType="com.ch.dto.SuccessCaseDTO">
+        SELECT p.id as storeId , p.tel as transferTel ,s.tel AS lookTel ,p.contacts AS transfer , s.contacts AS looker
+        ,t.sys_user AS sysUser ,(SELECT city_name FROM bs_city WHERE city_id = p.city_id) as city , t.success_time as
+        successTime FROM success_case t
+        JOIN transfer_shop p on p.id=t.transfer_shop_id
+        JOIN look_shop s on s.id = t.look_shop_id
+        where 5 = 5
+        <if test='transfer != null and transfer != "" '>
+            and p.contacts like '%${transfer}%'
+        </if>
+
+        <if test='looker != null and looker != "" '>
+            and s.contacts like '%${looker}%'
+        </if>
+        <if test='transferTel != null and transferTel != ""'>
+            and p.tel = #{transferTel}
+        </if>
+        <if test='lookTel != null and lookTel != ""'>
+            and s.tel = #{lookTel}
+        </if>
+
+        order by t.success_time desc
+    </select>
 </mapper>
