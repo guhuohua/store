@@ -129,7 +129,7 @@ public class UploadServiceImpl implements UploadService {
         ResponseResult result = new ResponseResult();
         long startTime=System.currentTimeMillis();
         long id = IdUtil.getId();
-        long date = new Date().getTime();
+        long date = 1569911271000L;
         int k = 0;
         int p = 0;
         String fileSuffix = FilenameUtils.getExtension(file.getOriginalFilename());
@@ -141,7 +141,7 @@ public class UploadServiceImpl implements UploadService {
                     k++;
                     p++;
                     System.out.println(i);
-                    if (k % 20 == 0) {
+                    if (k % 10 == 0) {
                         date+= 86400000l;
                        // System.out.println("时间戳为:" + date);
                     }
@@ -283,11 +283,11 @@ public class UploadServiceImpl implements UploadService {
                     transferShop.setRecommendType(0);
                     transferShop.setStatus(0);
                     transferShop.setCheckStatus(1);
-
                     transferShop.setCreateTime(new Date(date));
                     transferShop.setUpdateTime(new Date(date));
                     transferShop.setShopSn((IdUtil.getId() + 1) + "");
                     transferShop.setMediumStatus(0);
+                    transferShop.setPayMonth(1);
                     if (BeanUtils.isNotEmpty(str[11])) {
                         ShopRentTypeExample shopRentTypeExample = new ShopRentTypeExample();
                         shopRentTypeExample.createCriteria().andShopRentTypeEqualTo(str[11]);
