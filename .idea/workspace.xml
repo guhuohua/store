@@ -3,11 +3,10 @@
   <component name="ChangeListManager">
     <list default="true" id="c7c5efcf-4e37-4408-b0be-13d133efabad" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ch/controller/ViewLookShopController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ch/controller/ViewLookShopController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ch/controller/ViewTransferShopController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ch/controller/ViewTransferShopController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/ch/filter/JWTFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ch/filter/JWTFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ch/util/TokenUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ch/util/TokenUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application-test.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application-test.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -274,6 +273,9 @@
   <component name="SpringBootOptions">
     <option name="showAdditionalConfigNotification" value="false" />
   </component>
+  <component name="SshConsoleOptionsProvider">
+    <option name="myEncoding" value="UTF-8" />
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -332,7 +334,11 @@
       <workItem from="1565667360839" duration="1966000" />
       <workItem from="1566442199744" duration="42000" />
       <workItem from="1566547275380" duration="558000" />
-      <workItem from="1567406378855" duration="6310000" />
+      <workItem from="1567406378855" duration="7339000" />
+      <workItem from="1568707433217" duration="33000" />
+      <workItem from="1569463842491" duration="16000" />
+      <workItem from="1571037732126" duration="1293000" />
+      <workItem from="1571207645510" duration="9000" />
     </task>
     <servers />
   </component>
@@ -384,6 +390,17 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/com/ch/service/impl/UploadServiceImpl.java</url>
+          <line>138</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="antWorkspaceConfiguration">
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
