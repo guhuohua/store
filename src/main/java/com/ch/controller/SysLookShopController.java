@@ -61,6 +61,20 @@ public class SysLookShopController {
         return result;
     }
 
+    @GetMapping("dele")
+    @ApiOperation("删除找铺")
+    public ResponseResult dele(@RequestParam Long storeId) {
+        ResponseResult result = new ResponseResult();
+        try {
+            result = sysLookShopService.deleLookShop(storeId);
+        } catch (Exception e) {
+            log.error("删除找铺失败" + e.getMessage(), e);
+            result.setCode(600);
+            result.setError(e.getMessage());
+            result.setError_description("删除找铺失败");
+        }
+        return result;
+    }
 
 
 

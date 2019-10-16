@@ -36,7 +36,6 @@ public class SysRoleServiceImpl implements SysRoleService {
     @Autowired
     SysPermissionMapper sysPermissionMapper;
 
-
     @Override
     public ResponseResult findRoleList(RoleParam roleParam) {
         ResponseResult result = new ResponseResult();
@@ -49,8 +48,6 @@ public class SysRoleServiceImpl implements SysRoleService {
         result.setData(btSysRolePageInfo);
         return result;
     }
-
-
 
     @Override
     public ResponseResult insertRole(RoleDTO roleDTO) {
@@ -76,11 +73,11 @@ public class SysRoleServiceImpl implements SysRoleService {
     }
 
     @Override
-    public ResponseResult deleteRoles(Integer roleId ) {
+    public ResponseResult deleteRoles(Integer roleId) {
         ResponseResult result = new ResponseResult();
 
         try {
-             sysRoleMapper.deleteByPrimaryKey(roleId);
+            sysRoleMapper.deleteByPrimaryKey(roleId);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -113,10 +110,13 @@ public class SysRoleServiceImpl implements SysRoleService {
             root.setRoleId(roleId);
             root.setLabel(root.getPermissionName());
             for (RolePermissionModel children : rolePermissionModels) {
-                if (children.getPermissionId().equals(root.getPermissionId())) {
-                    root.setChecked(1);
-                    root.setLabel(root.getPermissionName());
+                if (null != children && root!= null){
+                    if (children.getPermissionId().equals(root.getPermissionId())) {
+                        root.setChecked(1);
+                        root.setLabel(root.getPermissionName());
+                    }
                 }
+
             }
         }
         //根节点
@@ -130,13 +130,14 @@ public class SysRoleServiceImpl implements SysRoleService {
         Collections.sort(rootMenu, order());
         //为根菜单设置子菜单，getClild是递归调用的
         for (RolePermissionModel nav : rootMenu) {
-             //获取根节点下的所有子节点 使用getChild方法
-             List<RolePermissionModel> childList = getChild(nav.getPermissionId(), allMenu);
+            //获取根节点下的所有子节点 使用getChild方法
+            List<RolePermissionModel> childList = getChild(nav.getPermissionId(), allMenu);
             nav.setChildren(childList);//给根节点设置子节点
         }
         result.setData(rootMenu);
         return result;
     }
+
     public Comparator<RolePermissionModel> order() {
         Comparator<RolePermissionModel> comparator = new Comparator<RolePermissionModel>() {
             @Override
