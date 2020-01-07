@@ -68,10 +68,6 @@ public class MyRealm extends AuthorizingRealm {
             if (userDTO == null) {
                 throw new AuthenticationException("User didn't existed!");
             }
-
-            if (! TokenUtil.verify(token)) {
-                throw new AuthenticationException("Username or password error");
-            }
         }
         return new SimpleAuthenticationInfo(token, token, "my_realm");
     }
